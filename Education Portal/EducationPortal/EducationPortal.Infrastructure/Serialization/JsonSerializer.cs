@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace EducationPortal.Infrastructure
+namespace EducationPortal.Infrastructure.Serialization
 {
     internal class JsonSerializer<T>
     {
