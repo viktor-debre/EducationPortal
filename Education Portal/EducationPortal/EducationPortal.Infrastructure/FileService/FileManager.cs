@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EducationPortal.Infrastructure.FileService
+﻿namespace EducationPortal.Infrastructure.FileService
 {
     internal class FileManager
     {
+        public void WriteFile(string pathToFile, string content)
+        {
+            File.WriteAllText(pathToFile, content);
+        }
+
+        public string ReadFile(string pathToFile)
+        {
+            return File.ReadAllText(pathToFile);
+        }
     }
 }
