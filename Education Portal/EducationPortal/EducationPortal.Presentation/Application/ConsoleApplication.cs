@@ -4,7 +4,12 @@
     {
         public void Run()
         {
+            ConsoleAuthentication consoleAuthentication = new ConsoleAuthentication();
 
+            while (true)
+            {
+                consoleAuthentication.Authenticate();
+            }
         }
     }
 }
