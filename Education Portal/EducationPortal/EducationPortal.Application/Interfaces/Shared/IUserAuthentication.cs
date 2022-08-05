@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.Application.Interfaces.Shared
 {
-    public interface IUserAuthenticationService
+    public interface IUserAuthentication
     {
         public bool Authenticate(string userName, string password);
     }

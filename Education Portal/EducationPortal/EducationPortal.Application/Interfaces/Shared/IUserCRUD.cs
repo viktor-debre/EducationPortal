@@ -1,7 +1,11 @@
-﻿namespace EducationPortal.Application.Interfaces.Shared
+﻿using EducationPortal.Domain.Entities;
+
+namespace EducationPortal.Application.Interfaces.Shared
 {
     public interface IUserCRUD
     {
-        public void CreateUser(string name, string password);
+        public List<User> ReadUserFromStorage();
+
+        public void SetUserInStorage(User user);
     }
 }
