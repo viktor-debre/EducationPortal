@@ -5,7 +5,7 @@ namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleRegisterUser
     {
-        IUserCRUD userService = new UserService();
+        IUserCRUD userService;
 
         public void RegisterUser()
         {

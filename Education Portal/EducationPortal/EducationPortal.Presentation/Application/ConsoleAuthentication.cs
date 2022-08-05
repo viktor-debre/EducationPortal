@@ -1,11 +1,12 @@
 ﻿using EducationPortal.Application.Interfaces.Shared;
+using EducationPortal.Application.Services;
 
 namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleAuthentication
     {
-        IUserAuthenticationService userAuthenticationService;
-        ConsoleRegisterUser registerUser = new ConsoleRegisterUser();     
+        private IUserAuthentication userAuthenticationService = new UserAuthenticationService();
+        private ConsoleRegisterUser registerUser = new ConsoleRegisterUser();     
 
         public void Authenticate()
         {
