@@ -1,12 +1,17 @@
 ﻿using EducationPortal.Application.Interfaces.Shared;
-using EducationPortal.Application.Services;
 
 namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleAuthentication
     {
-        private IUserAuthentication userAuthenticationService = new UserAuthenticationService();
-        private ConsoleRegisterUser registerUser = new ConsoleRegisterUser();     
+        private IUserAuthentication _userAuthenticationService;
+        private ConsoleRegisterUser registerUser;     
+
+        public ConsoleAuthentication(IUserAuthentication userAuthenticationServicer, IUserRegistration userRegistration)
+        {
+            this._userAuthenticationService = userAuthenticationServicer;
+            this.registerUser = new ConsoleRegisterUser(userRegistration);
+        }
 
         public void Authenticate()
         {
@@ -38,7 +43,7 @@ namespace EducationPortal.Presentation.Application
 
                 if (isValidInput)
                 {
-                    userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1]);
+                    _userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1]);
                     break;
                 }
                 else

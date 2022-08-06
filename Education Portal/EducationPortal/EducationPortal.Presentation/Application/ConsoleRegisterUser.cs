@@ -1,11 +1,16 @@
-﻿using EducationPortal.Application.Interfaces.Shared;
-using EducationPortal.Application.Services;
+﻿using EducationPortal.Application.Interfaces.Repository;
+using EducationPortal.Application.Interfaces.Shared;
 
 namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleRegisterUser
     {
-        IUserCRUD userService;
+        public IUserRegistration _userRegistration;
+
+        public ConsoleRegisterUser(IUserRegistration userRegistration)
+        {
+            _userRegistration = userRegistration;
+        }
 
         public void RegisterUser()
         {
@@ -27,7 +32,10 @@ namespace EducationPortal.Presentation.Application
 
                 if (isValidInput)
                 {
-                    userService.CreateUser(registrationData[0], registrationData[1]);
+                    if(!_userRegistration.TryCreateUser(registrationData[0], registrationData[1]))
+                    {
+                        Console.WriteLine("Wrong format for name or password data.");
+                    }
                     return;
                 }
                 else
