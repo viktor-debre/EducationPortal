@@ -6,8 +6,6 @@ namespace EducationPortal.Presentation.Application
     internal class ConsoleApplication
     {
         ConsoleAuthentication consoleAuthentication;
-        private readonly IUserAuthentication _userAuthenticationService;
-        private readonly IUserRegistration _userRegistration;
 
         public ConsoleApplication(IUserRegistration _userRegistration, IUserAuthentication _userAuthenticationService)
         {
@@ -21,7 +19,14 @@ namespace EducationPortal.Presentation.Application
             Console.InputEncoding = Encoding.Unicode;
             while (true)
             {
-                consoleAuthentication.Authenticate();
+                if (!consoleAuthentication.Authenticate())
+                {
+                    Console.Clear();
+                    continue;
+                }
+                Console.WriteLine("You has successfully authorize.");
+                Console.ReadKey();
+
             }
         }
     }

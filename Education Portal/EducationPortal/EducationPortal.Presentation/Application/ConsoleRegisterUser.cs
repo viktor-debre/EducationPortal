@@ -1,5 +1,4 @@
-﻿using EducationPortal.Application.Interfaces.Repository;
-using EducationPortal.Application.Interfaces.Shared;
+﻿using EducationPortal.Application.Interfaces.Shared;
 
 namespace EducationPortal.Presentation.Application
 {

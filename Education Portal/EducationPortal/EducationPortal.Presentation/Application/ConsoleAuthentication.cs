@@ -13,7 +13,7 @@ namespace EducationPortal.Presentation.Application
             this.registerUser = new ConsoleRegisterUser(userRegistration);
         }
 
-        public void Authenticate()
+        public bool Authenticate()
         {
             while (true)
             {
@@ -34,7 +34,8 @@ namespace EducationPortal.Presentation.Application
 
                 if(authenticationData.Length != 2)
                 {
-                    isValidInput = false;
+                    Console.WriteLine("Wrong command for name or password data.");
+                    break;
                 }
                 if ( authenticationData[0] == "" || authenticationData[1] == "")
                 {
@@ -43,15 +44,19 @@ namespace EducationPortal.Presentation.Application
 
                 if (isValidInput)
                 {
-                    _userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1]);
+                    if(_userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1]))
+                    {
+                        return true;
+                    }
                     break;
                 }
                 else
                 {
                     Console.WriteLine("Wrong format for name or password data.");
                 }
+                
             }
-            Console.Clear();
+            return false;
         }
     }
 }
