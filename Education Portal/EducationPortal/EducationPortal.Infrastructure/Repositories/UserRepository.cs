@@ -6,20 +6,30 @@ namespace EducationPortal.Infrastructure.Repositories
 {
     internal class UserRepository : IUserRepository
     {
-        public List<User>? Users { get; set; }
-        StorageManager<User> storage = new StorageManager<User>();
+        public List<User> Users { get; set; }
+        private readonly StorageManager<User> _storage = new StorageManager<User>();
 
-        public void ReadUserFromStorage()
+        public UserRepository()
+        {
+            Users = new List<User>();
+        }
+
+        public List<User> ReadUserFromStorage()
         {
             string userPath = @"D:\work\users.json";
-            Users = storage.ExctractItemsFromStorage(userPath);
+            List<User> users = _storage.ExctractItemsFromStorage(userPath);
+            if (users != null)
+            {
+                Users = users;
+            }
+            return Users;
         }
 
         public void SetUserInStorage(User user)
         {
             string userPath = @"D:\work\users.json";
             Users.Add(user);
-            storage.AddItemToStorage(Users, userPath);
+            _storage.AddItemToStorage(Users, userPath);
         }
     }
 }
