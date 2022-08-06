@@ -6,7 +6,7 @@ namespace EducationPortal.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static void RegisterApplicationServices(ServiceCollection services)
+        public static void RegisterFileSystemServices(ServiceCollection services)
         {
             services.AddSingleton<IUserRepository, UserRepository>();
         }
