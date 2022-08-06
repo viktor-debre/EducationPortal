@@ -1,4 +1,4 @@
-﻿using EducationPortal.Application.Interfaces.Shared;
+﻿using EducationPortal.Application.Interfaces.Repository;
 using EducationPortal.Domain.Entities;
 using FluentValidation.Results;
 
@@ -6,11 +6,11 @@ namespace EducationPortal.Application.Commands
 {
     public class CreateUser
     {
-        IUserCRUD _usersCRUD;
+        private readonly IUserRepository _userRepository;
 
-        public CreateUser(IUserCRUD userCRUD)
+        public CreateUser(IUserRepository userRepository)
         {
-            _usersCRUD = userCRUD;
+            _userRepository = userRepository;
         }
 
         public bool TryCreateUser(User newUser)
@@ -21,12 +21,18 @@ namespace EducationPortal.Application.Commands
             {
                 return false;
             }
-            if (_usersCRUD.ReadUserFromStorage().First(u => u.Name == newUser.Name).Name == newUser.Name)
+            _userRepository.ReadUserFromStorage();
+            List<User>? users = _userRepository.Users;
+            User? existingUser = users.FirstOrDefault(u => u.Name == newUser.Name);
+            if (existingUser.Name == newUser.Name)
             {
                 return false;
             }
-            _usersCRUD.SetUserInStorage(newUser);
-            return true;
+            else
+            {
+                _userRepository.SetUserInStorage(newUser);
+                return true;
+            }
         }
     }
 }
