@@ -16,7 +16,7 @@ namespace EducationPortal.Application.Services
 
         public bool TryCreateUser(string name, string password)
         {
-            User user = new User() { Name = name, Password = password };
+            User user = new User(name, password);
             CreateUser createUser = new CreateUser(_userRepository);
             return createUser.TryCreateUser(user);
         }

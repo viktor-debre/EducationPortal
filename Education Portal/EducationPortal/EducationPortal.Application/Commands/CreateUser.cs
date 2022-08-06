@@ -21,10 +21,17 @@ namespace EducationPortal.Application.Commands
             {
                 return false;
             }
-            _userRepository.ReadUserFromStorage();
-            List<User>? users = _userRepository.Users;
-            User? existingUser = users.FirstOrDefault(u => u.Name == newUser.Name);
-            if (existingUser.Name == newUser.Name)
+
+
+            List<User> users = _userRepository.ReadUserFromStorage();
+            if (users == null)
+            {
+                
+                _userRepository.SetUserInStorage(newUser);
+                return true;
+            }
+            User? existingUser = users.FirstOrDefault(u => u.Name == newUser.Name, null);
+            if (existingUser != null)
             {
                 return false;
             }
