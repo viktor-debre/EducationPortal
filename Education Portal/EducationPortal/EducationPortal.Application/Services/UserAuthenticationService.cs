@@ -4,7 +4,7 @@ using EducationPortal.Domain.Entities;
 
 namespace EducationPortal.Application.Services
 {
-    public class UserAuthenticationService : IUserAuthentication
+    internal class UserAuthenticationService : IUserAuthentication
     {
         IUserRepository _usersRepository;
 

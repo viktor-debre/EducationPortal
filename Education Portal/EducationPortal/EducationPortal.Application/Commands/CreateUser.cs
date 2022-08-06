@@ -4,7 +4,7 @@ using FluentValidation.Results;
 
 namespace EducationPortal.Application.Commands
 {
-    public class CreateUser
+    internal class CreateUser
     {
         private readonly IUserRepository _userRepository;
 

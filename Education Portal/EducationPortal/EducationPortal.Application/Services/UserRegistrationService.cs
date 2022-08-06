@@ -5,7 +5,7 @@ using EducationPortal.Domain.Entities;
 
 namespace EducationPortal.Application.Services
 {
-    public class UserRegistrationService : IUserRegistration
+    internal class UserRegistrationService : IUserRegistration
     {
         private readonly IUserRepository _userRepository;
 

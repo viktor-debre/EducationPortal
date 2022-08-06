@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace EducationPortal.Application.Commands
 {
-    public class CreateUserCommandValidation : AbstractValidator<User>
+    internal class CreateUserCommandValidation : AbstractValidator<User>
     {
         public CreateUserCommandValidation()
         {

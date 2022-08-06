@@ -4,7 +4,7 @@ using EducationPortal.Infrastructure.StorageService;
 
 namespace EducationPortal.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    internal class UserRepository : IUserRepository
     {
         public List<User>? Users { get; set; }
         StorageManager<User> storage = new StorageManager<User>();
