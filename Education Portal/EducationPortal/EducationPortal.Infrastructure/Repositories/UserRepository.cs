@@ -1,18 +1,18 @@
-﻿using EducationPortal.Application.Interfaces.Shared;
+﻿using EducationPortal.Application.Interfaces.Repository;
 using EducationPortal.Domain.Entities;
+using EducationPortal.Infrastructure.StorageService;
 
-namespace EducationPortal.Infrastructure.StorageService
+namespace EducationPortal.Infrastructure.Repositories
 {
-    public class FileContext : IUserCRUD
+    public class UserRepository : IUserRepository
     {
         public List<User>? Users { get; set; }
         StorageManager<User> storage = new StorageManager<User>();
 
-        public List<User> ReadUserFromStorage()
+        public void ReadUserFromStorage()
         {
             string userPath = @"D:\work\users.json";
             Users = storage.ExctractItemsFromStorage(userPath);
-            return Users;
         }
 
         public void SetUserInStorage(User user)
