@@ -15,14 +15,19 @@ namespace EducationPortal.Presentation.Application
         {
             while (true)
             {
-                Console.WriteLine("Registration. Input username and password");
+                Console.WriteLine("Registration. Input username and password. Type quit command to return to authtentication");
                 string input = Console.ReadLine() ?? "";
                 bool isValidInput = true;
                 string[] registrationData = input.Split(" ");
 
+                if(input == "quit")
+                {
+                    break;
+                }
                 if (registrationData.Length != 2)
                 {
-                    isValidInput = false;
+                    Console.WriteLine("Wrong command for name or password data.");
+                    continue;
                 }
                 if (registrationData[0] == "" || registrationData[1] == "")
                 {
@@ -31,11 +36,13 @@ namespace EducationPortal.Presentation.Application
 
                 if (isValidInput)
                 {
+
                     if(!_userRegistration.TryCreateUser(registrationData[0], registrationData[1]))
                     {
                         Console.WriteLine("Wrong format for name or password data.");
+                        continue;
                     }
-                    return;
+                    break;
                 }
                 else
                 {

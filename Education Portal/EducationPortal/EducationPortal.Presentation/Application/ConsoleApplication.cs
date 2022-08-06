@@ -24,7 +24,8 @@ namespace EducationPortal.Presentation.Application
                     Console.Clear();
                     continue;
                 }
-                Console.WriteLine("You has successfully authorize.");
+                Console.WriteLine("You successfully authorized.");
+
                 Console.ReadKey();
 
             }
