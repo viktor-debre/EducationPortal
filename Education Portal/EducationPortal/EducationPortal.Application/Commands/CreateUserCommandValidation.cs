@@ -10,7 +10,7 @@ namespace EducationPortal.Application.Commands
         {
             RuleFor(u => u.Name)
                 .NotEmpty()
-                .MaximumLength(200);
+                .MaximumLength(20);
 
             RuleFor(u => u.Password)
                 .NotEmpty()
@@ -20,11 +20,13 @@ namespace EducationPortal.Application.Commands
 
         private bool IsValidPassword(string password)
         {
-            Regex validateGuidRegex = new Regex("^(?=.*?[0-9])$");
-            if (!validateGuidRegex.IsMatch(password))
-            {
-                return false;
-            }
+            // TODO: make validation for password
+
+            //Regex validateGuidRegex = new Regex("^(?=.*?[0-9])$");
+            //if (!validateGuidRegex.IsMatch(password))
+            //{
+            //    return false;
+            //}
             return true;
         }
     }
