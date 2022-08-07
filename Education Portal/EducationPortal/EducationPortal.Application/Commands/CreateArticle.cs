@@ -6,11 +6,11 @@ namespace EducationPortal.Application.Commands
 {
     internal class CreateArticle
     {
-        private readonly IMaterialRepository _materialRepository;
+        private readonly IArticleRepository _articleRepository;
 
-        public CreateArticle(IMaterialRepository materialRepository)
+        public CreateArticle(IArticleRepository articleRepository)
         {
-            _materialRepository = materialRepository;
+            _articleRepository = articleRepository;
         }
 
         public bool TryCreateArticle(ArticleMaterial article)
@@ -22,15 +22,15 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            _materialRepository.GetMaterials();
-            Material? existingMaterial = _materialRepository.GetMaterialByName(article.Name);
+            _articleRepository.GetArticle();
+            Material? existingMaterial = _articleRepository.GetArticleByName(article.Name);
             if (existingMaterial != null)
             {
                 return false;
             }
             else
             {
-                _materialRepository.SetMaterial(article);
+                _articleRepository.SetArticle(article);
                 return true;
             }
         }

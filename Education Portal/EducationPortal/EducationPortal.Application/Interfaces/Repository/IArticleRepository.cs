@@ -1,6 +1,6 @@
 ﻿using EducationPortal.Domain.Entities.Materials;
 
-namespace EducationPortal.Infrastructure.Repositories
+namespace EducationPortal.Application.Interfaces.Repository
 {
     public interface IArticleRepository
     {
@@ -15,6 +15,6 @@ namespace EducationPortal.Infrastructure.Repositories
         public void UpdateArticle(string name, ArticleMaterial updatedMaterial);
 
         public bool DeleteArticle(string name);
-    
+
     }
 }

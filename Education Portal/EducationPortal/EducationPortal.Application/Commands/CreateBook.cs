@@ -6,11 +6,11 @@ namespace EducationPortal.Application.Commands
 {
     internal class CreateBook
     {
-        private readonly IMaterialRepository _materialRepository;
+        private readonly IBookRepository _bookRepository;
 
-        public CreateBook(IMaterialRepository materialRepository)
+        public CreateBook(IBookRepository materialRepository)
         {
-            _materialRepository = materialRepository;
+            _bookRepository = materialRepository;
         }
 
         public bool TryCreateBook(BookMaterial book)
@@ -22,15 +22,15 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            _materialRepository.GetMaterials();
-            Material? existingMaterial = _materialRepository.GetMaterialByName(book.Name);
+            _bookRepository.GetBooks();
+            BookMaterial? existingMaterial = _bookRepository.GetBookByName(book.Name);
             if (existingMaterial != null)
             {
                 return false;
             }
             else
             {
-                _materialRepository.SetMaterial(book);
+                _bookRepository.SetBook(book);
                 return true;
             }
         }

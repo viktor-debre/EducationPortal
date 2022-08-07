@@ -6,11 +6,11 @@ namespace EducationPortal.Application.Commands
 {
     internal class CreateVideo
     {
-        private readonly IMaterialRepository _materialRepository;
+        private readonly IVideoRepository _videoRepository;
 
-        public CreateVideo(IMaterialRepository materialRepository)
+        public CreateVideo(IVideoRepository videoRepository)
         {
-            _materialRepository = materialRepository;
+            _videoRepository = videoRepository;
         }
 
         public bool TryCreateVideo(VideoMaterial video)
@@ -22,15 +22,15 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            _materialRepository.GetMaterials();
-            Material? existingMaterial = _materialRepository.GetMaterialByName(video.Name);
+            _videoRepository.GetVideos();
+            Material? existingMaterial = _videoRepository.GetVideoByName(video.Name);
             if (existingMaterial != null)
             {
                 return false;
             }
             else
             {
-                _materialRepository.SetMaterial(video);
+                _videoRepository.SetVideo(video);
                 return true;
             }
         }

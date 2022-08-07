@@ -1,4 +1,5 @@
-﻿using EducationPortal.Domain.Entities.Materials;
+﻿using EducationPortal.Application.Interfaces.Repository;
+using EducationPortal.Domain.Entities.Materials;
 
 namespace EducationPortal.Infrastructure.Repositories
 {
