@@ -1,12 +1,12 @@
 ﻿using EducationPortal.Application.Interfaces.Repository;
 using EducationPortal.Domain.Entities;
-using EducationPortal.Infrastructure.StorageService;
 
 namespace EducationPortal.Infrastructure.Repositories
 {
     internal class UserRepository : IUserRepository
     {
         public List<User> Users { get; set; }
+        private static string userPath = @"D:\work\users.json";
         private readonly StorageManager<User> _storage = new StorageManager<User>();
 
         public UserRepository()
@@ -14,9 +14,8 @@ namespace EducationPortal.Infrastructure.Repositories
             Users = new List<User>();
         }
 
-        public List<User> ReadUserFromStorage()
+        public List<User> GetUser()
         {
-            string userPath = @"D:\work\users.json";
             List<User> users = _storage.ExctractItemsFromStorage(userPath);
             if (users != null)
             {
@@ -25,9 +24,13 @@ namespace EducationPortal.Infrastructure.Repositories
             return Users;
         }
 
-        public void SetUserInStorage(User user)
+        public User? GetUserByName(string name)
         {
-            string userPath = @"D:\work\users.json";
+            return Users.FirstOrDefault(x => x.Name == name);
+        }
+
+        public void SetUser(User user)
+        {
             Users.Add(user);
             _storage.AddItemToStorage(Users, userPath);
         }

@@ -4,8 +4,10 @@
     {
         public List<User> Users { get; }
 
-        public List<User> ReadUserFromStorage();
+        public List<User> GetUser();
 
-        public void SetUserInStorage(User user);
+        public User? GetUserByName(string name);
+
+        public void SetUser(User user);
     }
 }

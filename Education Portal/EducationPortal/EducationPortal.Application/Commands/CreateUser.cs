@@ -1,5 +1,4 @@
 ﻿using EducationPortal.Application.Interfaces.Repository;
-using EducationPortal.Domain.Entities;
 using FluentValidation.Results;
 
 namespace EducationPortal.Application.Commands
@@ -22,22 +21,15 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-
-            List<User> users = _userRepository.ReadUserFromStorage();
-            if (users == null)
-            {
-                
-                _userRepository.SetUserInStorage(newUser);
-                return true;
-            }
-            User? existingUser = users.FirstOrDefault(u => u.Name == newUser.Name, null);
+            _userRepository.GetUser();
+            User? existingUser = _userRepository.GetUserByName(newUser.Name);
             if (existingUser != null)
             {
                 return false;
             }
             else
             {
-                _userRepository.SetUserInStorage(newUser);
+                _userRepository.SetUser(newUser);
                 return true;
             }
         }
