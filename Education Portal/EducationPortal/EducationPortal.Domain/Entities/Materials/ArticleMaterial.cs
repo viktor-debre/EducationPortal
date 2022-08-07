@@ -2,7 +2,7 @@
 {
     public class ArticleMaterial : Material
     {
-        string Source { get; set; }
-        DateTime publicationDate { get; set; }
+        public string Source { get; set; }
+        public DateTime publicationDate { get; set; }
     }
 }

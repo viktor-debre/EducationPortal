@@ -2,7 +2,7 @@
 {
     public class VideoMaterial : Material
     {
-        TimeSpan Duration { get; set; }
-        string Quality { get; set; }
+        public TimeSpan Duration { get; set; }
+        public string Quality { get; set; }
     }
 }

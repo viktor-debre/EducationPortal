@@ -9,7 +9,9 @@ namespace EducationPortal.Infrastructure
         public static void RegisterFileSystemServices(ServiceCollection services)
         {
             services.AddSingleton<IUserRepository, UserRepository>()
-                    .AddSingleton<IMaterialRepository, MaterialRepository>();
+                    .AddSingleton<IBookRepository, BookRepository>()
+                    .AddSingleton<IVideoRepository, VideoRepository>()
+                    .AddSingleton<IArticleRepository, ArticleRepository>();
         }
     }
 }

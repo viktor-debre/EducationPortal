@@ -2,9 +2,9 @@
 {
     public class BookMaterial : Material
     {
-        int NumberPages { get; set; }
-        string Format { get; set; }
-        string Author { get; set; }
-        DateTime PublicationDate { get; set; }
+        public int NumberPages { get; set; }
+        public string Format { get; set; }
+        public string Author { get; set; }
+        public DateTime PublicationDate { get; set; }
     }
 }
