@@ -1,33 +1,47 @@
-﻿using EducationPortal.Application.Interfaces.Shared;
-using System.Text;
+﻿using System.Text;
 
 namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleApplication
     {
-        ConsoleAuthentication consoleAuthentication;
+        ConsoleAuthentication _consoleAuthentication;
+        ConsoleMaterialManager _materialManager;
+        ConsoleCourseManager _courseManager;
 
-        public ConsoleApplication(IUserRegistration _userRegistration, IUserAuthentication _userAuthenticationService)
+        public ConsoleApplication(IUserRegistration _userRegistration, IUserAuthentication _userAuthenticationService, IMaterialManageService _materialManageService)
         {
-            this.consoleAuthentication = new ConsoleAuthentication(_userAuthenticationService, _userRegistration);
+            _consoleAuthentication = new ConsoleAuthentication(_userAuthenticationService, _userRegistration);
+            _materialManager = new ConsoleMaterialManager(_materialManageService);
+            _courseManager = new ConsoleCourseManager();
         }
 
         public void Run()
         {
             Console.OutputEncoding = Encoding.Unicode;
 
+            _consoleAuthentication.Authenticate();
+            Console.WriteLine("You successfully authorized.");
+
             Console.InputEncoding = Encoding.Unicode;
             while (true)
             {
-                if (!consoleAuthentication.Authenticate())
+                Console.WriteLine("Type 'material' to edit materials or 'course' to edit course");
+                string input = Console.ReadLine() ?? "";
+                if (input == "material")
                 {
-                    Console.Clear();
+                    _materialManager.EditMaterials();
                     continue;
                 }
-                Console.WriteLine("You successfully authorized.");
-
-                Console.ReadKey();
-
+                if (input == "course")
+                {
+                    _courseManager.EditCources();
+                    continue;
+                }
+                else
+                {
+                    Console.WriteLine("Inputed wrong command try again.");
+                    continue;
+                }
             }
         }
     }

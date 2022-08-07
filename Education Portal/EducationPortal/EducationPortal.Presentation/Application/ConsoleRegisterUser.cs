@@ -1,6 +1,4 @@
-﻿using EducationPortal.Application.Interfaces.Shared;
-
-namespace EducationPortal.Presentation.Application
+﻿namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleRegisterUser
     {

@@ -1,6 +1,4 @@
-﻿using EducationPortal.Application.Interfaces.Shared;
-
-namespace EducationPortal.Presentation.Application
+﻿namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleAuthentication
     {
@@ -13,7 +11,7 @@ namespace EducationPortal.Presentation.Application
             this.registerUser = new ConsoleRegisterUser(userRegistration);
         }
 
-        public bool Authenticate()
+        public void Authenticate()
         {
             while (true)
             {
@@ -35,7 +33,7 @@ namespace EducationPortal.Presentation.Application
                 if(authenticationData.Length != 2)
                 {
                     Console.WriteLine("Wrong command for name or password data.");
-                    break;
+                    continue;
                 }
                 if ( authenticationData[0] == "" || authenticationData[1] == "")
                 {
@@ -46,17 +44,18 @@ namespace EducationPortal.Presentation.Application
                 {
                     if(_userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1]))
                     {
-                        return true;
+                        Console.Clear();
+                        break;
                     }
-                    break;
+                    Console.WriteLine("Wrong name or password data.");
+                    continue;
                 }
                 else
                 {
-                    Console.WriteLine("Wrong format for name or password data.");
+                    Console.WriteLine("Wrong name or password data.");
                 }
                 
             }
-            return false;
         }
     }
 }
