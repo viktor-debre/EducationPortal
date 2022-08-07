@@ -8,7 +8,7 @@ namespace EducationPortal.Application.Interfaces.Repository
 
         public List<Material> GetMaterials();
 
-        public Material? GetMaterialByName(string name);
+        public Material GetMaterialByName(string name);
 
         public void SetMaterial(Material material);
 
