@@ -2,7 +2,7 @@
 
 namespace EducationPortal.Domain.Entities
 {
-    public class Course
+    public class Course : BaseEntity
     {
         string Name { get; set; }
         string Description { get; set; }

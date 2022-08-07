@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.Domain.Entities
 {
-    public class User
+    public class User : BaseEntity
     {
         public User(string name, string password)
         {
