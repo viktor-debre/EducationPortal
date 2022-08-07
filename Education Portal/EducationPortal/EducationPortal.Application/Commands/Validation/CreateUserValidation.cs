@@ -2,11 +2,11 @@
 using FluentValidation;
 using System.Text.RegularExpressions;
 
-namespace EducationPortal.Application.Commands
+namespace EducationPortal.Application.Commands.Validation
 {
-    internal class CreateUserCommandValidation : AbstractValidator<User>
+    internal class CreateUserValidation : AbstractValidator<User>
     {
-        public CreateUserCommandValidation()
+        public CreateUserValidation()
         {
             RuleFor(u => u.Name)
                 .NotEmpty()

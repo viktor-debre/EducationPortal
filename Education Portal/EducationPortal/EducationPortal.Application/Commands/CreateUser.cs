@@ -1,4 +1,4 @@
-﻿using EducationPortal.Application.Interfaces.Repository;
+﻿using EducationPortal.Application.Commands.Validation;
 using FluentValidation.Results;
 
 namespace EducationPortal.Application.Commands
@@ -14,7 +14,7 @@ namespace EducationPortal.Application.Commands
 
         public bool TryCreateUser(User newUser)
         {
-            CreateUserCommandValidation validations = new CreateUserCommandValidation();
+            CreateUserValidation validations = new CreateUserValidation();
             ValidationResult validationResult = validations.Validate(newUser);
             if (!validationResult.IsValid)
             {
