@@ -1,6 +1,5 @@
 ﻿using EducationPortal.Application.Interfaces.Repository;
 using EducationPortal.Application.Interfaces.Shared;
-using EducationPortal.Domain.Entities;
 
 namespace EducationPortal.Application.Services
 {
@@ -15,7 +14,6 @@ namespace EducationPortal.Application.Services
 
         public bool Authenticate(string userName, string password)
         {
-            
             List<User> users = _usersRepository.ReadUserFromStorage();
             User? existingUser = users.FirstOrDefault(u => u.Name == userName, null);
             if (existingUser == null)

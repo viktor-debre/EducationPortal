@@ -1,7 +1,6 @@
 ﻿using EducationPortal.Application.Commands;
 using EducationPortal.Application.Interfaces.Repository;
 using EducationPortal.Application.Interfaces.Shared;
-using EducationPortal.Domain.Entities;
 
 namespace EducationPortal.Application.Services
 {
