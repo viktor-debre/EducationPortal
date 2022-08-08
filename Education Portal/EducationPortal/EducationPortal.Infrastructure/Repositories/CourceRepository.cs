@@ -7,7 +7,7 @@ namespace EducationPortal.Infrastructure.Repositories
     internal class CourceRepository : ICourseRepository
     {
         public List<Course> Courses { get; set; }
-        private const string coursePath = @"D:\work\book.json";
+        private const string coursePath = @"D:\work\course.json";
         private readonly StorageManager<Course> _storage = new StorageManager<Course>();
 
         public CourceRepository()

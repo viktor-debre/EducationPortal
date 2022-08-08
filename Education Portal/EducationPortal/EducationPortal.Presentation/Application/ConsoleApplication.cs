@@ -13,7 +13,7 @@ namespace EducationPortal.Presentation.Application
         {
             _consoleAuthentication = new ConsoleAuthentication(_userAuthenticationService, _userRegistration);
             _materialManager = new ConsoleMaterialManager(_materialManageService);
-            _courseManager = new ConsoleCourseManager(courseService);
+            _courseManager = new ConsoleCourseManager(courseService, _materialManageService);
         }
 
         public void Run()
