@@ -8,11 +8,12 @@ namespace EducationPortal.Presentation.Application
         ConsoleMaterialManager _materialManager;
         ConsoleCourseManager _courseManager;
 
-        public ConsoleApplication(IUserRegistration _userRegistration, IUserAuthentication _userAuthenticationService, IMaterialManageService _materialManageService)
+        public ConsoleApplication(IUserRegistration _userRegistration, IUserAuthentication _userAuthenticationService, 
+                IMaterialManageService _materialManageService, ICourseService courseService)
         {
             _consoleAuthentication = new ConsoleAuthentication(_userAuthenticationService, _userRegistration);
             _materialManager = new ConsoleMaterialManager(_materialManageService);
-            _courseManager = new ConsoleCourseManager();
+            _courseManager = new ConsoleCourseManager(courseService);
         }
 
         public void Run()
@@ -25,6 +26,7 @@ namespace EducationPortal.Presentation.Application
             Console.InputEncoding = Encoding.Unicode;
             while (true)
             {
+                Console.Clear();
                 Console.WriteLine("Type 'material' to edit materials or 'course' to edit course");
                 string input = Console.ReadLine() ?? "";
                 if (input == "material")
@@ -39,7 +41,8 @@ namespace EducationPortal.Presentation.Application
                 }
                 else
                 {
-                    Console.WriteLine("Inputed wrong command try again.");
+                    Console.WriteLine("Unknown command.");
+                    Thread.Sleep(500);
                     continue;
                 }
             }
