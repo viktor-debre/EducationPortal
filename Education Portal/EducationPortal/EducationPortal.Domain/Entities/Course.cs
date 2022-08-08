@@ -4,8 +4,8 @@ namespace EducationPortal.Domain.Entities
 {
     public class Course : BaseEntity
     {
-        string Name { get; set; }
-        string Description { get; set; }
-        List<Material> Matherials { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public List<Material> Matherials { get; set; }
     }
 }

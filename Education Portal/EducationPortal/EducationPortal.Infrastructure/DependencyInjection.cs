@@ -11,7 +11,8 @@ namespace EducationPortal.Infrastructure
             services.AddSingleton<IUserRepository, UserRepository>()
                     .AddSingleton<IBookRepository, BookRepository>()
                     .AddSingleton<IVideoRepository, VideoRepository>()
-                    .AddSingleton<IArticleRepository, ArticleRepository>();
+                    .AddSingleton<IArticleRepository, ArticleRepository>()
+                    .AddSingleton<ICourseRepository, CourceRepository>();
         }
     }
 }

@@ -10,7 +10,8 @@ namespace EducationPortal.Application
         {
             services.AddSingleton<IUserAuthentication, UserAuthenticationService>()
                     .AddSingleton<IUserRegistration, UserRegistrationService>()
-                    .AddSingleton<IMaterialManageService, MaterialManageService>();
+                    .AddSingleton<IMaterialManageService, MaterialManageService>()
+                    .AddSingleton<ICourseService, CourseService>();
         }
     }
 }
