@@ -21,6 +21,7 @@ namespace EducationPortal.Infrastructure.Repositories
             if (course != null)
             {
                 Courses.Remove(course);
+                _storage.AddItemToStorage(Courses, coursePath);
                 return true;
             }
             return false;

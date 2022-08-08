@@ -49,6 +49,7 @@ namespace EducationPortal.Infrastructure.Repositories
             if (material != null)
             {
                 Videos.Remove(material);
+                _storage.AddItemToStorage(Videos, videoPath);
                 return true;
             }
             return false;

@@ -6,7 +6,7 @@ namespace EducationPortal.Infrastructure.Repositories
     internal class ArticleRepository : IArticleRepository
     {
         public List<ArticleMaterial> Articles { get; set; }
-        private const string videoPath = @"D:\work\article.json";
+        private const string articlePath = @"D:\work\article.json";
         private readonly StorageManager<ArticleMaterial> _storage = new StorageManager<ArticleMaterial>();
 
         public ArticleRepository()
@@ -16,7 +16,7 @@ namespace EducationPortal.Infrastructure.Repositories
 
         public List<ArticleMaterial> GetArticle()
         {
-            List<ArticleMaterial> materials = _storage.ExctractItemsFromStorage(videoPath);
+            List<ArticleMaterial> materials = _storage.ExctractItemsFromStorage(articlePath);
             if (materials != null)
             {
                 Articles = materials;
@@ -32,7 +32,7 @@ namespace EducationPortal.Infrastructure.Repositories
         public void SetArticle(ArticleMaterial material)
         {
             Articles.Add(material);
-            _storage.AddItemToStorage(Articles, videoPath);
+            _storage.AddItemToStorage(Articles, articlePath);
         }
 
         public void UpdateArticle(string name, ArticleMaterial updatedMaterial)
@@ -49,6 +49,7 @@ namespace EducationPortal.Infrastructure.Repositories
             if (material != null)
             {
                 Articles.Remove(material);
+                _storage.AddItemToStorage(Articles, articlePath);
                 return true;
             }
             return false;

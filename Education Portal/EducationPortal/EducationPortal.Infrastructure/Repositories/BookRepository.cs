@@ -49,6 +49,7 @@ namespace EducationPortal.Infrastructure.Repositories
             if (material != null)
             {
                 Books.Remove(material);
+                _storage.AddItemToStorage(Books, bookPath);
                 return true;
             }
             return false;
