@@ -76,13 +76,23 @@ namespace EducationPortal.Infrastructure.DB.Mapping
                 }
             }
 
+            var courses = new List<Course>();
+            if (user.Courses != null)
+            {
+                foreach (var course in user.Courses)
+                {
+                    courses.Add(MapToDomainCourse(course));
+                }
+            }
+
             return new User
             {
                 Id = user.Id,
                 Name = user.Name,
                 Password = user.Password,
                 Skills = skills,
-                Materials = materials
+                Materials = materials,
+                Courses = courses
             };
         }
 
@@ -93,6 +103,17 @@ namespace EducationPortal.Infrastructure.DB.Mapping
                 UserId = userSkill.UserId,
                 SkillId = userSkill.SkillId,
                 Level = userSkill.Level
+            };
+        }
+
+        public UserCourse MapToDomainUserCourse(DbUserCourse userCourse)
+        {
+            return new UserCourse
+            {
+                UserId = userCourse.UserId,
+                CourseId = userCourse.CourseId,
+                Status = userCourse.Status,
+                PassPercent = userCourse.PassPercent
             };
         }
 
@@ -201,11 +222,18 @@ namespace EducationPortal.Infrastructure.DB.Mapping
                 materials.Add(MapToDbMaterial(material));
             }
 
+            var courses = new List<DbCourse>();
+            foreach (var course in user.Courses)
+            {
+                courses.Add(MapToDbCourse(course));
+            }
+
             userInDb.Id = user.Id;
             userInDb.Name = user.Name;
             userInDb.Password = user.Password;
             userInDb.Skills = skills;
             userInDb.Materials = materials;
+            userInDb.Courses = courses;
 
             return userInDb;
         }
@@ -217,6 +245,17 @@ namespace EducationPortal.Infrastructure.DB.Mapping
                 UserId = userSkill.UserId,
                 SkillId = userSkill.SkillId,
                 Level = userSkill.Level
+            };
+        }
+
+        public DbUserCourse MapToDbUserCourse(UserCourse userCourse)
+        {
+            return new DbUserCourse
+            {
+                UserId = userCourse.UserId,
+                CourseId = userCourse.CourseId,
+                Status = userCourse.Status,
+                PassPercent = userCourse.PassPercent
             };
         }
 

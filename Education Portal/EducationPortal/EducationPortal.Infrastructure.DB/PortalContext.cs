@@ -1,4 +1,6 @@
-﻿namespace EducationPortal.Infrastructure.DB
+﻿using Microsoft.Extensions.Configuration;
+
+namespace EducationPortal.Infrastructure.DB
 {
     internal class PortalContext : DbContext
     {
@@ -59,8 +61,27 @@
                     .HasForeignKey(us => us.UserId),
                 userSkills =>
                 {
-                    userSkills.Property(pt => pt.Level);
-                    userSkills.HasKey(t => new { t.UserId, t.SkillId});
+                    userSkills.Property(us => us.Level);
+                    userSkills.HasKey(us => new { us.UserId, us.SkillId });
+                });
+
+            modelBuilder.Entity<DbUser>()
+            .HasMany(u => u.Courses)
+            .WithMany(c => c.Users)
+            .UsingEntity<DbUserCourse>(
+                userCourses => userCourses
+                    .HasOne(uc => uc.Course)
+                    .WithMany(c => c.UserCourses)
+                    .HasForeignKey(uc => uc.CourseId),
+                userCourses => userCourses
+                    .HasOne(uc => uc.User)
+                    .WithMany(u => u.UserCourses)
+                    .HasForeignKey(uc => uc.UserId),
+                userCourses =>
+                {
+                    userCourses.Property(uc => uc.Status);
+                    userCourses.Property(uc => uc.Status);
+                    userCourses.HasKey(uc => new { uc.UserId, uc.CourseId});
                 });
         }
     }

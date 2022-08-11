@@ -9,5 +9,9 @@
         public ICollection<DbMaterial>? Materials { get; set; }
 
         public ICollection<DbSkill> Skills { get; set; }
+
+        public ICollection<DbUser> Users { get; set; }
+
+        public List<DbUserCourse> UserCourses { get; set; }
     }
 }

@@ -9,5 +9,7 @@
         public List<Skill> Skills { get; set; }
 
         public List<Material> Materials { get; set; }
+
+        public List<Course> Courses { get; set; }
     }
 }

@@ -11,5 +11,9 @@
         public List<DbUserSkill> UserSkills { get; set; }
 
         public ICollection<DbMaterial> Materials { get; set; }
+
+        public ICollection<DbCourse> Courses { get; set; }
+
+        public List<DbUserCourse> UserCourses { get; set; }
     }
 }
