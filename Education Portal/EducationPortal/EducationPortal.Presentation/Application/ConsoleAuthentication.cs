@@ -3,12 +3,12 @@
     internal class ConsoleAuthentication
     {
         private IUserAuthentication _userAuthenticationService;
-        private ConsoleRegisterUser registerUser;     
+        private ConsoleRegisterUser _registerUser;
 
         public ConsoleAuthentication(IUserAuthentication userAuthenticationServicer, IUserRegistration userRegistration)
         {
-            this._userAuthenticationService = userAuthenticationServicer;
-            this.registerUser = new ConsoleRegisterUser(userRegistration);
+            _userAuthenticationService = userAuthenticationServicer;
+            _registerUser = new ConsoleRegisterUser(userRegistration);
         }
 
         public void Authenticate()
@@ -22,31 +22,35 @@
                     Console.WriteLine("Inputed empty string try again.");
                     continue;
                 }
+
                 if (input.Equals("reg"))
                 {
-                    registerUser.RegisterUser();
+                    _registerUser.RegisterUser();
                     continue;
                 }
+
                 bool isValidInput = true;
                 string[] authenticationData = input.Split(" ");
 
-                if(authenticationData.Length != 2)
+                if (authenticationData.Length != 2)
                 {
                     Console.WriteLine("Wrong command for name or password data.");
                     continue;
                 }
-                if ( authenticationData[0] == "" || authenticationData[1] == "")
+
+                if (authenticationData[0] == "" || authenticationData[1] == "")
                 {
                     isValidInput = false;
                 }
 
                 if (isValidInput)
                 {
-                    if(_userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1]))
+                    if (_userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1]))
                     {
                         Console.Clear();
                         break;
                     }
+
                     Console.WriteLine("Wrong name or password data.");
                     continue;
                 }
@@ -54,7 +58,6 @@
                 {
                     Console.WriteLine("Wrong name or password data.");
                 }
-                
             }
         }
     }

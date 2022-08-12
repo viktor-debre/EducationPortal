@@ -5,7 +5,7 @@ namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleCourseManager
     {
-        const int WrongCommandDelay = 1500;
+        private const int WrongCommandDelay = 1500;
         private readonly ICourseService _courseService;
         private readonly IMaterialManageService _materialManageService;
 
@@ -27,6 +27,7 @@ namespace EducationPortal.Presentation.Application
                 {
                     Console.WriteLine($"Name: {material.Name}");
                 }
+
                 Console.WriteLine("Courses:");
                 List<Course> courses = _courseService.GetCourses();
 
@@ -39,6 +40,7 @@ namespace EducationPortal.Presentation.Application
                         Console.WriteLine($"Material name: {material.Name}");
                     }
                 }
+
                 Console.WriteLine("Editing material menu:\n" +
                    "1 - add course\n" +
                    "2 - delete course\n" +
@@ -49,25 +51,28 @@ namespace EducationPortal.Presentation.Application
                 {
                     break;
                 }
+
                 if (input == "1")
                 {
                     CreateCourse();
                     continue;
                 }
+
                 if (input == "2")
                 {
                     DeleteCourse();
                     continue;
                 }
+
                 if (input == "3")
                 {
                     UpdateCourse();
                     continue;
                 }
+
                 Console.WriteLine("Unknown command");
                 Thread.Sleep(WrongCommandDelay);
                 continue;
-
             }
         }
 
@@ -93,18 +98,20 @@ namespace EducationPortal.Presentation.Application
 
             List<Material> mateirals = new List<Material>();
             ChangeMaterials(mateirals);
-            Course course = new Course {
+            Course course = new Course
+            {
                 Name = name,
                 Description = description,
                 Matherials = mateirals
             };
             _courseService.SetCourse(course);
         }
+
         private void DeleteCourse()
         {
             Console.WriteLine("Input name of course to delete: ");
             var name = Console.ReadLine();
-            if (name == "" && name != null)
+            if (name == "")
             {
                 Console.WriteLine("Wrong name deleting course interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -115,6 +122,7 @@ namespace EducationPortal.Presentation.Application
                 _courseService.DeleteCourse(name);
             }
         }
+
         private void UpdateCourse()
         {
             Console.WriteLine("Input name of course you want to change:");
@@ -172,7 +180,7 @@ namespace EducationPortal.Presentation.Application
         private void ChangeMaterials(List<Material> materials)
         {
             while (true)
-            { 
+            {
                 var allMaterials = AllMaterials();
                 Console.WriteLine("Input 'add' - add material or 'del' - to delete material or 'stop' - to stop modifing");
                 var input = Console.ReadLine();
@@ -180,6 +188,7 @@ namespace EducationPortal.Presentation.Application
                 {
                     return;
                 }
+
                 if (input == "add")
                 {
                     Console.WriteLine("Input name of material you want to add:");
@@ -190,6 +199,7 @@ namespace EducationPortal.Presentation.Application
                         Thread.Sleep(WrongCommandDelay);
                         continue;
                     }
+
                     var material = allMaterials.FirstOrDefault(x => x.Name == name);
                     if (material == null)
                     {
@@ -197,10 +207,12 @@ namespace EducationPortal.Presentation.Application
                         Thread.Sleep(WrongCommandDelay);
                         continue;
                     }
+
                     materials.Add(material);
                     continue;
                 }
-                if(input == "del")
+
+                if (input == "del")
                 {
                     Console.WriteLine("Input name of material you want to delete:");
                     var name = Console.ReadLine();
@@ -211,12 +223,14 @@ namespace EducationPortal.Presentation.Application
                         Thread.Sleep(WrongCommandDelay);
                         continue;
                     }
+
                     var material = materials.FirstOrDefault(x => x.Name == name);
                     if (!materials.Remove(material))
                     {
                         Console.WriteLine("Material to delete not finded");
                         continue;
                     }
+
                     continue;
                 }
             }

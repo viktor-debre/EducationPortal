@@ -2,7 +2,7 @@
 {
     internal class UserAuthenticationService : IUserAuthentication
     {
-        IUserRepository _usersRepository;
+        private readonly IUserRepository _usersRepository;
 
         public UserAuthenticationService(IUserRepository usersRepository)
         {
@@ -17,6 +17,7 @@
             {
                 return false;
             }
+
             if (existingUser.Password != password)
             {
                 return false;

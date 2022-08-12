@@ -18,15 +18,17 @@
                 bool isValidInput = true;
                 string[] registrationData = input.Split(" ");
 
-                if(input == "quit")
+                if (input == "quit")
                 {
                     break;
                 }
+
                 if (registrationData.Length != 2)
                 {
                     Console.WriteLine("Wrong command for name or password data.");
                     continue;
                 }
+
                 if (registrationData[0] == "" || registrationData[1] == "")
                 {
                     isValidInput = false;
@@ -34,12 +36,12 @@
 
                 if (isValidInput)
                 {
-
-                    if(!_userRegistration.TryCreateUser(registrationData[0], registrationData[1]))
+                    if (!_userRegistration.TryCreateUser(registrationData[0], registrationData[1]))
                     {
                         Console.WriteLine("Wrong format for name or password data.");
                         continue;
                     }
+
                     break;
                 }
                 else
