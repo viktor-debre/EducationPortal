@@ -2,6 +2,6 @@
 {
     public class Skill : BaseEntity
     {
-        string Title { get; set; }
+        public string Title { get; set; }
     }
 }

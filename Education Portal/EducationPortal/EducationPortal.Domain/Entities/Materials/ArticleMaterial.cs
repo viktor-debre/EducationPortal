@@ -3,6 +3,7 @@
     public class ArticleMaterial : Material
     {
         public string Source { get; set; }
-        public DateTime publicationDate { get; set; }
+
+        public DateTime PublicationDate { get; set; }
     }
 }

@@ -5,8 +5,8 @@ namespace EducationPortal.Infrastructure.Repositories
 {
     internal class ArticleRepository : IArticleRepository
     {
-        public List<ArticleMaterial> Articles { get; set; }
-        private const string articlePath = @"D:\work\article.json";
+        private const string ArticlePath = @"D:\work\article.json";
+
         private readonly StorageManager<ArticleMaterial> _storage = new StorageManager<ArticleMaterial>();
 
         public ArticleRepository()
@@ -14,13 +14,16 @@ namespace EducationPortal.Infrastructure.Repositories
             Articles = new List<ArticleMaterial>();
         }
 
+        public List<ArticleMaterial> Articles { get; set; }
+
         public List<ArticleMaterial> GetArticle()
         {
-            List<ArticleMaterial> materials = _storage.ExctractItemsFromStorage(articlePath);
+            List<ArticleMaterial> materials = _storage.ExctractItemsFromStorage(ArticlePath);
             if (materials != null)
             {
                 Articles = materials;
             }
+
             return Articles;
         }
 
@@ -32,7 +35,7 @@ namespace EducationPortal.Infrastructure.Repositories
         public void SetArticle(ArticleMaterial material)
         {
             Articles.Add(material);
-            _storage.AddItemToStorage(Articles, articlePath);
+            _storage.AddItemToStorage(Articles, ArticlePath);
         }
 
         public void UpdateArticle(string name, ArticleMaterial updatedMaterial)
@@ -49,9 +52,10 @@ namespace EducationPortal.Infrastructure.Repositories
             if (material != null)
             {
                 Articles.Remove(material);
-                _storage.AddItemToStorage(Articles, articlePath);
+                _storage.AddItemToStorage(Articles, ArticlePath);
                 return true;
             }
+
             return false;
         }
     }

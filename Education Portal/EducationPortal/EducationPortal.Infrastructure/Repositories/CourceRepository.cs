@@ -6,8 +6,8 @@ namespace EducationPortal.Infrastructure.Repositories
 {
     internal class CourceRepository : ICourseRepository
     {
-        public List<Course> Courses { get; set; }
-        private const string coursePath = @"D:\work\course.json";
+        private const string CoursePath = @"D:\work\course.json";
+
         private readonly StorageManager<Course> _storage = new StorageManager<Course>();
 
         public CourceRepository()
@@ -15,15 +15,18 @@ namespace EducationPortal.Infrastructure.Repositories
             Courses = new List<Course>();
         }
 
+        public List<Course> Courses { get; set; }
+
         public bool DeleteCourse(string name)
         {
             var course = GetCourceByName(name);
             if (course != null)
             {
                 Courses.Remove(course);
-                _storage.AddItemToStorage(Courses, coursePath);
+                _storage.AddItemToStorage(Courses, CoursePath);
                 return true;
             }
+
             return false;
         }
 
@@ -34,18 +37,19 @@ namespace EducationPortal.Infrastructure.Repositories
 
         public List<Course> GetCources()
         {
-            List<Course> courses = _storage.ExctractItemsFromStorage(coursePath);
+            List<Course> courses = _storage.ExctractItemsFromStorage(CoursePath);
             if (courses != null)
             {
                 Courses = courses;
             }
+
             return Courses;
         }
 
         public void SetCourse(Course cource)
         {
             Courses.Add(cource);
-            _storage.AddItemToStorage(Courses, coursePath);
+            _storage.AddItemToStorage(Courses, CoursePath);
         }
 
         public void UpdateCourse(string name, Course updatedMaterial)

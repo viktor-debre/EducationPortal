@@ -6,19 +6,19 @@ namespace EducationPortal.Infrastructure.StorageService
 {
     internal class StorageManager<T> : IRepository<T>
     {
-        JsonSerializer<T> jsonItems = new JsonSerializer<T>();
-        FileManager fileManager = new FileManager();
+        private readonly JsonSerializer<T> _jsonSerializer = new JsonSerializer<T>();
+        private readonly FileManager _fileManager = new FileManager();
 
         public void AddItemToStorage(List<T> item, string path)
         {
-            string jsonString = jsonItems.SerializeItem(item);
-            fileManager.WriteFile(path, jsonString);
+            string jsonString = _jsonSerializer.SerializeItem(item);
+            _fileManager.WriteFile(path, jsonString);
         }
 
         public List<T> ExctractItemsFromStorage(string path)
         {
-            string readed = fileManager.ReadFile(path);
-            List<T> deserialized = jsonItems.DecerializeItem(readed);
+            string readed = _fileManager.ReadFile(path);
+            List<T> deserialized = _jsonSerializer.DecerializeItem(readed);
             return deserialized;
         }
     }

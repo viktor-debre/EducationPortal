@@ -15,6 +15,5 @@ namespace EducationPortal.Application.Interfaces.Repository
         public void UpdateArticle(string name, ArticleMaterial updatedMaterial);
 
         public bool DeleteArticle(string name);
-
     }
 }

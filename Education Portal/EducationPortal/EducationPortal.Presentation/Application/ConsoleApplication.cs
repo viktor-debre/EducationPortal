@@ -4,16 +4,15 @@ namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleApplication
     {
-        ConsoleAuthentication _consoleAuthentication;
-        ConsoleMaterialManager _materialManager;
-        ConsoleCourseManager _courseManager;
+        private readonly ConsoleAuthentication _consoleAuthentication;
+        private readonly ConsoleMaterialManager _materialManager;
+        private readonly ConsoleCourseManager _courseManager;
 
-        public ConsoleApplication(IUserRegistration _userRegistration, IUserAuthentication _userAuthenticationService, 
-                IMaterialManageService _materialManageService, ICourseService courseService)
+        public ConsoleApplication(IUserRegistration userRegistration, IUserAuthentication userAuthenticationService, IMaterialManageService materialManageService, ICourseService courseService)
         {
-            _consoleAuthentication = new ConsoleAuthentication(_userAuthenticationService, _userRegistration);
-            _materialManager = new ConsoleMaterialManager(_materialManageService);
-            _courseManager = new ConsoleCourseManager(courseService, _materialManageService);
+            _consoleAuthentication = new ConsoleAuthentication(userAuthenticationService, userRegistration);
+            _materialManager = new ConsoleMaterialManager(materialManageService);
+            _courseManager = new ConsoleCourseManager(courseService, materialManageService);
         }
 
         public void Run()
@@ -34,6 +33,7 @@ namespace EducationPortal.Presentation.Application
                     _materialManager.EditMaterials();
                     continue;
                 }
+
                 if (input == "course")
                 {
                     _courseManager.EditCources();
