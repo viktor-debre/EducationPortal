@@ -1,6 +1,6 @@
-﻿using EducationPortal.Application.Interfaces.Repository;
-using EducationPortal.Infrastructure.Repositories;
+﻿using EducationPortal.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using EducationPortal.Domain.Repository;
 
 namespace EducationPortal.Infrastructure
 {

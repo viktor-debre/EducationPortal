@@ -1,4 +1,6 @@
-﻿namespace EducationPortal.Application.Interfaces.Repository
+﻿using EducationPortal.Domain.Entities;
+
+namespace EducationPortal.Domain.Repository
 {
     public interface IUserRepository
     {

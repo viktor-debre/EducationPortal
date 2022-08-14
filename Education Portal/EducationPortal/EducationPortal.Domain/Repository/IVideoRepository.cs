@@ -1,6 +1,6 @@
 ﻿using EducationPortal.Domain.Entities.Materials;
 
-namespace EducationPortal.Application.Interfaces.Repository
+namespace EducationPortal.Domain.Repository
 {
     public interface IVideoRepository
     {

@@ -1,6 +1,7 @@
-﻿using EducationPortal.Domain.Entities.Materials;
+﻿using EducationPortal.Domain.Entities;
+using EducationPortal.Domain.Entities.Materials;
 
-namespace EducationPortal.Application.Interfaces.Repository
+namespace EducationPortal.Domain.Repository
 {
     public interface ICourseRepository
     {
