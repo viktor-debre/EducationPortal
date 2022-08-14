@@ -8,8 +8,7 @@ namespace EducationPortal.Application.Commands.Validation
         public CreateArticleValidation()
         {
             RuleFor(u => u.Name)
-               .NotEmpty()
-               .MaximumLength(20);
+               .NotEmpty();
         }
     }
 }

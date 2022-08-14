@@ -1,4 +1,6 @@
-﻿namespace EducationPortal.Application.Services
+﻿using EducationPortal.Domain.Repository;
+
+namespace EducationPortal.Application.Services
 {
     internal class UserAuthenticationService : IUserAuthentication
     {

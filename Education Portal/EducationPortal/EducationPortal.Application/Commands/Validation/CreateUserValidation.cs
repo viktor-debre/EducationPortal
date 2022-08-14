@@ -9,8 +9,7 @@ namespace EducationPortal.Application.Commands.Validation
         public CreateUserValidation()
         {
             RuleFor(u => u.Name)
-                .NotEmpty()
-                .MaximumLength(20);
+                .NotEmpty();
 
             RuleFor(u => u.Password)
                 .NotEmpty()

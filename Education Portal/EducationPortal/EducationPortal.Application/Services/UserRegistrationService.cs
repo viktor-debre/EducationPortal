@@ -1,4 +1,5 @@
 ﻿using EducationPortal.Application.Commands;
+using EducationPortal.Domain.Repository;
 
 namespace EducationPortal.Application.Services
 {

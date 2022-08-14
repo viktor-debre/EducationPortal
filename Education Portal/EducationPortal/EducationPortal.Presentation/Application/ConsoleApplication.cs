@@ -20,7 +20,6 @@ namespace EducationPortal.Presentation.Application
             Console.OutputEncoding = Encoding.Unicode;
 
             _consoleAuthentication.Authenticate();
-            Console.WriteLine("You successfully authorized.");
 
             Console.InputEncoding = Encoding.Unicode;
             while (true)
@@ -28,22 +27,18 @@ namespace EducationPortal.Presentation.Application
                 Console.Clear();
                 Console.WriteLine("Type 'material' to edit materials or 'course' to edit course");
                 string input = Console.ReadLine() ?? "";
-                if (input == "material")
+                switch (input)
                 {
-                    _materialManager.EditMaterials();
-                    continue;
-                }
-
-                if (input == "course")
-                {
-                    _courseManager.EditCources();
-                    continue;
-                }
-                else
-                {
-                    Console.WriteLine("Unknown command.");
-                    Thread.Sleep(500);
-                    continue;
+                    case "material":
+                        _materialManager.EditMaterials();
+                        break;
+                    case "course":
+                        _courseManager.EditCources();
+                        break;
+                    default:
+                        Console.WriteLine("Unknown command.");
+                        Thread.Sleep(500);
+                        break;
                 }
             }
         }

@@ -8,8 +8,7 @@ namespace EducationPortal.Application.Commands
         public CreateBookValidation()
         {
              RuleFor(u => u.Name)
-                .NotEmpty()
-                .MaximumLength(20);
+                .NotEmpty();
         }
     }
 }
