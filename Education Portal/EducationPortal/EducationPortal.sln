@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPortal.Infrastructure.SQLServer", "Infrastructure.SQLServer\EducationPortal.Infrastructure.SQLServer.csproj", "{8917CE2C-0E37-4178-AA4A-D893FD31782B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{BAC0EBE5-A121-427E-A270-C7243817F24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAC0EBE5-A121-427E-A270-C7243817F24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAC0EBE5-A121-427E-A270-C7243817F24E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8917CE2C-0E37-4178-AA4A-D893FD31782B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8917CE2C-0E37-4178-AA4A-D893FD31782B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8917CE2C-0E37-4178-AA4A-D893FD31782B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8917CE2C-0E37-4178-AA4A-D893FD31782B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,6 +64,7 @@ Global
 		{8E674189-B786-4967-87D4-F4C55D49A021} = {1BA0BA5C-4525-41AB-8CFA-8774DDF56A34}
 		{8DA235DB-C528-46DB-AE71-1A027C09E513} = {1BA0BA5C-4525-41AB-8CFA-8774DDF56A34}
 		{BAC0EBE5-A121-427E-A270-C7243817F24E} = {1BA0BA5C-4525-41AB-8CFA-8774DDF56A34}
+		{8917CE2C-0E37-4178-AA4A-D893FD31782B} = {1BA0BA5C-4525-41AB-8CFA-8774DDF56A34}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14244194-54DD-439F-A996-1256C78EADB1}
