@@ -114,7 +114,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of book: ");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Wrong name adding book interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -123,7 +123,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input author name of book: ");
             var author = Console.ReadLine();
-            if (author == "")
+            if (string.IsNullOrEmpty(author))
             {
                 Console.WriteLine("Wrong author name adding book interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -132,7 +132,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input format of book: ");
             var format = Console.ReadLine();
-            if (format == "")
+            if (string.IsNullOrEmpty(format))
             {
                 Console.WriteLine("Wrong format adding book interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -174,7 +174,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of book to delete: ");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Wrong name deleting book interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -190,7 +190,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of book you want to update: ");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Wrong name updating book interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -199,7 +199,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input new name of book: ");
             var newName = Console.ReadLine();
-            if (newName == "")
+            if (string.IsNullOrEmpty(newName))
             {
                 Console.WriteLine("Wrong name adding book interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -208,7 +208,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input new author name of book: ");
             var author = Console.ReadLine();
-            if (author == "")
+            if (string.IsNullOrEmpty(author))
             {
                 Console.WriteLine("Wrong author name adding book interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -217,7 +217,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input new format of book: ");
             var format = Console.ReadLine();
-            if (format == "")
+            if (string.IsNullOrEmpty(format))
             {
                 Console.WriteLine("Wrong format adding book interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -259,7 +259,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of video: ");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Wrong name adding video interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -268,7 +268,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input quality of video: ");
             var quality = Console.ReadLine();
-            if (quality == "")
+            if (string.IsNullOrEmpty(quality))
             {
                 Console.WriteLine("Wrong quality adding video interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -298,7 +298,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of video to delete: ");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Wrong name deleting video interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -314,7 +314,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of video you want to update: ");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Wrong name updating video interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -323,7 +323,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input name of video: ");
             var newName = Console.ReadLine();
-            if (newName == "")
+            if (string.IsNullOrEmpty(newName))
             {
                 Console.WriteLine("Wrong name adding video interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -332,7 +332,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input quality of video: ");
             var quality = Console.ReadLine();
-            if (quality == "")
+            if (string.IsNullOrEmpty(quality))
             {
                 Console.WriteLine("Wrong quality adding video interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -362,7 +362,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of article: ");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Wrong name adding article interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -371,7 +371,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input source of article: ");
             var source = Console.ReadLine();
-            if (source == "")
+            if (string.IsNullOrEmpty(source))
             {
                 Console.WriteLine("Wrong source adding article interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -401,7 +401,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of book to delete: ");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Wrong name deleting book interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -417,7 +417,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of article you want to update: ");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Wrong name updating article interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -426,7 +426,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input name of article: ");
             var newName = Console.ReadLine();
-            if (newName == "")
+            if (string.IsNullOrEmpty(newName))
             {
                 Console.WriteLine("Wrong name adding article interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -435,7 +435,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input source of article: ");
             var source = Console.ReadLine();
-            if (source == "")
+            if (string.IsNullOrEmpty(source))
             {
                 Console.WriteLine("Wrong source adding article interrupted!");
                 Thread.Sleep(WrongCommandDelay);

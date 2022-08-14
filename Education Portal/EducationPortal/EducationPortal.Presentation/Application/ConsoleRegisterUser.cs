@@ -38,7 +38,7 @@
                 {
                     if (!_userRegistration.TryCreateUser(registrationData[0], registrationData[1]))
                     {
-                        Console.WriteLine("Wrong format for name or password data.");
+                        Console.WriteLine("User with this name already exists.");
                         continue;
                     }
 

@@ -28,6 +28,15 @@ namespace EducationPortal.Presentation.Application
                 Console.Clear();
                 Console.WriteLine("Type 'material' to edit materials or 'course' to edit course");
                 string input = Console.ReadLine() ?? "";
+                //switch (input)
+                //{
+                //    case "material":
+                //        _materialManager.EditMaterials();
+                //        break;
+                //    case "course":
+                //        _courseManager.EditCources();
+                //        break;
+                //}
                 if (input == "material")
                 {
                     _materialManager.EditMaterials();

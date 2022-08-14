@@ -17,7 +17,7 @@
             {
                 Console.WriteLine("Authorize to continue work: Input username and password. If you are not registred input command reg");
                 string input = Console.ReadLine() ?? "";
-                if (input == "")
+                if (string.IsNullOrEmpty(input))
                 {
                     Console.WriteLine("Inputed empty string try again.");
                     continue;
@@ -51,7 +51,7 @@
                         break;
                     }
 
-                    Console.WriteLine("Wrong name or password data.");
+                    Console.WriteLine("You entered not existing name or wrong password data.");
                     continue;
                 }
                 else

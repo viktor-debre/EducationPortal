@@ -80,7 +80,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of course:");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Wrong name adding course interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -89,7 +89,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input description of course:");
             var description = Console.ReadLine();
-            if (description == "")
+            if (string.IsNullOrEmpty(description))
             {
                 Console.WriteLine("Wrong description adding course interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -111,9 +111,9 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of course to delete: ");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
-                Console.WriteLine("Wrong name deleting course interrupted!");
+                Console.WriteLine("Empty name field deleting course interrupted!");
                 Thread.Sleep(WrongCommandDelay);
                 return;
             }
@@ -127,7 +127,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.WriteLine("Input name of course you want to change:");
             var name = Console.ReadLine();
-            if (name == "")
+            if (string.IsNullOrEmpty(name))
             {
                 Console.WriteLine("Wrong name adding course interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -136,7 +136,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input name of course:");
             var newName = Console.ReadLine();
-            if (newName == "")
+            if (string.IsNullOrEmpty(newName))
             {
                 Console.WriteLine("Wrong name adding course interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -145,7 +145,7 @@ namespace EducationPortal.Presentation.Application
 
             Console.WriteLine("Input description of course:");
             var description = Console.ReadLine();
-            if (description == "")
+            if (string.IsNullOrEmpty(description))
             {
                 Console.WriteLine("Wrong description adding course interrupted!");
                 Thread.Sleep(WrongCommandDelay);
@@ -193,7 +193,7 @@ namespace EducationPortal.Presentation.Application
                 {
                     Console.WriteLine("Input name of material you want to add:");
                     var name = Console.ReadLine();
-                    if (name == "")
+                    if (string.IsNullOrEmpty(name))
                     {
                         Console.WriteLine("Empty name, adding material in course interrupted!");
                         Thread.Sleep(WrongCommandDelay);
@@ -217,7 +217,7 @@ namespace EducationPortal.Presentation.Application
                     Console.WriteLine("Input name of material you want to delete:");
                     var name = Console.ReadLine();
 
-                    if (name == "")
+                    if (string.IsNullOrEmpty(name))
                     {
                         Console.WriteLine("Empty name, deleting material in course interrupted!");
                         Thread.Sleep(WrongCommandDelay);
