@@ -29,7 +29,7 @@
                     continue;
                 }
 
-                if (registrationData[0] == "" || registrationData[1] == "")
+                if (string.IsNullOrEmpty(registrationData[0]) || string.IsNullOrEmpty(registrationData[1]))
                 {
                     isValidInput = false;
                 }

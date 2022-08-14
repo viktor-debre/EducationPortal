@@ -18,26 +18,9 @@ namespace EducationPortal.Presentation.Application
             {
                 Console.Clear();
                 Console.WriteLine("Materials:");
-                List<BookMaterial> bookMaterials = _materialManageService.GetBooks();
-                Console.WriteLine("Books:");
-                foreach (BookMaterial book in bookMaterials)
-                {
-                    Console.WriteLine($"{book.Name} NumberOfPages: {book.NumberPages} {book.Author} format: {book.Format} publication date: {book.PublicationDate.ToString("MM/dd/yyyy")}");
-                }
-
-                List<VideoMaterial> videoMaterials = _materialManageService.GetVideo();
-                Console.WriteLine("Videos:");
-                foreach (VideoMaterial video in videoMaterials)
-                {
-                    Console.WriteLine($"{video.Name} Duration: {video.Duration} Quality: {video.Quality}");
-                }
-
-                List<ArticleMaterial> articleMaterials = _materialManageService.GetArticle();
-                Console.WriteLine("Articles:");
-                foreach (ArticleMaterial article in articleMaterials)
-                {
-                    Console.WriteLine($"{article.Name} Source: {article.Source} PublicationDate: {article.PublicationDate}");
-                }
+                OutputAllBooks();
+                OutputAllVideos();
+                OutputAllArticles();
 
                 Console.WriteLine("Editing material menu:\n" +
                     "1 - add book,   \t" + "1d  - delete book,   \t" + "1u - update book\n" +
@@ -45,68 +28,73 @@ namespace EducationPortal.Presentation.Application
                     "3 - add article,\t" + "3d  - delete article,\t" + "3u - update article\n" +
                     "quit - go to previous menu");
                 string input = Console.ReadLine() ?? "";
-                if (input == "quit")
-                {
-                    break;
-                }
 
-                if (input == "1")
+                switch (input)
                 {
-                    AddBook();
-                    continue;
+                    case "quit":
+                        break;
+                    case "1":
+                        AddBook();
+                        break;
+                    case "1d":
+                        DeleteBook();
+                        break;
+                    case "1u":
+                        UpdateBook();
+                        break;
+                    case "2":
+                        AddVideo();
+                        break;
+                    case "2d":
+                        DeleteVideo();
+                        break;
+                    case "2u":
+                        UpdateVideo();
+                        break;
+                    case "3":
+                        AddArticle();
+                        break;
+                    case "3d":
+                        DeleteArticle();
+                        break;
+                    case "3u":
+                        UpdateArticle();
+                        break;
+                    default:
+                        Console.WriteLine("Unknown command");
+                        Thread.Sleep(WrongCommandDelay);
+                        break;
                 }
+            }
+        }
 
-                if (input == "1d")
-                {
-                    DeleteBook();
-                    continue;
-                }
+        private void OutputAllBooks()
+        {
+            List<BookMaterial> bookMaterials = _materialManageService.GetBooks();
+            Console.WriteLine("Books:");
+            foreach (BookMaterial book in bookMaterials)
+            {
+                Console.WriteLine($"{book.Name} NumberOfPages: {book.NumberPages} {book.Author} format: {book.Format} publication date: {book.PublicationDate.ToString("MM/dd/yyyy")}");
+            }
+        }
 
-                if (input == "1u")
-                {
-                    UpdateBook();
-                    continue;
-                }
+        private void OutputAllVideos()
+        {
+            List<VideoMaterial> videoMaterials = _materialManageService.GetVideo();
+            Console.WriteLine("Videos:");
+            foreach (VideoMaterial video in videoMaterials)
+            {
+                Console.WriteLine($"{video.Name} Duration: {video.Duration} Quality: {video.Quality}");
+            }
+        }
 
-                if (input == "2")
-                {
-                    AddVideo();
-                    continue;
-                }
-
-                if (input == "2d")
-                {
-                    DeleteVideo();
-                    continue;
-                }
-
-                if (input == "2u")
-                {
-                    UpdateVideo();
-                    continue;
-                }
-
-                if (input == "3")
-                {
-                    AddArticle();
-                    continue;
-                }
-
-                if (input == "3d")
-                {
-                    DeleteArticle();
-                    continue;
-                }
-
-                if (input == "3u")
-                {
-                    UpdateArticle();
-                    continue;
-                }
-
-                Console.WriteLine("Unknown command");
-                Thread.Sleep(WrongCommandDelay);
-                continue;
+        private void OutputAllArticles()
+        {
+            List<ArticleMaterial> articleMaterials = _materialManageService.GetArticle();
+            Console.WriteLine("Articles:");
+            foreach (ArticleMaterial article in articleMaterials)
+            {
+                Console.WriteLine($"{article.Name} Source: {article.Source} PublicationDate: {article.PublicationDate}");
             }
         }
 

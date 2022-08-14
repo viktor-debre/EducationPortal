@@ -47,32 +47,24 @@ namespace EducationPortal.Presentation.Application
                    "3 - update course\n" +
                    "quit - go to previous menu");
                 string input = Console.ReadLine() ?? "";
-                if (input == "quit")
+                switch (input)
                 {
-                    break;
+                    case "quit":
+                        return;
+                    case "1":
+                        CreateCourse();
+                        break;
+                    case "2":
+                        DeleteCourse();
+                        break;
+                    case "3":
+                        UpdateCourse();
+                        break;
+                    default:
+                        Console.WriteLine("Unknown command");
+                        Thread.Sleep(WrongCommandDelay);
+                        break;
                 }
-
-                if (input == "1")
-                {
-                    CreateCourse();
-                    continue;
-                }
-
-                if (input == "2")
-                {
-                    DeleteCourse();
-                    continue;
-                }
-
-                if (input == "3")
-                {
-                    UpdateCourse();
-                    continue;
-                }
-
-                Console.WriteLine("Unknown command");
-                Thread.Sleep(WrongCommandDelay);
-                continue;
             }
         }
 
