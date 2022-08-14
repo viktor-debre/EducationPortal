@@ -1,9 +1,9 @@
 ﻿using EducationPortal.Presentation.Application;
 using Microsoft.Extensions.DependencyInjection;
 
-var _root = CompositionRoot();
+var root = CompositionRoot();
 
-_root.GetService<ConsoleApplication>()?.Run();
+root.GetService<ConsoleApplication>()?.Run();
 
 static IServiceProvider CompositionRoot()
 {

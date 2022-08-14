@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace EducationPortal.Application.Commands
 {
-    public class CreateBookValidation : AbstractValidator<BookMaterial>
+    internal class CreateBookValidation : AbstractValidator<BookMaterial>
     {
         public CreateBookValidation()
         {

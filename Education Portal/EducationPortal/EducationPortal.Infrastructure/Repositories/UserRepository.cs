@@ -5,8 +5,8 @@ namespace EducationPortal.Infrastructure.Repositories
 {
     internal class UserRepository : IUserRepository
     {
-        public List<User> Users { get; set; }
-        private static string userPath = @"D:\work\users.json";
+        private static string UserPath = @"D:\work\users.json";
+
         private readonly StorageManager<User> _storage = new StorageManager<User>();
 
         public UserRepository()
@@ -14,13 +14,16 @@ namespace EducationPortal.Infrastructure.Repositories
             Users = new List<User>();
         }
 
+        public List<User> Users { get; set; }
+
         public List<User> GetUser()
         {
-            List<User> users = _storage.ExctractItemsFromStorage(userPath);
+            List<User> users = _storage.ExctractItemsFromStorage(UserPath);
             if (users != null)
             {
                 Users = users;
             }
+
             return Users;
         }
 
@@ -32,7 +35,7 @@ namespace EducationPortal.Infrastructure.Repositories
         public void SetUser(User user)
         {
             Users.Add(user);
-            _storage.AddItemToStorage(Users, userPath);
+            _storage.AddItemToStorage(Users, UserPath);
         }
     }
 }

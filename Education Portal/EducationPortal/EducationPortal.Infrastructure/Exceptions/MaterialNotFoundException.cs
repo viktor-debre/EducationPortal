@@ -10,6 +10,5 @@
             : base($"Can not be found material with name: {name}.")
         {
         }
-
     }
 }

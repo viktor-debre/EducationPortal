@@ -5,22 +5,25 @@ namespace EducationPortal.Infrastructure.Repositories
 {
     internal class VideoRepository : IVideoRepository
     {
-        public List<VideoMaterial> Videos { get; set; }
-        private const string videoPath = @"D:\work\video.json";
+        private const string VideoPath = @"D:\work\video.json";
+
         private readonly StorageManager<VideoMaterial> _storage = new StorageManager<VideoMaterial>();
 
         public VideoRepository()
         {
             Videos = new List<VideoMaterial>();
         }
-      
+
+        public List<VideoMaterial> Videos { get; set; }
+
         public List<VideoMaterial> GetVideos()
         {
-            List<VideoMaterial> materials = _storage.ExctractItemsFromStorage(videoPath);
+            List<VideoMaterial> materials = _storage.ExctractItemsFromStorage(VideoPath);
             if (materials != null)
             {
                 Videos = materials;
             }
+
             return Videos;
         }
 
@@ -32,7 +35,7 @@ namespace EducationPortal.Infrastructure.Repositories
         public void SetVideo(VideoMaterial material)
         {
             Videos.Add(material);
-            _storage.AddItemToStorage(Videos, videoPath);
+            _storage.AddItemToStorage(Videos, VideoPath);
         }
 
         public void UpdateVideo(string name, VideoMaterial updatedMaterial)
@@ -49,9 +52,10 @@ namespace EducationPortal.Infrastructure.Repositories
             if (material != null)
             {
                 Videos.Remove(material);
-                _storage.AddItemToStorage(Videos, videoPath);
+                _storage.AddItemToStorage(Videos, VideoPath);
                 return true;
             }
+
             return false;
         }
     }

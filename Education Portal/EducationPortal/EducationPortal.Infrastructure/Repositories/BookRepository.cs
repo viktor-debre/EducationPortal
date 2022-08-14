@@ -5,8 +5,8 @@ namespace EducationPortal.Infrastructure.Repositories
 {
     internal class BookRepository : IBookRepository
     {
-        public List<BookMaterial> Books { get; set; }
-        private const string bookPath = @"D:\work\book.json";
+        private const string BookPath = @"D:\work\book.json";
+
         private readonly StorageManager<BookMaterial> _storage = new StorageManager<BookMaterial>();
 
         public BookRepository()
@@ -14,13 +14,16 @@ namespace EducationPortal.Infrastructure.Repositories
             Books = new List<BookMaterial>();
         }
 
+        public List<BookMaterial> Books { get; set; }
+
         public List<BookMaterial> GetBooks()
         {
-            List<BookMaterial> materials = _storage.ExctractItemsFromStorage(bookPath);
+            List<BookMaterial> materials = _storage.ExctractItemsFromStorage(BookPath);
             if (materials != null)
             {
                 Books = materials;
             }
+
             return Books;
         }
 
@@ -32,7 +35,7 @@ namespace EducationPortal.Infrastructure.Repositories
         public void SetBook(BookMaterial material)
         {
             Books.Add(material);
-            _storage.AddItemToStorage(Books, bookPath);
+            _storage.AddItemToStorage(Books, BookPath);
         }
 
         public void UpdateBook(string name, BookMaterial updatedMaterial)
@@ -49,11 +52,11 @@ namespace EducationPortal.Infrastructure.Repositories
             if (material != null)
             {
                 Books.Remove(material);
-                _storage.AddItemToStorage(Books, bookPath);
+                _storage.AddItemToStorage(Books, BookPath);
                 return true;
             }
+
             return false;
         }
-
     }
 }

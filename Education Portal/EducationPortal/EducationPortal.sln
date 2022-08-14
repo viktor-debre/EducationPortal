@@ -5,21 +5,26 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1BA0BA5C-4525-41AB-8CFA-8774DDF56A34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPortal.Domain", "EducationPortal.Domain\EducationPortal.Domain.csproj", "{22E60C51-6E24-4B49-86D0-CF354A188873}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPortal.Domain", "EducationPortal.Domain\EducationPortal.Domain.csproj", "{22E60C51-6E24-4B49-86D0-CF354A188873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPortal.Presentation", "EducationPortal.Presentation\EducationPortal.Presentation.csproj", "{8E674189-B786-4967-87D4-F4C55D49A021}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPortal.Presentation", "EducationPortal.Presentation\EducationPortal.Presentation.csproj", "{8E674189-B786-4967-87D4-F4C55D49A021}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BAC0EBE5-A121-427E-A270-C7243817F24E} = {BAC0EBE5-A121-427E-A270-C7243817F24E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPortal.Infrastructure", "EducationPortal.Infrastructure\EducationPortal.Infrastructure.csproj", "{8DA235DB-C528-46DB-AE71-1A027C09E513}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPortal.Infrastructure", "EducationPortal.Infrastructure\EducationPortal.Infrastructure.csproj", "{8DA235DB-C528-46DB-AE71-1A027C09E513}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BAC0EBE5-A121-427E-A270-C7243817F24E} = {BAC0EBE5-A121-427E-A270-C7243817F24E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPortal.Application", "EducationPortal.Application\EducationPortal.Application.csproj", "{BAC0EBE5-A121-427E-A270-C7243817F24E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPortal.Application", "EducationPortal.Application\EducationPortal.Application.csproj", "{BAC0EBE5-A121-427E-A270-C7243817F24E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{22E60C51-6E24-4B49-86D0-CF354A188873} = {22E60C51-6E24-4B49-86D0-CF354A188873}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D22312AA-75F2-4100-A81B-45FF0D638799}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Global

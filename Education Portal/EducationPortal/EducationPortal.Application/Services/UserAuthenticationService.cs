@@ -4,7 +4,7 @@ namespace EducationPortal.Application.Services
 {
     internal class UserAuthenticationService : IUserAuthentication
     {
-        IUserRepository _usersRepository;
+        private readonly IUserRepository _usersRepository;
 
         public UserAuthenticationService(IUserRepository usersRepository)
         {
@@ -19,6 +19,7 @@ namespace EducationPortal.Application.Services
             {
                 return false;
             }
+
             if (existingUser.Password != password)
             {
                 return false;

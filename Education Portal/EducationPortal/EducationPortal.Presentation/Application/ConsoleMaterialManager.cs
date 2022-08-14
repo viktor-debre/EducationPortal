@@ -4,13 +4,12 @@ namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleMaterialManager
     {
-        const int WrongCommandDelay = 1500;
+        private const int WrongCommandDelay = 1500;
         private readonly IMaterialManageService _materialManageService;
 
         public ConsoleMaterialManager(IMaterialManageService materialManageService)
         {
             _materialManageService = materialManageService;
-
         }
 
         public void EditMaterials()
@@ -23,23 +22,26 @@ namespace EducationPortal.Presentation.Application
                 Console.WriteLine("Books:");
                 foreach (BookMaterial book in bookMaterials)
                 {
-                    Console.WriteLine($"{book.Name} NumberOfPages: {book.NumberPages} {book.Author} format: {book.Format} + {book.PublicationDate}");
+                    Console.WriteLine($"{book.Name} NumberOfPages: {book.NumberPages} {book.Author} format: {book.Format} publication date: {book.PublicationDate.ToString("MM/dd/yyyy")}");
                 }
+
                 List<VideoMaterial> videoMaterials = _materialManageService.GetVideo();
                 Console.WriteLine("Videos:");
                 foreach (VideoMaterial video in videoMaterials)
                 {
                     Console.WriteLine($"{video.Name} Duration: {video.Duration} Quality: {video.Quality}");
                 }
+
                 List<ArticleMaterial> articleMaterials = _materialManageService.GetArticle();
                 Console.WriteLine("Articles:");
                 foreach (ArticleMaterial article in articleMaterials)
                 {
-                    Console.WriteLine($"{article.Name} Source: {article.Source} PublicationDate: {article.publicationDate}");
+                    Console.WriteLine($"{article.Name} Source: {article.Source} PublicationDate: {article.PublicationDate}");
                 }
+
                 Console.WriteLine("Editing material menu:\n" +
-                    "1 - add book,\t" + "1d  - delete book,\t" + "1u - update book\n" +
-                    "2 - add video,\t" + "2d  - delete video,\t" + "2u - update video\n" +
+                    "1 - add book,   \t" + "1d  - delete book,   \t" + "1u - update book\n" +
+                    "2 - add video,  \t" + "2d  - delete video,  \t" + "2u - update video\n" +
                     "3 - add article,\t" + "3d  - delete article,\t" + "3u - update article\n" +
                     "quit - go to previous menu");
                 string input = Console.ReadLine() ?? "";
@@ -47,55 +49,64 @@ namespace EducationPortal.Presentation.Application
                 {
                     break;
                 }
+
                 if (input == "1")
                 {
                     AddBook();
                     continue;
                 }
+
                 if (input == "1d")
                 {
                     DeleteBook();
                     continue;
                 }
-                if(input == "1u")
+
+                if (input == "1u")
                 {
                     UpdateBook();
                     continue;
                 }
+
                 if (input == "2")
                 {
                     AddVideo();
                     continue;
                 }
+
                 if (input == "2d")
                 {
                     DeleteVideo();
                     continue;
                 }
-                if(input == "2u")
+
+                if (input == "2u")
                 {
                     UpdateVideo();
                     continue;
                 }
+
                 if (input == "3")
                 {
                     AddArticle();
                     continue;
                 }
+
                 if (input == "3d")
                 {
                     DeleteArticle();
                     continue;
                 }
-                if(input == "3u")
+
+                if (input == "3u")
                 {
                     UpdateArticle();
                     continue;
                 }
+
                 Console.WriteLine("Unknown command");
                 Thread.Sleep(WrongCommandDelay);
                 continue;
-
             }
         }
 
@@ -158,6 +169,7 @@ namespace EducationPortal.Presentation.Application
             };
             _materialManageService.SetBook(bookMaterial);
         }
+
         private void DeleteBook()
         {
             Console.WriteLine("Input name of book to delete: ");
@@ -173,6 +185,7 @@ namespace EducationPortal.Presentation.Application
                 _materialManageService.DeleteBook(name);
             }
         }
+
         private void UpdateBook()
         {
             Console.WriteLine("Input name of book you want to update: ");
@@ -280,6 +293,7 @@ namespace EducationPortal.Presentation.Application
             };
             _materialManageService.SetVideo(videoMaterial);
         }
+
         private void DeleteVideo()
         {
             Console.WriteLine("Input name of video to delete: ");
@@ -295,6 +309,7 @@ namespace EducationPortal.Presentation.Application
                 _materialManageService.DeleteVideo(name);
             }
         }
+
         private void UpdateVideo()
         {
             Console.WriteLine("Input name of video you want to update: ");
@@ -343,7 +358,6 @@ namespace EducationPortal.Presentation.Application
             _materialManageService.UpdateVideo(name, videoMaterial);
         }
 
-
         private void AddArticle()
         {
             Console.WriteLine("Input name of article: ");
@@ -374,15 +388,15 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
-
             ArticleMaterial articleMaterial = new ArticleMaterial
             {
                 Name = name,
                 Source = source,
-                publicationDate = publicationDate
+                PublicationDate = publicationDate
             };
             _materialManageService.SetArticle(articleMaterial);
         }
+
         private void DeleteArticle()
         {
             Console.WriteLine("Input name of book to delete: ");
@@ -398,6 +412,7 @@ namespace EducationPortal.Presentation.Application
                 _materialManageService.DeleteBook(name);
             }
         }
+
         private void UpdateArticle()
         {
             Console.WriteLine("Input name of article you want to update: ");
@@ -437,15 +452,13 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
-
             ArticleMaterial articleMaterial = new ArticleMaterial
             {
                 Name = newName,
                 Source = source,
-                publicationDate = publicationDate
+                PublicationDate = publicationDate
             };
             _materialManageService.UpdateArticle(name, articleMaterial);
         }
-        
     }
 }
