@@ -20,7 +20,6 @@ namespace EducationPortal.Presentation.Application
             Console.OutputEncoding = Encoding.Unicode;
 
             _consoleAuthentication.Authenticate();
-            Console.WriteLine("You successfully authorized.");
 
             Console.InputEncoding = Encoding.Unicode;
             while (true)

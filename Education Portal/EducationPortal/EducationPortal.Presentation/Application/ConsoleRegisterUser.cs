@@ -2,6 +2,7 @@
 {
     internal class ConsoleRegisterUser
     {
+        private const int WrongCommandDelay = 1500;
         private readonly IUserRegistration _userRegistration;
 
         public ConsoleRegisterUser(IUserRegistration userRegistration)
@@ -26,6 +27,7 @@
                 if (registrationData.Length != 2)
                 {
                     Console.WriteLine("Wrong command for name or password data.");
+                    Thread.Sleep(WrongCommandDelay);
                     continue;
                 }
 
@@ -39,6 +41,7 @@
                     if (!_userRegistration.TryCreateUser(registrationData[0], registrationData[1]))
                     {
                         Console.WriteLine("User with this name already exists.");
+                        Thread.Sleep(WrongCommandDelay);
                         continue;
                     }
 
@@ -47,6 +50,7 @@
                 else
                 {
                     Console.WriteLine("Wrong format for name or password data.");
+                    Thread.Sleep(WrongCommandDelay);
                 }
             }
         }

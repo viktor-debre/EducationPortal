@@ -2,8 +2,10 @@
 {
     internal class ConsoleAuthentication
     {
-        private IUserAuthentication _userAuthenticationService;
-        private ConsoleRegisterUser _registerUser;
+        private const int WrongCommandDelay = 1500;
+        private readonly IUserAuthentication _userAuthenticationService;
+        private readonly ConsoleRegisterUser _registerUser;
+        private readonly InputHandler _inputHandler = new InputHandler();
 
         public ConsoleAuthentication(IUserAuthentication userAuthenticationServicer, IUserRegistration userRegistration)
         {
@@ -16,10 +18,10 @@
             while (true)
             {
                 Console.WriteLine("Authorize to continue work: Input username and password. If you are not registred input command reg");
-                string input = Console.ReadLine() ?? "";
-                if (string.IsNullOrEmpty(input))
+                string operation = "authorizing";
+                string input;
+                if (!_inputHandler.TryInputStringValue(out input, "username and password", operation))
                 {
-                    Console.WriteLine("Inputed empty string try again.");
                     continue;
                 }
 
@@ -31,10 +33,10 @@
 
                 bool isValidInput = true;
                 string[] authenticationData = input.Split(" ");
-
                 if (authenticationData.Length != 2)
                 {
                     Console.WriteLine("Wrong command for name or password data.");
+                    Thread.Sleep(WrongCommandDelay);
                     continue;
                 }
 
@@ -48,10 +50,13 @@
                     if (_userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1]))
                     {
                         Console.Clear();
-                        break;
+                        Console.WriteLine("You successfully authorized.");
+                        Thread.Sleep(WrongCommandDelay);
+                        return;
                     }
 
                     Console.WriteLine("You entered not existing name or wrong password data.");
+                    Thread.Sleep(WrongCommandDelay);
                     continue;
                 }
                 else
