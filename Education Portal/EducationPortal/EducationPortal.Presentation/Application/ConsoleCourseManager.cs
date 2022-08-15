@@ -66,7 +66,7 @@ namespace EducationPortal.Presentation.Application
             {
                 Console.WriteLine("////////Other course//////////");
                 Console.WriteLine($"{course.Name}\nDescription: {course.Description}\nMaterials:");
-                foreach (Material material in course.Matherials)
+                foreach (Material material in course.Materials)
                 {
                     Console.WriteLine($"Material name: {material.Name}");
                 }
@@ -94,7 +94,7 @@ namespace EducationPortal.Presentation.Application
             {
                 Name = name,
                 Description = description,
-                Matherials = mateirals
+                Materials = mateirals
             };
             _courseService.SetCourse(course);
         }
@@ -140,7 +140,7 @@ namespace EducationPortal.Presentation.Application
             {
                 Name = newName,
                 Description = description,
-                Matherials = mateirals
+                Materials = mateirals
             };
             _courseService.UpdateCourse(name, course);
         }

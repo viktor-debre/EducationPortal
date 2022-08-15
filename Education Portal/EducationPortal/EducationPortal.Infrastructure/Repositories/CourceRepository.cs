@@ -66,7 +66,7 @@ namespace EducationPortal.Infrastructure.Repositories
             var course = GetCourceByName(name);
             if (course != null)
             {
-                course.Matherials.Add(material);
+                course.Materials.Add(material);
                 UpdateCourse(name, course);
             }
         }

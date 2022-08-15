@@ -1,4 +1,4 @@
-﻿namespace EducationPortal.Infrastructure.DB.DbModels
+﻿namespace EducationPortal.Infrastructure.DB.DbModels.Common
 {
     internal class BaseEntity
     {

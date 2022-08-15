@@ -2,10 +2,8 @@
 
 namespace EducationPortal.Infrastructure.DB.DbModels
 {
-    internal class DbUser : BaseEntity
+    internal class DbSkill : BaseEntity
     {
-        public string Name { get; set; }
-
-        public string Password { get; set; }
+        public string Title { get; set; }
     }
 }

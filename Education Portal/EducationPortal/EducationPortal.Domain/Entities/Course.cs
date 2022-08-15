@@ -8,6 +8,6 @@ namespace EducationPortal.Domain.Entities
 
         public string Description { get; set; }
 
-        public List<Material> Matherials { get; set; }
+        public List<Material> Materials { get; set; }
     }
 }
