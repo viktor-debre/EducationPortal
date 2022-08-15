@@ -27,11 +27,6 @@ namespace EducationPortal.Infrastructure.Repositories
             return Users;
         }
 
-        public User? GetUserById(string name)
-        {
-            return Users.FirstOrDefault(x => x.Name == name);
-        }
-
         public void SetUser(User user)
         {
             Users.Add(user);
@@ -40,7 +35,7 @@ namespace EducationPortal.Infrastructure.Repositories
 
         public User? GetUserById(int id)
         {
-            throw new NotImplementedException();
+            return Users.FirstOrDefault(x => x.Id == id);
         }
 
         public void UpdateUser(User user)

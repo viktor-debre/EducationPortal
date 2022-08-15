@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EducationPortal.Infrastructure.DB.Migrations
 {
     [DbContext(typeof(PortalContext))]
-    [Migration("20220815101535_AddUsersTable")]
-    partial class AddUsersTable
+    [Migration("20220815121714_CreateUserDBTable")]
+    partial class CreateUserDBTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,10 +30,6 @@ namespace EducationPortal.Infrastructure.DB.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

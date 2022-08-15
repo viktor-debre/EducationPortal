@@ -14,8 +14,14 @@ namespace EducationPortal.Application.Services
         public bool Authenticate(string userName, string password)
         {
             List<User> users = _usersRepository.GetUsers();
-            var idOfUser = users.FirstOrDefault(x => x.Name == userName).Id;
-            User? existingUser = _usersRepository.GetUserById(idOfUser);
+            var checkUser = users.FirstOrDefault(x => x.Name == userName);
+            if (checkUser == null)
+            {
+                return false;
+            }
+
+            int idOfUser = checkUser.Id;
+            User existingUser = _usersRepository.GetUserById(idOfUser);
             if (existingUser == null)
             {
                 return false;

@@ -8,7 +8,8 @@ namespace EducationPortal.Infrastructure.DB
     {
         public static void RegisterDbServices(ServiceCollection services)
         {
-            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddDbContext<PortalContext>()
+                .AddSingleton<IUserRepository, UserRepository>();
         }
     }
 }

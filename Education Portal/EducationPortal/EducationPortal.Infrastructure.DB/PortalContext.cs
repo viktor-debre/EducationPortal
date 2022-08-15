@@ -5,12 +5,14 @@ namespace EducationPortal.Infrastructure.DB
 {
     internal class PortalContext : DbContext
     {
-        public DbSet<DbUser> Users;
-
         public PortalContext() : base()
         {
             Database.EnsureCreated();
         }
+
+        public DbSet<DbUser> Users { get; set; }
+
+        public DbSet<>
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -21,6 +23,8 @@ namespace EducationPortal.Infrastructure.DB
         {
             modelBuilder.Entity<DbUser>()
                     .ToTable("users");
+
+            modelBuilder.Entity<>
         }
     }
 }
