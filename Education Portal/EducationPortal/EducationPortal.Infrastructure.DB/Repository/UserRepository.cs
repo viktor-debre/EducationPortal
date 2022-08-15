@@ -1,7 +1,6 @@
 ﻿using EducationPortal.Domain.Entities;
 using EducationPortal.Domain.Repository;
 using EducationPortal.Infrastructure.DB.DbModels.Common;
-using Microsoft.EntityFrameworkCore;
 
 namespace EducationPortal.Infrastructure.DB.Repository
 {

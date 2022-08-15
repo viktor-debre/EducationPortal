@@ -10,6 +10,8 @@ namespace EducationPortal.Infrastructure.DB
         {
             services.AddDbContext<PortalContext>()
                 .AddSingleton<IUserRepository, UserRepository>()
+                .AddSingleton<IBookRepository, BookRepository>()
+                .AddSingleton<IVideoRepository, VideoRepository>()
                 .AddSingleton<IArticleRepository, ArticleRepository>();
         }
     }

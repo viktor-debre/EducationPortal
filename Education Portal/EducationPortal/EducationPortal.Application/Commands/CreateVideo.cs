@@ -23,9 +23,8 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            _videoRepository.GetVideos();
-            Material? existingMaterial = _videoRepository.GetVideoByName(video.Name);
-            if (existingMaterial != null)
+            var checkArticle = _videoRepository.GetVideos().FirstOrDefault(x => x.Name == video.Name);
+            if (checkArticle != null)
             {
                 return false;
             }

@@ -3,7 +3,7 @@ using EducationPortal.Domain.Repository;
 
 namespace EducationPortal.Infrastructure.DB.Repository
 {
-    internal class ArticleRepository : IArticleRepository
+    internal class ArticleRepository : IArticleRepository, IDisposable
     {
         private readonly PortalContext _context;
 
@@ -18,12 +18,20 @@ namespace EducationPortal.Infrastructure.DB.Repository
             Save();
         }
 
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
+
         public List<ArticleMaterial> GetArticle()
         {
             List<ArticleMaterial> articles = new List<ArticleMaterial>();
             foreach (var article in _context.Materials)
             {
-                articles.Add((ArticleMaterial)article.MapDbMaterialToMaterial());
+                if (article is DbArticleMaterial)
+                {
+                    articles.Add((ArticleMaterial)article.MapDbMaterialToMaterial());
+                }
             }
 
             return articles;

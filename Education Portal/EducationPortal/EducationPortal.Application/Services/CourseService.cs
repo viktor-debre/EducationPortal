@@ -17,9 +17,9 @@ namespace EducationPortal.Application.Services
             _courseRepository.AddMaterial(name, material);
         }
 
-        public bool DeleteCourse(string name)
+        public void DeleteCourse(string name)
         {
-            return _courseRepository.DeleteCourse(name);
+            _courseRepository.DeleteCourse(name);
         }
 
         public List<Course> GetCourses()

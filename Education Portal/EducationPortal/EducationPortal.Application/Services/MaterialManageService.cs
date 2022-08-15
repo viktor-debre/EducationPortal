@@ -36,12 +36,16 @@ namespace EducationPortal.Application.Services
 
         public void UpdateBook(string name, BookMaterial updatedMaterial)
         {
-            _bookRepository.UpdateBook(name, updatedMaterial);
+                _bookRepository.UpdateBook(name, updatedMaterial);
         }
 
-        public bool DeleteBook(string name)
+        public void DeleteBook(string name)
         {
-            return _bookRepository.DeleteBook(name);
+            var deleteBook = _bookRepository.GetBooks().FirstOrDefault(x => x.Name == name);
+            if (deleteBook != null)
+            {
+                _bookRepository.DeleteBook(deleteBook);
+            }
         }
 
         public List<VideoMaterial> GetVideo()
@@ -59,9 +63,13 @@ namespace EducationPortal.Application.Services
             _videoRepository.UpdateVideo(name, updatedMaterial);
         }
 
-        public bool DeleteVideo(string name)
+        public void DeleteVideo(string name)
         {
-            return _videoRepository.DeleteVideo(name);
+            var deleteVideo = _videoRepository.GetVideos().FirstOrDefault(x => x.Name == name);
+            if (deleteVideo != null)
+            {
+                _videoRepository.DeleteVideo(deleteVideo);
+            }
         }
 
         public List<ArticleMaterial> GetArticle()
@@ -81,7 +89,11 @@ namespace EducationPortal.Application.Services
 
         public void DeleteArticle(string name)
         {
-            _articleRepository.DeleteArticle(name);
+            var deleteArticle = _articleRepository.GetArticle().FirstOrDefault(x => x.Name == name);
+            if (deleteArticle != null)
+            {
+                _articleRepository.DeleteArticle(deleteArticle);
+            }
         }
     }
 }

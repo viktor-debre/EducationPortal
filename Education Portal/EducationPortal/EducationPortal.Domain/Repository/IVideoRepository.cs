@@ -4,16 +4,16 @@ namespace EducationPortal.Domain.Repository
 {
     public interface IVideoRepository
     {
-        public List<VideoMaterial> Videos { get; }
-
         public List<VideoMaterial> GetVideos();
 
-        public VideoMaterial GetVideoByName(string name);
+        public VideoMaterial GetVideoById(int id);
 
         public void SetVideo(VideoMaterial material);
 
         public void UpdateVideo(string name, VideoMaterial updatedMaterial);
 
-        public bool DeleteVideo(string name);
+        public void DeleteVideo(VideoMaterial material);
+
+        public void Save();
     }
 }
