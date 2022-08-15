@@ -22,9 +22,8 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            _bookRepository.GetBooks();
-            BookMaterial? existingMaterial = _bookRepository.GetBookByName(book.Name);
-            if (existingMaterial != null)
+            var checkArticle = _bookRepository.GetBooks().FirstOrDefault(x => x.Name == book.Name);
+            if (checkArticle != null)
             {
                 return false;
             }

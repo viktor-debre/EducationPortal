@@ -19,7 +19,7 @@ namespace EducationPortal.Infrastructure.Repositories
 
         public bool DeleteCourse(string name)
         {
-            var course = GetCourceByName(name);
+            var course = GetCourceById(name);
             if (course != null)
             {
                 Courses.Remove(course);
@@ -30,7 +30,7 @@ namespace EducationPortal.Infrastructure.Repositories
             return false;
         }
 
-        public Course? GetCourceByName(string name)
+        public Course? GetCourceById(string name)
         {
             return Courses.FirstOrDefault(x => x.Name == name);
         }
@@ -63,12 +63,27 @@ namespace EducationPortal.Infrastructure.Repositories
         public void AddMaterial(string name, Material material)
         {
             GetCources();
-            var course = GetCourceByName(name);
+            var course = GetCourceById(name);
             if (course != null)
             {
                 course.Materials.Add(material);
                 UpdateCourse(name, course);
             }
+        }
+
+        public Course? GetCourceById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        void ICourseRepository.DeleteCourse(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -58,5 +58,20 @@ namespace EducationPortal.Infrastructure.Repositories
 
             return false;
         }
+
+        public BookMaterial GetBookById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteBook(BookMaterial book)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

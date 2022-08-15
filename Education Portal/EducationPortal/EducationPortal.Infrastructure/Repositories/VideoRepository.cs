@@ -27,7 +27,7 @@ namespace EducationPortal.Infrastructure.Repositories
             return Videos;
         }
 
-        public VideoMaterial? GetVideoByName(string name)
+        public VideoMaterial? GetVideoById(string name)
         {
             return Videos.FirstOrDefault(x => x.Name == name);
         }
@@ -48,7 +48,7 @@ namespace EducationPortal.Infrastructure.Repositories
 
         public bool DeleteVideo(string name)
         {
-            var material = GetVideoByName(name);
+            var material = GetVideoById(name);
             if (material != null)
             {
                 Videos.Remove(material);
@@ -57,6 +57,21 @@ namespace EducationPortal.Infrastructure.Repositories
             }
 
             return false;
+        }
+
+        public VideoMaterial GetVideoById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteVideo(VideoMaterial material)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
         }
     }
 }
