@@ -16,24 +16,26 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void DeleteUser(User user)
         {
-            _context.Users.Remove(user.MapUserToDbUser());
+            //_context.Users.Remove(user.MapUserToDbUser());
             Save();
         }
 
         public List<User> GetUsers()
         {
-            List<User> users = new List<User>();
-            foreach (var user in _context.Users)
-            {
-                users.Add(user.MapDbUserToUser());
-            }
+            //List<User> users = new List<User>();
+            //foreach (var user in _context.Users)
+            //{
+            //    users.Add(user.MapDbUserToUser());
+            //}
 
-            return users;
+            //return users;
+            throw new NotImplementedException();
         }
 
         public User? GetUserById(int id)
         {
-            return _context.Users.Find(id).MapDbUserToUser();
+            //return _context.Users.Find(id).MapDbUserToUser();
+            throw new NotImplementedException();
         }
 
         public void SetUser(User user)

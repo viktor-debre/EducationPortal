@@ -27,7 +27,7 @@ namespace EducationPortal.Infrastructure.Repositories
             return Articles;
         }
 
-        public ArticleMaterial? GetArticleByName(string name)
+        public ArticleMaterial? GetArticleById(string name)
         {
             return Articles.FirstOrDefault(x => x.Name == name);
         }
@@ -48,7 +48,7 @@ namespace EducationPortal.Infrastructure.Repositories
 
         public bool DeleteArticle(string name)
         {
-            var material = GetArticleByName(name);
+            var material = GetArticleById(name);
             if (material != null)
             {
                 Articles.Remove(material);
@@ -57,6 +57,16 @@ namespace EducationPortal.Infrastructure.Repositories
             }
 
             return false;
+        }
+
+        void IArticleRepository.DeleteArticle(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
         }
     }
 }

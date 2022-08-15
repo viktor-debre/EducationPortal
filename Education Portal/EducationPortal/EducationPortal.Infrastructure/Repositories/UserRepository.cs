@@ -37,5 +37,25 @@ namespace EducationPortal.Infrastructure.Repositories
             Users.Add(user);
             _storage.AddItemToStorage(Users, UserPath);
         }
+
+        public User? GetUserById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteUser(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

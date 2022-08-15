@@ -79,9 +79,9 @@ namespace EducationPortal.Application.Services
             _articleRepository.UpdateArticle(name, updatedMaterial);
         }
 
-        public bool DeleteArticle(string name)
+        public void DeleteArticle(string name)
         {
-            return _articleRepository.DeleteArticle(name);
+            _articleRepository.DeleteArticle(name);
         }
     }
 }
