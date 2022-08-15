@@ -22,8 +22,8 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            _userRepository.GetUser();
-            User? existingUser = _userRepository.GetUserByName(newUser.Name);
+            var idOfUser = _userRepository.GetUsers().FirstOrDefault(x => x.Name == newUser.Name).Id;
+            User? existingUser = _userRepository.GetUserById(idOfUser);
             if (existingUser != null)
             {
                 return false;

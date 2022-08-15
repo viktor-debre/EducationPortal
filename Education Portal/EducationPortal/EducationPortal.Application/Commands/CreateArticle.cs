@@ -24,7 +24,7 @@ namespace EducationPortal.Application.Commands
             }
 
             _articleRepository.GetArticle();
-            Material? existingMaterial = _articleRepository.GetArticleByName(article.Name);
+            Material? existingMaterial = _articleRepository.GetArticleById(article.Name);
             if (existingMaterial != null)
             {
                 return false;

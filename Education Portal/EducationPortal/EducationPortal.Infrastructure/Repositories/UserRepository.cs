@@ -16,7 +16,7 @@ namespace EducationPortal.Infrastructure.Repositories
 
         public List<User> Users { get; set; }
 
-        public List<User> GetUser()
+        public List<User> GetUsers()
         {
             List<User> users = _storage.ExctractItemsFromStorage(UserPath);
             if (users != null)
@@ -27,7 +27,7 @@ namespace EducationPortal.Infrastructure.Repositories
             return Users;
         }
 
-        public User? GetUserByName(string name)
+        public User? GetUserById(string name)
         {
             return Users.FirstOrDefault(x => x.Name == name);
         }
