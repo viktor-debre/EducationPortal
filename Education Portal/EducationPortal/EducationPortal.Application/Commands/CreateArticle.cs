@@ -23,9 +23,8 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            _articleRepository.GetArticle();
-            Material? existingMaterial = _articleRepository.GetArticleById(article.Name);
-            if (existingMaterial != null)
+            var checkArticle = _articleRepository.GetArticle().FirstOrDefault(x => x.Name == article.Name);
+            if (checkArticle != null)
             {
                 return false;
             }

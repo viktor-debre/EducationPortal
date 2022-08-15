@@ -10,7 +10,7 @@ namespace EducationPortal.Application.Interfaces.Shared
 
         public void UpdateBook(string name, BookMaterial updatedMaterial);
 
-        public bool DeleteBook(string name);
+        public void DeleteBook(string name);
 
         public List<VideoMaterial> GetVideo();
 
@@ -18,7 +18,7 @@ namespace EducationPortal.Application.Interfaces.Shared
 
         public void UpdateVideo(string name, VideoMaterial updatedMaterial);
 
-        public bool DeleteVideo(string name);
+        public void DeleteVideo(string name);
 
         public List<ArticleMaterial> GetArticle();
 

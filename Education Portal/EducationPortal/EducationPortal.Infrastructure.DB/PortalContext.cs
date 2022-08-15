@@ -12,7 +12,7 @@ namespace EducationPortal.Infrastructure.DB
 
         public DbSet<DbUser> Users { get; set; }
 
-        //public DbSet<Db>
+        public DbSet<DbMaterial> Materials { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -24,7 +24,9 @@ namespace EducationPortal.Infrastructure.DB
             modelBuilder.Entity<DbUser>()
                     .ToTable("users");
 
-            //modelBuilder.Entity<>
+            modelBuilder.Entity<DbBookMaterial>();
+            modelBuilder.Entity<DbVideoMaterial>();
+            modelBuilder.Entity<DbArticleMaterial>();
         }
     }
 }

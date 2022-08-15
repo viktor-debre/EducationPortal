@@ -25,74 +25,45 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             };
         }
 
-        public static ArticleMaterial MapDbArticleToArticle(this DbArticleMaterial article)
+        public static DbMaterial MapMaterialToDbMaterial(this Material material)
         {
-            return new ArticleMaterial
+            DbMaterial result = new DbMaterial();
+            if (material is BookMaterial book)
             {
-                Id = article.Id,
-                Name = article.Name,
-                Source = article.Source,
-                PublicationDate = article.PublicationDate
-            };
-        }
+                result = new DbBookMaterial
+                {
+                    Id = book.Id,
+                    Name = book.Name,
+                    NumberPages = book.NumberPages,
+                    Format = book.Format,
+                    Author = book.Author,
+                    PublicationDate = book.PublicationDate
+                };
+            }
 
-        public static DbArticleMaterial MapArticleToDbArticle(this ArticleMaterial article)
-        {
-            return new DbArticleMaterial
+            if (material is VideoMaterial video)
             {
-                Id = article.Id,
-                Name = article.Name,
-                Source = article.Source,
-                PublicationDate = article.PublicationDate
-            };
-        }
+                result = new DbVideoMaterial
+                {
+                    Id = video.Id,
+                    Name = video.Name,
+                    Quality = video.Quality,
+                    Duration = video.Duration
+                };
+            }
 
-        public static VideoMaterial MapDbVideoToVideo(this DbVideoMaterial video)
-        {
-            return new VideoMaterial
+            if (material is ArticleMaterial article)
             {
-                Id = video.Id,
-                Name = video.Name,
-                Quality = video.Quality,
-                Duration = video.Duration
-            };
-        }
+                result = new DbArticleMaterial
+                {
+                    Id = article.Id,
+                    Name = article.Name,
+                    Source = article.Source,
+                    PublicationDate = article.PublicationDate
+                };
+            }
 
-        public static DbVideoMaterial MapVideoToDbVideo(this VideoMaterial video)
-        {
-            return new DbVideoMaterial
-            {
-                Id = video.Id,
-                Name = video.Name,
-                Quality = video.Quality,
-                Duration = video.Duration
-            };
-        }
-
-        public static BookMaterial MapDbBookToBook(this DbBookMaterial book)
-        {
-            return new BookMaterial
-            {
-                Id = book.Id,
-                Name = book.Name,
-                NumberPages = book.NumberPages,
-                Format = book.Format,
-                Author = book.Author,
-                PublicationDate = book.PublicationDate
-            };
-        }
-
-        public static DbBookMaterial MapBookToDbBook(this BookMaterial book)
-        {
-            return new DbBookMaterial
-            {
-                Id = book.Id,
-                Name = book.Name,
-                NumberPages = book.NumberPages,
-                Format = book.Format,
-                Author = book.Author,
-                PublicationDate = book.PublicationDate
-            };
+            return result;
         }
 
         public static Material MapDbMaterialToMaterial(this DbMaterial material)
@@ -145,6 +116,23 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             }
 
             return new Course
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Description = course.Description,
+                Materials = materials
+            };
+        }
+
+        public static DbCourse MapCourseToDbCourse(this Course course)
+        {
+            var materials = new List<DbMaterial>();
+            foreach (var material in course.Materials)
+            {
+                materials.Add(material.MapMaterialToDbMaterial());
+            }
+
+            return new DbCourse
             {
                 Id = course.Id,
                 Name = course.Name,

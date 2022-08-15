@@ -5,40 +5,50 @@ namespace EducationPortal.Infrastructure.DB.Repository
 {
     internal class ArticleRepository : IArticleRepository
     {
-        private readonly PortalContext _portalContext;
+        private readonly PortalContext _context;
 
         public ArticleRepository(PortalContext context)
         {
-            _portalContext = context;
+            _context = context;
         }
 
-        public void DeleteArticle(string name)
+        public void DeleteArticle(ArticleMaterial article)
         {
+            _context.Materials.Remove(article.MapMaterialToDbMaterial());
+            Save();
         }
 
         public List<ArticleMaterial> GetArticle()
         {
-            throw new NotImplementedException();
+            List<ArticleMaterial> articles = new List<ArticleMaterial>();
+            foreach (var article in _context.Materials)
+            {
+                articles.Add((ArticleMaterial)article.MapDbMaterialToMaterial());
+            }
+
+            return articles;
         }
 
-        public ArticleMaterial? GetArticleById(string name)
+        public ArticleMaterial? GetArticleById(int id)
         {
-            throw new NotImplementedException();
+            return (ArticleMaterial?)_context.Materials.Find(id).MapDbMaterialToMaterial();
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
 
         public void SetArticle(ArticleMaterial material)
         {
-            throw new NotImplementedException();
+            _context.Add(material.MapMaterialToDbMaterial());
+            Save();
         }
 
         public void UpdateArticle(string name, ArticleMaterial updatedMaterial)
         {
-            throw new NotImplementedException();
+            _context.Entry(updatedMaterial.MapMaterialToDbMaterial()).State = EntityState.Modified;
+            Save();
         }
     }
 }

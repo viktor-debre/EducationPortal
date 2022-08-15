@@ -59,12 +59,17 @@ namespace EducationPortal.Infrastructure.Repositories
             return false;
         }
 
-        void IArticleRepository.DeleteArticle(string name)
+        public void Save()
         {
             throw new NotImplementedException();
         }
 
-        public void Save()
+        public ArticleMaterial? GetArticleById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteArticle(ArticleMaterial name)
         {
             throw new NotImplementedException();
         }
