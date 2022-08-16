@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EducationPortal.Infrastructure.DB.Migrations
 {
     [DbContext(typeof(PortalContext))]
-    [Migration("20220816130824_FixNaming")]
-    partial class FixNaming
+    [Migration("20220816165503_CreateCourse")]
+    partial class CreateCourse
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

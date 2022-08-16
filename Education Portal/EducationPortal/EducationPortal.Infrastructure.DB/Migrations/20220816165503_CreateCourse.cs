@@ -4,12 +4,12 @@
 
 namespace EducationPortal.Infrastructure.DB.Migrations
 {
-    public partial class AddCourseMaterialRelation : Migration
+    public partial class CreateCourse : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Course",
+                name: "Courses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -19,11 +19,11 @@ namespace EducationPortal.Infrastructure.DB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DbCourse", x => x.Id);
+                    table.PrimaryKey("PK_Courses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "CourseMaterial",
+                name: "DbCourseDbMaterial",
                 columns: table => new
                 {
                     CoursesId = table.Column<int>(type: "int", nullable: false),
@@ -33,9 +33,9 @@ namespace EducationPortal.Infrastructure.DB.Migrations
                 {
                     table.PrimaryKey("PK_DbCourseDbMaterial", x => new { x.CoursesId, x.MaterialsId });
                     table.ForeignKey(
-                        name: "FK_DbCourseDbMaterial_DbCourse_CoursesId",
+                        name: "FK_DbCourseDbMaterial_Courses_CoursesId",
                         column: x => x.CoursesId,
-                        principalTable: "Course",
+                        principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -48,17 +48,17 @@ namespace EducationPortal.Infrastructure.DB.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_DbCourseDbMaterial_MaterialsId",
-                table: "CourseMaterial",
+                table: "DbCourseDbMaterial",
                 column: "MaterialsId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CourseMaterial");
+                name: "DbCourseDbMaterial");
 
             migrationBuilder.DropTable(
-                name: "Course");
+                name: "Courses");
         }
     }
 }
