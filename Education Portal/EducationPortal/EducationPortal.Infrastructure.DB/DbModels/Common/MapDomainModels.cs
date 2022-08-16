@@ -110,9 +110,12 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
         public static Course MapDbCourseToCourse(this DbCourse course)
         {
             var materials = new List<Material>();
-            foreach (var material in course.Materials)
+            if (course.Materials != null)
             {
-                materials.Add(material.MapDbMaterialToMaterial());
+                foreach (var material in course.Materials)
+                {
+                    materials.Add(material.MapDbMaterialToMaterial());
+                }
             }
 
             return new Course

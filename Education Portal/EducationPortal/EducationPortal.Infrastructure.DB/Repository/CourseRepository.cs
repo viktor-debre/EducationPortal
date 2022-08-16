@@ -57,8 +57,18 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetCourse(Course cource)
         {
-            _context.Courses.Add(cource.MapCourseToDbCourse());
-            Save();
+            DbCourse dbCourse = cource.MapCourseToDbCourse();
+            if (dbCourse != null)
+            {
+                dbCourse.Materials = new List<DbMaterial>();
+                foreach (var material in cource.Materials)
+                {
+                    dbCourse.Materials.Add(_context.Materials.Find(material.Id));
+                }
+
+                _context.Courses.Add(dbCourse);
+                Save();
+            }
         }
 
         public void UpdateCourse(string name, Course updatedCourse)
@@ -69,6 +79,12 @@ namespace EducationPortal.Infrastructure.DB.Repository
                 _context.Update(course);
                 course.Name = updatedCourse.Name;
                 course.Description = updatedCourse.Description;
+                course.Materials = new List<DbMaterial>();
+                foreach (var material in updatedCourse.Materials)
+                {
+                    course.Materials.Add(_context.Materials.Find(material.Id));
+                }
+
                 Save();
             }
         }
