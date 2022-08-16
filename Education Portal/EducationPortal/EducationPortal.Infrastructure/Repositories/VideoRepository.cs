@@ -73,5 +73,10 @@ namespace EducationPortal.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
+        void IVideoRepository.DeleteVideo(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

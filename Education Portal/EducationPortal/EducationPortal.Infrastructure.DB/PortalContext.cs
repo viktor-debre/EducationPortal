@@ -14,6 +14,8 @@ namespace EducationPortal.Infrastructure.DB
 
         public DbSet<DbMaterial> Materials { get; set; }
 
+        public DbSet<DbCourse> Courses { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PortalDb");

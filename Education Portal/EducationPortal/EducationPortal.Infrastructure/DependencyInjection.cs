@@ -8,11 +8,11 @@ namespace EducationPortal.Infrastructure
     {
         public static void RegisterFileSystemServices(ServiceCollection services)
         {
-            services//.AddSingleton<IUserRepository, UserRepository>()
+            //services//.AddSingleton<IUserRepository, UserRepository>()
                     //.AddSingleton<IBookRepository, BookRepository>()
                     //.AddSingleton<IVideoRepository, VideoRepository>()
                     //.AddSingleton<IArticleRepository, ArticleRepository>()
-                    .AddSingleton<ICourseRepository, CourceRepository>();
+                    //.AddSingleton<ICourseRepository, CourceRepository>();
         }
     }
 }
