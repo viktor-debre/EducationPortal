@@ -12,7 +12,7 @@ namespace EducationPortal.Domain.Repository
 
         public void UpdateVideo(string name, VideoMaterial updatedMaterial);
 
-        public void DeleteVideo(VideoMaterial material);
+        public void DeleteVideo(string name);
 
         public void Save();
     }

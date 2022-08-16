@@ -3,7 +3,7 @@ using EducationPortal.Domain.Repository;
 
 namespace EducationPortal.Infrastructure.DB.Repository
 {
-    internal class BookRepository : IBookRepository, IDisposable
+    internal class BookRepository : IBookRepository
     {
         private readonly PortalContext _context;
 
@@ -12,10 +12,14 @@ namespace EducationPortal.Infrastructure.DB.Repository
             _context = context;
         }
 
-        public void DeleteBook(BookMaterial book)
+        public void DeleteBook(string name)
         {
-            _context.Materials.Remove(book.MapMaterialToDbMaterial());
-            Save();
+            var book = _context.Materials.FirstOrDefault(x => x.Name == name);
+            if (book != null)
+            {
+                _context.Materials.Remove(book);
+                Save();
+            }
         }
 
         public BookMaterial? GetBookById(int id)
@@ -52,11 +56,6 @@ namespace EducationPortal.Infrastructure.DB.Repository
         public void Save()
         {
             _context.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
         }
     }
 }

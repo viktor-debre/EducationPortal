@@ -73,5 +73,10 @@ namespace EducationPortal.Infrastructure.Repositories
         {
             throw new NotImplementedException();
         }
+
+        void IBookRepository.DeleteBook(string name)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

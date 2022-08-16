@@ -12,7 +12,7 @@ namespace EducationPortal.Domain.Repository
 
         public void UpdateBook(string name, BookMaterial updatedMaterial);
 
-        public void DeleteBook(BookMaterial book);
+        public void DeleteBook(string name);
 
         public void Save();
     }

@@ -12,10 +12,14 @@ namespace EducationPortal.Infrastructure.DB.Repository
             _context = context;
         }
 
-        public void DeleteVideo(VideoMaterial material)
+        public void DeleteVideo(string name)
         {
-            _context.Materials.Remove(material.MapMaterialToDbMaterial());
-            Save();
+            var video = _context.Materials.FirstOrDefault(x => x.Name == name);
+            if (video != null)
+            {
+                _context.Materials.Remove(video);
+                Save();
+            }
         }
 
         public VideoMaterial? GetVideoById(int id)
