@@ -48,14 +48,21 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetVideo(VideoMaterial material)
         {
-            _context.Add(material.MapMaterialToDbMaterial());
+            _context.Materials.Add(material.MapMaterialToDbMaterial());
             Save();
         }
 
         public void UpdateVideo(string name, VideoMaterial updatedMaterial)
         {
-            _context.Entry(updatedMaterial.MapMaterialToDbMaterial()).State = EntityState.Modified;
-            Save();
+            DbVideoMaterial video = (DbVideoMaterial)_context.Materials.FirstOrDefault(x => x.Name == name);
+            if (video != null)
+            {
+                _context.Update(video);
+                video.Name = updatedMaterial.Name;
+                video.Duration = updatedMaterial.Duration;
+                video.Quality = updatedMaterial.Quality;
+                Save();
+            }
         }
     }
 }

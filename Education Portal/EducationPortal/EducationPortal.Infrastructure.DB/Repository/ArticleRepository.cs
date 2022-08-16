@@ -48,14 +48,21 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetArticle(ArticleMaterial material)
         {
-            _context.Add(material.MapMaterialToDbMaterial());
+            _context.Materials.Add(material.MapMaterialToDbMaterial());
             Save();
         }
 
         public void UpdateArticle(string name, ArticleMaterial updatedMaterial)
         {
-            _context.Entry(updatedMaterial.MapMaterialToDbMaterial()).State = EntityState.Modified;
-            Save();
+            DbArticleMaterial article = (DbArticleMaterial)_context.Materials.FirstOrDefault(x => x.Name == name);
+            if (article != null)
+            {
+                _context.Update(article);
+                article.Name = updatedMaterial.Name;
+                article.Source = updatedMaterial.Source;
+                article.PublicationDate = updatedMaterial.PublicationDate;
+                Save();
+            }
         }
     }
 }

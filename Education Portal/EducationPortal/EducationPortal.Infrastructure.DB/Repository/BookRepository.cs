@@ -43,14 +43,23 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetBook(BookMaterial material)
         {
-            _context.Add(material.MapMaterialToDbMaterial());
+            _context.Materials.Add(material.MapMaterialToDbMaterial());
             Save();
         }
 
         public void UpdateBook(string name, BookMaterial updatedMaterial)
         {
-            _context.Entry(updatedMaterial.MapMaterialToDbMaterial()).State = EntityState.Modified;
-            Save();
+            DbBookMaterial book = (DbBookMaterial)_context.Materials.FirstOrDefault(x => x.Name == name);
+            if (book != null)
+            {
+                _context.Update(book);
+                book.Name = updatedMaterial.Name;
+                book.Format = updatedMaterial.Format;
+                book.Author = updatedMaterial.Author;
+                book.NumberPages = updatedMaterial.NumberPages;
+                book.PublicationDate = updatedMaterial.PublicationDate;
+                Save();
+            }
         }
 
         public void Save()

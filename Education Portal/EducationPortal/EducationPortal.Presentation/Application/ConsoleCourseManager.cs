@@ -123,13 +123,13 @@ namespace EducationPortal.Presentation.Application
             }
 
             string newName;
-            if (!_inputHandler.TryInputStringValue(out newName, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out newName, "new name", operation))
             {
                 return;
             }
 
             string description;
-            if (!_inputHandler.TryInputStringValue(out description, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out description, "description", operation))
             {
                 return;
             }
