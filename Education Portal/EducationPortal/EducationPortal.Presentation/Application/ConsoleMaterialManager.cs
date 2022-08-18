@@ -4,7 +4,6 @@ namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleMaterialManager
     {
-        private const int WrongCommandDelay = 1500;
         private readonly IMaterialManageService _materialManageService;
         private readonly InputHandler _inputHandler = new InputHandler();
 
@@ -23,11 +22,7 @@ namespace EducationPortal.Presentation.Application
                 OutputAllVideos();
                 OutputAllArticles();
 
-                Console.WriteLine("Editing material menu:\n" +
-                    "1 - add book,   \t" + "1d  - delete book,   \t" + "1u - update book\n" +
-                    "2 - add video,  \t" + "2d  - delete video,  \t" + "2u - update video\n" +
-                    "3 - add article,\t" + "3d  - delete article,\t" + "3u - update article\n" +
-                    "quit - go to previous menu");
+                Console.WriteLine(MenuConstants.MATERIAL_MENU);
                 string input = Console.ReadLine() ?? "";
 
                 switch (input)
@@ -63,7 +58,7 @@ namespace EducationPortal.Presentation.Application
                         break;
                     default:
                         Console.WriteLine("Unknown command");
-                        Thread.Sleep(WrongCommandDelay);
+                        Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
                         break;
                 }
             }

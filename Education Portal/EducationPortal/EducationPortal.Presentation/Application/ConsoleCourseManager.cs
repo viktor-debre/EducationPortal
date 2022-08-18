@@ -5,7 +5,6 @@ namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleCourseManager
     {
-        private const int WrongCommandDelay = 1500;
         private readonly ICourseService _courseService;
         private readonly IMaterialManageService _materialManageService;
         private readonly InputHandler _inputHandler = new InputHandler();
@@ -23,11 +22,7 @@ namespace EducationPortal.Presentation.Application
                 Console.Clear();
                 OutputCourses();
 
-                Console.WriteLine("Editing material menu:\n" +
-                   "1 - add course\n" +
-                   "2 - delete course\n" +
-                   "3 - update course\n" +
-                   "quit - go to previous menu");
+                Console.WriteLine(MenuConstants.COURSE_MENU);
                 string input = Console.ReadLine() ?? "";
                 switch (input)
                 {
@@ -44,7 +39,7 @@ namespace EducationPortal.Presentation.Application
                         break;
                     default:
                         Console.WriteLine("Unknown command");
-                        Thread.Sleep(WrongCommandDelay);
+                        Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
                         break;
                 }
             }
@@ -173,7 +168,7 @@ namespace EducationPortal.Presentation.Application
             if (material == null)
             {
                 Console.WriteLine("Material does not exist, adding material in course interrupted!");
-                Thread.Sleep(WrongCommandDelay);
+                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
                 return;
             }
 
@@ -193,7 +188,7 @@ namespace EducationPortal.Presentation.Application
             if (!materials.Remove(material))
             {
                 Console.WriteLine("Material to delete not finded, deleting material in course interrupted!");
-                Thread.Sleep(WrongCommandDelay);
+                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
                 return;
             }
         }
@@ -219,7 +214,7 @@ namespace EducationPortal.Presentation.Application
                         break;
                     default:
                         Console.WriteLine("Unknown command");
-                        Thread.Sleep(WrongCommandDelay);
+                        Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
                         break;
                 }
             }

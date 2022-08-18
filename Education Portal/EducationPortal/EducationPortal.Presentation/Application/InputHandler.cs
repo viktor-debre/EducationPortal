@@ -2,8 +2,6 @@
 {
     internal class InputHandler
     {
-        private const int WrongCommandDelay = 1500;
-
         public bool TryInputStringValue(out string value, string fieldName, string operation)
         {
             Console.WriteLine($"Input {fieldName} for {operation}: ");
@@ -12,7 +10,7 @@
             if (string.IsNullOrEmpty(input))
             {
                 Console.WriteLine($"Empty {fieldName}, {operation} interrupted!");
-                Thread.Sleep(WrongCommandDelay);
+                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
                 return false;
             }
 
@@ -27,7 +25,7 @@
             if (!int.TryParse(numberString, out number))
             {
                 Console.WriteLine($"Wrong {fieldName} {operation} interrupted!");
-                Thread.Sleep(WrongCommandDelay);
+                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
                 value = 0;
                 return false;
             }
@@ -46,7 +44,7 @@
             if (!DateTime.TryParse(dateString, out dateValue))
             {
                 Console.WriteLine($"Wrong {fieldName} {operation} interrupted!");
-                Thread.Sleep(WrongCommandDelay);
+                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
                 value = DateTime.Now;
                 return false;
             }
@@ -65,7 +63,7 @@
             if (!TimeSpan.TryParse(dateString, out dateValue))
             {
                 Console.WriteLine($"Wrong {fieldName} {operation} interrupted!");
-                Thread.Sleep(WrongCommandDelay);
+                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
                 value = TimeSpan.MinValue;
                 return false;
             }

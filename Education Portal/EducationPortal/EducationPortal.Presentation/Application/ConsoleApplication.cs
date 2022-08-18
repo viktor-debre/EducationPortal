@@ -18,26 +18,37 @@ namespace EducationPortal.Presentation.Application
         public void Run()
         {
             Console.OutputEncoding = Encoding.Unicode;
-
-            _consoleAuthentication.Authenticate();
-
             Console.InputEncoding = Encoding.Unicode;
+
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Type 'material' to edit materials or 'course' to edit course");
+                _consoleAuthentication.AuthenticationMenu();
+                MainMenu();
+            }
+        }
+
+        private void MainMenu()
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(MenuConstants.MAIN_MENU);
                 string input = Console.ReadLine() ?? "";
                 switch (input)
                 {
-                    case "material":
+                    case "1":
                         _materialManager.EditMaterials();
                         break;
-                    case "course":
+                    case "2":
                         _courseManager.EditCources();
                         break;
+                    case "3":
+                        return;
+                        break;
                     default:
-                        Console.WriteLine("Unknown command.");
-                        Thread.Sleep(500);
+                        Console.WriteLine(MenuConstants.WRONG_COMMAND);
+                        Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
                         break;
                 }
             }
