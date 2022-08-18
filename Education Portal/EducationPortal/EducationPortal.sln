@@ -12,11 +12,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPortal.Presentatio
 		{BAC0EBE5-A121-427E-A270-C7243817F24E} = {BAC0EBE5-A121-427E-A270-C7243817F24E}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPortal.Infrastructure", "EducationPortal.Infrastructure\EducationPortal.Infrastructure.csproj", "{8DA235DB-C528-46DB-AE71-1A027C09E513}"
-	ProjectSection(ProjectDependencies) = postProject
-		{BAC0EBE5-A121-427E-A270-C7243817F24E} = {BAC0EBE5-A121-427E-A270-C7243817F24E}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPortal.Application", "EducationPortal.Application\EducationPortal.Application.csproj", "{BAC0EBE5-A121-427E-A270-C7243817F24E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{22E60C51-6E24-4B49-86D0-CF354A188873} = {22E60C51-6E24-4B49-86D0-CF354A188873}
@@ -27,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPortal.Infrastructure.DB", "EducationPortal.Infrastructure.DB\EducationPortal.Infrastructure.DB.csproj", "{EBA1FBAE-7C67-44D6-B836-151C0ADE122E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPortal.Infrastructure.DB", "EducationPortal.Infrastructure.DB\EducationPortal.Infrastructure.DB.csproj", "{EBA1FBAE-7C67-44D6-B836-151C0ADE122E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +38,6 @@ Global
 		{8E674189-B786-4967-87D4-F4C55D49A021}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E674189-B786-4967-87D4-F4C55D49A021}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E674189-B786-4967-87D4-F4C55D49A021}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8DA235DB-C528-46DB-AE71-1A027C09E513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8DA235DB-C528-46DB-AE71-1A027C09E513}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8DA235DB-C528-46DB-AE71-1A027C09E513}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8DA235DB-C528-46DB-AE71-1A027C09E513}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BAC0EBE5-A121-427E-A270-C7243817F24E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BAC0EBE5-A121-427E-A270-C7243817F24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAC0EBE5-A121-427E-A270-C7243817F24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -62,7 +53,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{22E60C51-6E24-4B49-86D0-CF354A188873} = {1BA0BA5C-4525-41AB-8CFA-8774DDF56A34}
 		{8E674189-B786-4967-87D4-F4C55D49A021} = {1BA0BA5C-4525-41AB-8CFA-8774DDF56A34}
-		{8DA235DB-C528-46DB-AE71-1A027C09E513} = {1BA0BA5C-4525-41AB-8CFA-8774DDF56A34}
 		{BAC0EBE5-A121-427E-A270-C7243817F24E} = {1BA0BA5C-4525-41AB-8CFA-8774DDF56A34}
 		{EBA1FBAE-7C67-44D6-B836-151C0ADE122E} = {1BA0BA5C-4525-41AB-8CFA-8774DDF56A34}
 	EndGlobalSection

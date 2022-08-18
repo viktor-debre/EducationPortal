@@ -24,7 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\EducationPortal.Application\EducationPortal.Application.csproj" />
     <ProjectReference Include="..\EducationPortal.Infrastructure.DB\EducationPortal.Infrastructure.DB.csproj" />
-    <ProjectReference Include="..\EducationPortal.Infrastructure\EducationPortal.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
