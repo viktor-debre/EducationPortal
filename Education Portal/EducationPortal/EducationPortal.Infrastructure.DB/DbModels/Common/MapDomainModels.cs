@@ -143,5 +143,23 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
                 Materials = materials
             };
         }
+
+        public static Skill MapDbSkillToSkill(this DbSkill skill)
+        {
+            return new Skill
+            {
+                Id = skill.Id,
+                Title = skill.Title
+            };
+        }
+
+        public static DbSkill MapSkillToDbSkill(this Skill skill)
+        {
+            return new DbSkill
+            {
+                Id = skill.Id,
+                Title = skill.Title
+            };
+        }
     }
 }
