@@ -27,9 +27,9 @@ namespace EducationPortal.Application.Services
             return _courseRepository.GetCources();
         }
 
-        public void SetCourse(Course book)
+        public void SetCourse(Course course)
         {
-            _courseRepository.SetCourse(book);
+            _courseRepository.SetCourse(course);
         }
 
         public void UpdateCourse(string name, Course updatedCourse)
