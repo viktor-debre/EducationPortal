@@ -12,17 +12,12 @@ namespace EducationPortal.Infrastructure.DB.Repository
             _context = context;
         }
 
-        public Skill? GetSkillById(int id)
-        {
-            return _context.Skills.Find(id).MapDbSkillToSkill();
-        }
-
         public void DeleteSkill(int id)
         {
             var skill = GetSkillById(id);
             if (skill != null)
             {
-                _context.Skills.Remove(skill.MapSkillToDbSkill());
+                _context.Skills.Remove(skill);
                 Save();
             }
         }
@@ -46,7 +41,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void UpdateSkill(int id, Skill updatedSkill)
         {
-            DbSkill skill = GetSkillById(id).MapSkillToDbSkill();
+            DbSkill skill = GetSkillById(id);
             if (skill != null)
             {
                 _context.Update(skill);
@@ -58,6 +53,11 @@ namespace EducationPortal.Infrastructure.DB.Repository
         public void Save()
         {
             _context.SaveChanges();
+        }
+
+        private DbSkill? GetSkillById(int id)
+        {
+            return _context.Skills.Find(id);
         }
     }
 }

@@ -7,21 +7,41 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
     {
         public static User MapDbUserToUser(this DbUser user)
         {
+            var skills = new List<Skill>();
+            if (user.UserSkills != null)
+            {
+                foreach (var skill in user.UserSkills)
+                {
+                    if (user.Id == skill.UserId)
+                    {
+                        skills.Add(skill.Skill.MapDbSkillToSkill());
+                    }
+                }
+            }
+
             return new User
             {
                 Id = user.Id,
                 Name = user.Name,
-                Password = user.Password
+                Password = user.Password,
+                Skills = skills
             };
         }
 
         public static DbUser MapUserToDbUser(this User user)
         {
+            var skills = new List<DbSkill>();
+            foreach (var skill in user.Skills)
+            {
+                skills.Add(skill.MapSkillToDbSkill());
+            }
+
             return new DbUser
             {
                 Id = user.Id,
                 Name = user.Name,
-                Password = user.Password
+                Password = user.Password,
+                Skills = skills
             };
         }
 

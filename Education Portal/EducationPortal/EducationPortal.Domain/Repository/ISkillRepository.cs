@@ -4,8 +4,6 @@
     {
         public List<Skill> GetSkill();
 
-        public Skill? GetSkillById(int id);
-
         public void SetSkill(Skill skill);
 
         public void UpdateSkill(int id, Skill updatedSkill);
