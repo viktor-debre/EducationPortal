@@ -28,7 +28,16 @@ namespace EducationPortal.Infrastructure.DB
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DbUser>()
-                    .ToTable("users");
+                    .ToTable("Users");
+
+            modelBuilder.Entity<DbMaterial>()
+                    .ToTable("Materials");
+
+            modelBuilder.Entity<DbCourse>()
+                    .ToTable("Courses");
+
+            modelBuilder.Entity<DbSkill>()
+                    .ToTable("Skills");
 
             modelBuilder.Entity<DbBookMaterial>();
             modelBuilder.Entity<DbVideoMaterial>();

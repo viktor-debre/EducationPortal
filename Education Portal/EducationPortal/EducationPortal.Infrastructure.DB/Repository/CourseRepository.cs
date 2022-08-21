@@ -42,7 +42,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
         public List<Course> GetCources()
         {
             List<Course> courses = new List<Course>();
-            var dbCourses = _context.Courses.Include(x => x.Materials).ToList();
+            var dbCourses = _context.Courses.Include(x => x.Materials).Include(x => x.Skills).ToList();
             foreach (var course in dbCourses)
             {
                 courses.Add(course.MapDbCourseToCourse());
@@ -56,16 +56,22 @@ namespace EducationPortal.Infrastructure.DB.Repository
             _context.SaveChanges();
         }
 
-        public void SetCourse(Course cource)
+        public void SetCourse(Course course)
         {
-            DbCourse dbCourse = cource.MapCourseToDbCourse();
+            DbCourse dbCourse = course.MapCourseToDbCourse();
 
             if (dbCourse != null)
             {
                 dbCourse.Materials = new List<DbMaterial>();
-                foreach (var material in cource.Materials)
+                foreach (var material in course.Materials)
                 {
                     dbCourse.Materials.Add(_context.Materials.Find(material.Id));
+                }
+
+                dbCourse.Skills = new List<DbSkill>();
+                foreach (var skill in course.Skills)
+                {
+                    dbCourse.Skills.Add(_context.Skills.Find(skill.Id));
                 }
 
                 _context.Courses.Add(dbCourse);
@@ -85,6 +91,12 @@ namespace EducationPortal.Infrastructure.DB.Repository
                 foreach (var material in updatedCourse.Materials)
                 {
                     course.Materials.Add(_context.Materials.Find(material.Id));
+                }
+
+                course.Skills = new List<DbSkill>();
+                foreach (var skill in updatedCourse.Skills)
+                {
+                    course.Skills.Add(_context.Skills.Find(skill.Id));
                 }
 
                 _context.Update(course);
