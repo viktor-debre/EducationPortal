@@ -9,5 +9,7 @@ namespace EducationPortal.Infrastructure.DB.DbModels
         public ICollection<DbUser> Users { get; set; }
 
         public List<DbUserSkill> UserSkills { get; set; }
+
+        public ICollection<DbCourse> Courses { get; set; }
     }
 }

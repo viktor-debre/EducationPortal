@@ -138,12 +138,22 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
                 }
             }
 
+            var skills = new List<Skill>();
+            if (course.Skills != null)
+            {
+                foreach (var skill in course.Skills)
+                {
+                    skills.Add(skill.MapDbSkillToSkill());
+                }
+            }
+
             return new Course
             {
                 Id = course.Id,
                 Name = course.Name,
                 Description = course.Description,
-                Materials = materials
+                Materials = materials,
+                Skills = skills
             };
         }
 
@@ -155,12 +165,19 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
                 materials.Add(material.MapMaterialToDbMaterial());
             }
 
+            var skills = new List<DbSkill>();
+            foreach (var skill in course.Skills)
+            {
+                skills.Add(skill.MapSkillToDbSkill());
+            }
+
             return new DbCourse
             {
                 Id = course.Id,
                 Name = course.Name,
                 Description = course.Description,
-                Materials = materials
+                Materials = materials,
+                Skills = skills
             };
         }
 

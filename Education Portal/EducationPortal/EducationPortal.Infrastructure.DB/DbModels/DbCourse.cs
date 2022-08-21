@@ -7,5 +7,7 @@
         public string Description { get; set; }
 
         public ICollection<DbMaterial>? Materials { get; set; }
+
+        public ICollection<DbSkill> Skills { get; set; }
     }
 }
