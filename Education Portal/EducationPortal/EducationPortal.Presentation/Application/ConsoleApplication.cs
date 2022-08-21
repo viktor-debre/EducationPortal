@@ -17,7 +17,7 @@ namespace EducationPortal.Presentation.Application
         {
             _consoleAuthentication = new ConsoleAuthentication(userAuthenticationService, userRegistration);
             _materialManager = new ConsoleMaterialManager(materialManageService);
-            _courseManager = new ConsoleCourseManager(courseService, materialManageService);
+            _courseManager = new ConsoleCourseManager(courseService, materialManageService, skillService);
             _skillManager = new ConsoleSkillManager(skillService);
         }
 
