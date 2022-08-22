@@ -47,10 +47,10 @@ namespace EducationPortal.Presentation.Application
                         _materialManager.EditMaterials();
                         break;
                     case "2":
-                        _courseManager.EditCources();
+                        _skillManager.EditSkills();
                         break;
                     case "3":
-                        _skillManager.EditSkills();
+                        _courseManager.EditCources();
                         break;
                     case "4":
                         return;

@@ -10,8 +10,8 @@
 
         public static string MAIN_MENU = "Type:\n" +
             "1 - to edit materials\n" +
-            "2 - to edit courses\n" +
-            "3 - to edit skills\n" +
+            "2 - to edit skills\n" +
+            "3 - to edit courses\n" +
             "4 - logout";
 
         public static string MATERIAL_MENU = "Editing material menu:\n" +
