@@ -1,12 +1,13 @@
 ﻿namespace EducationPortal.Presentation.Application
 {
-    internal static class MenuConstants
+    internal static class MenuStrings
     {
-        public const int WRONG_COMMAND_DELAY = 1500;
-
         public static string AUTH_MENU = "Input command to countinue work:\n" +
             "1 - to authenticate\n" +
             "2 - to register";
+
+        public static string REGISTRATION_MENU = "Registration. Input username and password.\n" +
+            "Type quit command to return to authtentication";
 
         public static string MAIN_MENU = "Type:\n" +
             "1 - to edit materials\n" +
@@ -26,12 +27,18 @@
             "3 - update course\n" +
             "quit - go to previous menu";
 
+        public static string COURSE_MATERIAL_MENU = "Input 'add' - add material or " +
+            "'del' - to delete material or " +
+            "'stop' - to stop modifing";
+
+        public static string COURSE_SKILL_MENU = "Input 'add' - add skill or " +
+            "'del' - to delete skill or " +
+            "'stop' - to stop modifing";
+
         public static string SKILL_MENU = "Editing skill menu:\n" +
             "1 - add skill\n" +
-            "2- delete skill\n" +
+            "2 - delete skill\n" +
             "3 - update skill\n" +
             "quit - go to previous menu";
-
-        public static string WRONG_COMMAND = "Wrong command!";
     }
 }
