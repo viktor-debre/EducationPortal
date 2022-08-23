@@ -19,7 +19,8 @@ namespace EducationPortal.Presentation.Application
                 Console.Clear();
                 OutputSkills();
 
-                Console.WriteLine(MenuConstants.SKILL_MENU);
+                Console.WriteLine(MenuStrings.SKILL_MENU);
+
                 string input = Console.ReadLine() ?? "";
                 switch (input)
                 {
@@ -35,8 +36,8 @@ namespace EducationPortal.Presentation.Application
                         UpdateSkill();
                         break;
                     default:
-                        Console.WriteLine("Unknown command");
-                        Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                        Console.WriteLine(Result.WRONG_COMMAND);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                         break;
                 }
             }
@@ -49,14 +50,14 @@ namespace EducationPortal.Presentation.Application
             foreach (var skill in skills)
             {
                 Console.WriteLine($"Title: {skill.Title}");
+                Console.WriteLine("---<>---");
             }
         }
 
         private void AddSkill()
         {
-            string operation = "adding skill";
             string title;
-            if (!_inputHandler.TryInputStringValue(out title, "title", operation))
+            if (!_inputHandler.TryInputStringValue(out title, "title", Operation.ADDING, EntityName.SKILL))
             {
                 return;
             }
@@ -70,9 +71,8 @@ namespace EducationPortal.Presentation.Application
 
         private void DeleteSkill()
         {
-            string operation = "deleting skill";
             string title;
-            if (!_inputHandler.TryInputStringValue(out title, "title", operation))
+            if (!_inputHandler.TryInputStringValue(out title, "title", Operation.DELETING, EntityName.SKILL))
             {
                 return;
             }
@@ -84,15 +84,14 @@ namespace EducationPortal.Presentation.Application
 
         private void UpdateSkill()
         {
-            string operation = "update skill";
             string title;
-            if (!_inputHandler.TryInputStringValue(out title, "title", operation))
+            if (!_inputHandler.TryInputStringValue(out title, "title", Operation.UPDATING, EntityName.SKILL))
             {
                 return;
             }
 
             string newTitle;
-            if (!_inputHandler.TryInputStringValue(out newTitle, "new title", operation))
+            if (!_inputHandler.TryInputStringValue(out newTitle, "new title", Operation.UPDATING, EntityName.SKILL))
             {
                 return;
             }

@@ -22,7 +22,7 @@ namespace EducationPortal.Presentation.Application
                 OutputAllVideos();
                 OutputAllArticles();
 
-                Console.WriteLine(MenuConstants.MATERIAL_MENU);
+                Console.WriteLine(MenuStrings.MATERIAL_MENU);
                 string input = Console.ReadLine() ?? "";
 
                 switch (input)
@@ -57,8 +57,8 @@ namespace EducationPortal.Presentation.Application
                         UpdateArticle();
                         break;
                     default:
-                        Console.WriteLine("Unknown command");
-                        Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                        Console.WriteLine(Result.WRONG_COMMAND);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                         break;
                 }
             }
@@ -71,6 +71,7 @@ namespace EducationPortal.Presentation.Application
             foreach (BookMaterial book in bookMaterials)
             {
                 Console.WriteLine($"{book.Name} NumberOfPages: {book.NumberPages} {book.Author} format: {book.Format} publication date: {book.PublicationDate.ToString("MM/dd/yyyy")}");
+                Console.WriteLine("---<>---");
             }
         }
 
@@ -81,6 +82,7 @@ namespace EducationPortal.Presentation.Application
             foreach (VideoMaterial video in videoMaterials)
             {
                 Console.WriteLine($"{video.Name} Duration: {video.Duration} Quality: {video.Quality}");
+                Console.WriteLine("---<>---");
             }
         }
 
@@ -91,38 +93,38 @@ namespace EducationPortal.Presentation.Application
             foreach (ArticleMaterial article in articleMaterials)
             {
                 Console.WriteLine($"{article.Name} Source: {article.Source} PublicationDate: {article.PublicationDate}");
+                Console.WriteLine("---<>---");
             }
         }
 
         private void AddBook()
         {
-            string operation = "adding book";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING, EntityName.BOOK))
             {
                 return;
             }
 
             string author;
-            if (!_inputHandler.TryInputStringValue(out author, "author name", operation))
+            if (!_inputHandler.TryInputStringValue(out author, "author name", Operation.ADDING, EntityName.BOOK))
             {
                 return;
             }
 
             string format;
-            if (!_inputHandler.TryInputStringValue(out format, "format: ", operation))
+            if (!_inputHandler.TryInputStringValue(out format, "format: ", Operation.ADDING, EntityName.BOOK))
             {
                 return;
             }
 
             int numberOfPages;
-            if (!_inputHandler.TryInputIntValue(out numberOfPages, "number of pages", operation))
+            if (!_inputHandler.TryInputIntValue(out numberOfPages, "number of pages", Operation.ADDING, EntityName.BOOK))
             {
                 return;
             }
 
             DateTime publicationDate;
-            if (!_inputHandler.TryInputDateTimeValue(out publicationDate, "publication date", operation))
+            if (!_inputHandler.TryInputDateTimeValue(out publicationDate, "publication date", Operation.ADDING, EntityName.BOOK))
             {
                 return;
             }
@@ -140,9 +142,8 @@ namespace EducationPortal.Presentation.Application
 
         private void DeleteBook()
         {
-            string operation = "deleting book";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING, EntityName.BOOK))
             {
                 return;
             }
@@ -154,39 +155,38 @@ namespace EducationPortal.Presentation.Application
 
         private void UpdateBook()
         {
-            string operation = "updating book";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.UPDATING, EntityName.BOOK))
             {
                 return;
             }
 
             string newName;
-            if (!_inputHandler.TryInputStringValue(out newName, "new name", operation))
+            if (!_inputHandler.TryInputStringValue(out newName, "new name", Operation.UPDATING, EntityName.BOOK))
             {
                 return;
             }
 
             string author;
-            if (!_inputHandler.TryInputStringValue(out author, "author name", operation))
+            if (!_inputHandler.TryInputStringValue(out author, "author name", Operation.UPDATING, EntityName.BOOK))
             {
                 return;
             }
 
             string format;
-            if (!_inputHandler.TryInputStringValue(out format, "format", operation))
+            if (!_inputHandler.TryInputStringValue(out format, "format", Operation.UPDATING, EntityName.BOOK))
             {
                 return;
             }
 
             int numberOfPages;
-            if (!_inputHandler.TryInputIntValue(out numberOfPages, "number of pages", operation))
+            if (!_inputHandler.TryInputIntValue(out numberOfPages, "number of pages", Operation.UPDATING, EntityName.BOOK))
             {
                 return;
             }
 
             DateTime publicationDate;
-            if (!_inputHandler.TryInputDateTimeValue(out publicationDate, "publication date", operation))
+            if (!_inputHandler.TryInputDateTimeValue(out publicationDate, "publication date", Operation.UPDATING, EntityName.BOOK))
             {
                 return;
             }
@@ -204,21 +204,20 @@ namespace EducationPortal.Presentation.Application
 
         private void AddVideo()
         {
-            string operation = "adding video";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING, EntityName.VIDEO))
             {
                 return;
             }
 
             string quality;
-            if (!_inputHandler.TryInputStringValue(out quality, "quality", operation))
+            if (!_inputHandler.TryInputStringValue(out quality, "quality", Operation.ADDING, EntityName.VIDEO))
             {
                 return;
             }
 
             TimeSpan duration;
-            if (!_inputHandler.TryInputTimeSpanValue(out duration, "duration", operation))
+            if (!_inputHandler.TryInputTimeSpanValue(out duration, "duration", Operation.ADDING, EntityName.VIDEO))
             {
                 return;
             }
@@ -234,9 +233,8 @@ namespace EducationPortal.Presentation.Application
 
         private void DeleteVideo()
         {
-            string operation = "deleting video";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING, EntityName.VIDEO))
             {
                 return;
             }
@@ -248,27 +246,26 @@ namespace EducationPortal.Presentation.Application
 
         private void UpdateVideo()
         {
-            string operation = "updating video";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.UPDATING, EntityName.VIDEO))
             {
                 return;
             }
 
             string newName;
-            if (!_inputHandler.TryInputStringValue(out newName, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out newName, "name", Operation.UPDATING, EntityName.VIDEO))
             {
                 return;
             }
 
             string quality;
-            if (!_inputHandler.TryInputStringValue(out quality, "quality", operation))
+            if (!_inputHandler.TryInputStringValue(out quality, "quality", Operation.UPDATING, EntityName.VIDEO))
             {
                 return;
             }
 
             TimeSpan duration;
-            if (!_inputHandler.TryInputTimeSpanValue(out duration, "duration", operation))
+            if (!_inputHandler.TryInputTimeSpanValue(out duration, "duration", Operation.UPDATING, EntityName.VIDEO))
             {
                 return;
             }
@@ -284,21 +281,20 @@ namespace EducationPortal.Presentation.Application
 
         private void AddArticle()
         {
-            string operation = "adding article";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING, EntityName.ARTICLE))
             {
                 return;
             }
 
             string source;
-            if (!_inputHandler.TryInputStringValue(out source, "source", operation))
+            if (!_inputHandler.TryInputStringValue(out source, "source", Operation.ADDING, EntityName.ARTICLE))
             {
                 return;
             }
 
             DateTime publicationDate;
-            if (!_inputHandler.TryInputDateTimeValue(out publicationDate, "publication date", operation))
+            if (!_inputHandler.TryInputDateTimeValue(out publicationDate, "publication date", Operation.ADDING, EntityName.ARTICLE))
             {
                 return;
             }
@@ -314,9 +310,8 @@ namespace EducationPortal.Presentation.Application
 
         private void DeleteArticle()
         {
-            string operation = "delete article";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING, EntityName.ARTICLE))
             {
                 return;
             }
@@ -328,28 +323,26 @@ namespace EducationPortal.Presentation.Application
 
         private void UpdateArticle()
         {
-            string operation = "updating article";
-
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.UPDATING, EntityName.ARTICLE))
             {
                 return;
             }
 
             string newName;
-            if (!_inputHandler.TryInputStringValue(out newName, "new name", operation))
+            if (!_inputHandler.TryInputStringValue(out newName, "new name", Operation.UPDATING, EntityName.ARTICLE))
             {
                 return;
             }
 
             string source;
-            if (!_inputHandler.TryInputStringValue(out source, "source", operation))
+            if (!_inputHandler.TryInputStringValue(out source, "source", Operation.UPDATING, EntityName.ARTICLE))
             {
                 return;
             }
 
             DateTime publicationDate;
-            if (!_inputHandler.TryInputDateTimeValue(out publicationDate, "publication date", operation))
+            if (!_inputHandler.TryInputDateTimeValue(out publicationDate, "publication date", Operation.UPDATING, EntityName.ARTICLE))
             {
                 return;
             }

@@ -17,7 +17,7 @@
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine(MenuConstants.AUTH_MENU);
+                Console.WriteLine(MenuStrings.AUTH_MENU);
 
                 string input = Console.ReadLine();
                 switch (input)
@@ -33,7 +33,8 @@
                         _registerUser.RegisterUser();
                         break;
                     default:
-                        Console.WriteLine(MenuConstants.WRONG_COMMAND);
+                        Console.WriteLine(Result.WRONG_COMMAND);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                         break;
                 }
             }
@@ -42,7 +43,7 @@
         public bool Authenticate()
         {
             string input;
-            if (!_inputHandler.TryInputStringValue(out input, "username and password", Operation.AUTHORIZING))
+            if (!_inputHandler.TryInputStringValue(out input, "username and password", Operation.AUTHORIZING, EntityName.USER))
             {
                 return false;
             }
@@ -52,7 +53,7 @@
             if (authenticationData.Length != 2)
             {
                 Console.WriteLine("Wrong lenth for name or password data.");
-                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                 return false;
             }
 
@@ -67,12 +68,12 @@
                 {
                     Console.Clear();
                     Console.WriteLine("You successfully authorized.");
-                    Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                    Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                     return true;
                 }
 
                 Console.WriteLine("You entered not existing name or wrong password data.");
-                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                 return false;
             }
             else

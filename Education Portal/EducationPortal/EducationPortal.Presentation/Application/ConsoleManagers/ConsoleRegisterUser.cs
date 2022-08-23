@@ -13,7 +13,8 @@
         {
             while (true)
             {
-                Console.WriteLine("Registration. Input username and password. Type quit command to return to authtentication");
+                Console.WriteLine(MenuStrings.REGISTRATION_MENU);
+
                 string input = Console.ReadLine() ?? "";
                 bool isValidInput = true;
                 string[] registrationData = input.Split(" ");
@@ -26,7 +27,7 @@
                 if (registrationData.Length != 2)
                 {
                     Console.WriteLine("Wrong command for name or password data.");
-                    Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                    Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                     continue;
                 }
 
@@ -40,7 +41,7 @@
                     if (!_userRegistration.TryCreateUser(registrationData[0], registrationData[1]))
                     {
                         Console.WriteLine("User with this name already exists.");
-                        Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                         continue;
                     }
 
@@ -49,7 +50,7 @@
                 else
                 {
                     Console.WriteLine("Wrong format for name or password data.");
-                    Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                    Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                 }
             }
         }

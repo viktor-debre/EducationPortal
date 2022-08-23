@@ -26,7 +26,7 @@ namespace EducationPortal.Presentation.Application
                 Console.Clear();
                 OutputCourses();
 
-                Console.WriteLine(MenuConstants.COURSE_MENU);
+                Console.WriteLine(MenuStrings.COURSE_MENU);
                 string input = Console.ReadLine() ?? "";
                 switch (input)
                 {
@@ -42,8 +42,8 @@ namespace EducationPortal.Presentation.Application
                         UpdateCourse();
                         break;
                     default:
-                        Console.WriteLine(MenuConstants.WRONG_COMMAND);
-                        Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                        Console.WriteLine(Result.WRONG_COMMAND);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                         break;
                 }
             }
@@ -112,13 +112,13 @@ namespace EducationPortal.Presentation.Application
         private void AddCourse()
         {
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING + Operation.COURSE))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING, EntityName.COURSE))
             {
                 return;
             }
 
             string description;
-            if (!_inputHandler.TryInputStringValue(out description, "description", Operation.ADDING + Operation.COURSE))
+            if (!_inputHandler.TryInputStringValue(out description, "description", Operation.ADDING, EntityName.COURSE))
             {
                 return;
             }
@@ -141,7 +141,7 @@ namespace EducationPortal.Presentation.Application
         private void DeleteCourse()
         {
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING + Operation.COURSE))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING, EntityName.COURSE))
             {
                 return;
             }
@@ -154,19 +154,19 @@ namespace EducationPortal.Presentation.Application
         private void UpdateCourse()
         {
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.UPDATING + Operation.COURSE))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.UPDATING, EntityName.COURSE))
             {
                 return;
             }
 
             string newName;
-            if (!_inputHandler.TryInputStringValue(out newName, "new name", Operation.UPDATING + Operation.COURSE))
+            if (!_inputHandler.TryInputStringValue(out newName, "new name", Operation.UPDATING, EntityName.COURSE))
             {
                 return;
             }
 
             string description;
-            if (!_inputHandler.TryInputStringValue(out description, "description", Operation.UPDATING + Operation.COURSE))
+            if (!_inputHandler.TryInputStringValue(out description, "description", Operation.UPDATING, EntityName.COURSE))
             {
                 return;
             }
@@ -203,9 +203,8 @@ namespace EducationPortal.Presentation.Application
         private void AddMaterialInCourse(List<Material> materials)
         {
             var allMaterials = AllMaterials();
-            string operation = "adding material in course";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING + Operation.MATERIAL + Operation.IN_COURSE))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING, EntityName.COURSE_MATERIAL))
             {
                 return;
             }
@@ -213,8 +212,8 @@ namespace EducationPortal.Presentation.Application
             var material = allMaterials.FirstOrDefault(x => x.Name == name);
             if (material == null)
             {
-                Console.WriteLine("Material does not exist, adding material in course interrupted!");
-                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                Console.WriteLine($"{EntityName.MATERIAL} {Result.DOES_NOT_EXIST} {Operation.ADDING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                 return;
             }
 
@@ -223,9 +222,8 @@ namespace EducationPortal.Presentation.Application
 
         private void DeleteMaterialInCourse(List<Material> materials)
         {
-            string operation = "deleting material in course";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING, EntityName.COURSE_MATERIAL))
             {
                 return;
             }
@@ -233,8 +231,8 @@ namespace EducationPortal.Presentation.Application
             var material = materials.FirstOrDefault(x => x.Name == name);
             if (!materials.Remove(material))
             {
-                Console.WriteLine("Material to delete not finded, deleting material in course interrupted!");
-                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                Console.WriteLine($"{EntityName.MATERIAL} {Result.DOES_NOT_EXIST} {Operation.DELETING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                 return;
             }
         }
@@ -243,11 +241,9 @@ namespace EducationPortal.Presentation.Application
         {
             while (true)
             {
-                Console.WriteLine("Input 'add' - add material or " +
-                    "'del' - to delete material or " +
-                    "'stop' - to stop modifing");
-                var input = Console.ReadLine();
+                Console.WriteLine(MenuStrings.COURSE_MATERIAL_MENU);
 
+                var input = Console.ReadLine();
                 switch (input)
                 {
                     case "stop":
@@ -259,8 +255,8 @@ namespace EducationPortal.Presentation.Application
                         DeleteMaterialInCourse(materials);
                         break;
                     default:
-                        Console.WriteLine("Unknown command");
-                        Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                        Console.WriteLine(Result.WRONG_COMMAND);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                         break;
                 }
             }
@@ -270,9 +266,7 @@ namespace EducationPortal.Presentation.Application
         {
             while (true)
             {
-                Console.WriteLine("Input 'add' - add skill or " +
-                    "'del' - to delete skill or " +
-                    "'stop' - to stop modifing");
+                Console.WriteLine(MenuStrings.COURSE_SKILL_MENU);
                 var input = Console.ReadLine();
 
                 switch (input)
@@ -286,37 +280,18 @@ namespace EducationPortal.Presentation.Application
                         DeleteSkillInCourse(skills);
                         break;
                     default:
-                        Console.WriteLine("Unknown command");
-                        Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                        Console.WriteLine(Result.WRONG_COMMAND);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                         break;
                 }
             }
         }
 
-        private void DeleteSkillInCourse(List<Skill> skills)
-        {
-            string operation = "deleting material in course";
-            string title;
-            if (!_inputHandler.TryInputStringValue(out title, "title", operation))
-            {
-                return;
-            }
-
-            var skill = skills.FirstOrDefault(x => x.Title == title);
-            if (!skills.Remove(skill))
-            {
-                Console.WriteLine($"Skill to delete not finded, {operation} interrupted!");
-                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
-                return;
-            }
-        }
-
         private void AddSkillInCourse(List<Skill> skills)
         {
-            string operation = "adding skill in course";
             var allSkills = AllSkills();
             string title;
-            if (!_inputHandler.TryInputStringValue(out title, "title", operation))
+            if (!_inputHandler.TryInputStringValue(out title, "title", Operation.ADDING, EntityName.COURSE_SKILL))
             {
                 return;
             }
@@ -324,12 +299,29 @@ namespace EducationPortal.Presentation.Application
             var skill = allSkills.FirstOrDefault(x => x.Title == title);
             if (skill == null)
             {
-                Console.WriteLine($"Skill does not exist, {operation} interrupted!");
-                Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                Console.WriteLine($"{EntityName.SKILL} {Result.DOES_NOT_EXIST} {Operation.ADDING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                 return;
             }
 
             skills.Add(skill);
+        }
+
+        private void DeleteSkillInCourse(List<Skill> skills)
+        {
+            string title;
+            if (!_inputHandler.TryInputStringValue(out title, "title", Operation.DELETING, EntityName.COURSE_SKILL))
+            {
+                return;
+            }
+
+            var skill = skills.FirstOrDefault(x => x.Title == title);
+            if (!skills.Remove(skill))
+            {
+                Console.WriteLine($"{EntityName.SKILL} {Result.DOES_NOT_EXIST} {Operation.DELETING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
         }
     }
 }

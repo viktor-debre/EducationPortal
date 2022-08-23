@@ -39,7 +39,7 @@ namespace EducationPortal.Presentation.Application
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine(MenuConstants.MAIN_MENU);
+                Console.WriteLine(MenuStrings.MAIN_MENU);
                 string input = Console.ReadLine() ?? "";
                 switch (input)
                 {
@@ -56,8 +56,8 @@ namespace EducationPortal.Presentation.Application
                         return;
                         break;
                     default:
-                        Console.WriteLine(MenuConstants.WRONG_COMMAND);
-                        Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
+                        Console.WriteLine(Result.WRONG_COMMAND);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                         break;
                 }
             }
