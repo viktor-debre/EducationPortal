@@ -41,9 +41,8 @@
 
         public bool Authenticate()
         {
-            string operation = "authorizing";
             string input;
-            if (!_inputHandler.TryInputStringValue(out input, "username and password", operation))
+            if (!_inputHandler.TryInputStringValue(out input, "username and password", Operation.AUTHORIZING))
             {
                 return false;
             }

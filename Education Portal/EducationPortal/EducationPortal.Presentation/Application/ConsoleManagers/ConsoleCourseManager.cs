@@ -42,7 +42,7 @@ namespace EducationPortal.Presentation.Application
                         UpdateCourse();
                         break;
                     default:
-                        Console.WriteLine("Unknown command");
+                        Console.WriteLine(MenuConstants.WRONG_COMMAND);
                         Thread.Sleep(MenuConstants.WRONG_COMMAND_DELAY);
                         break;
                 }
@@ -111,15 +111,14 @@ namespace EducationPortal.Presentation.Application
 
         private void AddCourse()
         {
-            string operation = "adding course";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING + Operation.COURSE))
             {
                 return;
             }
 
             string description;
-            if (!_inputHandler.TryInputStringValue(out description, "description", operation))
+            if (!_inputHandler.TryInputStringValue(out description, "description", Operation.ADDING + Operation.COURSE))
             {
                 return;
             }
@@ -141,9 +140,8 @@ namespace EducationPortal.Presentation.Application
 
         private void DeleteCourse()
         {
-            string operation = "deleting course";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING + Operation.COURSE))
             {
                 return;
             }
@@ -155,21 +153,20 @@ namespace EducationPortal.Presentation.Application
 
         private void UpdateCourse()
         {
-            string operation = "updating course";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.UPDATING + Operation.COURSE))
             {
                 return;
             }
 
             string newName;
-            if (!_inputHandler.TryInputStringValue(out newName, "new name", operation))
+            if (!_inputHandler.TryInputStringValue(out newName, "new name", Operation.UPDATING + Operation.COURSE))
             {
                 return;
             }
 
             string description;
-            if (!_inputHandler.TryInputStringValue(out description, "description", operation))
+            if (!_inputHandler.TryInputStringValue(out description, "description", Operation.UPDATING + Operation.COURSE))
             {
                 return;
             }
@@ -208,7 +205,7 @@ namespace EducationPortal.Presentation.Application
             var allMaterials = AllMaterials();
             string operation = "adding material in course";
             string name;
-            if (!_inputHandler.TryInputStringValue(out name, "name", operation))
+            if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING + Operation.MATERIAL + Operation.IN_COURSE))
             {
                 return;
             }
