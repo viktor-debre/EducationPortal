@@ -1,9 +1,17 @@
 ﻿namespace EducationPortal.Domain.Repository
 {
-    public interface IRepository<T>
+    public interface IRepository<TEntity>
     {
-        public void AddItemToStorage(List<T> item, string path);
+        public IEnumerable<TEntity> Find();
 
-        public List<T> ExctractItemsFromStorage(string path);
+        public TEntity FindById(int id);
+
+        public void Add(TEntity item);
+
+        public void Update(TEntity item);
+
+        public void Remove(TEntity entity);
+
+        public IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperties);
     }
 }
