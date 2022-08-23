@@ -2,7 +2,7 @@
 
 namespace EducationPortal.Infrastructure.DB.DbModels.Materials
 {
-    internal class DbMaterial : BaseEntity
+    internal class DbMaterial : DbBaseEntity
     {
         public string Name { get; set; }
 

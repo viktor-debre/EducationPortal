@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.Infrastructure.DB.DbModels.Common
 {
-    internal class BaseEntity
+    internal class DbBaseEntity
     {
         public int Id { get; set; }
     }

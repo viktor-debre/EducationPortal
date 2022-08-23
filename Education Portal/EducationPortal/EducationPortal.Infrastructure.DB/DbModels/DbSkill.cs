@@ -2,7 +2,7 @@
 
 namespace EducationPortal.Infrastructure.DB.DbModels
 {
-    internal class DbSkill : BaseEntity
+    internal class DbSkill : DbBaseEntity
     {
         public string Title { get; set; }
 
