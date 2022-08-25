@@ -90,6 +90,14 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
+            var existingSkill = _skillService.GetSkills().FirstOrDefault(x => x.Title == title);
+            if (existingSkill == null)
+            {
+                Console.WriteLine($"{EntityName.SKILL} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
+
             string newTitle;
             if (!_inputHandler.TryInputStringValue(out newTitle, "new title", Operation.UPDATING, EntityName.SKILL))
             {
@@ -100,7 +108,7 @@ namespace EducationPortal.Presentation.Application
             {
                 Title = newTitle
             };
-            _skillService.UpdateSkill(title, skill);
+            _skillService.UpdateSkill(existingSkill, skill);
         }
     }
 }

@@ -11,13 +11,13 @@
 
         public void DeleteSkill(string title)
         {
-            var id = _skillRepository.GetSkill().FirstOrDefault(x => x.Title == title).Id;
-            _skillRepository.DeleteSkill(id);
+            var skill = _skillRepository.GetSkills().FirstOrDefault(x => x.Title == title);
+            _skillRepository.DeleteSkill(skill);
         }
 
         public List<Skill> GetSkills()
         {
-            return _skillRepository.GetSkill();
+            return _skillRepository.GetSkills();
         }
 
         public void SetSkill(Skill skill)
@@ -25,10 +25,11 @@
             _skillRepository.SetSkill(skill);
         }
 
-        public void UpdateSkill(string title, Skill updatedSkill)
+        public void UpdateSkill(Skill skill, Skill updatedSkill)
         {
-            var id = _skillRepository.GetSkill().FirstOrDefault(x => x.Title == title).Id;
-            _skillRepository.UpdateSkill(id, updatedSkill);
+            var skillToUpdate = _skillRepository.GetSkills().FirstOrDefault(a => a.Id == skill.Id);
+            skillToUpdate.Title = updatedSkill.Title;
+            _skillRepository.UpdateSkill(skillToUpdate);
         }
     }
 }

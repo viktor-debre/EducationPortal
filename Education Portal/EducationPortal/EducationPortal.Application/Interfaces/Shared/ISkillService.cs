@@ -6,7 +6,7 @@
 
         public void SetSkill(Skill skill);
 
-        public void UpdateSkill(string title, Skill updatedSkill);
+        public void UpdateSkill(Skill skill, Skill updatedSkill);
 
         public void DeleteSkill(string title);
     }

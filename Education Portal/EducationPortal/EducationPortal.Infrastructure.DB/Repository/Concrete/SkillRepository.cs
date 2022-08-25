@@ -6,23 +6,21 @@ namespace EducationPortal.Infrastructure.DB.Repository
     internal class SkillRepository : ISkillRepository
     {
         private readonly PortalContext _context;
+        private readonly MapToDbModels _mapper;
 
         public SkillRepository(PortalContext context)
         {
             _context = context;
+            _mapper = new MapToDbModels(context);
         }
 
-        public void DeleteSkill(int id)
+        public void DeleteSkill(Skill skill)
         {
-            var skill = GetSkillById(id);
-            if (skill != null)
-            {
-                _context.Skills.Remove(skill);
-                Save();
-            }
+            _context.Skills.Remove(_mapper.MapToDbSkill(skill));
+            Save();
         }
 
-        public List<Skill> GetSkill()
+        public List<Skill> GetSkills()
         {
             List<Skill> skills = new List<Skill>();
             foreach (var skill in _context.Skills)
@@ -35,19 +33,14 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetSkill(Skill skill)
         {
-            _context.Add(skill.MapSkillToDbSkill());
+            _context.Skills.Add(_mapper.MapToDbSkill(skill));
             Save();
         }
 
-        public void UpdateSkill(int id, Skill updatedSkill)
+        public void UpdateSkill(Skill skill)
         {
-            DbSkill skill = GetSkillById(id);
-            if (skill != null)
-            {
-                _context.Update(skill);
-                skill.Title = updatedSkill.Title;
-                Save();
-            }
+            _context.Entry(_mapper.MapToDbSkill(skill)).State = EntityState.Modified;
+            Save();
         }
 
         public void Save()

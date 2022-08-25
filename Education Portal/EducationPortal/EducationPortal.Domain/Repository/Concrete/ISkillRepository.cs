@@ -2,13 +2,13 @@
 {
     public interface ISkillRepository
     {
-        public List<Skill> GetSkill();
+        public List<Skill> GetSkills();
 
         public void SetSkill(Skill skill);
 
-        public void UpdateSkill(int id, Skill updatedSkill);
+        public void UpdateSkill(Skill skill);
 
-        public void DeleteSkill(int id);
+        public void DeleteSkill(Skill skill);
 
         public void Save();
     }

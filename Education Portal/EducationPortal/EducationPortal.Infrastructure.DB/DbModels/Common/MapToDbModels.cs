@@ -1,4 +1,5 @@
-﻿using EducationPortal.Domain.Entities.Materials;
+﻿using EducationPortal.Domain.Common;
+using EducationPortal.Domain.Entities;
 
 namespace EducationPortal.Infrastructure.DB.DbModels.Common
 {
@@ -9,6 +10,20 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
         public MapToDbModels(PortalContext context)
         {
             _context = context;
+        }
+
+        public DbBaseEntity MapToDbEntity(BaseEntity entity)
+        {
+            if (entity is Material material)
+            {
+                return MapToDbMaterial(material);
+            }
+            else if (entity is Skill skill)
+            {
+                return MapToDbSkill(skill);
+            }
+
+            throw new Exception("Ton finded type to map");
         }
 
         public DbMaterial MapToDbMaterial(Material material)
@@ -85,6 +100,24 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             }
 
             throw new Exception("Unkown type material!");
+        }
+
+        public DbSkill MapToDbSkill(Skill skill)
+        {
+            int id = skill.Id;
+            DbSkill materialInDb;
+            if (id != 0)
+            {
+                materialInDb = _context.Skills.Find(id);
+            }
+            else
+            {
+                materialInDb = new DbSkill();
+            }
+
+            materialInDb.Id = skill.Id;
+            materialInDb.Title = skill.Title;
+            return materialInDb;
         }
     }
 }
