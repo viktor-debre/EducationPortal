@@ -1,4 +1,4 @@
-﻿namespace EducationPortal.Infrastructure.DB.DbModels.Materials
+﻿namespace EducationPortal.Infrastructure.DB.DbModels
 {
     internal class DbVideoMaterial : DbMaterial
     {

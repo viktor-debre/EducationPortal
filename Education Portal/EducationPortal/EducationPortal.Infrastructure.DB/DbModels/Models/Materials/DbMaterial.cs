@@ -1,6 +1,4 @@
-﻿using EducationPortal.Infrastructure.DB.DbModels.Common;
-
-namespace EducationPortal.Infrastructure.DB.DbModels.Materials
+﻿namespace EducationPortal.Infrastructure.DB.DbModels
 {
     internal class DbMaterial : DbBaseEntity
     {
