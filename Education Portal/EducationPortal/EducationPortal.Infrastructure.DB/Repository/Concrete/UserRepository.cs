@@ -24,7 +24,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
             List<User> users = new List<User>();
             foreach (var user in _context.Users)
             {
-                users.Add(user.MapDbUserToUser());
+                users.Add(user.MapToDomainUser());
             }
 
             return users;
@@ -32,7 +32,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public User? GetUserById(int id)
         {
-            return _context.Users.Find(id).MapDbUserToUser();
+            return _context.Users.Find(id).MapToDomainUser();
         }
 
         public void SetUser(User user)

@@ -22,7 +22,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public VideoMaterial? GetVideoById(int id)
         {
-            return (VideoMaterial?)_context.Materials.Find(id).MapDbMaterialToMaterial();
+            return (VideoMaterial?)_context.Materials.Find(id).MapToDomainMaterial();
         }
 
         public List<VideoMaterial> GetVideos()
@@ -32,7 +32,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
             {
                 if (video is DbVideoMaterial)
                 {
-                    videos.Add((VideoMaterial)video.MapDbMaterialToMaterial());
+                    videos.Add((VideoMaterial)video.MapToDomainMaterial());
                 }
             }
 

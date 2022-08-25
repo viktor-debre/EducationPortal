@@ -1,5 +1,7 @@
-﻿using EducationPortal.Domain.Repository;
+﻿using EducationPortal.Domain.Entities;
+using EducationPortal.Domain.Repository;
 using EducationPortal.Infrastructure.DB.Repository;
+using EducationPortal.Infrastructure.DB.Repository.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EducationPortal.Infrastructure.DB
@@ -14,7 +16,7 @@ namespace EducationPortal.Infrastructure.DB
                 .AddSingleton<IVideoRepository, VideoRepository>()
                 .AddSingleton<IArticleRepository, ArticleRepository>()
                 .AddSingleton<ICourseRepository, CourseRepository>()
-                .AddSingleton<ISkillRepository, SkillRepository>();
+                .AddSingleton<IRepository<Skill>, EntityRepository<Skill, DbSkill>>();
         }
     }
 }

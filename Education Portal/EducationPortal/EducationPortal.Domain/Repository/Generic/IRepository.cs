@@ -2,7 +2,7 @@
 {
     public interface IRepository<TEntity>
     {
-        public IEnumerable<TEntity> Find();
+        public List<TEntity> Find();
 
         public TEntity FindById(int id);
 

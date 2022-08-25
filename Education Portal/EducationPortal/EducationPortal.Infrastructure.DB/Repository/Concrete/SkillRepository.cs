@@ -25,7 +25,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
             List<Skill> skills = new List<Skill>();
             foreach (var skill in _context.Skills)
             {
-                skills.Add(skill.MapDbSkillToSkill());
+                skills.Add(skill.MapToDomainSkill());
             }
 
             return skills;

@@ -1,10 +1,11 @@
-﻿using EducationPortal.Domain.Entities;
+﻿using EducationPortal.Domain.Common;
+using EducationPortal.Domain.Entities;
 
 namespace EducationPortal.Infrastructure.DB.DbModels.Common
 {
     internal static class MapToDomainModels
     {
-        public static User MapDbUserToUser(this DbUser user)
+        public static User MapToDomainUser(this DbUser user)
         {
             var skills = new List<Skill>();
             if (user.UserSkills != null)
@@ -13,7 +14,7 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
                 {
                     if (user.Id == skill.UserId)
                     {
-                        skills.Add(skill.Skill.MapDbSkillToSkill());
+                        skills.Add(skill.Skill.MapToDomainSkill());
                     }
                 }
             }
@@ -85,7 +86,7 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             return result;
         }
 
-        public static Material MapDbMaterialToMaterial(this DbMaterial material)
+        public static Material MapToDomainMaterial(this DbMaterial material)
         {
             Material result = new Material();
             if (material is DbBookMaterial book)
@@ -126,14 +127,14 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             return result;
         }
 
-        public static Course MapDbCourseToCourse(this DbCourse course)
+        public static Course MapToDomainCourse(this DbCourse course)
         {
             var materials = new List<Material>();
             if (course.Materials != null)
             {
                 foreach (var material in course.Materials)
                 {
-                    materials.Add(material.MapDbMaterialToMaterial());
+                    materials.Add(material.MapToDomainMaterial());
                 }
             }
 
@@ -142,7 +143,7 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             {
                 foreach (var skill in course.Skills)
                 {
-                    skills.Add(skill.MapDbSkillToSkill());
+                    skills.Add(skill.MapToDomainSkill());
                 }
             }
 
@@ -180,7 +181,7 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             };
         }
 
-        public static Skill MapDbSkillToSkill(this DbSkill skill)
+        public static Skill MapToDomainSkill(this DbSkill skill)
         {
             return new Skill
             {

@@ -24,7 +24,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public Course? GetCourceById(int id)
         {
-            return (Course?)_context.Courses.Find(id).MapDbCourseToCourse();
+            return (Course?)_context.Courses.Find(id).MapToDomainCourse();
         }
 
         public List<Course> GetCources()
@@ -33,7 +33,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
             var dbCourses = _context.Courses.Include(x => x.Materials).Include(x => x.Skills).ToList();
             foreach (var course in dbCourses)
             {
-                courses.Add(course.MapDbCourseToCourse());
+                courses.Add(course.MapToDomainCourse());
             }
 
             return courses;

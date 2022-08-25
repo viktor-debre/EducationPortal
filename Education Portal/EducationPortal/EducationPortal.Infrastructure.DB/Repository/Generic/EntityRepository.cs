@@ -1,58 +1,56 @@
-﻿using EducationPortal.Domain.Repository;
+﻿using EducationPortal.Domain.Common;
+using EducationPortal.Domain.Repository;
 using System.Linq.Expressions;
 
 namespace EducationPortal.Infrastructure.DB.Repository.Generic
 {
-    internal class EntityRepository<TEntity> : IRepository<TEntity>
-        where TEntity : DbBaseEntity
+    internal class EntityRepository<TEntity, TDbEntity> : IRepository<TEntity>
+        where TEntity : BaseEntity
+        where TDbEntity : DbBaseEntity
     {
         private readonly PortalContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        private readonly MapToDbModels _mapper;
+        private readonly DbSet<TDbEntity> _dbSet;
 
         public EntityRepository(PortalContext context)
         {
             _context = context;
-            _dbSet = context.Set<TEntity>();
-        }
-
-        public IEnumerable<TEntity> Find()
-        {
-            return _dbSet.AsNoTracking().ToList();
-        }
-
-        public void Add(TEntity item)
-        {
-            _context.Add(item);
-            Save();
+            _mapper = new MapToDbModels(context);
+            _dbSet = context.Set<TDbEntity>();
         }
 
         public void Remove(TEntity entity)
         {
-            _context.Remove(entity);
+            _dbSet.Remove((TDbEntity)_mapper.MapToDbEntity(entity));
+            Save();
+        }
+
+        public List<TEntity> Find()
+        {
+            List<TEntity> entities = new List<TEntity>();
+            foreach (var entity in _dbSet)
+            {
+                entities.Add((TEntity)_mapper.MapToDomainEntity(entity));
+            }
+
+            return entities;
+        }
+
+        public void Add(TEntity entity)
+        {
+            _dbSet.Add((TDbEntity)_mapper.MapToDbEntity(entity));
+            Save();
+        }
+
+        public void Update(TEntity entity)
+        {
+            _context.Entry((TDbEntity)_mapper.MapToDbEntity(entity)).State = EntityState.Modified;
             Save();
         }
 
         public TEntity FindById(int id)
         {
-            return _dbSet.Find(id);
-        }
-
-        public void Update(TEntity item)
-        {
-            _context.Entry(item).State = EntityState.Modified;
-            Save();
-        }
-
-        public IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            var query = Include(includeProperties);
-            return query.Where(predicate).ToList();
-        }
-
-        private IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = _dbSet.AsNoTracking();
-            return includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            return (TEntity)_mapper.MapToDomainEntity(_dbSet.Find(id));
         }
 
         private void Save()

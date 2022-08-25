@@ -27,7 +27,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
             {
                 if (article is DbArticleMaterial)
                 {
-                    articles.Add((ArticleMaterial)article.MapDbMaterialToMaterial());
+                    articles.Add((ArticleMaterial)article.MapToDomainMaterial());
                 }
             }
 
@@ -36,7 +36,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public ArticleMaterial? GetArticleById(int id)
         {
-            return (ArticleMaterial?)_context.Materials.Find(id).MapDbMaterialToMaterial();
+            return (ArticleMaterial?)_context.Materials.Find(id).MapToDomainMaterial();
         }
 
         public void Save()

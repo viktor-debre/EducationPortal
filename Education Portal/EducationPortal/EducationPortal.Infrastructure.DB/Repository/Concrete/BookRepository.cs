@@ -22,7 +22,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public BookMaterial? GetBookById(int id)
         {
-            return (BookMaterial?)_context.Materials.Find(id).MapDbMaterialToMaterial();
+            return (BookMaterial?)_context.Materials.Find(id).MapToDomainMaterial();
         }
 
         public List<BookMaterial> GetBooks()
@@ -32,7 +32,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
             {
                 if (book is DbBookMaterial)
                 {
-                    books.Add((BookMaterial)book.MapDbMaterialToMaterial());
+                    books.Add((BookMaterial)book.MapToDomainMaterial());
                 }
             }
 
