@@ -24,7 +24,7 @@ namespace EducationPortal.Application.Interfaces.Shared
 
         public void SetArticle(ArticleMaterial book);
 
-        public void UpdateArticle(string name, ArticleMaterial updatedMaterial);
+        public void UpdateArticle(ArticleMaterial article, ArticleMaterial updatedMaterial);
 
         public void DeleteArticle(string name);
     }

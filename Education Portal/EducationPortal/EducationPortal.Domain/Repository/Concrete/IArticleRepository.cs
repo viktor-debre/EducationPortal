@@ -8,7 +8,7 @@
 
         public void SetArticle(ArticleMaterial material);
 
-        public void UpdateArticle(string name, ArticleMaterial updatedMaterial);
+        public void UpdateArticle(ArticleMaterial material);
 
         public void DeleteArticle(int id);
 

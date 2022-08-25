@@ -353,7 +353,7 @@ namespace EducationPortal.Presentation.Application
                 Source = source,
                 PublicationDate = publicationDate
             };
-            _materialManageService.UpdateArticle(name, articleMaterial);
+            _materialManageService.UpdateArticle(_materialManageService.GetArticle().FirstOrDefault(x => x.Name == name), articleMaterial);
         }
     }
 }

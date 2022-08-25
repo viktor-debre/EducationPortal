@@ -3,7 +3,7 @@ using EducationPortal.Domain.Entities.Materials;
 
 namespace EducationPortal.Infrastructure.DB.DbModels.Common
 {
-    internal static class MapDomainModels
+    internal static class MapToDomainModels
     {
         public static User MapDbUserToUser(this DbUser user)
         {

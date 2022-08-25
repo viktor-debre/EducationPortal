@@ -82,9 +82,13 @@ namespace EducationPortal.Application.Services
             _createArticle.TryCreateArticle(articleMaterial);
         }
 
-        public void UpdateArticle(string name, ArticleMaterial updatedMaterial)
+        public void UpdateArticle(ArticleMaterial article, ArticleMaterial updatedMaterial)
         {
-            _articleRepository.UpdateArticle(name, updatedMaterial);
+            var articleToUpdate = _articleRepository.GetArticle().FirstOrDefault(a => a.Id == article.Id);
+            articleToUpdate.Name = updatedMaterial.Name;
+            articleToUpdate.Source = updatedMaterial.Source;
+            articleToUpdate.PublicationDate = updatedMaterial.PublicationDate;
+            _articleRepository.UpdateArticle(articleToUpdate);
         }
 
         public void DeleteArticle(string name)

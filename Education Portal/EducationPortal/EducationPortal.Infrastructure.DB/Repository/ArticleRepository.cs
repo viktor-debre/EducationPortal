@@ -6,10 +6,12 @@ namespace EducationPortal.Infrastructure.DB.Repository
     internal class ArticleRepository : IArticleRepository
     {
         private readonly PortalContext _context;
+        private readonly MapToDbModels _mapper;
 
         public ArticleRepository(PortalContext context)
         {
             _context = context;
+            _mapper = new MapToDbModels(context);
         }
 
         public void DeleteArticle(int id)
@@ -52,17 +54,10 @@ namespace EducationPortal.Infrastructure.DB.Repository
             Save();
         }
 
-        public void UpdateArticle(string name, ArticleMaterial updatedMaterial)
+        public void UpdateArticle(ArticleMaterial material)
         {
-            DbArticleMaterial article = (DbArticleMaterial)_context.Materials.FirstOrDefault(x => x.Name == name);
-            if (article != null)
-            {
-                _context.Update(article);
-                article.Name = updatedMaterial.Name;
-                article.Source = updatedMaterial.Source;
-                article.PublicationDate = updatedMaterial.PublicationDate;
-                Save();
-            }
+            _context.Entry(_mapper.MapMaterialToDbMaterial(material)).State = EntityState.Modified;
+            Save();
         }
     }
 }

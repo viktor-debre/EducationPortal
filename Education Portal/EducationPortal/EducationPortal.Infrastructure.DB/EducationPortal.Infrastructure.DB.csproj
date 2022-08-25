@@ -25,4 +25,8 @@
 		<ProjectReference Include="..\EducationPortal.Application\EducationPortal.Application.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Repository\Concrete\" />
+	</ItemGroup>
+
 </Project>
