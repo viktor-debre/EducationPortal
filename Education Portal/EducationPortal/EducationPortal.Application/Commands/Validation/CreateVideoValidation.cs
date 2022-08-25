@@ -1,7 +1,6 @@
-﻿using EducationPortal.Domain.Entities.Materials;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace EducationPortal.Application.Commands.Validation
+namespace EducationPortal.Application.Commands
 {
     internal class CreateVideoValidation : AbstractValidator<VideoMaterial>
     {

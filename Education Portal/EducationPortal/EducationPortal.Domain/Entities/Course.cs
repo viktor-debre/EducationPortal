@@ -1,6 +1,4 @@
-﻿using EducationPortal.Domain.Entities.Materials;
-
-namespace EducationPortal.Domain.Entities
+﻿namespace EducationPortal.Domain.Entities
 {
     public class Course : BaseEntity
     {

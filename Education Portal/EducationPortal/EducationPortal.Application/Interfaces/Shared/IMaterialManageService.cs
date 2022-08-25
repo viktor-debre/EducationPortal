@@ -1,6 +1,4 @@
-﻿using EducationPortal.Domain.Entities.Materials;
-
-namespace EducationPortal.Application.Interfaces.Shared
+﻿namespace EducationPortal.Application.Interfaces.Shared
 {
     public interface IMaterialManageService
     {

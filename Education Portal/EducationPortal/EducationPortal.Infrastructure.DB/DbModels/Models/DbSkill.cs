@@ -1,6 +1,4 @@
-﻿using EducationPortal.Infrastructure.DB.DbModels.Common;
-
-namespace EducationPortal.Infrastructure.DB.DbModels
+﻿namespace EducationPortal.Infrastructure.DB.DbModels
 {
     internal class DbSkill : DbBaseEntity
     {

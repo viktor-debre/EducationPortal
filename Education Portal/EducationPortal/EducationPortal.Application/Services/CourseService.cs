@@ -1,7 +1,4 @@
-﻿using EducationPortal.Domain.Entities.Materials;
-using EducationPortal.Domain.Repository;
-
-namespace EducationPortal.Application.Services
+﻿namespace EducationPortal.Application.Services
 {
     internal class CourseService : ICourseService
     {

@@ -1,4 +1,4 @@
-﻿using EducationPortal.Domain.Entities.Materials;
+﻿using EducationPortal.Domain.Entities;
 
 namespace EducationPortal.Presentation.Application
 {

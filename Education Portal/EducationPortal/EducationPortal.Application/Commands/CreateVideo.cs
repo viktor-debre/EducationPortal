@@ -1,7 +1,4 @@
-﻿using EducationPortal.Application.Commands.Validation;
-using EducationPortal.Domain.Entities.Materials;
-using EducationPortal.Domain.Repository;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 
 namespace EducationPortal.Application.Commands
 {

@@ -1,8 +1,7 @@
-﻿using EducationPortal.Domain.Entities;
-using FluentValidation;
+﻿using FluentValidation;
 using System.Text.RegularExpressions;
 
-namespace EducationPortal.Application.Commands.Validation
+namespace EducationPortal.Application.Commands
 {
     internal class CreateUserValidation : AbstractValidator<User>
     {
