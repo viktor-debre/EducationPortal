@@ -12,9 +12,9 @@ namespace EducationPortal.Infrastructure.DB.Repository
             _context = context;
         }
 
-        public void DeleteArticle(string name)
+        public void DeleteArticle(int id)
         {
-            var article = _context.Materials.FirstOrDefault(x => x.Name == name);
+            var article = _context.Materials.Find(id);
             if (article != null)
             {
                 _context.Materials.Remove(article);

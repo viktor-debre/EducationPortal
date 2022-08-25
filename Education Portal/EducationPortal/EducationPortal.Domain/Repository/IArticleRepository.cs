@@ -10,7 +10,7 @@
 
         public void UpdateArticle(string name, ArticleMaterial updatedMaterial);
 
-        public void DeleteArticle(string name);
+        public void DeleteArticle(int id);
 
         public void Save();
     }

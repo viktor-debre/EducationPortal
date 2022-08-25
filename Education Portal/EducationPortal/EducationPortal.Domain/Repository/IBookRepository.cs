@@ -10,7 +10,7 @@
 
         public void UpdateBook(string name, BookMaterial updatedMaterial);
 
-        public void DeleteBook(string name);
+        public void DeleteBook(int id);
 
         public void Save();
     }

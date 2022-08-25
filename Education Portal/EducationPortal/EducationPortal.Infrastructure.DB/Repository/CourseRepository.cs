@@ -1,5 +1,4 @@
 ﻿using EducationPortal.Domain.Entities;
-using EducationPortal.Domain.Entities.Materials;
 using EducationPortal.Domain.Repository;
 
 namespace EducationPortal.Infrastructure.DB.Repository
@@ -13,20 +12,9 @@ namespace EducationPortal.Infrastructure.DB.Repository
             _context = context;
         }
 
-        public void AddMaterial(string name, Material material)
+        public void DeleteCourse(int id)
         {
-            var course = _context.Courses.FirstOrDefault(x => x.Name == name);
-            if (course != null)
-            {
-                _context.Update(course);
-                course.Materials.Add(material.MapMaterialToDbMaterial());
-                Save();
-            }
-        }
-
-        public void DeleteCourse(string name)
-        {
-            var course = _context.Courses.FirstOrDefault(x => x.Name == name);
+            var course = _context.Courses.Find(id);
             if (course != null)
             {
                 _context.Courses.Remove(course);

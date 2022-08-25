@@ -10,7 +10,7 @@
 
         public void UpdateVideo(string name, VideoMaterial updatedMaterial);
 
-        public void DeleteVideo(string name);
+        public void DeleteVideo(int id);
 
         public void Save();
     }

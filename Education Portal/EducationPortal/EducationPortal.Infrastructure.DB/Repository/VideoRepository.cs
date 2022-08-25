@@ -12,9 +12,9 @@ namespace EducationPortal.Infrastructure.DB.Repository
             _context = context;
         }
 
-        public void DeleteVideo(string name)
+        public void DeleteVideo(int id)
         {
-            var video = _context.Materials.FirstOrDefault(x => x.Name == name);
+            var video = _context.Materials.Find(id);
             if (video != null)
             {
                 _context.Materials.Remove(video);

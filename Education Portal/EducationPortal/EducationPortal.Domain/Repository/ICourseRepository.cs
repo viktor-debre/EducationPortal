@@ -10,7 +10,7 @@
 
         public void UpdateCourse(string name, Course updatedMaterial);
 
-        public void DeleteCourse(string name);
+        public void DeleteCourse(int id);
 
         public void Save();
     }

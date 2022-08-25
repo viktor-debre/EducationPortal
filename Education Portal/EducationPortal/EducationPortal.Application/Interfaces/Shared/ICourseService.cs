@@ -11,7 +11,5 @@ namespace EducationPortal.Application.Interfaces.Shared
         public void UpdateCourse(string name, Course updatedCourse);
 
         public void DeleteCourse(string name);
-
-        public void AddMaterial(string name, Material material);
     }
 }

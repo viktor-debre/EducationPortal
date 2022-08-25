@@ -12,14 +12,13 @@ namespace EducationPortal.Application.Services
             _courseRepository = courseRepository;
         }
 
-        public void AddMaterial(string name, Material material)
-        {
-            _courseRepository.AddMaterial(name, material);
-        }
-
         public void DeleteCourse(string name)
         {
-            _courseRepository.DeleteCourse(name);
+            var id = _courseRepository.GetCources().FirstOrDefault(x => x.Name == name).Id;
+            if (id != null)
+            {
+                _courseRepository.DeleteCourse(id);
+            }
         }
 
         public List<Course> GetCourses()

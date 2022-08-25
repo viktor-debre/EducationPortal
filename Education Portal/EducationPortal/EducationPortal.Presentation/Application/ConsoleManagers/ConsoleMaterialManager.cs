@@ -317,7 +317,7 @@ namespace EducationPortal.Presentation.Application
             }
             else
             {
-                _materialManageService.DeleteBook(name);
+                _materialManageService.DeleteArticle(name);
             }
         }
 
