@@ -12,11 +12,11 @@ namespace EducationPortal.Infrastructure.DB
         {
             services.AddDbContext<PortalContext>()
                 .AddSingleton<IUserRepository, UserRepository>()
-                .AddSingleton<IBookRepository, BookRepository>()
-                .AddSingleton<IVideoRepository, VideoRepository>()
-                .AddSingleton<IArticleRepository, ArticleRepository>()
+                .AddTransient<IRepository<BookMaterial>, EntityRepository<BookMaterial, DbBookMaterial>>()
+                .AddTransient<IRepository<VideoMaterial>, EntityRepository<VideoMaterial, DbVideoMaterial>>()
+                .AddTransient<IRepository<ArticleMaterial>, EntityRepository<ArticleMaterial, DbArticleMaterial>>()
                 .AddSingleton<ICourseRepository, CourseRepository>()
-                .AddSingleton<IRepository<Skill>, EntityRepository<Skill, DbSkill>>();
+                .AddTransient<IRepository<Skill>, EntityRepository<Skill, DbSkill>>();
         }
     }
 }

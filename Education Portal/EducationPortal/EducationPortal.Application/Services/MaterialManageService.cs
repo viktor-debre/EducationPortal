@@ -4,15 +4,15 @@ namespace EducationPortal.Application.Services
 {
     internal class MaterialManageService : IMaterialManageService
     {
-        private readonly IBookRepository _bookRepository;
-        private readonly IVideoRepository _videoRepository;
-        private readonly IArticleRepository _articleRepository;
+        private readonly IRepository<BookMaterial> _bookRepository;
+        private readonly IRepository<VideoMaterial> _videoRepository;
+        private readonly IRepository<ArticleMaterial> _articleRepository;
 
         private readonly CreateBook _createBook;
         private readonly CreateVideo _createVideo;
         private readonly CreateArticle _createArticle;
 
-        public MaterialManageService(IBookRepository bookRepository, IVideoRepository videoRepository, IArticleRepository articleRepository)
+        public MaterialManageService(IRepository<BookMaterial> bookRepository, IRepository<VideoMaterial> videoRepository, IRepository<ArticleMaterial> articleRepository)
         {
             _bookRepository = bookRepository;
             _videoRepository = videoRepository;
@@ -24,7 +24,7 @@ namespace EducationPortal.Application.Services
 
         public List<BookMaterial> GetBooks()
         {
-            return _bookRepository.GetBooks();
+            return _bookRepository.Find();
         }
 
         public void SetBook(BookMaterial bookMaterial)
@@ -34,27 +34,27 @@ namespace EducationPortal.Application.Services
 
         public void UpdateBook(BookMaterial article, BookMaterial updatedMaterial)
         {
-            var bookToUpdate = _bookRepository.GetBooks().FirstOrDefault(a => a.Id == article.Id);
+            var bookToUpdate = _bookRepository.Find().FirstOrDefault(a => a.Id == article.Id);
             bookToUpdate.Name = updatedMaterial.Name;
             bookToUpdate.Author = updatedMaterial.Author;
             bookToUpdate.NumberPages = updatedMaterial.NumberPages;
             bookToUpdate.PublicationDate = updatedMaterial.PublicationDate;
             bookToUpdate.Format = updatedMaterial.Format;
-            _bookRepository.UpdateBook(bookToUpdate);
+            _bookRepository.Update(bookToUpdate);
         }
 
         public void DeleteBook(string name)
         {
-            var material = _bookRepository.GetBooks().FirstOrDefault(x => x.Name == name);
+            var material = _bookRepository.Find().FirstOrDefault(x => x.Name == name);
             if (material != null)
             {
-                _bookRepository.DeleteBook(material);
+                _bookRepository.Remove(material);
             }
         }
 
         public List<VideoMaterial> GetVideos()
         {
-            return _videoRepository.GetVideos();
+            return _videoRepository.Find();
         }
 
         public void SetVideo(VideoMaterial videoMaterial)
@@ -64,25 +64,25 @@ namespace EducationPortal.Application.Services
 
         public void UpdateVideo(VideoMaterial video, VideoMaterial updatedMaterial)
         {
-            var videoToUpdate = _videoRepository.GetVideos().FirstOrDefault(a => a.Id == video.Id);
+            var videoToUpdate = _videoRepository.Find().FirstOrDefault(a => a.Id == video.Id);
             videoToUpdate.Name = updatedMaterial.Name;
             videoToUpdate.Duration = updatedMaterial.Duration;
             videoToUpdate.Quality = updatedMaterial.Quality;
-            _videoRepository.UpdateVideo(videoToUpdate);
+            _videoRepository.Update(videoToUpdate);
         }
 
         public void DeleteVideo(string name)
         {
-            var video = _videoRepository.GetVideos().FirstOrDefault(x => x.Name == name);
+            var video = _videoRepository.Find().FirstOrDefault(x => x.Name == name);
             if (video != null)
             {
-                _videoRepository.DeleteVideo(video);
+                _videoRepository.Remove(video);
             }
         }
 
         public List<ArticleMaterial> GetArticle()
         {
-            return _articleRepository.GetArticle();
+            return _articleRepository.Find();
         }
 
         public void SetArticle(ArticleMaterial articleMaterial)
@@ -92,19 +92,19 @@ namespace EducationPortal.Application.Services
 
         public void UpdateArticle(ArticleMaterial article, ArticleMaterial updatedMaterial)
         {
-            var articleToUpdate = _articleRepository.GetArticle().FirstOrDefault(a => a.Id == article.Id);
+            var articleToUpdate = _articleRepository.Find().FirstOrDefault(a => a.Id == article.Id);
             articleToUpdate.Name = updatedMaterial.Name;
             articleToUpdate.Source = updatedMaterial.Source;
             articleToUpdate.PublicationDate = updatedMaterial.PublicationDate;
-            _articleRepository.UpdateArticle(articleToUpdate);
+            _articleRepository.Update(articleToUpdate);
         }
 
         public void DeleteArticle(string name)
         {
-            var article = _articleRepository.GetArticle().FirstOrDefault(x => x.Name == name);
+            var article = _articleRepository.Find().FirstOrDefault(x => x.Name == name);
             if (article != null)
             {
-                _articleRepository.DeleteArticle(article);
+                _articleRepository.Remove(article);
             }
         }
     }

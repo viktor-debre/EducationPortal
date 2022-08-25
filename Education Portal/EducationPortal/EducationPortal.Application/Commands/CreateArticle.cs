@@ -4,9 +4,9 @@ namespace EducationPortal.Application.Commands
 {
     internal class CreateArticle
     {
-        private readonly IArticleRepository _articleRepository;
+        private readonly IRepository<ArticleMaterial> _articleRepository;
 
-        public CreateArticle(IArticleRepository articleRepository)
+        public CreateArticle(IRepository<ArticleMaterial> articleRepository)
         {
             _articleRepository = articleRepository;
         }
@@ -20,14 +20,14 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            var checkArticle = _articleRepository.GetArticle().FirstOrDefault(x => x.Name == article.Name);
+            var checkArticle = _articleRepository.Find().FirstOrDefault(x => x.Name == article.Name);
             if (checkArticle != null)
             {
                 return false;
             }
             else
             {
-                _articleRepository.SetArticle(article);
+                _articleRepository.Add(article);
                 return true;
             }
         }

@@ -4,9 +4,9 @@ namespace EducationPortal.Application.Commands
 {
     internal class CreateVideo
     {
-        private readonly IVideoRepository _videoRepository;
+        private readonly IRepository<VideoMaterial> _videoRepository;
 
-        public CreateVideo(IVideoRepository videoRepository)
+        public CreateVideo(IRepository<VideoMaterial> videoRepository)
         {
             _videoRepository = videoRepository;
         }
@@ -20,14 +20,14 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            var checkArticle = _videoRepository.GetVideos().FirstOrDefault(x => x.Name == video.Name);
+            var checkArticle = _videoRepository.Find().FirstOrDefault(x => x.Name == video.Name);
             if (checkArticle != null)
             {
                 return false;
             }
             else
             {
-                _videoRepository.SetVideo(video);
+                _videoRepository.Add(video);
                 return true;
             }
         }
