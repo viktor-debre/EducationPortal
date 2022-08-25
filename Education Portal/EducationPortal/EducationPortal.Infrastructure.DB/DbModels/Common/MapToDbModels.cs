@@ -23,10 +23,10 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
                 return MapToDbSkill(skill);
             }
 
-            throw new Exception("Ton finded type to map");
+            throw new Exception("Not found entity type to map");
         }
 
-        public DbMaterial MapToDbMaterial(Material material)
+        private DbMaterial MapToDbMaterial(Material material)
         {
             int id = material.Id;
             DbMaterial materialInDb;
@@ -102,7 +102,7 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             throw new Exception("Unkown type material!");
         }
 
-        public DbSkill MapToDbSkill(Skill skill)
+        private DbSkill MapToDbSkill(Skill skill)
         {
             int id = skill.Id;
             DbSkill materialInDb;

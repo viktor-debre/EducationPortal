@@ -16,7 +16,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void DeleteArticle(ArticleMaterial material)
         {
-            _context.Materials.Remove(_mapper.MapToDbMaterial(material));
+            _context.Materials.Remove((DbMaterial)_mapper.MapToDbEntity(material));
             Save();
         }
 
@@ -46,13 +46,13 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetArticle(ArticleMaterial material)
         {
-            _context.Materials.Add(_mapper.MapToDbMaterial(material));
+            _context.Materials.Add((DbMaterial)_mapper.MapToDbEntity(material));
             Save();
         }
 
         public void UpdateArticle(ArticleMaterial material)
         {
-            _context.Entry(_mapper.MapToDbMaterial(material)).State = EntityState.Modified;
+            _context.Entry((DbMaterial)_mapper.MapToDbEntity(material)).State = EntityState.Modified;
             Save();
         }
     }

@@ -11,7 +11,5 @@
         public void Update(TEntity item);
 
         public void Remove(TEntity entity);
-
-        public IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperties);
     }
 }

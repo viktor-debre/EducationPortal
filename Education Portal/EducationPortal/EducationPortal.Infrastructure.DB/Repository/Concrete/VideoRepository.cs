@@ -16,7 +16,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void DeleteVideo(VideoMaterial material)
         {
-            _context.Materials.Remove(_mapper.MapToDbMaterial(material));
+            _context.Materials.Remove((DbMaterial)_mapper.MapToDbEntity(material));
             Save();
         }
 
@@ -46,13 +46,13 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetVideo(VideoMaterial material)
         {
-            _context.Materials.Add(_mapper.MapToDbMaterial(material));
+            _context.Materials.Add((DbMaterial)_mapper.MapToDbEntity(material));
             Save();
         }
 
         public void UpdateVideo(VideoMaterial material)
         {
-            _context.Entry(_mapper.MapToDbMaterial(material)).State = EntityState.Modified;
+            _context.Entry((DbMaterial)_mapper.MapToDbEntity(material)).State = EntityState.Modified;
             Save();
         }
     }

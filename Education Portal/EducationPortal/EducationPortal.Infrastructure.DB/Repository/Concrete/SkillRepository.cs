@@ -16,7 +16,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void DeleteSkill(Skill skill)
         {
-            _context.Skills.Remove(_mapper.MapToDbSkill(skill));
+            _context.Skills.Remove((DbSkill)_mapper.MapToDbEntity(skill));
             Save();
         }
 
@@ -33,13 +33,13 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetSkill(Skill skill)
         {
-            _context.Skills.Add(_mapper.MapToDbSkill(skill));
+            _context.Skills.Add((DbSkill)_mapper.MapToDbEntity(skill));
             Save();
         }
 
         public void UpdateSkill(Skill skill)
         {
-            _context.Entry(_mapper.MapToDbSkill(skill)).State = EntityState.Modified;
+            _context.Entry((DbSkill)_mapper.MapToDbEntity(skill)).State = EntityState.Modified;
             Save();
         }
 
