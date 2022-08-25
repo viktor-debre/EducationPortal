@@ -6,20 +6,18 @@ namespace EducationPortal.Infrastructure.DB.Repository
     internal class VideoRepository : IVideoRepository
     {
         private readonly PortalContext _context;
+        private readonly MapToDbModels _mapper;
 
         public VideoRepository(PortalContext context)
         {
             _context = context;
+            _mapper = new MapToDbModels(context);
         }
 
-        public void DeleteVideo(int id)
+        public void DeleteVideo(VideoMaterial material)
         {
-            var video = _context.Materials.Find(id);
-            if (video != null)
-            {
-                _context.Materials.Remove(video);
-                Save();
-            }
+            _context.Materials.Remove(_mapper.MapToDbMaterial(material));
+            Save();
         }
 
         public VideoMaterial? GetVideoById(int id)
@@ -48,21 +46,14 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetVideo(VideoMaterial material)
         {
-            _context.Materials.Add(material.MapMaterialToDbMaterial());
+            _context.Materials.Add(_mapper.MapToDbMaterial(material));
             Save();
         }
 
-        public void UpdateVideo(string name, VideoMaterial updatedMaterial)
+        public void UpdateVideo(VideoMaterial material)
         {
-            DbVideoMaterial video = (DbVideoMaterial)_context.Materials.FirstOrDefault(x => x.Name == name);
-            if (video != null)
-            {
-                _context.Update(video);
-                video.Name = updatedMaterial.Name;
-                video.Duration = updatedMaterial.Duration;
-                video.Quality = updatedMaterial.Quality;
-                Save();
-            }
+            _context.Entry(_mapper.MapToDbMaterial(material)).State = EntityState.Modified;
+            Save();
         }
     }
 }

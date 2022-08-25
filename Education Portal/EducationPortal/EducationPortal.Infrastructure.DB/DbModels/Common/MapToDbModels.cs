@@ -11,13 +11,31 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             _context = context;
         }
 
-        public DbMaterial MapMaterialToDbMaterial(Material material)
+        public DbMaterial MapToDbMaterial(Material material)
         {
             int id = material.Id;
-            DbMaterial materialInDb = _context.Materials.Find(id) ?? new DbMaterial();
+            DbMaterial materialInDb;
+            if (id != 0)
+            {
+                materialInDb = _context.Materials.Find(id);
+            }
+            else
+            {
+                materialInDb = new DbMaterial();
+            }
+
             if (material is BookMaterial book)
             {
-                DbBookMaterial result = materialInDb as DbBookMaterial;
+                DbBookMaterial result;
+                if (id == 0)
+                {
+                    result = new DbBookMaterial();
+                }
+                else
+                {
+                    result = materialInDb as DbBookMaterial;
+                }
+
                 result.Id = book.Id;
                 result.Name = book.Name;
                 result.NumberPages = book.NumberPages;
@@ -29,7 +47,17 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
 
             if (material is VideoMaterial video)
             {
-                DbVideoMaterial result = materialInDb as DbVideoMaterial;
+                DbVideoMaterial result;
+                if (id == 0)
+                {
+                    result = new DbVideoMaterial();
+                }
+                else
+                {
+                    result = materialInDb as DbVideoMaterial;
+                }
+
+                result.Id = video.Id;
                 result.Id = video.Id;
                 result.Name = video.Name;
                 result.Quality = video.Quality;
@@ -39,7 +67,16 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
 
             if (material is ArticleMaterial article)
             {
-                DbArticleMaterial result = materialInDb as DbArticleMaterial;
+                DbArticleMaterial result;
+                if (id == 0)
+                {
+                    result = new DbArticleMaterial();
+                }
+                else
+                {
+                    result = materialInDb as DbArticleMaterial;
+                }
+
                 result.Id = article.Id;
                 result.Name = article.Name;
                 result.Source = article.Source;

@@ -10,7 +10,7 @@
 
         public void UpdateArticle(ArticleMaterial material);
 
-        public void DeleteArticle(int id);
+        public void DeleteArticle(ArticleMaterial material);
 
         public void Save();
     }

@@ -8,15 +8,15 @@ namespace EducationPortal.Application.Interfaces.Shared
 
         public void SetBook(BookMaterial book);
 
-        public void UpdateBook(string name, BookMaterial updatedMaterial);
+        public void UpdateBook(BookMaterial material, BookMaterial updatedMaterial);
 
         public void DeleteBook(string name);
 
-        public List<VideoMaterial> GetVideo();
+        public List<VideoMaterial> GetVideos();
 
         public void SetVideo(VideoMaterial book);
 
-        public void UpdateVideo(string name, VideoMaterial updatedMaterial);
+        public void UpdateVideo(VideoMaterial material, VideoMaterial updatedMaterial);
 
         public void DeleteVideo(string name);
 

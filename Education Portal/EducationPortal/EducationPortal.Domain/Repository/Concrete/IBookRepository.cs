@@ -8,9 +8,9 @@
 
         public void SetBook(BookMaterial material);
 
-        public void UpdateBook(string name, BookMaterial updatedMaterial);
+        public void UpdateBook(BookMaterial material);
 
-        public void DeleteBook(int id);
+        public void DeleteBook(BookMaterial material);
 
         public void Save();
     }

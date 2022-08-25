@@ -6,20 +6,18 @@ namespace EducationPortal.Infrastructure.DB.Repository
     internal class BookRepository : IBookRepository
     {
         private readonly PortalContext _context;
+        private readonly MapToDbModels _mapper;
 
         public BookRepository(PortalContext context)
         {
             _context = context;
+            _mapper = new MapToDbModels(context);
         }
 
-        public void DeleteBook(int id)
+        public void DeleteBook(BookMaterial material)
         {
-            var book = _context.Materials.Find(id);
-            if (book != null)
-            {
-                _context.Materials.Remove(book);
-                Save();
-            }
+            _context.Materials.Remove(_mapper.MapToDbMaterial(material));
+            Save();
         }
 
         public BookMaterial? GetBookById(int id)
@@ -43,23 +41,14 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetBook(BookMaterial material)
         {
-            _context.Materials.Add(material.MapMaterialToDbMaterial());
+            _context.Materials.Add(_mapper.MapToDbMaterial(material));
             Save();
         }
 
-        public void UpdateBook(string name, BookMaterial updatedMaterial)
+        public void UpdateBook(BookMaterial material)
         {
-            DbBookMaterial book = (DbBookMaterial)_context.Materials.FirstOrDefault(x => x.Name == name);
-            if (book != null)
-            {
-                _context.Update(book);
-                book.Name = updatedMaterial.Name;
-                book.Format = updatedMaterial.Format;
-                book.Author = updatedMaterial.Author;
-                book.NumberPages = updatedMaterial.NumberPages;
-                book.PublicationDate = updatedMaterial.PublicationDate;
-                Save();
-            }
+            _context.Entry(_mapper.MapToDbMaterial(material)).State = EntityState.Modified;
+            Save();
         }
 
         public void Save()

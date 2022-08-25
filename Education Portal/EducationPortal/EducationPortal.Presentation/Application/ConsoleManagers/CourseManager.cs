@@ -189,7 +189,7 @@ namespace EducationPortal.Presentation.Application
         private List<Material> AllMaterials()
         {
             List<BookMaterial> bookMaterials = _materialManageService.GetBooks();
-            List<VideoMaterial> videoMaterials = _materialManageService.GetVideo();
+            List<VideoMaterial> videoMaterials = _materialManageService.GetVideos();
             List<ArticleMaterial> articleMaterials = _materialManageService.GetArticle();
 
             List<Material> materials = new List<Material>();

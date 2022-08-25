@@ -14,14 +14,10 @@ namespace EducationPortal.Infrastructure.DB.Repository
             _mapper = new MapToDbModels(context);
         }
 
-        public void DeleteArticle(int id)
+        public void DeleteArticle(ArticleMaterial material)
         {
-            var article = _context.Materials.Find(id);
-            if (article != null)
-            {
-                _context.Materials.Remove(article);
-                Save();
-            }
+            _context.Materials.Remove(_mapper.MapToDbMaterial(material));
+            Save();
         }
 
         public List<ArticleMaterial> GetArticle()
@@ -50,13 +46,13 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetArticle(ArticleMaterial material)
         {
-            _context.Materials.Add(material.MapMaterialToDbMaterial());
+            _context.Materials.Add(_mapper.MapToDbMaterial(material));
             Save();
         }
 
         public void UpdateArticle(ArticleMaterial material)
         {
-            _context.Entry(_mapper.MapMaterialToDbMaterial(material)).State = EntityState.Modified;
+            _context.Entry(_mapper.MapToDbMaterial(material)).State = EntityState.Modified;
             Save();
         }
     }

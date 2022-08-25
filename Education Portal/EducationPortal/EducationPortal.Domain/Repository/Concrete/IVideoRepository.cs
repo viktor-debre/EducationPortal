@@ -8,9 +8,9 @@
 
         public void SetVideo(VideoMaterial material);
 
-        public void UpdateVideo(string name, VideoMaterial updatedMaterial);
+        public void UpdateVideo(VideoMaterial material);
 
-        public void DeleteVideo(int id);
+        public void DeleteVideo(VideoMaterial material);
 
         public void Save();
     }

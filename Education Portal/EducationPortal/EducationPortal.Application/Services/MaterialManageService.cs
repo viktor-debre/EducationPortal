@@ -34,21 +34,27 @@ namespace EducationPortal.Application.Services
             _createBook.TryCreateBook(bookMaterial);
         }
 
-        public void UpdateBook(string name, BookMaterial updatedMaterial)
+        public void UpdateBook(BookMaterial article, BookMaterial updatedMaterial)
         {
-            _bookRepository.UpdateBook(name, updatedMaterial);
+            var bookToUpdate = _bookRepository.GetBooks().FirstOrDefault(a => a.Id == article.Id);
+            bookToUpdate.Name = updatedMaterial.Name;
+            bookToUpdate.Author = updatedMaterial.Author;
+            bookToUpdate.NumberPages = updatedMaterial.NumberPages;
+            bookToUpdate.PublicationDate = updatedMaterial.PublicationDate;
+            bookToUpdate.Format = updatedMaterial.Format;
+            _bookRepository.UpdateBook(bookToUpdate);
         }
 
         public void DeleteBook(string name)
         {
-            var id = _bookRepository.GetBooks().FirstOrDefault(x => x.Name == name).Id;
-            if (id != null)
+            var material = _bookRepository.GetBooks().FirstOrDefault(x => x.Name == name);
+            if (material != null)
             {
-                _bookRepository.DeleteBook(id);
+                _bookRepository.DeleteBook(material);
             }
         }
 
-        public List<VideoMaterial> GetVideo()
+        public List<VideoMaterial> GetVideos()
         {
             return _videoRepository.GetVideos();
         }
@@ -58,17 +64,21 @@ namespace EducationPortal.Application.Services
             _createVideo.TryCreateVideo(videoMaterial);
         }
 
-        public void UpdateVideo(string name, VideoMaterial updatedMaterial)
+        public void UpdateVideo(VideoMaterial video, VideoMaterial updatedMaterial)
         {
-            _videoRepository.UpdateVideo(name, updatedMaterial);
+            var videoToUpdate = _videoRepository.GetVideos().FirstOrDefault(a => a.Id == video.Id);
+            videoToUpdate.Name = updatedMaterial.Name;
+            videoToUpdate.Duration = updatedMaterial.Duration;
+            videoToUpdate.Quality = updatedMaterial.Quality;
+            _videoRepository.UpdateVideo(videoToUpdate);
         }
 
         public void DeleteVideo(string name)
         {
-            var id = _videoRepository.GetVideos().FirstOrDefault(x => x.Name == name).Id;
-            if (id != null)
+            var video = _videoRepository.GetVideos().FirstOrDefault(x => x.Name == name);
+            if (video != null)
             {
-                _videoRepository.DeleteVideo(id);
+                _videoRepository.DeleteVideo(video);
             }
         }
 
@@ -93,10 +103,10 @@ namespace EducationPortal.Application.Services
 
         public void DeleteArticle(string name)
         {
-            var id = _articleRepository.GetArticle().FirstOrDefault(x => x.Name == name).Id;
-            if (id != null)
+            var article = _articleRepository.GetArticle().FirstOrDefault(x => x.Name == name);
+            if (article != null)
             {
-                _articleRepository.DeleteArticle(id);
+                _articleRepository.DeleteArticle(article);
             }
         }
     }

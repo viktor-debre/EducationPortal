@@ -77,7 +77,7 @@ namespace EducationPortal.Presentation.Application
 
         private void OutputAllVideos()
         {
-            List<VideoMaterial> videoMaterials = _materialManageService.GetVideo();
+            List<VideoMaterial> videoMaterials = _materialManageService.GetVideos();
             Console.WriteLine("Videos:");
             foreach (VideoMaterial video in videoMaterials)
             {
@@ -161,6 +161,14 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
+            var existingBook = _materialManageService.GetBooks().FirstOrDefault(x => x.Name == name);
+            if (existingBook == null)
+            {
+                Console.WriteLine($"{EntityName.BOOK} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
+
             string newName;
             if (!_inputHandler.TryInputStringValue(out newName, "new name", Operation.UPDATING, EntityName.BOOK))
             {
@@ -199,7 +207,7 @@ namespace EducationPortal.Presentation.Application
                 NumberPages = numberOfPages,
                 PublicationDate = publicationDate
             };
-            _materialManageService.UpdateBook(name, bookMaterial);
+            _materialManageService.UpdateBook(existingBook, bookMaterial);
         }
 
         private void AddVideo()
@@ -252,6 +260,14 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
+            var existingVideo = _materialManageService.GetVideos().FirstOrDefault(x => x.Name == name);
+            if (existingVideo == null)
+            {
+                Console.WriteLine($"{EntityName.VIDEO} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
+
             string newName;
             if (!_inputHandler.TryInputStringValue(out newName, "name", Operation.UPDATING, EntityName.VIDEO))
             {
@@ -276,7 +292,7 @@ namespace EducationPortal.Presentation.Application
                 Duration = duration,
                 Quality = quality
             };
-            _materialManageService.UpdateVideo(name, videoMaterial);
+            _materialManageService.UpdateVideo(existingVideo, videoMaterial);
         }
 
         private void AddArticle()
@@ -329,6 +345,14 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
+            var existingArticle = _materialManageService.GetArticle().FirstOrDefault(x => x.Name == name);
+            if (existingArticle == null)
+            {
+                Console.WriteLine($"{EntityName.ARTICLE} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
+
             string newName;
             if (!_inputHandler.TryInputStringValue(out newName, "new name", Operation.UPDATING, EntityName.ARTICLE))
             {
@@ -353,7 +377,7 @@ namespace EducationPortal.Presentation.Application
                 Source = source,
                 PublicationDate = publicationDate
             };
-            _materialManageService.UpdateArticle(_materialManageService.GetArticle().FirstOrDefault(x => x.Name == name), articleMaterial);
+            _materialManageService.UpdateArticle(existingArticle, articleMaterial);
         }
     }
 }
