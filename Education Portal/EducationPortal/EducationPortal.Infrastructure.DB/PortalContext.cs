@@ -1,7 +1,4 @@
-﻿using EducationPortal.Infrastructure.DB.DbModels;
-using Microsoft.EntityFrameworkCore;
-
-namespace EducationPortal.Infrastructure.DB
+﻿namespace EducationPortal.Infrastructure.DB
 {
     internal class PortalContext : DbContext
     {

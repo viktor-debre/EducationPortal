@@ -3,14 +3,14 @@ using EducationPortal.Domain.Entities.Materials;
 
 namespace EducationPortal.Presentation.Application
 {
-    internal class ConsoleCourseManager
+    internal class CourseManager
     {
         private readonly ICourseService _courseService;
         private readonly IMaterialManageService _materialManageService;
         private readonly ISkillService _skillService;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public ConsoleCourseManager(ICourseService courseService,
+        public CourseManager(ICourseService courseService,
                                     IMaterialManageService materialManageService,
                                     ISkillService skillService)
         {

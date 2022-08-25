@@ -1,10 +1,10 @@
 ﻿namespace EducationPortal.Presentation.Application
 {
-    internal class ConsoleRegisterUser
+    internal class RegisterUserManager
     {
         private readonly IUserRegistration _userRegistration;
 
-        public ConsoleRegisterUser(IUserRegistration userRegistration)
+        public RegisterUserManager(IUserRegistration userRegistration)
         {
             _userRegistration = userRegistration;
         }

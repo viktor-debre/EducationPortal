@@ -1,15 +1,15 @@
 ﻿namespace EducationPortal.Presentation.Application
 {
-    internal class ConsoleAuthentication
+    internal class AuthenticationManager
     {
         private readonly IUserAuthentication _userAuthenticationService;
-        private readonly ConsoleRegisterUser _registerUser;
+        private readonly RegisterUserManager _registerUser;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public ConsoleAuthentication(IUserAuthentication userAuthenticationServicer, IUserRegistration userRegistration)
+        public AuthenticationManager(IUserAuthentication userAuthenticationServicer, IUserRegistration userRegistration)
         {
             _userAuthenticationService = userAuthenticationServicer;
-            _registerUser = new ConsoleRegisterUser(userRegistration);
+            _registerUser = new RegisterUserManager(userRegistration);
         }
 
         public void AuthenticationMenu()

@@ -2,12 +2,12 @@
 
 namespace EducationPortal.Presentation.Application
 {
-    internal class ConsoleMaterialManager
+    internal class MaterialManager
     {
         private readonly IMaterialManageService _materialManageService;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public ConsoleMaterialManager(IMaterialManageService materialManageService)
+        public MaterialManager(IMaterialManageService materialManageService)
         {
             _materialManageService = materialManageService;
         }

@@ -4,10 +4,10 @@ namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleApplication
     {
-        private readonly ConsoleAuthentication _consoleAuthentication;
-        private readonly ConsoleMaterialManager _materialManager;
-        private readonly ConsoleCourseManager _courseManager;
-        private readonly ConsoleSkillManager _skillManager;
+        private readonly AuthenticationManager _consoleAuthentication;
+        private readonly MaterialManager _materialManager;
+        private readonly CourseManager _courseManager;
+        private readonly SkillManager _skillManager;
 
         public ConsoleApplication(IUserRegistration userRegistration,
                                   IUserAuthentication userAuthenticationService,
@@ -15,10 +15,10 @@ namespace EducationPortal.Presentation.Application
                                   ICourseService courseService,
                                   ISkillService skillService)
         {
-            _consoleAuthentication = new ConsoleAuthentication(userAuthenticationService, userRegistration);
-            _materialManager = new ConsoleMaterialManager(materialManageService);
-            _courseManager = new ConsoleCourseManager(courseService, materialManageService, skillService);
-            _skillManager = new ConsoleSkillManager(skillService);
+            _consoleAuthentication = new AuthenticationManager(userAuthenticationService, userRegistration);
+            _materialManager = new MaterialManager(materialManageService);
+            _courseManager = new CourseManager(courseService, materialManageService, skillService);
+            _skillManager = new SkillManager(skillService);
         }
 
         public void Run()

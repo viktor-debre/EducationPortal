@@ -2,12 +2,12 @@
 
 namespace EducationPortal.Presentation.Application
 {
-    internal class ConsoleSkillManager
+    internal class SkillManager
     {
         private readonly ISkillService _skillService;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public ConsoleSkillManager(ISkillService skillService)
+        public SkillManager(ISkillService skillService)
         {
             _skillService = skillService;
         }
