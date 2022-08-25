@@ -3,11 +3,11 @@ using EducationPortal.Domain.Entities;
 
 namespace EducationPortal.Infrastructure.DB.DbModels.Common
 {
-    internal class MapToDbModels
+    internal class MapperForEntities
     {
         private readonly PortalContext _context;
 
-        public MapToDbModels(PortalContext context)
+        public MapperForEntities(PortalContext context)
         {
             _context = context;
         }
@@ -21,6 +21,10 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             else if (entity is Skill skill)
             {
                 return MapToDbSkill(skill);
+            }
+            else if (entity is User user)
+            {
+                return MapToDbUser(user);
             }
 
             throw new Exception("Not found entity type to map");
@@ -46,6 +50,34 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             }
 
             throw new Exception("Not found entity type to map");
+        }
+
+        public DbUser MapToDbUser(User user)
+        {
+            int id = user.Id;
+            DbUser userInDb;
+            if (id != 0)
+            {
+                userInDb = _context.Users.Find(id);
+            }
+            else
+            {
+                userInDb = new DbUser();
+            }
+
+            userInDb.Id = user.Id;
+            userInDb.Name = user.Name;
+            userInDb.Password = user.Password;
+
+            var skills = new List<DbSkill>();
+            foreach (var skill in user.Skills)
+            {
+                skills.Add(skill.MapSkillToDbSkill());
+            }
+
+            userInDb.Skills = skills;
+
+            return userInDb;
         }
 
         private DbMaterial MapToDbMaterial(Material material)

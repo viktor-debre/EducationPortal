@@ -4,9 +4,9 @@ namespace EducationPortal.Application.Services
 {
     internal class UserRegistrationService : IUserRegistration
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public UserRegistrationService(IUserRepository userRepository)
+        public UserRegistrationService(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }

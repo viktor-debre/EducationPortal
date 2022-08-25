@@ -6,12 +6,12 @@ namespace EducationPortal.Infrastructure.DB.Repository
     internal class SkillRepository : ISkillRepository
     {
         private readonly PortalContext _context;
-        private readonly MapToDbModels _mapper;
+        private readonly MapperForEntities _mapper;
 
         public SkillRepository(PortalContext context)
         {
             _context = context;
-            _mapper = new MapToDbModels(context);
+            _mapper = new MapperForEntities(context);
         }
 
         public void DeleteSkill(Skill skill)

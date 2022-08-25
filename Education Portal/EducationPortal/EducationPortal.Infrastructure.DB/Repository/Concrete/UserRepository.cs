@@ -15,7 +15,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void DeleteUser(User user)
         {
-            _context.Users.Remove(user.MapUserToDbUser());
+            _context.Users.Remove(user.MapToDbUser());
             Save();
         }
 
@@ -37,13 +37,13 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetUser(User user)
         {
-            _context.Add(user.MapUserToDbUser());
+            _context.Add(user.MapToDbUser());
             Save();
         }
 
         public void UpdateUser(User user)
         {
-            _context.Entry(user.MapUserToDbUser()).State = EntityState.Modified;
+            _context.Entry(user.MapToDbUser()).State = EntityState.Modified;
             Save();
         }
 

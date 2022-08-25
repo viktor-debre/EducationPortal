@@ -4,9 +4,9 @@ namespace EducationPortal.Application.Commands
 {
     internal class CreateUser
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public CreateUser(IUserRepository userRepository)
+        public CreateUser(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
         }
@@ -20,14 +20,14 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            var checkUser = _userRepository.GetUsers().FirstOrDefault(x => x.Name == newUser.Name);
+            var checkUser = _userRepository.Find().FirstOrDefault(x => x.Name == newUser.Name);
             if (checkUser != null)
             {
                 return false;
             }
             else
             {
-                _userRepository.SetUser(newUser);
+                _userRepository.Add(newUser);
                 return true;
             }
         }

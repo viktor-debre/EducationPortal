@@ -9,13 +9,13 @@ namespace EducationPortal.Infrastructure.DB.Repository.Generic
         where TDbEntity : DbBaseEntity
     {
         private readonly PortalContext _context;
-        private readonly MapToDbModels _mapper;
+        private readonly MapperForEntities _mapper;
         private readonly DbSet<TDbEntity> _dbSet;
 
         public EntityRepository(PortalContext context)
         {
             _context = context;
-            _mapper = new MapToDbModels(context);
+            _mapper = new MapperForEntities(context);
             _dbSet = context.Set<TDbEntity>();
         }
 

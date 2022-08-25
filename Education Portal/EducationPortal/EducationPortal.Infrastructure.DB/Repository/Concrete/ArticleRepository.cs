@@ -6,12 +6,12 @@ namespace EducationPortal.Infrastructure.DB.Repository
     internal class ArticleRepository : IArticleRepository
     {
         private readonly PortalContext _context;
-        private readonly MapToDbModels _mapper;
+        private readonly MapperForEntities _mapper;
 
         public ArticleRepository(PortalContext context)
         {
             _context = context;
-            _mapper = new MapToDbModels(context);
+            _mapper = new MapperForEntities(context);
         }
 
         public void DeleteArticle(ArticleMaterial material)

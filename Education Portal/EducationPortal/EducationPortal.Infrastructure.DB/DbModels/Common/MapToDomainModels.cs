@@ -28,7 +28,7 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             };
         }
 
-        public static DbUser MapUserToDbUser(this User user)
+        public static DbUser MapToDbUser(this User user)
         {
             var skills = new List<DbSkill>();
             foreach (var skill in user.Skills)
