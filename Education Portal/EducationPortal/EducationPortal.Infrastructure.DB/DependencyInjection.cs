@@ -11,7 +11,6 @@ namespace EducationPortal.Infrastructure.DB
         public static void RegisterDbServices(ServiceCollection services)
         {
             services.AddDbContext<PortalContext>()
-                .AddSingleton<IUserRepository, UserRepository>()
                 .AddTransient<IRepository<BookMaterial>, EntityRepository<BookMaterial, DbBookMaterial>>()
                 .AddTransient<IRepository<VideoMaterial>, EntityRepository<VideoMaterial, DbVideoMaterial>>()
                 .AddTransient<IRepository<ArticleMaterial>, EntityRepository<ArticleMaterial, DbArticleMaterial>>()

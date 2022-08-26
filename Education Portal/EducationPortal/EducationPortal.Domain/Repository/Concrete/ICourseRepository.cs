@@ -8,9 +8,9 @@
 
         public void SetCourse(Course cource);
 
-        public void UpdateCourse(string name, Course updatedMaterial);
+        public void UpdateCourse(Course cource);
 
-        public void DeleteCourse(int id);
+        public void DeleteCourse(Course cource);
 
         public void Save();
     }

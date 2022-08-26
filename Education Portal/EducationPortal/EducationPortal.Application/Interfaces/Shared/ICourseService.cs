@@ -6,7 +6,7 @@
 
         public void SetCourse(Course book);
 
-        public void UpdateCourse(string name, Course updatedCourse);
+        public void UpdateCourse(Course course, Course updatedCourse);
 
         public void DeleteCourse(string name);
     }

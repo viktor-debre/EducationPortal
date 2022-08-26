@@ -158,6 +158,14 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
+            var existingCourse = _courseService.GetCourses().FirstOrDefault(x => x.Name == name);
+            if (existingCourse == null)
+            {
+                Console.WriteLine($"{EntityName.COURSE} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
+
             string newName;
             if (!_inputHandler.TryInputStringValue(out newName, "new name", Operation.UPDATING, EntityName.COURSE))
             {
@@ -182,7 +190,7 @@ namespace EducationPortal.Presentation.Application
                 Materials = mateirals,
                 Skills = skills
             };
-            _courseService.UpdateCourse(name, course);
+            _courseService.UpdateCourse(existingCourse, course);
         }
 
         private List<Material> AllMaterials()

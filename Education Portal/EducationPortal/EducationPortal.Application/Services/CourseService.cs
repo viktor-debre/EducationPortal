@@ -11,10 +11,10 @@
 
         public void DeleteCourse(string name)
         {
-            var id = _courseRepository.GetCources().FirstOrDefault(x => x.Name == name).Id;
-            if (id != null)
+            var course = _courseRepository.GetCources().FirstOrDefault(x => x.Name == name);
+            if (course != null)
             {
-                _courseRepository.DeleteCourse(id);
+                _courseRepository.DeleteCourse(course);
             }
         }
 
@@ -28,9 +28,26 @@
             _courseRepository.SetCourse(course);
         }
 
-        public void UpdateCourse(string name, Course updatedCourse)
+        public void UpdateCourse(Course course, Course updatedCourse)
         {
-            _courseRepository.UpdateCourse(name, updatedCourse);
+            var courseToUpdate = _courseRepository.GetCources().FirstOrDefault(a => a.Id == course.Id);
+            courseToUpdate.Name = updatedCourse.Name;
+            courseToUpdate.Description = updatedCourse.Description;
+            List<Material> materials = new List<Material>();
+            foreach (var material in updatedCourse.Materials)
+            {
+                materials.Add(material);
+            }
+
+            courseToUpdate.Materials = materials;
+            List<Skill> skills = new List<Skill>();
+            foreach (var skill in updatedCourse.Skills)
+            {
+                skills.Add(skill);
+            }
+
+            courseToUpdate.Skills = skills;
+            _courseRepository.UpdateCourse(courseToUpdate);
         }
     }
 }

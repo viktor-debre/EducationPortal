@@ -6,20 +6,18 @@ namespace EducationPortal.Infrastructure.DB.Repository
     internal class CourseRepository : ICourseRepository
     {
         private readonly PortalContext _context;
+        private readonly MapperForEntities _mapper;
 
         public CourseRepository(PortalContext context)
         {
             _context = context;
+            _mapper = new MapperForEntities(context);
         }
 
-        public void DeleteCourse(int id)
+        public void DeleteCourse(Course course)
         {
-            var course = _context.Courses.Find(id);
-            if (course != null)
-            {
-                _context.Courses.Remove(course);
-                Save();
-            }
+            _context.Courses.Remove((DbCourse)_mapper.MapToDbEntity(course));
+            Save();
         }
 
         public Course? GetCourceById(int id)
@@ -46,50 +44,14 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public void SetCourse(Course course)
         {
-            DbCourse dbCourse = course.MapCourseToDbCourse();
-
-            if (dbCourse != null)
-            {
-                dbCourse.Materials = new List<DbMaterial>();
-                foreach (var material in course.Materials)
-                {
-                    dbCourse.Materials.Add(_context.Materials.Find(material.Id));
-                }
-
-                dbCourse.Skills = new List<DbSkill>();
-                foreach (var skill in course.Skills)
-                {
-                    dbCourse.Skills.Add(_context.Skills.Find(skill.Id));
-                }
-
-                _context.Courses.Add(dbCourse);
-                Save();
-            }
+            _context.Add((DbCourse)_mapper.MapToDbEntity(course));
+            Save();
         }
 
-        public void UpdateCourse(string name, Course updatedCourse)
+        public void UpdateCourse(Course course)
         {
-            DbCourse course = _context.Courses.FirstOrDefault(x => x.Name == name);
-
-            if (course != null)
-            {
-                course.Name = updatedCourse.Name;
-                course.Description = updatedCourse.Description;
-                course.Materials = new List<DbMaterial>();
-                foreach (var material in updatedCourse.Materials)
-                {
-                    course.Materials.Add(_context.Materials.Find(material.Id));
-                }
-
-                course.Skills = new List<DbSkill>();
-                foreach (var skill in updatedCourse.Skills)
-                {
-                    course.Skills.Add(_context.Skills.Find(skill.Id));
-                }
-
-                _context.Update(course);
-                Save();
-            }
+            _context.Entry((DbCourse)_mapper.MapToDbEntity(course)).State = EntityState.Modified;
+            Save();
         }
     }
 }

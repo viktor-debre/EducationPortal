@@ -26,6 +26,10 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             {
                 return MapToDbUser(user);
             }
+            else if (entity is Course course)
+            {
+                return MapToDbCourse(course);
+            }
 
             throw new Exception("Not found entity type to map");
         }
@@ -72,7 +76,7 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
             var skills = new List<DbSkill>();
             foreach (var skill in user.Skills)
             {
-                skills.Add(skill.MapSkillToDbSkill());
+                skills.Add(MapToDbSkill(skill));
             }
 
             userInDb.Skills = skills;
@@ -159,19 +163,52 @@ namespace EducationPortal.Infrastructure.DB.DbModels.Common
         private DbSkill MapToDbSkill(Skill skill)
         {
             int id = skill.Id;
-            DbSkill materialInDb;
+            DbSkill skillInDb;
             if (id != 0)
             {
-                materialInDb = _context.Skills.Find(id);
+                skillInDb = _context.Skills.Find(id);
             }
             else
             {
-                materialInDb = new DbSkill();
+                skillInDb = new DbSkill();
             }
 
-            materialInDb.Id = skill.Id;
-            materialInDb.Title = skill.Title;
-            return materialInDb;
+            skillInDb.Id = skill.Id;
+            skillInDb.Title = skill.Title;
+            return skillInDb;
+        }
+
+        private DbCourse MapToDbCourse(Course course)
+        {
+            int id = course.Id;
+            DbCourse courseInDb;
+            if (id != 0)
+            {
+                courseInDb = _context.Courses.Find(id);
+            }
+            else
+            {
+                courseInDb = new DbCourse();
+            }
+
+            var materials = new List<DbMaterial>();
+            foreach (var material in course.Materials)
+            {
+                materials.Add(MapToDbMaterial(material));
+            }
+
+            var skills = new List<DbSkill>();
+            foreach (var skill in course.Skills)
+            {
+                skills.Add(MapToDbSkill(skill));
+            }
+
+            courseInDb.Id = course.Id;
+            courseInDb.Name = course.Name;
+            courseInDb.Description = course.Description;
+            courseInDb.Materials = materials;
+            courseInDb.Skills = skills;
+            return courseInDb;
         }
 
         private User MapToDomainUser(DbUser user)
