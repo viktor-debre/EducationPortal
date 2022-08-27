@@ -1,6 +1,6 @@
 ﻿using EducationPortal.Domain.Common;
 using EducationPortal.Domain.Repository;
-using System.Linq.Expressions;
+using EducationPortal.Infrastructure.DB.Mapping;
 
 namespace EducationPortal.Infrastructure.DB.Repository.Generic
 {

@@ -1,5 +1,7 @@
-﻿using EducationPortal.Domain.Entities;
+﻿using EducationPortal.Domain.Common;
+using EducationPortal.Domain.Entities;
 using EducationPortal.Domain.Repository;
+using EducationPortal.Infrastructure.DB.Mapping;
 
 namespace EducationPortal.Infrastructure.DB.Repository
 {
@@ -22,7 +24,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
 
         public Course? GetCourceById(int id)
         {
-            return (Course?)_context.Courses.Find(id).MapToDomainCourse();
+            return _mapper.MapToDomainCourse(_context.Courses.Find(id));
         }
 
         public List<Course> GetCources()
@@ -31,7 +33,7 @@ namespace EducationPortal.Infrastructure.DB.Repository
             var dbCourses = _context.Courses.Include(x => x.Materials).Include(x => x.Skills).ToList();
             foreach (var course in dbCourses)
             {
-                courses.Add(course.MapToDomainCourse());
+                courses.Add(_mapper.MapToDomainCourse(course));
             }
 
             return courses;
