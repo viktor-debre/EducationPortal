@@ -178,10 +178,10 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
-            List<Material> mateirals = new List<Material>();
+            List<Material> mateirals = existingCourse.Materials;
             ChangeMaterials(mateirals);
 
-            List<Skill> skills = new List<Skill>();
+            List<Skill> skills = existingCourse.Skills;
             ChangeSkills(skills);
             Course course = new Course
             {
