@@ -224,6 +224,14 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
+            var inList = materials.Find(x => x.Id == material.Id);
+            if (inList != null)
+            {
+                Console.WriteLine($"{EntityName.MATERIAL} {Result.ALREADY_IN_LIST} {Operation.ADDING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
+
             materials.Add(material);
         }
 
@@ -307,6 +315,14 @@ namespace EducationPortal.Presentation.Application
             if (skill == null)
             {
                 Console.WriteLine($"{EntityName.SKILL} {Result.DOES_NOT_EXIST} {Operation.ADDING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
+
+            var inList = skills.Find(x => x.Id == skill.Id);
+            if (inList != null)
+            {
+                Console.WriteLine($"{EntityName.SKILL} {Result.ALREADY_IN_LIST} {Operation.ADDING} {Result.INTERRUPTED}");
                 Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                 return;
             }
