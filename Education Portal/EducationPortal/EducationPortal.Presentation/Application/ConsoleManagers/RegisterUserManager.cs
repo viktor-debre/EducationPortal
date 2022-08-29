@@ -2,9 +2,9 @@
 {
     internal class RegisterUserManager
     {
-        private readonly IUserRegistration _userRegistration;
+        private readonly IUserAuthentication _userRegistration;
 
-        public RegisterUserManager(IUserRegistration userRegistration)
+        public RegisterUserManager(IUserAuthentication userRegistration)
         {
             _userRegistration = userRegistration;
         }

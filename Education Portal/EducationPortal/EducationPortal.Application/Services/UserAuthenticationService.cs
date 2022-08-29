@@ -1,17 +1,19 @@
-﻿namespace EducationPortal.Application.Services
+﻿using EducationPortal.Application.Commands;
+
+namespace EducationPortal.Application.Services
 {
     internal class UserAuthenticationService : IUserAuthentication
     {
-        private readonly IRepository<User> _usersRepository;
+        private readonly IRepository<User> _userRepository;
 
         public UserAuthenticationService(IRepository<User> usersRepository)
         {
-            _usersRepository = usersRepository;
+            _userRepository = usersRepository;
         }
 
-        public bool Authenticate(string userName, string password)
+        public bool Authenticate(string userName, string password, User user)
         {
-            List<User> users = _usersRepository.Find();
+            List<User> users = _userRepository.Find();
             var checkUser = users.FirstOrDefault(x => x.Name == userName);
             if (checkUser == null)
             {
@@ -19,7 +21,7 @@
             }
 
             int idOfUser = checkUser.Id;
-            User existingUser = _usersRepository.FindById(idOfUser);
+            User existingUser = _userRepository.FindById(idOfUser);
             if (existingUser == null)
             {
                 return false;
@@ -31,8 +33,22 @@
             }
             else
             {
+                user = existingUser;
                 return true;
             }
+        }
+
+        public bool TryCreateUser(string name, string password)
+        {
+            User user = new User()
+            {
+                Name = name,
+                Password = password,
+                Skills = new List<Skill>(),
+                Materials = new List<Material>()
+            };
+            CreateUser createUser = new CreateUser(_userRepository);
+            return createUser.TryCreateUser(user);
         }
     }
 }

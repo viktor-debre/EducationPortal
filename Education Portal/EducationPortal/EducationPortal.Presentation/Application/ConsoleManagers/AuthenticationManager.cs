@@ -1,4 +1,6 @@
-﻿namespace EducationPortal.Presentation.Application
+﻿using EducationPortal.Domain.Entities;
+
+namespace EducationPortal.Presentation.Application
 {
     internal class AuthenticationManager
     {
@@ -6,24 +8,25 @@
         private readonly RegisterUserManager _registerUser;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public AuthenticationManager(IUserAuthentication userAuthenticationServicer, IUserRegistration userRegistration)
+        public AuthenticationManager(IUserAuthentication userAuthenticationService)
         {
-            _userAuthenticationService = userAuthenticationServicer;
-            _registerUser = new RegisterUserManager(userRegistration);
+            _userAuthenticationService = userAuthenticationService;
+            _registerUser = new RegisterUserManager(userAuthenticationService);
         }
 
-        public void AuthenticationMenu()
+        public void AuthenticationMenu(User user)
         {
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine(MenuStrings.AUTH_MENU);
 
+                User currentUser = new User();
                 string input = Console.ReadLine();
                 switch (input)
                 {
                     case "1":
-                        if (Authenticate())
+                        if (Authenticate(currentUser))
                         {
                             return;
                         }
@@ -40,7 +43,7 @@
             }
         }
 
-        public bool Authenticate()
+        public bool Authenticate(User user)
         {
             string input;
             if (!_inputHandler.TryInputStringValue(out input, "username and password", Operation.AUTHORIZING, EntityName.USER))
@@ -64,7 +67,7 @@
 
             if (isValidInput)
             {
-                if (_userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1]))
+                if (_userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1], user))
                 {
                     Console.Clear();
                     Console.WriteLine("You successfully authorized.");

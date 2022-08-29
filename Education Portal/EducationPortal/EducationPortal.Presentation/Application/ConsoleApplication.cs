@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using EducationPortal.Domain.Entities;
+using System.Text;
 
 namespace EducationPortal.Presentation.Application
 {
@@ -9,13 +10,13 @@ namespace EducationPortal.Presentation.Application
         private readonly CourseManager _courseManager;
         private readonly SkillManager _skillManager;
 
-        public ConsoleApplication(IUserRegistration userRegistration,
+        public ConsoleApplication(
                                   IUserAuthentication userAuthenticationService,
                                   IMaterialManageService materialManageService,
                                   ICourseService courseService,
                                   ISkillService skillService)
         {
-            _consoleAuthentication = new AuthenticationManager(userAuthenticationService, userRegistration);
+            _consoleAuthentication = new AuthenticationManager(userAuthenticationService);
             _materialManager = new MaterialManager(materialManageService);
             _courseManager = new CourseManager(courseService, materialManageService, skillService);
             _skillManager = new SkillManager(skillService);
@@ -29,12 +30,13 @@ namespace EducationPortal.Presentation.Application
             while (true)
             {
                 Console.Clear();
-                _consoleAuthentication.AuthenticationMenu();
-                MainMenu();
+                User user = new User();
+                _consoleAuthentication.AuthenticationMenu(user);
+                MainMenu(user);
             }
         }
 
-        private void MainMenu()
+        private void MainMenu(User user)
         {
             while (true)
             {
@@ -52,7 +54,7 @@ namespace EducationPortal.Presentation.Application
                     case "3":
                         _courseManager.EditCources();
                         break;
-                    case "4":
+                    case "5":
                         return;
                         break;
                     default:
