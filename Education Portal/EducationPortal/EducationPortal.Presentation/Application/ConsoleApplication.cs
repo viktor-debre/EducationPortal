@@ -9,8 +9,9 @@ namespace EducationPortal.Presentation.Application
         private readonly MaterialManager _materialManager;
         private readonly CourseManager _courseManager;
         private readonly SkillManager _skillManager;
+        private readonly UserManager _userManager;
 
-        public ConsoleApplication(
+        public ConsoleApplication(IUserService userService,
                                   IUserAuthentication userAuthenticationService,
                                   IMaterialManageService materialManageService,
                                   ICourseService courseService,
@@ -20,6 +21,7 @@ namespace EducationPortal.Presentation.Application
             _materialManager = new MaterialManager(materialManageService);
             _courseManager = new CourseManager(courseService, materialManageService, skillService);
             _skillManager = new SkillManager(skillService);
+            _userManager = new UserManager(userService);
         }
 
         public void Run()
@@ -30,13 +32,12 @@ namespace EducationPortal.Presentation.Application
             while (true)
             {
                 Console.Clear();
-                User user = new User();
-                _consoleAuthentication.AuthenticationMenu(user);
-                MainMenu(user);
+                _consoleAuthentication.AuthenticationMenu();
+                MainMenu();
             }
         }
 
-        private void MainMenu(User user)
+        private void MainMenu()
         {
             while (true)
             {
@@ -53,6 +54,9 @@ namespace EducationPortal.Presentation.Application
                         break;
                     case "3":
                         _courseManager.EditCources();
+                        break;
+                    case "4":
+                        _userManager.UserInformation(new User{ });
                         break;
                     case "5":
                         return;

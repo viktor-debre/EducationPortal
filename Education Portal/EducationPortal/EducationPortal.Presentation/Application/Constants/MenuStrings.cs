@@ -13,7 +13,8 @@
             "1 - to edit materials\n" +
             "2 - to edit skills\n" +
             "3 - to edit courses\n" +
-            "4 - logout";
+            "4 - to view account info\n" +
+            "5 - logout";
 
         public static string MATERIAL_MENU = "Editing material menu:\n" +
             "1 - add book,   \t" + "1d  - delete book,   \t" + "1u - update book\n" +

@@ -86,6 +86,16 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             };
         }
 
+        public UserSkill MapToDomainUserSkill(DbUserSkill userSkill)
+        {
+            return new UserSkill
+            {
+                UserId = userSkill.UserId,
+                SkillId = userSkill.SkillId,
+                Level = userSkill.Level
+            };
+        }
+
         public Material MapToDomainMaterial(DbMaterial material)
         {
             Material result = new Material();
@@ -198,6 +208,16 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             userInDb.Materials = materials;
 
             return userInDb;
+        }
+
+        public DbUserSkill MapToDbUserSkill(UserSkill userSkill)
+        {
+            return new DbUserSkill
+            {
+                UserId = userSkill.UserId,
+                SkillId = userSkill.SkillId,
+                Level = userSkill.Level
+            };
         }
 
         public DbMaterial MapToDbMaterial(Material material)

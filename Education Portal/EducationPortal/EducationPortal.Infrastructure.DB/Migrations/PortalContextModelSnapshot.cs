@@ -34,7 +34,7 @@ namespace EducationPortal.Infrastructure.DB.Migrations
 
                     b.HasIndex("MaterialsId");
 
-                    b.ToTable("DbCourseDbMaterial");
+                    b.ToTable("DbCourseDbMaterial", (string)null);
                 });
 
             modelBuilder.Entity("DbCourseDbSkill", b =>
@@ -49,7 +49,7 @@ namespace EducationPortal.Infrastructure.DB.Migrations
 
                     b.HasIndex("SkillsId");
 
-                    b.ToTable("DbCourseDbSkill");
+                    b.ToTable("DbCourseDbSkill", (string)null);
                 });
 
             modelBuilder.Entity("DbMaterialDbUser", b =>
@@ -164,7 +164,7 @@ namespace EducationPortal.Infrastructure.DB.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("UserSkills");
+                    b.ToTable("UserSkills", (string)null);
                 });
 
             modelBuilder.Entity("EducationPortal.Infrastructure.DB.DbModels.DbArticleMaterial", b =>
