@@ -9,5 +9,7 @@
         public ICollection<DbSkill> Skills { get; set; }
 
         public List<DbUserSkill> UserSkills { get; set; }
+
+        public ICollection<DbMaterial> Materials { get; set; }
     }
 }

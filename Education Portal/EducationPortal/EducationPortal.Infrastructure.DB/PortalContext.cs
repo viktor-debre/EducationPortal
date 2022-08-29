@@ -41,21 +41,26 @@
             modelBuilder.Entity<DbArticleMaterial>();
 
             modelBuilder.Entity<DbUser>()
+                .HasMany(u => u.Materials)
+                .WithMany(m => m.Users)
+                .UsingEntity(um => um.ToTable("UserMaterials"));
+
+            modelBuilder.Entity<DbUser>()
             .HasMany(u => u.Skills)
             .WithMany(s => s.Users)
             .UsingEntity<DbUserSkill>(
-                j => j
+                userSkills => userSkills
                     .HasOne(us => us.Skill)
                     .WithMany(s => s.UserSkills)
                     .HasForeignKey(us => us.SkillId),
-                j => j
+                userSkills => userSkills
                     .HasOne(us => us.User)
                     .WithMany(u => u.UserSkills)
                     .HasForeignKey(us => us.UserId),
-                j =>
+                userSkills =>
                 {
-                    j.Property(pt => pt.Level);
-                    j.HasKey(t => new { t.UserId, t.SkillId});
+                    userSkills.Property(pt => pt.Level);
+                    userSkills.HasKey(t => new { t.UserId, t.SkillId});
                 });
         }
     }
