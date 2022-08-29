@@ -14,9 +14,9 @@ namespace EducationPortal.Infrastructure.DB
                 .AddTransient<IRepository<BookMaterial>, EntityRepository<BookMaterial, DbBookMaterial>>()
                 .AddTransient<IRepository<VideoMaterial>, EntityRepository<VideoMaterial, DbVideoMaterial>>()
                 .AddTransient<IRepository<ArticleMaterial>, EntityRepository<ArticleMaterial, DbArticleMaterial>>()
-                .AddSingleton<ICourseRepository, CourseRepository>()
+                .AddSingleton<IRepository<Course>, CourseRepository>()
                 .AddTransient<IRepository<Skill>, EntityRepository<Skill, DbSkill>>()
-                .AddTransient<IRepository<User>, EntityRepository<User, DbUser>>();
+                .AddTransient<IRepository<User>, UserRepository>();
         }
     }
 }

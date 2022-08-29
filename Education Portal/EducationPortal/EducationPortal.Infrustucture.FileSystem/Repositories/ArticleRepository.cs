@@ -3,7 +3,7 @@ using EducationPortal.Domain.Repository;
 
 namespace EducationPortal.Infrastructure.Repositories
 {
-    internal class ArticleRepository : IArticleRepository
+    internal class ArticleRepository : IRepository<ArticleMaterial>
     {
         private const string ArticlePath = @"D:\work\article.json";
 
@@ -75,6 +75,31 @@ namespace EducationPortal.Infrastructure.Repositories
         }
 
         public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ArticleMaterial> Find()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ArticleMaterial FindById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(ArticleMaterial item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(ArticleMaterial item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(ArticleMaterial entity)
         {
             throw new NotImplementedException();
         }

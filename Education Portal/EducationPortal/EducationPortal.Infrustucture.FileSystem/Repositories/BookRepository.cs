@@ -3,7 +3,7 @@ using EducationPortal.Domain.Repository;
 
 namespace EducationPortal.Infrastructure.Repositories
 {
-    internal class BookRepository : IBookRepository
+    internal class BookRepository : IRepository<BookMaterial>
     {
         private const string BookPath = @"D:\work\book.json";
 
@@ -59,11 +59,6 @@ namespace EducationPortal.Infrastructure.Repositories
             return false;
         }
 
-        List<BookMaterial> IBookRepository.GetBooks()
-        {
-            throw new NotImplementedException();
-        }
-
         public BookMaterial GetBookById(int id)
         {
             throw new NotImplementedException();
@@ -80,6 +75,31 @@ namespace EducationPortal.Infrastructure.Repositories
         }
 
         public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<BookMaterial> Find()
+        {
+            throw new NotImplementedException();
+        }
+
+        public BookMaterial FindById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(BookMaterial item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(BookMaterial item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(BookMaterial entity)
         {
             throw new NotImplementedException();
         }

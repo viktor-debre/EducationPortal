@@ -3,7 +3,7 @@ using EducationPortal.Domain.Repository;
 
 namespace EducationPortal.Infrastructure.Repositories
 {
-    internal class UserRepository : IUserRepository
+    internal class UserRepository : IRepository<User>
     {
         private static string UserPath = @"D:\work\users.json";
 
@@ -16,7 +16,7 @@ namespace EducationPortal.Infrastructure.Repositories
 
         public List<User> Users { get; set; }
 
-        public void DeleteUser(User user)
+        public void Delete(User user)
         {
             throw new NotImplementedException();
         }
@@ -32,7 +32,7 @@ namespace EducationPortal.Infrastructure.Repositories
             return Users;
         }
 
-        public User? GetUserById(int id)
+        public User? FindById(int id)
         {
             throw new NotImplementedException();
         }
@@ -42,7 +42,7 @@ namespace EducationPortal.Infrastructure.Repositories
             return Users.FirstOrDefault(x => x.Name == name);
         }
 
-        public List<User> GetUsers()
+        public List<User> Find()
         {
             throw new NotImplementedException();
         }
@@ -52,13 +52,18 @@ namespace EducationPortal.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public void SetUser(User user)
+        public void Add(User user)
         {
             Users.Add(user);
             _storage.AddItemToStorage(Users, UserPath);
         }
 
-        public void UpdateUser(User user)
+        public void Update(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(User entity)
         {
             throw new NotImplementedException();
         }

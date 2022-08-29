@@ -3,7 +3,7 @@ using EducationPortal.Domain.Repository;
 
 namespace EducationPortal.Infrastructure.Repositories
 {
-    internal class VideoRepository : IVideoRepository
+    internal class VideoRepository : IRepository<VideoMaterial>
     {
         private const string VideoPath = @"D:\work\video.json";
 
@@ -59,11 +59,6 @@ namespace EducationPortal.Infrastructure.Repositories
             return false;
         }
 
-        List<VideoMaterial> IVideoRepository.GetVideos()
-        {
-            throw new NotImplementedException();
-        }
-
         public VideoMaterial GetVideoById(int id)
         {
             throw new NotImplementedException();
@@ -80,6 +75,31 @@ namespace EducationPortal.Infrastructure.Repositories
         }
 
         public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<VideoMaterial> Find()
+        {
+            throw new NotImplementedException();
+        }
+
+        public VideoMaterial FindById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(VideoMaterial item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(VideoMaterial item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(VideoMaterial entity)
         {
             throw new NotImplementedException();
         }

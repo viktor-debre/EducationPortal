@@ -4,7 +4,7 @@ using EducationPortal.Infrastructure.DB.Mapping;
 
 namespace EducationPortal.Infrastructure.DB.Repository
 {
-    internal class UserRepository : IUserRepository
+    internal class UserRepository : IRepository<User>
     {
         private PortalContext _context;
         private readonly MapperForEntities _mapper;
@@ -15,16 +15,17 @@ namespace EducationPortal.Infrastructure.DB.Repository
             _mapper = new MapperForEntities(context);
         }
 
-        public void DeleteUser(User user)
+        public void Remove(User user)
         {
             _context.Users.Remove(_mapper.MapToDbUser(user));
             Save();
         }
 
-        public List<User> GetUsers()
+        public List<User> Find()
         {
             List<User> users = new List<User>();
-            foreach (var user in _context.Users)
+            var dbUsers = _context.Users.Include(x => x.Skills).ToList();
+            foreach (var user in dbUsers)
             {
                 users.Add(_mapper.MapToDomainUser(user));
             }
@@ -32,18 +33,18 @@ namespace EducationPortal.Infrastructure.DB.Repository
             return users;
         }
 
-        public User? GetUserById(int id)
+        public User? FindById(int id)
         {
             return _mapper.MapToDomainUser(_context.Users.Find(id));
         }
 
-        public void SetUser(User user)
+        public void Add(User user)
         {
             _context.Add(_mapper.MapToDbUser(user));
             Save();
         }
 
-        public void UpdateUser(User user)
+        public void Update(User user)
         {
             _context.Entry(_mapper.MapToDbUser(user)).State = EntityState.Modified;
             Save();

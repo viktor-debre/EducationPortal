@@ -3,7 +3,7 @@ using EducationPortal.Domain.Repository;
 
 namespace EducationPortal.Infrastructure.Repositories
 {
-    internal class CourceRepository : ICourseRepository
+    internal class CourceRepository : IRepository<Course>
     {
         private const string CoursePath = @"D:\work\course.json";
 
@@ -34,7 +34,7 @@ namespace EducationPortal.Infrastructure.Repositories
             return Courses.FirstOrDefault(x => x.Name == name);
         }
 
-        public List<Course> GetCources()
+        public List<Course> Find()
         {
             List<Course> courses = _storage.ExctractItemsFromStorage(CoursePath);
             if (courses != null)
@@ -45,7 +45,7 @@ namespace EducationPortal.Infrastructure.Repositories
             return Courses;
         }
 
-        public void SetCourse(Course cource)
+        public void Add(Course cource)
         {
             Courses.Add(cource);
             _storage.AddItemToStorage(Courses, CoursePath);
@@ -55,11 +55,11 @@ namespace EducationPortal.Infrastructure.Repositories
         {
             if (DeleteCourse(name))
             {
-                SetCourse(updatedMaterial);
+                Add(updatedMaterial);
             }
         }
 
-        public Course? GetCourceById(int id)
+        public Course? FindById(int id)
         {
             throw new NotImplementedException();
         }
@@ -70,6 +70,16 @@ namespace EducationPortal.Infrastructure.Repositories
         }
 
         public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Course item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(Course entity)
         {
             throw new NotImplementedException();
         }

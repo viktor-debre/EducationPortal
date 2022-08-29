@@ -2,35 +2,35 @@
 {
     internal class CourseService : ICourseService
     {
-        private readonly ICourseRepository _courseRepository;
+        private readonly IRepository<Course> _courseRepository;
 
-        public CourseService(ICourseRepository courseRepository)
+        public CourseService(IRepository<Course> courseRepository)
         {
             _courseRepository = courseRepository;
         }
 
         public void DeleteCourse(string name)
         {
-            var course = _courseRepository.GetCources().FirstOrDefault(x => x.Name == name);
+            var course = _courseRepository.Find().FirstOrDefault(x => x.Name == name);
             if (course != null)
             {
-                _courseRepository.DeleteCourse(course);
+                _courseRepository.Remove(course);
             }
         }
 
         public List<Course> GetCourses()
         {
-            return _courseRepository.GetCources();
+            return _courseRepository.Find();
         }
 
         public void SetCourse(Course course)
         {
-            _courseRepository.SetCourse(course);
+            _courseRepository.Add(course);
         }
 
         public void UpdateCourse(Course course, Course updatedCourse)
         {
-            var courseToUpdate = _courseRepository.GetCources().FirstOrDefault(a => a.Id == course.Id);
+            var courseToUpdate = _courseRepository.Find().FirstOrDefault(a => a.Id == course.Id);
             courseToUpdate.Name = updatedCourse.Name;
             courseToUpdate.Description = updatedCourse.Description;
             List<Material> materials = new List<Material>();
@@ -47,7 +47,7 @@
             }
 
             courseToUpdate.Skills = skills;
-            _courseRepository.UpdateCourse(courseToUpdate);
+            _courseRepository.Update(courseToUpdate);
         }
     }
 }
