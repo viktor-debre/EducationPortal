@@ -59,14 +59,20 @@ namespace EducationPortal.Infrastructure.DB.Mapping
         public User MapToDomainUser(DbUser user)
         {
             var skills = new List<Skill>();
-            if (user.UserSkills != null)
+            if (user.Skills != null)
             {
-                foreach (var skill in user.UserSkills)
+                foreach (var skill in user.Skills)
                 {
-                    if (user.Id == skill.UserId)
-                    {
-                        skills.Add(MapToDomainSkill(skill.Skill));
-                    }
+                    skills.Add(MapToDomainSkill(skill));
+                }
+            }
+
+            var materials = new List<Material>();
+            if (user.Materials != null)
+            {
+                foreach (var material in user.Materials)
+                {
+                    materials.Add(MapToDomainMaterial(material));
                 }
             }
 
@@ -75,7 +81,8 @@ namespace EducationPortal.Infrastructure.DB.Mapping
                 Id = user.Id,
                 Name = user.Name,
                 Password = user.Password,
-                Skills = skills
+                Skills = skills,
+                Materials = materials
             };
         }
 
@@ -172,17 +179,23 @@ namespace EducationPortal.Infrastructure.DB.Mapping
                 userInDb = new DbUser();
             }
 
-            userInDb.Id = user.Id;
-            userInDb.Name = user.Name;
-            userInDb.Password = user.Password;
-
             var skills = new List<DbSkill>();
             foreach (var skill in user.Skills)
             {
                 skills.Add(MapToDbSkill(skill));
             }
 
+            var materials = new List<DbMaterial>();
+            foreach (var material in user.Materials)
+            {
+                materials.Add(MapToDbMaterial(material));
+            }
+
+            userInDb.Id = user.Id;
+            userInDb.Name = user.Name;
+            userInDb.Password = user.Password;
             userInDb.Skills = skills;
+            userInDb.Materials = materials;
 
             return userInDb;
         }
