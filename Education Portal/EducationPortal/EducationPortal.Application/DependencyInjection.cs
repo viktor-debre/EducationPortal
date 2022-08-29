@@ -8,10 +8,11 @@ namespace EducationPortal.Application
     {
         public static void RegisterApplicationServices(ServiceCollection services)
         {
-            services.AddSingleton<IUserAuthentication, UserAuthenticationService>()
-                    .AddSingleton<IMaterialManageService, MaterialManageService>()
+            services.AddSingleton<IMaterialManageService, MaterialManageService>()
                     .AddSingleton<ICourseService, CourseService>()
-                    .AddSingleton<ISkillService, SkillService>();
+                    .AddSingleton<ISkillService, SkillService>()
+                    .AddSingleton<IUserAuthentication, UserAuthenticationService>()
+                    .AddSingleton<IUserService, UserService>();
         }
     }
 }

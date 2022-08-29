@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.Domain.Entities
 {
-    public class UserSkill : BaseEntity
+    public class UserSkill
     {
         public int UserId { get; set; }
 
