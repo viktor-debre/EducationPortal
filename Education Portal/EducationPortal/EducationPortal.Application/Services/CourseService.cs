@@ -30,7 +30,7 @@
 
         public void UpdateCourse(Course course, Course updatedCourse)
         {
-            var courseToUpdate = _courseRepository.Find().FirstOrDefault(a => a.Id == course.Id);
+            var courseToUpdate = _courseRepository.FindById(course.Id);
             courseToUpdate.Name = updatedCourse.Name;
             courseToUpdate.Description = updatedCourse.Description;
             List<Material> materials = new List<Material>();

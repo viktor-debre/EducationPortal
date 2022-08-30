@@ -41,5 +41,7 @@
             "2 - delete skill\n" +
             "3 - update skill\n" +
             "quit - go to previous menu";
+
+        public static string USER_ACCONT_MENU = "'quit' - go to previous menu";
     }
 }

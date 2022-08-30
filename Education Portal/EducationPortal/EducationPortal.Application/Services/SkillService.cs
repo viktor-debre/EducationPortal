@@ -27,7 +27,7 @@
 
         public void UpdateSkill(Skill skill, Skill updatedSkill)
         {
-            var skillToUpdate = _skillRepository.Find().FirstOrDefault(a => a.Id == skill.Id);
+            var skillToUpdate = _skillRepository.FindById(skill.Id);
             skillToUpdate.Title = updatedSkill.Title;
             _skillRepository.Update(skillToUpdate);
         }

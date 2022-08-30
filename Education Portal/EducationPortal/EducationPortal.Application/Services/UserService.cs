@@ -11,17 +11,9 @@
 
         public List<UserSkill> GetUserSkillsInfo(User user)
         {
-            var skills = _userSkillRepository.Find();
-            List<UserSkill> userSkills = new List<UserSkill>();
-            foreach (var skill in skills)
-            {
-                if (skill.UserId == user.Id)
-                {
-                    userSkills.Add(skill);
-                }
-            }
+            var skills = _userSkillRepository.Find().FindAll(s => s.UserId == user.Id);
 
-            return userSkills;
+            return skills;
         }
     }
 }

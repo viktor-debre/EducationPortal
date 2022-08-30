@@ -15,7 +15,7 @@ namespace EducationPortal.Presentation.Application
         {
             Console.Clear();
             OutputUserInformation(user);
-
+            Console.WriteLine(MenuStrings.USER_ACCONT_MENU);
             while (true)
             {
                 string input = Console.ReadLine() ?? "";

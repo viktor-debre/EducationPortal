@@ -14,14 +14,7 @@ namespace EducationPortal.Application.Services
         public bool Authenticate(string userName, string password, User user)
         {
             List<User> users = _userRepository.Find();
-            var checkUser = users.FirstOrDefault(x => x.Name == userName);
-            if (checkUser == null)
-            {
-                return false;
-            }
-
-            int idOfUser = checkUser.Id;
-            User existingUser = _userRepository.FindById(idOfUser);
+            var existingUser = users.FirstOrDefault(x => x.Name == userName);
             if (existingUser == null)
             {
                 return false;

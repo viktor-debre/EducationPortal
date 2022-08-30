@@ -32,9 +32,9 @@ namespace EducationPortal.Application.Services
             _createBook.TryCreateBook(bookMaterial);
         }
 
-        public void UpdateBook(BookMaterial article, BookMaterial updatedMaterial)
+        public void UpdateBook(BookMaterial book, BookMaterial updatedMaterial)
         {
-            var bookToUpdate = _bookRepository.Find().FirstOrDefault(a => a.Id == article.Id);
+            var bookToUpdate = _bookRepository.FindById(book.Id);
             bookToUpdate.Name = updatedMaterial.Name;
             bookToUpdate.Author = updatedMaterial.Author;
             bookToUpdate.NumberPages = updatedMaterial.NumberPages;
@@ -64,7 +64,7 @@ namespace EducationPortal.Application.Services
 
         public void UpdateVideo(VideoMaterial video, VideoMaterial updatedMaterial)
         {
-            var videoToUpdate = _videoRepository.Find().FirstOrDefault(a => a.Id == video.Id);
+            var videoToUpdate = _videoRepository.FindById(video.Id);
             videoToUpdate.Name = updatedMaterial.Name;
             videoToUpdate.Duration = updatedMaterial.Duration;
             videoToUpdate.Quality = updatedMaterial.Quality;
@@ -92,7 +92,7 @@ namespace EducationPortal.Application.Services
 
         public void UpdateArticle(ArticleMaterial article, ArticleMaterial updatedMaterial)
         {
-            var articleToUpdate = _articleRepository.Find().FirstOrDefault(a => a.Id == article.Id);
+            var articleToUpdate = _articleRepository.FindById(article.Id);
             articleToUpdate.Name = updatedMaterial.Name;
             articleToUpdate.Source = updatedMaterial.Source;
             articleToUpdate.PublicationDate = updatedMaterial.PublicationDate;
