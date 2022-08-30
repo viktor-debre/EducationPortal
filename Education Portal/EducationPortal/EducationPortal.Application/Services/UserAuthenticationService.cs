@@ -11,7 +11,7 @@ namespace EducationPortal.Application.Services
             _userRepository = usersRepository;
         }
 
-        public bool Authenticate(string userName, string password)
+        public bool Authenticate(string userName, string password, User user)
         {
             List<User> users = _userRepository.Find();
             var checkUser = users.FirstOrDefault(x => x.Name == userName);
@@ -33,6 +33,11 @@ namespace EducationPortal.Application.Services
             }
             else
             {
+                user.Id = existingUser.Id;
+                user.Name = existingUser.Name;
+                user.Skills = existingUser.Skills;
+                user.Materials = existingUser.Materials;
+                user.Password = password;
                 return true;
             }
         }

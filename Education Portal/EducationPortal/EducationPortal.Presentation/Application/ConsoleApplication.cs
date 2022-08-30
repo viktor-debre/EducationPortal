@@ -32,12 +32,13 @@ namespace EducationPortal.Presentation.Application
             while (true)
             {
                 Console.Clear();
-                _consoleAuthentication.AuthenticationMenu();
-                MainMenu();
+                User user = new User();
+                _consoleAuthentication.AuthenticationMenu(user);
+                MainMenu(user);
             }
         }
 
-        private void MainMenu()
+        private void MainMenu(User user)
         {
             while (true)
             {
@@ -56,7 +57,7 @@ namespace EducationPortal.Presentation.Application
                         _courseManager.EditCources();
                         break;
                     case "4":
-                        _userManager.UserInformation(new User{ });
+                        _userManager.UserInformation(user);
                         break;
                     case "5":
                         return;

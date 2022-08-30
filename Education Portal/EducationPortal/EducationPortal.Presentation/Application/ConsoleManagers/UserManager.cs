@@ -46,9 +46,10 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
+            Console.WriteLine("User passed materials: ");
             foreach (var material in user.Materials)
             {
-                Console.WriteLine($"User passed materials: {material.Name}");
+                Console.WriteLine($"Material name: {material.Name}");
             }
         }
 
