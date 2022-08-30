@@ -48,7 +48,7 @@ namespace EducationPortal.Presentation.Application
 
             foreach (var material in user.Materials)
             {
-                Console.WriteLine($"User passed materials: {material}");
+                Console.WriteLine($"User passed materials: {material.Name}");
             }
         }
 
@@ -59,9 +59,12 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
-            foreach (var skill in user.Skills)
+            Console.WriteLine("User skills:");
+            var skills = _userService.GetUserSkillsInfo(user);
+            foreach (var userSkill in skills)
             {
-                Console.WriteLine($"User skills: {skill}");
+                var skill = user.Skills.Find(s => s.Id == userSkill.SkillId);
+                Console.WriteLine($"Skills: {skill.Title} with level: {userSkill.Level}");
             }
         }
     }

@@ -2,7 +2,7 @@
 using EducationPortal.Domain.Repository;
 using EducationPortal.Infrastructure.DB.Mapping;
 
-namespace EducationPortal.Infrastructure.DB.Repository
+namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 {
     internal class CourseRepository : IRepository<Course>
     {

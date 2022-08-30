@@ -2,21 +2,26 @@
 {
     internal class UserService : IUserService
     {
-        private readonly IRepository<User> _userRepository;
+        private readonly IUserSkillRepository _userSkillRepository;
 
-        public UserService(IRepository<User> userRepository)
+        public UserService(IUserSkillRepository userSkillRepository)
         {
-            _userRepository = userRepository;
+            _userSkillRepository = userSkillRepository;
         }
 
         public List<UserSkill> GetUserSkillsInfo(User user)
         {
-            var skills = new List<UserSkill>();
-            foreach (var skill in user.Skills)
+            var skills = _userSkillRepository.Find();
+            List<UserSkill> userSkills = new List<UserSkill>();
+            foreach (var skill in skills)
             {
+                if (skill.UserId == user.Id)
+                {
+                    userSkills.Add(skill);
+                }
             }
 
-            return skills;
+            return userSkills;
         }
     }
 }
