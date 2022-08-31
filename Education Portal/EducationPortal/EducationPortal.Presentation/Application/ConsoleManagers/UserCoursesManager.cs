@@ -1,18 +1,22 @@
-﻿namespace EducationPortal.Presentation.Application
+﻿using EducationPortal.Domain.Entities;
+
+namespace EducationPortal.Presentation.Application
 {
     internal class UserCoursesManager
     {
-        private readonly IUserCourseService _userCourse;
+        private readonly IUserCourseService _userCourseService;
         private readonly ICourseService _courseService;
+        private readonly IUserService _userService;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public UserCoursesManager(IUserCourseService userCourse, ICourseService courseService)
+        public UserCoursesManager(IUserCourseService userCourse, ICourseService courseService, IUserService userService)
         {
-            _userCourse = userCourse;
+            _userCourseService = userCourse;
             _courseService = courseService;
+            _userService = userService;
         }
 
-        public void PassingCourses(int userId)
+        public void PassingCoursesMenu(int userId)
         {
             while (true)
             {
@@ -27,7 +31,7 @@
                         ViewAvailableCourses(userId);
                         break;
                     case "2":
-                        PassCourses(userId);
+                        ViewStartedCourses(userId);
                         break;
                     case "3":
                         ViewPassedCourses(userId);
@@ -45,12 +49,14 @@
             while (true)
             {
                 Console.Clear();
-                var courses = _userCourse.GetPassedCourses(userId);
+                Console.WriteLine("Passed courses:");
+                var courses = _userCourseService.GetPassedCourses(userId);
 
                 foreach (var course in courses)
                 {
                     var passesCourse = _courseService.GetCourses().FirstOrDefault(x => x.Id == course.CourseId);
-                    Console.WriteLine($"Passed course name: {passesCourse.Name} status: {course.Status} percent: {course.PassPercent}");
+                    Console.WriteLine($"---<{course.CourseId}>---");
+                    Console.WriteLine($"Name: {passesCourse.Name} status: {course.Status} percent: {course.PassPercent}");
                 }
 
                 Console.WriteLine(MenuStrings.PASSED_COURSES_MENU);
@@ -67,14 +73,82 @@
             }
         }
 
-        private void PassCourses(int userId)
+        private void ViewStartedCourses(int userId)
         {
-            var list = _userCourse.GetStartedCourses(userId);
+            var courses = _userCourseService.GetStartedCourses(userId);
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Started courses:");
+                foreach (var course in courses)
+                {
+                    var startedCourse = _courseService.GetCourses().FirstOrDefault(x => x.Id == course.CourseId);
+                    Console.WriteLine($"---<{course.CourseId}>---");
+                    Console.WriteLine($"Name: {startedCourse.Name} status: {course.Status} percent: {course.PassPercent}");
+                    OtputMaterials(startedCourse, userId);
+                    OtputSkills(startedCourse);
+                }
+
+                Console.WriteLine(MenuStrings.PASSING_COURSE_MENU);
+                string input = Console.ReadLine() ?? "";
+                switch (input)
+                {
+                    case "quit":
+                        return;
+                    case "take":
+                        int courseId;
+                        if (_inputHandler.TryInputIntValue(out courseId, "course id", Operation.TAKING, EntityName.USER_COURSE))
+                        {
+                            var existingCourse = _courseService.GetCourses().FirstOrDefault(x => x.Id == courseId);
+                            if (existingCourse != null)
+                            {
+                                _userCourseService.TakeCourse(existingCourse, userId);
+                            }
+                        }
+
+                        break;
+                    default:
+                        Console.WriteLine(Result.WRONG_COMMAND);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                        break;
+                }
+
+                Console.WriteLine(MenuStrings.PASSING_COURSE_MENU);
+            }
+        }
+
+        private void OtputMaterials(Course course, int userId)
+        {
+            var user = _userService.GetUserById(userId);
+            Console.WriteLine("Materials:");
+            foreach (var material in course.Materials)
+            {
+                string passed = "";
+                if (user.Materials.FirstOrDefault(m => m.Id == material.Id) != null)
+                {
+                    passed = $"passed";
+                }
+                else
+                {
+                    passed = "not passed";
+                }
+
+                Console.WriteLine($"Name: {material.Name} status: {passed}");
+            }
+        }
+
+        private void OtputSkills(Course course)
+        {
+            Console.WriteLine("Skills:");
+            foreach (var skill in course.Skills)
+            {
+                Console.WriteLine($"Name: {skill}");
+            }
         }
 
         private void ViewAvailableCourses(int userId)
         {
-            var courses = _userCourse.GetAvailableCourses(userId);
+            var courses = _userCourseService.GetAvailableCourses(userId);
 
             while (true)
             {
@@ -99,7 +173,7 @@
                             var existingCourse = _courseService.GetCourses().FirstOrDefault(x => x.Id == courseId);
                             if (existingCourse != null)
                             {
-                                _userCourse.TakeCourse(existingCourse, userId);
+                                _userCourseService.TakeCourse(existingCourse, userId);
                             }
                         }
 

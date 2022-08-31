@@ -4,11 +4,11 @@ namespace EducationPortal.Presentation.Application
 {
     internal class UserManager
     {
-        private readonly IUserService _userService;
+        private readonly IUserSkillService _userSkillService;
 
-        public UserManager(IUserService userService)
+        public UserManager(IUserSkillService userSkillService)
         {
-            _userService = userService;
+            _userSkillService = userSkillService;
         }
 
         public void UserInformation(User user)
@@ -61,7 +61,7 @@ namespace EducationPortal.Presentation.Application
             }
 
             Console.WriteLine("User skills:");
-            var skills = _userService.GetUserSkillsInfo(user);
+            var skills = _userSkillService.GetUserSkillsInfo(user);
             foreach (var userSkill in skills)
             {
                 var skill = user.Skills.Find(s => s.Id == userSkill.SkillId);

@@ -12,19 +12,19 @@ namespace EducationPortal.Presentation.Application
         private readonly UserManager _userManager;
         private readonly UserCoursesManager _userCoursesManager;
 
-        public ConsoleApplication(IUserService userService,
-                                  IUserAuthentication userAuthenticationService,
+        public ConsoleApplication(IUserSkillService userSkillService,
+                                  IUserService userService,
                                   IMaterialManageService materialManageService,
                                   ICourseService courseService,
                                   ISkillService skillService,
                                   IUserCourseService userCourseService)
         {
-            _consoleAuthentication = new AuthenticationManager(userAuthenticationService);
+            _consoleAuthentication = new AuthenticationManager(userService);
             _materialManager = new MaterialManager(materialManageService);
             _courseManager = new CourseManager(courseService, materialManageService, skillService);
             _skillManager = new SkillManager(skillService);
-            _userManager = new UserManager(userService);
-            _userCoursesManager = new UserCoursesManager(userCourseService, courseService);
+            _userManager = new UserManager(userSkillService);
+            _userCoursesManager = new UserCoursesManager(userCourseService, courseService, userService);
         }
 
         public void Run()
@@ -63,7 +63,7 @@ namespace EducationPortal.Presentation.Application
                         _userManager.UserInformation(user);
                         break;
                     case "5":
-                        _userCoursesManager.PassingCourses(user.Id);
+                        _userCoursesManager.PassingCoursesMenu(user.Id);
                         break;
                     case "6":
                         return;

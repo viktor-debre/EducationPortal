@@ -4,11 +4,11 @@ namespace EducationPortal.Presentation.Application
 {
     internal class AuthenticationManager
     {
-        private readonly IUserAuthentication _userAuthenticationService;
+        private readonly IUserService _userAuthenticationService;
         private readonly RegisterUserManager _registerUser;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public AuthenticationManager(IUserAuthentication userAuthenticationService)
+        public AuthenticationManager(IUserService userAuthenticationService)
         {
             _userAuthenticationService = userAuthenticationService;
             _registerUser = new RegisterUserManager(userAuthenticationService);
