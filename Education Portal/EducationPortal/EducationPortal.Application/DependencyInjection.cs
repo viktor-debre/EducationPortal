@@ -12,7 +12,8 @@ namespace EducationPortal.Application
                     .AddSingleton<ICourseService, CourseService>()
                     .AddSingleton<ISkillService, SkillService>()
                     .AddSingleton<IUserAuthentication, UserAuthenticationService>()
-                    .AddSingleton<IUserService, UserService>();
+                    .AddSingleton<IUserService, UserService>()
+                    .AddSingleton<IUserCourseService, UserCourseSevice>();
         }
     }
 }

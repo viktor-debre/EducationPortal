@@ -4,8 +4,6 @@
     {
         public List<UserSkill> Find();
 
-        public UserSkill FindById(int userId, int skillId);
-
         public void Update(UserSkill userSkill);
     }
 }

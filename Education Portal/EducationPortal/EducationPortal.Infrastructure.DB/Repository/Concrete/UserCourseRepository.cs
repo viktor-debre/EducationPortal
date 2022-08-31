@@ -27,11 +27,6 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
             return userCourses;
         }
 
-        public UserCourse FindById(int userId, int courseId)
-        {
-            return _mapper.MapToDomainUserCourse(_context.UserCourses.Find(userId, courseId));
-        }
-
         public void Update(UserCourse userCourse)
         {
             _context.Entry(_mapper.MapToDbUserCourse(userCourse)).State = EntityState.Modified;
