@@ -4,6 +4,7 @@
     {
         private readonly IUserCourseService _userCourse;
         private readonly ICourseService _courseService;
+        private readonly InputHandler _inputHandler = new InputHandler();
 
         public UserCoursesManager(IUserCourseService userCourse, ICourseService courseService)
         {
@@ -23,7 +24,7 @@
                     case "quit":
                         return;
                     case "1":
-                        ViewAvailableCourses();
+                        ViewAvailableCourses(userId);
                         break;
                     case "2":
                         PassCourses(userId);
@@ -71,9 +72,44 @@
             var list = _userCourse.GetStartedCourses(userId);
         }
 
-        private void ViewAvailableCourses()
+        private void ViewAvailableCourses(int userId)
         {
-            var list = _userCourse.GetAvailableCourses();
+            var courses = _userCourse.GetAvailableCourses(userId);
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Available courses:");
+                foreach (var course in courses)
+                {
+                    Console.WriteLine($"---<{course.Id}>---");
+                    Console.WriteLine($"Name: {course.Name} description: {course.Description}");
+                }
+
+                Console.WriteLine(MenuStrings.AVAILABLE_COURSES_MENU);
+                string input = Console.ReadLine() ?? "";
+                switch (input)
+                {
+                    case "quit":
+                        return;
+                    case "take":
+                        int courseId;
+                        if (_inputHandler.TryInputIntValue(out courseId, "course id", Operation.TAKING, EntityName.USER_COURSE))
+                        {
+                            var existingCourse = _courseService.GetCourses().FirstOrDefault(x => x.Id == courseId);
+                            if (existingCourse != null)
+                            {
+                                _userCourse.TakeCourse(existingCourse, userId);
+                            }
+                        }
+
+                        break;
+                    default:
+                        Console.WriteLine(Result.WRONG_COMMAND);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                        break;
+                }
+            }
         }
     }
 }

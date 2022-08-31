@@ -9,5 +9,7 @@
         public const string UPDATING = "updating";
 
         public const string AUTHORIZING = "authorizing";
+
+        public const string TAKING = "taking";
     }
 }

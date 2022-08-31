@@ -18,9 +18,19 @@
             _courseRepository = courseRepository;
         }
 
-        public List<Course> GetAvailableCourses()
+        public List<Course> GetAvailableCourses(int userId)
         {
-            return _courseRepository.Find();
+            var availableCourses = new List<Course>();
+            var user = _userRepository.FindById(userId);
+            foreach (var course in _courseRepository.Find())
+            {
+                if (user.Courses.FirstOrDefault(c => c.Id == course.Id) == null)
+                {
+                    availableCourses.Add(course);
+                }
+            }
+
+            return availableCourses;
         }
 
         public List<UserCourse> GetStartedCourses(int userId)

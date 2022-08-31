@@ -19,5 +19,7 @@
         public const string COURSE_MATERIAL = "material in course";
 
         public const string COURSE_SKILL = "material in course";
+
+        public const string USER_COURSE = "user course";
     }
 }

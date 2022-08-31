@@ -24,7 +24,11 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
         public List<User> Find()
         {
             List<User> users = new List<User>();
-            var dbUsers = _context.Users.Include(x => x.Materials).Include(x => x.Skills).ToList();
+            var dbUsers = _context.Users
+                .Include(x => x.Materials)
+                .Include(x => x.Skills)
+                .Include(x => x.Courses)
+                .ToList();
             foreach (var user in dbUsers)
             {
                 users.Add(_mapper.MapToDomainUser(user));

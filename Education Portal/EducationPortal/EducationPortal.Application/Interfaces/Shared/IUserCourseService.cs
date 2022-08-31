@@ -2,7 +2,7 @@
 {
     public interface IUserCourseService
     {
-        public List<Course> GetAvailableCourses();
+        public List<Course> GetAvailableCourses(int userId);
 
         public List<UserCourse> GetStartedCourses(int userId);
 
