@@ -252,8 +252,8 @@ namespace EducationPortal.Infrastructure.DB.Mapping
         {
             return new DbUserCourse
             {
-                UserId = userCourse.UserId,
                 CourseId = userCourse.CourseId,
+                UserId = userCourse.UserId,
                 Status = userCourse.Status,
                 PassPercent = userCourse.PassPercent
             };
