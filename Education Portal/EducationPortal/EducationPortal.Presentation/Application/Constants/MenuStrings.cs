@@ -56,5 +56,9 @@
         public const string AVAILABLE_COURSES_MENU = "Available courses menu:\n" +
             "'take' - to take course\n" +
             "'quit' - go to previous menu";
+
+        public const string PASSING_COURSE_MENU = "Passing course menu:\n" +
+            "start - to start passing course\n" +
+            "'quit' - go to previous menu";
     }
 }
