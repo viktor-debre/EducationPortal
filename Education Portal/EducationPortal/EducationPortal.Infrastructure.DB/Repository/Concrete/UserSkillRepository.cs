@@ -26,5 +26,16 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 
             return users;
         }
+
+        public void Update(UserSkill userSkill)
+        {
+            _context.Entry(_mapper.MapToDbUserSkill(userSkill)).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public UserSkill FindById(int userId, int skillId)
+        {
+            return _mapper.MapToDomainUserSkill(_context.UserSkills.Find(userId, skillId));
+        }
     }
 }

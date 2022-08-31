@@ -19,6 +19,8 @@ namespace EducationPortal.Infrastructure.DB
 
         public DbSet<DbUserSkill> UserSkills { get; set; }
 
+        public DbSet<DbUserCourse> UserCourses { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PortalDb");
