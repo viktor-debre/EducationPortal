@@ -34,7 +34,7 @@ namespace EducationPortal.Infrastructure.DB.Migrations
 
                     b.HasIndex("MaterialsId");
 
-                    b.ToTable("DbCourseDbMaterial");
+                    b.ToTable("DbCourseDbMaterial", (string)null);
                 });
 
             modelBuilder.Entity("DbCourseDbSkill", b =>
@@ -49,7 +49,7 @@ namespace EducationPortal.Infrastructure.DB.Migrations
 
                     b.HasIndex("SkillsId");
 
-                    b.ToTable("DbCourseDbSkill");
+                    b.ToTable("DbCourseDbSkill", (string)null);
                 });
 
             modelBuilder.Entity("DbMaterialDbUser", b =>
@@ -157,17 +157,18 @@ namespace EducationPortal.Infrastructure.DB.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PassPercent")
+                    b.Property<int>("PassPercent")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "CourseId");
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("UserCourses");
+                    b.ToTable("UserCourses", (string)null);
                 });
 
             modelBuilder.Entity("EducationPortal.Infrastructure.DB.DbModels.DbUserSkill", b =>
@@ -185,7 +186,7 @@ namespace EducationPortal.Infrastructure.DB.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("UserSkills");
+                    b.ToTable("UserSkills", (string)null);
                 });
 
             modelBuilder.Entity("EducationPortal.Infrastructure.DB.DbModels.DbArticleMaterial", b =>

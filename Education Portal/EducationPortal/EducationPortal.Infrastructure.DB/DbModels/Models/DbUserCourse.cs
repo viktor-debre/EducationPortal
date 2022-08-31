@@ -10,8 +10,8 @@
 
         public DbCourse Course { get; set; }
 
-        public string? Status { get; set; }
+        public string Status { get; set; }
 
-        public int? PassPercent { get; set; }
+        public int PassPercent { get; set; }
     }
 }
