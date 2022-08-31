@@ -5,5 +5,7 @@
         public List<UserSkill> Find();
 
         public void Update(UserSkill userSkill);
+
+        public void Add(UserSkill userSkill);
     }
 }

@@ -30,6 +30,17 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
         public void Update(UserSkill userSkill)
         {
             _context.Entry(_mapper.MapToDbUserSkill(userSkill)).State = EntityState.Modified;
+            Save();
+        }
+
+        public void Add(UserSkill userSkill)
+        {
+            _context.Add(_mapper.MapToDbUserSkill(userSkill));
+            Save();
+        }
+
+        public void Save()
+        {
             _context.SaveChanges();
         }
     }
