@@ -14,7 +14,8 @@
             "2 - to edit skills\n" +
             "3 - to edit courses\n" +
             "4 - to view account info\n" +
-            "5 - logout";
+            "5 - go to courses menu\n" +
+            "6 - logout";
 
         public static string MATERIAL_MENU = "Editing material menu:\n" +
             "1 - add book,   \t" + "1d  - delete book,   \t" + "1u - update book\n" +
@@ -43,5 +44,13 @@
             "quit - go to previous menu";
 
         public static string USER_ACCONT_MENU = "'quit' - go to previous menu";
+
+        public static string USER_COURSES_MENU = "Courses menu:\n" +
+            "1 - Available courses\n" +
+            "2 - Started courses\n" +
+            "3 - Passed courses\n" +
+            "quit - go to previous menu";
+
+        public static string PASSED_COURSES_MENU = "'quit' - go to previous menu";
     }
 }
