@@ -1,19 +1,56 @@
-﻿namespace EducationPortal.Application.Services
+﻿using EducationPortal.Application.Commands;
+
+namespace EducationPortal.Application.Services
 {
     internal class UserService : IUserService
     {
-        private readonly IUserSkillRepository _userSkillRepository;
+        private readonly IRepository<User> _userRepository;
 
-        public UserService(IUserSkillRepository userSkillRepository)
+        public UserService(IRepository<User> usersRepository)
         {
-            _userSkillRepository = userSkillRepository;
+            _userRepository = usersRepository;
         }
 
-        public List<UserSkill> GetUserSkillsInfo(User user)
+        public bool Authenticate(string userName, string password, User user)
         {
-            var skills = _userSkillRepository.Find().FindAll(s => s.UserId == user.Id);
+            List<User> users = _userRepository.Find();
+            var existingUser = users.FirstOrDefault(x => x.Name == userName);
+            if (existingUser == null)
+            {
+                return false;
+            }
 
-            return skills;
+            if (existingUser.Password != password)
+            {
+                return false;
+            }
+            else
+            {
+                user.Id = existingUser.Id;
+                user.Name = existingUser.Name;
+                user.Skills = existingUser.Skills;
+                user.Materials = existingUser.Materials;
+                user.Password = password;
+                return true;
+            }
+        }
+
+        public bool TryCreateUser(string name, string password)
+        {
+            User user = new User()
+            {
+                Name = name,
+                Password = password,
+                Skills = new List<Skill>(),
+                Materials = new List<Material>()
+            };
+            CreateUser createUser = new CreateUser(_userRepository);
+            return createUser.TryCreateUser(user);
+        }
+
+        public User GetUserById(int id)
+        {
+            return _userRepository.FindById(id);
         }
     }
 }

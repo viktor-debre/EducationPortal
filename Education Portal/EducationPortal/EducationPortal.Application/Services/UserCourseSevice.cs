@@ -141,7 +141,7 @@
                         Level = 0
                     };
 
-                    _userSkillRepository.Update(userAddedSkill);
+                    _userSkillRepository.Add(userAddedSkill);
                 }
             }
         }
