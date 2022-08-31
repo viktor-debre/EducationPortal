@@ -17,7 +17,8 @@ namespace EducationPortal.Infrastructure.DB
                 .AddSingleton<IRepository<Course>, CourseRepository>()
                 .AddTransient<IRepository<Skill>, EntityRepository<Skill, DbSkill>>()
                 .AddTransient<IRepository<User>, UserRepository>()
-                .AddTransient<IUserSkillRepository, UserSkillRepository>();
+                .AddTransient<IUserSkillRepository, UserSkillRepository>()
+                .AddTransient<IUserCourseRepository, UserCourseRepository>();
         }
     }
 }
