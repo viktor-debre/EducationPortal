@@ -12,7 +12,7 @@ namespace EducationPortal.Presentation.Application
         private readonly UserManager _userManager;
         private readonly UserCoursesManager _userCoursesManager;
 
-        public ConsoleApplication(IUserSkillService userSkillService,
+        public ConsoleApplication(IUserInfoService userSkillService,
                                   IUserService userService,
                                   IMaterialManageService materialManageService,
                                   ICourseService courseService,
@@ -24,7 +24,7 @@ namespace EducationPortal.Presentation.Application
             _courseManager = new CourseManager(courseService, materialManageService, skillService);
             _skillManager = new SkillManager(skillService);
             _userManager = new UserManager(userSkillService);
-            _userCoursesManager = new UserCoursesManager(userCourseService, courseService, userService);
+            _userCoursesManager = new UserCoursesManager(userCourseService, courseService, userSkillService);
         }
 
         public void Run()
@@ -35,13 +35,13 @@ namespace EducationPortal.Presentation.Application
             while (true)
             {
                 Console.Clear();
-                User user = new User();
-                _consoleAuthentication.AuthenticationMenu(user);
-                MainMenu(user);
+                int userId = 1;
+                _consoleAuthentication.AuthenticationMenu(userId);
+                MainMenu(userId);
             }
         }
 
-        private void MainMenu(User user)
+        private void MainMenu(int userId)
         {
             while (true)
             {
@@ -60,10 +60,10 @@ namespace EducationPortal.Presentation.Application
                         _courseManager.EditCources();
                         break;
                     case "4":
-                        _userManager.UserInformation(user);
+                        _userManager.UserInformation(userId);
                         break;
                     case "5":
-                        _userCoursesManager.PassingCoursesMenu(user.Id);
+                        _userCoursesManager.PassingCoursesMenu(userId);
                         break;
                     case "6":
                         return;

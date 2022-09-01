@@ -12,7 +12,7 @@ namespace EducationPortal.Application
                     .AddSingleton<ICourseService, CourseService>()
                     .AddSingleton<ISkillService, SkillService>()
                     .AddSingleton<IUserService, UserService>()
-                    .AddSingleton<IUserSkillService, UserSkillsService>()
+                    .AddSingleton<IUserInfoService, UserInfoService>()
                     .AddSingleton<IUserCourseService, UserCourseSevice>();
         }
     }

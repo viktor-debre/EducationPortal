@@ -6,14 +6,14 @@ namespace EducationPortal.Presentation.Application
     {
         private readonly IUserCourseService _userCourseService;
         private readonly ICourseService _courseService;
-        private readonly IUserService _userService;
+        private readonly IUserInfoService _userSkillService;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public UserCoursesManager(IUserCourseService userCourse, ICourseService courseService, IUserService userService)
+        public UserCoursesManager(IUserCourseService userCourse, ICourseService courseService, IUserInfoService userSkillService)
         {
             _userCourseService = userCourse;
             _courseService = courseService;
-            _userService = userService;
+            _userSkillService = userSkillService;
         }
 
         public void PassingCoursesMenu(int userId)
@@ -151,7 +151,7 @@ namespace EducationPortal.Presentation.Application
 
         private void OtputMaterials(Course course, int userId)
         {
-            var user = _userService.GetUserById(userId);
+            var user = _userSkillService.GetUserById(userId);
             Console.WriteLine("Materials:");
             foreach (var material in course.Materials)
             {

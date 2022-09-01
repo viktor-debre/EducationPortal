@@ -4,17 +4,17 @@ namespace EducationPortal.Presentation.Application
 {
     internal class UserManager
     {
-        private readonly IUserSkillService _userSkillService;
+        private readonly IUserInfoService _userInfoService;
 
-        public UserManager(IUserSkillService userSkillService)
+        public UserManager(IUserInfoService userSkillService)
         {
-            _userSkillService = userSkillService;
+            _userInfoService = userSkillService;
         }
 
-        public void UserInformation(User user)
+        public void UserInformation(int userId)
         {
             Console.Clear();
-            OutputUserInformation(user);
+            OutputUserInformation(userId);
             Console.WriteLine(MenuStrings.USER_ACCONT_MENU);
             while (true)
             {
@@ -31,8 +31,10 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void OutputUserInformation(User user)
+        private void OutputUserInformation(int userId)
         {
+            var user = _userInfoService.GetUserById(userId);
+
             Console.WriteLine($"User name: {user.Name}\n" +
                 $"password: {user.Password}");
             OutputUserMaterials(user);
@@ -61,8 +63,7 @@ namespace EducationPortal.Presentation.Application
             }
 
             Console.WriteLine("User skills:");
-            var skills = _userSkillService.GetUserSkillsInfo(user);
-            foreach (var userSkill in skills)
+            foreach (var userSkill in user.UserSkills)
             {
                 var skill = user.Skills.Find(s => s.Id == userSkill.SkillId);
                 Console.WriteLine($"Skills: {skill.Title} with level: {userSkill.Level}");

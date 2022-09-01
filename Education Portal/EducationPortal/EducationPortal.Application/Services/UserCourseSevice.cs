@@ -2,18 +2,11 @@
 {
     internal class UserCourseSevice : IUserCourseService
     {
-        private readonly IUserSkillRepository _userSkillRepository;
-        private readonly IUserCourseRepository _userCourseRepository;
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Course> _courseRepository;
 
-        public UserCourseSevice(IUserSkillRepository userSkillRepository,
-                                IUserCourseRepository userCourseRepository,
-                                IRepository<User> userRepository,
-                                IRepository<Course> courseRepository)
+        public UserCourseSevice(IRepository<User> userRepository, IRepository<Course> courseRepository)
         {
-            _userSkillRepository = userSkillRepository;
-            _userCourseRepository = userCourseRepository;
             _userRepository = userRepository;
             _courseRepository = courseRepository;
         }
@@ -72,7 +65,8 @@
 
         public void TakeCourse(Course course, int userId)
         {
-            var userCourse = _userCourseRepository.Find().FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
+            var user = _userRepository.FindById(userId);
+            var userCourse = user.UserCourses.FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
             if (userCourse != null)
             {
                 return;
@@ -94,7 +88,8 @@
             }
 
             userAddedCourse.PassPercent = passPercent;
-            _userCourseRepository.Add(userAddedCourse);
+            user.UserCourses.Add(userAddedCourse);
+            _userRepository.Update(user);
         }
 
         public bool PassMaterial(Course course, string nameMaterial, int userId)
@@ -132,7 +127,7 @@
 
         public UserCourse? GetUserCoursesById(int userId, int courseId)
         {
-            return _userCourseRepository.Find().FirstOrDefault(x => x.UserId == userId && x.CourseId == courseId);
+            return _userRepository.FindById(userId).UserCourses.FirstOrDefault(x => x.UserId == userId && x.CourseId == courseId);
         }
 
         private void PassCourse(Course course, int userId)
