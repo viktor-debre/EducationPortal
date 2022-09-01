@@ -278,14 +278,6 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             int skillId = userSkill.SkillId;
             int userId = userSkill.UserId;
             DbUserSkill userSkillInDb = _context.UserSkills.FirstOrDefault(x => x.SkillId == skillId && x.UserId == userId) ?? new DbUserSkill();
-            if (skillId != 0 && userId != 0)
-            {
-                userSkillInDb = _context.UserSkills.Find(userId, skillId);
-            }
-            else
-            {
-                userSkillInDb = new DbUserSkill();
-            }
 
             userSkillInDb.UserId = userSkill.UserId;
             userSkillInDb.SkillId = userSkill.SkillId;

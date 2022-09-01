@@ -14,7 +14,7 @@ namespace EducationPortal.Presentation.Application
             _registerUser = new RegisterUserManager(userAuthenticationService);
         }
 
-        public void AuthenticationMenu(int userId)
+        public void AuthenticationMenu(ref int userId)
         {
             while (true)
             {
@@ -25,7 +25,7 @@ namespace EducationPortal.Presentation.Application
                 switch (input)
                 {
                     case "1":
-                        if (Authenticate(userId))
+                        if (Authenticate(ref userId))
                         {
                             return;
                         }
@@ -42,7 +42,7 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        public bool Authenticate(int userId)
+        public bool Authenticate(ref int userId)
         {
             string input;
             if (!_inputHandler.TryInputStringValue(out input, "username and password", Operation.AUTHORIZING, EntityName.USER))
@@ -66,7 +66,7 @@ namespace EducationPortal.Presentation.Application
 
             if (isValidInput)
             {
-                if (_userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1], userId))
+                if (_userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1], ref userId))
                 {
                     Console.Clear();
                     Console.WriteLine("You successfully authorized.");

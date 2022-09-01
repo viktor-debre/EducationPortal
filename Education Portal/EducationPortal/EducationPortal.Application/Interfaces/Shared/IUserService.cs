@@ -2,7 +2,7 @@
 {
     public interface IUserService
     {
-        public bool Authenticate(string userName, string password, int userId);
+        public bool Authenticate(string userName, string password, ref int userId);
 
         public bool TryCreateUser(string name, string password);
     }

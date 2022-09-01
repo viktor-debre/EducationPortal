@@ -36,7 +36,7 @@ namespace EducationPortal.Presentation.Application
             {
                 Console.Clear();
                 int userId = 1;
-                _consoleAuthentication.AuthenticationMenu(userId);
+                _consoleAuthentication.AuthenticationMenu(ref userId);
                 MainMenu(userId);
             }
         }

@@ -146,7 +146,7 @@
                     var userAddedSkill = new UserSkill
                     {
                         UserId = userId,
-                        SkillId = course.Id,
+                        SkillId = skill.Id,
                         Level = 0
                     };
 

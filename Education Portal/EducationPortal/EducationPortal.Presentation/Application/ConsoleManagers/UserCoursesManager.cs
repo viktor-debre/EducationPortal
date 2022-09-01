@@ -57,6 +57,8 @@ namespace EducationPortal.Presentation.Application
                     var passesCourse = _courseService.GetCourses().FirstOrDefault(x => x.Id == course.CourseId);
                     Console.WriteLine($"---<{course.CourseId}>---");
                     Console.WriteLine($"Name: {passesCourse.Name} status: {course.Status} percent: {course.PassPercent}");
+                    OutputMaterials(passesCourse, userId);
+                    OutputSkills(passesCourse, userId);
                 }
 
                 Console.WriteLine(MenuStrings.PASSED_COURSES_MENU);
@@ -85,8 +87,8 @@ namespace EducationPortal.Presentation.Application
                     var startedCourse = _courseService.GetCourseById(course.CourseId);
                     Console.WriteLine($"---<{course.CourseId}>---");
                     Console.WriteLine($"Name: {startedCourse.Name} status: {course.Status} percent: {course.PassPercent}");
-                    OtputMaterials(startedCourse, userId);
-                    OtputSkills(startedCourse);
+                    OutputMaterials(startedCourse, userId);
+                    OutputSkills(startedCourse, userId);
                 }
 
                 Console.WriteLine(MenuStrings.PASSING_COURSE_MENU);
@@ -117,67 +119,6 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void PassMaterialInCourse(Course course, int userId)
-        {
-            while (true)
-            {
-                Console.Clear();
-                var startedCourse = _userCourseService.GetUserCoursesById(userId, course.Id);
-                Console.WriteLine($"---<{startedCourse.CourseId}>---");
-                Console.WriteLine($"Name: {course.Name} status: {startedCourse.Status} percent: {startedCourse.PassPercent}");
-                OtputMaterials(course, userId);
-                OtputSkills(course);
-                Console.WriteLine(MenuStrings.PASSING_MATERIAL_IN_COURSE_MENU);
-                string input = Console.ReadLine() ?? "";
-                switch (input)
-                {
-                    case "quit":
-                        return;
-                    case "pass":
-                        string materialName;
-                        if (_inputHandler.TryInputStringValue(out materialName, "material name", Operation.PASSING, EntityName.USER_COURSE))
-                        {
-                            _userCourseService.PassMaterial(course, materialName, userId);
-                        }
-
-                        break;
-                    default:
-                        Console.WriteLine(Result.WRONG_COMMAND);
-                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
-                        break;
-                }
-            }
-        }
-
-        private void OtputMaterials(Course course, int userId)
-        {
-            var user = _userSkillService.GetUserById(userId);
-            Console.WriteLine("Materials:");
-            foreach (var material in course.Materials)
-            {
-                string passed = "";
-                if (user.Materials.FirstOrDefault(m => m.Id == material.Id) != null)
-                {
-                    passed = $"passed";
-                }
-                else
-                {
-                    passed = "not passed";
-                }
-
-                Console.WriteLine($"Name: {material.Name} status: {passed}");
-            }
-        }
-
-        private void OtputSkills(Course course)
-        {
-            Console.WriteLine("Skills:");
-            foreach (var skill in course.Skills)
-            {
-                Console.WriteLine($"Title: {skill.Title}");
-            }
-        }
-
         private void ViewAvailableCourses(int userId)
         {
             while (true)
@@ -189,6 +130,8 @@ namespace EducationPortal.Presentation.Application
                 {
                     Console.WriteLine($"---<{course.Id}>---");
                     Console.WriteLine($"Name: {course.Name} description: {course.Description}");
+                    OutputMaterials(course, userId);
+                    OutputSkills(course, userId);
                 }
 
                 Console.WriteLine(MenuStrings.AVAILABLE_COURSES_MENU);
@@ -214,6 +157,70 @@ namespace EducationPortal.Presentation.Application
                         Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                         break;
                 }
+            }
+        }
+
+        private void PassMaterialInCourse(Course course, int userId)
+        {
+            while (true)
+            {
+                Console.Clear();
+                var startedCourse = _userCourseService.GetUserCoursesById(userId, course.Id);
+                Console.WriteLine($"---<{startedCourse.CourseId}>---");
+                Console.WriteLine($"Name: {course.Name} status: {startedCourse.Status} percent: {startedCourse.PassPercent}");
+                OutputMaterials(course, userId);
+                OutputSkills(course, userId);
+                Console.WriteLine(MenuStrings.PASSING_MATERIAL_IN_COURSE_MENU);
+                string input = Console.ReadLine() ?? "";
+                switch (input)
+                {
+                    case "quit":
+                        return;
+                    case "pass":
+                        string materialName;
+                        if (_inputHandler.TryInputStringValue(out materialName, "material name", Operation.PASSING, EntityName.USER_COURSE))
+                        {
+                            _userCourseService.PassMaterial(course, materialName, userId);
+                        }
+
+                        break;
+                    default:
+                        Console.WriteLine(Result.WRONG_COMMAND);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                        break;
+                }
+            }
+        }
+
+        private void OutputMaterials(Course course, int userId)
+        {
+            var user = _userSkillService.GetUserById(userId);
+            Console.WriteLine("Materials:");
+            foreach (var material in course.Materials)
+            {
+                string passed = "";
+                if (user.Materials.FirstOrDefault(m => m.Id == material.Id) != null)
+                {
+                    passed = $"passed";
+                }
+                else
+                {
+                    passed = "not passed";
+                }
+
+                Console.WriteLine($"Name: {material.Name} status: {passed}");
+            }
+        }
+
+        private void OutputSkills(Course course, int userId)
+        {
+            var user = _userSkillService.GetUserById(userId);
+            Console.WriteLine("Skills:");
+            foreach (var skill in course.Skills)
+            {
+                int? level = user.UserSkills.FirstOrDefault(s => s.SkillId == skill.Id && s.UserId == userId).Level;
+
+                Console.WriteLine($"Title: {skill.Title} with your level: {level}");
             }
         }
     }
