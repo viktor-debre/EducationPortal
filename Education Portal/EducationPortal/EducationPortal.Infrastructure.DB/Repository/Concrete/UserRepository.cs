@@ -27,7 +27,8 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
             var dbUsers = _context.Users
                 .Include(x => x.Materials)
                 .Include(x => x.Skills)
-                .Include(x => x.Courses)
+                .Include(x => x.Courses).ThenInclude(x => x.Materials)
+                .Include(x => x.Courses).ThenInclude(x => x.Skills)
                 .ToList();
             foreach (var user in dbUsers)
             {

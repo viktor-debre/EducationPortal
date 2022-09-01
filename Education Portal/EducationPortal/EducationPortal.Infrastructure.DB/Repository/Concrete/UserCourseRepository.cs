@@ -18,7 +18,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
         public List<UserCourse> Find()
         {
             List<UserCourse> userCourses = new List<UserCourse>();
-            var dbUserCourses = _context.UserCourses.ToList();
+            var dbUserCourses = _context.UserCourses.Include(x => x.User).Include(x => x.Course).ToList();
             foreach (var userCourse in dbUserCourses)
             {
                 userCourses.Add(_mapper.MapToDomainUserCourse(userCourse));

@@ -18,6 +18,11 @@
             }
         }
 
+        public Course? GetCourseById(int id)
+        {
+            return _courseRepository.FindById(id);
+        }
+
         public List<Course> GetCourses()
         {
             return _courseRepository.Find();

@@ -58,7 +58,11 @@
             "'quit' - go to previous menu";
 
         public const string PASSING_COURSE_MENU = "Passing course menu:\n" +
-            "start - to start passing course\n" +
+            "'start' - to start passing course\n" +
+            "'quit' - go to previous menu";
+
+        public const string PASSING_MATERIAL_IN_COURSE_MENU = "Passing material in course menu:\n" +
+            "'pass' - to pass material\n" +
             "'quit' - go to previous menu";
     }
 }

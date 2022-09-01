@@ -2,6 +2,8 @@
 {
     public interface IUserCourseService
     {
+        public UserCourse GetUserCoursesById(int userId, int courseId);
+
         public List<Course> GetAvailableCourses(int userId);
 
         public List<UserCourse> GetStartedCourses(int userId);

@@ -11,5 +11,7 @@
         public const string AUTHORIZING = "authorizing";
 
         public const string TAKING = "taking";
+
+        public const string PASSING = "passing";
     }
 }

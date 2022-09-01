@@ -85,6 +85,24 @@ namespace EducationPortal.Infrastructure.DB.Mapping
                 }
             }
 
+            var userCourses = new List<UserCourse>();
+            if (user.UserCourses != null)
+            {
+                foreach (var userCourse in user.UserCourses)
+                {
+                    userCourses.Add(MapToDomainUserCourse(userCourse));
+                }
+            }
+
+            var userSkills = new List<UserSkill>();
+            if (user.UserSkills != null)
+            {
+                foreach (var userSkill in user.UserSkills)
+                {
+                    userSkills.Add(MapToDomainUserSkill(userSkill));
+                }
+            }
+
             return new User
             {
                 Id = user.Id,
@@ -92,7 +110,9 @@ namespace EducationPortal.Infrastructure.DB.Mapping
                 Password = user.Password,
                 Skills = skills,
                 Materials = materials,
-                Courses = courses
+                Courses = courses,
+                UserCourses = userCourses,
+                UserSkills = userSkills
             };
         }
 
@@ -228,35 +248,63 @@ namespace EducationPortal.Infrastructure.DB.Mapping
                 courses.Add(MapToDbCourse(course));
             }
 
+            var userCourses = new List<DbUserCourse>();
+
+            foreach (var userCourse in user.UserCourses)
+            {
+                userCourses.Add(MapToDbUserCourse(userCourse));
+            }
+
+            var userSkills = new List<DbUserSkill>();
+            foreach (var userSkill in user.UserSkills)
+            {
+                userSkills.Add(MapToDbUserSkill(userSkill));
+            }
+
             userInDb.Id = user.Id;
             userInDb.Name = user.Name;
             userInDb.Password = user.Password;
             userInDb.Skills = skills;
             userInDb.Materials = materials;
             userInDb.Courses = courses;
+            userInDb.UserCourses = userCourses;
+            userInDb.UserSkills = userSkills;
 
             return userInDb;
         }
 
         public DbUserSkill MapToDbUserSkill(UserSkill userSkill)
         {
-            return new DbUserSkill
+            int skillId = userSkill.SkillId;
+            int userId = userSkill.UserId;
+            DbUserSkill userSkillInDb = _context.UserSkills.FirstOrDefault(x => x.SkillId == skillId && x.UserId == userId) ?? new DbUserSkill();
+            if (skillId != 0 && userId != 0)
             {
-                UserId = userSkill.UserId,
-                SkillId = userSkill.SkillId,
-                Level = userSkill.Level
-            };
+                userSkillInDb = _context.UserSkills.Find(userId, skillId);
+            }
+            else
+            {
+                userSkillInDb = new DbUserSkill();
+            }
+
+            userSkillInDb.UserId = userSkill.UserId;
+            userSkillInDb.SkillId = userSkill.SkillId;
+            userSkillInDb.Level = userSkill.Level;
+            return userSkillInDb;
         }
 
         public DbUserCourse MapToDbUserCourse(UserCourse userCourse)
         {
-            return new DbUserCourse
-            {
-                CourseId = userCourse.CourseId,
-                UserId = userCourse.UserId,
-                Status = userCourse.Status,
-                PassPercent = userCourse.PassPercent
-            };
+            int courseId = userCourse.CourseId;
+            int userId = userCourse.UserId;
+            DbUserCourse userCourseInDb = _context.UserCourses.FirstOrDefault(x => x.CourseId == courseId && x.UserId == userId) ?? new DbUserCourse();
+
+            userCourseInDb.CourseId = userCourse.CourseId;
+            userCourseInDb.UserId = userCourse.UserId;
+            userCourseInDb.Status = userCourse.Status;
+            userCourseInDb.PassPercent = userCourse.PassPercent;
+
+            return userCourseInDb;
         }
 
         public DbMaterial MapToDbMaterial(Material material)

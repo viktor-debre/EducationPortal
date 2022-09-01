@@ -11,5 +11,9 @@
         public List<Material> Materials { get; set; }
 
         public List<Course> Courses { get; set; }
+
+        public List<UserCourse> UserCourses { get; set; }
+
+        public List<UserSkill> UserSkills { get; set; }
     }
 }

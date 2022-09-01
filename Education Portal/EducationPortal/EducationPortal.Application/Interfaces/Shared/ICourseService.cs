@@ -9,5 +9,7 @@
         public void UpdateCourse(Course course, Course updatedCourse);
 
         public void DeleteCourse(string name);
+
+        public Course? GetCourseById(int id);
     }
 }

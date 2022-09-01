@@ -24,7 +24,7 @@
             var user = _userRepository.FindById(userId);
             foreach (var course in _courseRepository.Find())
             {
-                if (user.Courses.FirstOrDefault(c => c.Id == course.Id) == null)
+                if (user.UserCourses.FirstOrDefault(c => c.UserId == userId && c.CourseId == course.Id) == null)
                 {
                     availableCourses.Add(course);
                 }
@@ -40,8 +40,11 @@
 
             foreach (var course in user.Courses)
             {
-                var userCourse = _userCourseRepository.Find().FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
-                if (userCourse.Status == "Started")
+                var userCourse = user.UserCourses.FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
+                int passPercent = FindPercentOfPassingCourse(course, userId);
+                userCourse.PassPercent = passPercent;
+                _userRepository.Update(user);
+                if (passPercent < 100)
                 {
                     courses.Add(userCourse);
                 }
@@ -57,7 +60,7 @@
 
             foreach (var course in user.Courses)
             {
-                var userCourse = _userCourseRepository.Find().FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
+                var userCourse = user.UserCourses.FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
                 if (userCourse.Status == "Passed")
                 {
                     courses.Add(userCourse);
@@ -75,14 +78,22 @@
                 return;
             }
 
-            var userAddedCourse = new UserCourse
+            int passPercent = FindPercentOfPassingCourse(course, userId);
+            UserCourse userAddedCourse = new UserCourse
             {
                 UserId = userId,
-                CourseId = course.Id,
-                Status = "Started",
-                PassPercent = FindPercentOfPassingCourse(course, userId)
+                CourseId = course.Id
             };
+            if (passPercent == 100)
+            {
+                userAddedCourse.Status = "Passed";
+            }
+            else
+            {
+                userAddedCourse.Status = "Started";
+            }
 
+            userAddedCourse.PassPercent = passPercent;
             _userCourseRepository.Add(userAddedCourse);
         }
 
@@ -101,39 +112,42 @@
                 return false;
             }
 
-            user.Materials.Add(userPassedMaterial);
+            user.Materials.Add(materialInCourse);
             _userRepository.Update(user);
 
-            var userCourse = _userCourseRepository.Find().FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
             int passPercent = FindPercentOfPassingCourse(course, userId);
+            var userCourse = user.UserCourses.FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
             userCourse.PassPercent = passPercent;
+            _userRepository.Update(user);
+
             if (passPercent == 100)
             {
                 userCourse.Status = "Passed";
+                _userRepository.Update(user);
                 PassCourse(course, userId);
             }
-
-            _userCourseRepository.Update(userCourse);
 
             return true;
         }
 
+        public UserCourse? GetUserCoursesById(int userId, int courseId)
+        {
+            return _userCourseRepository.Find().FirstOrDefault(x => x.UserId == userId && x.CourseId == courseId);
+        }
+
         private void PassCourse(Course course, int userId)
         {
-            var user = _userRepository.FindById(userId);
-
             foreach (var skill in course.Skills)
             {
-                var userSkill = user.Skills.FirstOrDefault(s => s.Id == skill.Id);
+                var user = _userRepository.FindById(userId);
+                var userSkill = user.UserSkills.FirstOrDefault(x => x.UserId == userId && x.SkillId == skill.Id);
                 if (userSkill != null)
                 {
-                    var skillInDb = _userSkillRepository.Find().FirstOrDefault(x => x.UserId == userId && x.SkillId == course.Id);
-                    skillInDb.Level++;
-                    _userSkillRepository.Update(skillInDb);
+                    userSkill.Level++;
+                    _userRepository.Update(user);
                 }
                 else
                 {
-                    user.Skills.Add(skill);
                     var userAddedSkill = new UserSkill
                     {
                         UserId = userId,
@@ -141,14 +155,15 @@
                         Level = 0
                     };
 
-                    _userSkillRepository.Add(userAddedSkill);
+                    user.UserSkills.Add(userAddedSkill);
+                    _userRepository.Update(user);
                 }
             }
         }
 
         private int FindPercentOfPassingCourse(Course course, int userId)
         {
-            int result = 100;
+            int result = 0;
             int passedMaterialsNumber = 0;
             var userMaterials = _userRepository.FindById(userId).Materials;
             foreach (var material in course.Materials)
@@ -162,6 +177,10 @@
             if (course.Materials.Count != 0)
             {
                 result = 100 * passedMaterialsNumber / course.Materials.Count;
+            }
+            else
+            {
+                result = 100;
             }
 
             return result;
