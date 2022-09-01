@@ -218,7 +218,12 @@ namespace EducationPortal.Presentation.Application
             Console.WriteLine("Skills:");
             foreach (var skill in course.Skills)
             {
-                int? level = user.UserSkills.FirstOrDefault(s => s.SkillId == skill.Id && s.UserId == userId).Level;
+                int level = 0;
+                UserSkill? userSkill = user.UserSkills.FirstOrDefault(s => s.SkillId == skill.Id && s.UserId == userId);
+                if (userSkill != null)
+                {
+                    level = userSkill.Level;
+                }
 
                 Console.WriteLine($"Title: {skill.Title} with your level: {level}");
             }

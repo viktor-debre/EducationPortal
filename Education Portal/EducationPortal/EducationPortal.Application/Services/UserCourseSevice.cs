@@ -147,7 +147,7 @@
                     {
                         UserId = userId,
                         SkillId = skill.Id,
-                        Level = 0
+                        Level = 1
                     };
 
                     user.UserSkills.Add(userAddedSkill);
