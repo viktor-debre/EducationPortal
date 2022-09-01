@@ -50,8 +50,6 @@ namespace EducationPortal.Presentation.Application
 
         private void OutputCourses()
         {
-            OutputAllMaterials();
-            OutputAllSkills();
             OutputAllCoursesFromStorage();
         }
 
@@ -254,6 +252,8 @@ namespace EducationPortal.Presentation.Application
 
         private void ChangeMaterials(List<Material> materials)
         {
+            Console.Clear();
+            OutputAllMaterials();
             while (true)
             {
                 Console.WriteLine(MenuStrings.COURSE_MATERIAL_MENU);
@@ -279,6 +279,8 @@ namespace EducationPortal.Presentation.Application
 
         private void ChangeSkills(List<Skill> skills)
         {
+            Console.Clear();
+            OutputAllSkills();
             while (true)
             {
                 Console.WriteLine(MenuStrings.COURSE_SKILL_MENU);
