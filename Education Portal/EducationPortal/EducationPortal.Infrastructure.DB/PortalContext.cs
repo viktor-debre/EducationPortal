@@ -34,15 +34,25 @@ namespace EducationPortal.Infrastructure.DB
             modelBuilder.Entity<DbMaterial>()
                     .ToTable("Materials");
 
+            modelBuilder.Entity<DbBookMaterial>();
+            modelBuilder.Entity<DbVideoMaterial>();
+            modelBuilder.Entity<DbArticleMaterial>();
+
             modelBuilder.Entity<DbCourse>()
                     .ToTable("Courses");
 
             modelBuilder.Entity<DbSkill>()
                     .ToTable("Skills");
 
-            modelBuilder.Entity<DbBookMaterial>();
-            modelBuilder.Entity<DbVideoMaterial>();
-            modelBuilder.Entity<DbArticleMaterial>();
+            modelBuilder.Entity<DbCourse>()
+              .HasMany(u => u.Skills)
+              .WithMany(m => m.Courses)
+              .UsingEntity(um => um.ToTable("CourseSkill"));
+
+            modelBuilder.Entity<DbCourse>()
+              .HasMany(u => u.Materials)
+              .WithMany(m => m.Courses)
+              .UsingEntity(um => um.ToTable("CourseMaterials"));
 
             modelBuilder.Entity<DbUser>()
                 .HasMany(u => u.Materials)
@@ -82,7 +92,7 @@ namespace EducationPortal.Infrastructure.DB
                 userCourses =>
                 {
                     userCourses.Property(uc => uc.Status);
-                    userCourses.Property(uc => uc.Status);
+                    userCourses.Property(uc => uc.PassPercent);
                     userCourses.HasKey(uc => new { uc.UserId, uc.CourseId});
                 });
         }
