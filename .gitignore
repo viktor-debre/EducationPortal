@@ -362,4 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-EducationPortal/EducationPortal.Infrustucture.FileSystem/JsonFiles/
+#File storage data
+JsonFiles/
