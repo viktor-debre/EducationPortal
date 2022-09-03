@@ -1,6 +1,5 @@
-﻿using EducationPortal.Domain.Entities;
-using EducationPortal.Domain.Repository;
-using EducationPortal.Infrastructure.Repositories;
+﻿using EducationPortal.Domain.Repository;
+using EducationPortal.Infrustucture.FileSystem.Repositories.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EducationPortal.Infrastructure
@@ -9,11 +8,7 @@ namespace EducationPortal.Infrastructure
     {
         public static void RegisterFileSystemServices(ServiceCollection services)
         {
-            //services.AddSingleton<IRepository<User>, UserRepository>()
-            //        .AddSingleton<IRepository<User>, BookRepository>()
-            //        .AddSingleton<IRepository<User>, VideoRepository>()
-            //        .AddSingleton<IRepository<User>, ArticleRepository>()
-            //        .AddSingleton<IRepository<User>, CourceRepository>();
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
         }
     }
 }

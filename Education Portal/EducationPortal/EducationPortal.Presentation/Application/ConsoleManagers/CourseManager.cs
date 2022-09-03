@@ -63,18 +63,24 @@ namespace EducationPortal.Presentation.Application
                 Console.WriteLine($"--<{courseNumber}>--");
                 Console.WriteLine($"{course.Name}\nDescription: {course.Description}\nMaterials:");
                 int materialNumber = 1;
-                foreach (Material material in course.Materials)
+                if (course.Materials != null)
                 {
-                    Console.WriteLine($"{materialNumber} name: {material.Name}");
-                    materialNumber++;
+                    foreach (Material material in course.Materials)
+                    {
+                        Console.WriteLine($"{materialNumber} name: {material.Name}");
+                        materialNumber++;
+                    }
                 }
 
                 Console.WriteLine("Skills:");
                 int skillNumber = 1;
-                foreach (Skill skill in course.Skills)
+                if (course.Skills != null)
                 {
-                    Console.WriteLine($"{skillNumber} title: {skill.Title}");
-                    skillNumber++;
+                    foreach (Skill skill in course.Skills)
+                    {
+                        Console.WriteLine($"{skillNumber} title: {skill.Title}");
+                        skillNumber++;
+                    }
                 }
 
                 courseNumber++;

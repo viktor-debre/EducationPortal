@@ -15,4 +15,8 @@
     <ProjectReference Include="..\EducationPortal.Domain\EducationPortal.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="JsonFiles\" />
+  </ItemGroup>
+
 </Project>
