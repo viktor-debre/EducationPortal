@@ -39,7 +39,8 @@ namespace EducationPortal.Application.Services
                 Name = name,
                 Password = password,
                 Skills = new List<Skill>(),
-                Materials = new List<Material>()
+                Materials = new List<Material>(),
+                Courses = new List<Course>()
             };
             CreateUser createUser = new CreateUser(_userRepository);
             return createUser.TryCreateUser(user);

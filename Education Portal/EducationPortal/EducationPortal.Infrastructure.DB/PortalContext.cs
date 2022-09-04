@@ -24,11 +24,13 @@ namespace EducationPortal.Infrastructure.DB
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder();
-            builder.AddJsonFile("appsettings.json");
+            string workingDirectory = Environment.CurrentDirectory;
+            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            builder.AddJsonFile(projectDirectory + "/appsettings.json");
             var config = builder.Build();
             string connectionString = config.GetConnectionString("SqlServerConnectionStrings");
 
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PortalDb");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
