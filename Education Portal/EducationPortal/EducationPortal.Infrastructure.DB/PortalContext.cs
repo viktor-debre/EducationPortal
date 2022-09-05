@@ -30,7 +30,7 @@ namespace EducationPortal.Infrastructure.DB
             var config = builder.Build();
             string connectionString = config.GetConnectionString("SqlServerConnectionStrings");
 
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PortalDb");
+            optionsBuilder.UseSqlServer(connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
