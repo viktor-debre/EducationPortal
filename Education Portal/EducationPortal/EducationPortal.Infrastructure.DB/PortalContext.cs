@@ -25,8 +25,11 @@ namespace EducationPortal.Infrastructure.DB
         {
             var builder = new ConfigurationBuilder();
             string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
-            builder.AddJsonFile(projectDirectory + "/appsettings.json");
+            string projectDirectory = Directory.GetParent(workingDirectory).FullName;
+            builder.AddJsonFile(projectDirectory + "/EducationPortal.UI/appsettings.json");
+            //for console
+            //string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            //builder.AddJsonFile(projectDirectory + "/appsettings.json");
             var config = builder.Build();
             string connectionString = config.GetConnectionString("SqlServerConnectionStrings");
 

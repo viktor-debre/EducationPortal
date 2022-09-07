@@ -1,6 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+EducationPortal.Infrastructure.DB.DependencyInjection.RegisterDbServices(builder.Services);
+
+//EducationPortal.Infrastructure.DependencyInjection.RegisterFileSystemServices(services);
+
+EducationPortal.Application.DependencyInjection.RegisterApplicationServices(builder.Services);
+EducationPortal.UI.DependencyInjection.RegisterUIServices(builder.Services);
+builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
