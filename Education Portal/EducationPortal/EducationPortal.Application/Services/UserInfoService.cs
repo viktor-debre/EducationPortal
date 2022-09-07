@@ -13,5 +13,10 @@
         {
             return _userRepository.FindById(id);
         }
+
+        public User GetUserByName(string name)
+        {
+            return _userRepository.Find().FirstOrDefault(x => x.Name == name);
+        }
     }
 }
