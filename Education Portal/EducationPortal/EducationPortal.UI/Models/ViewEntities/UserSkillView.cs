@@ -1,4 +1,4 @@
-﻿namespace EducationPortal.Domain.Entities
+﻿namespace EducationPortal.UI.Models.ViewEntities
 {
     public class UserSkillView
     {

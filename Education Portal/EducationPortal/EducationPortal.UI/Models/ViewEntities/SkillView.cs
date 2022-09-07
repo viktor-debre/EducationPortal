@@ -1,6 +1,6 @@
-﻿namespace EducationPortal.Domain.Entities
+﻿namespace EducationPortal.UI.Models.ViewEntities
 {
-    public class SkillView : BaseEntity
+    internal class SkillView : BaseEntity
     {
         public string Title { get; set; }
     }
