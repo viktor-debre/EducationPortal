@@ -6,7 +6,7 @@ namespace EducationPortal.Application
 {
     public static class DependencyInjection
     {
-        public static void RegisterApplicationServices(ServiceCollection services)
+        public static void RegisterApplicationServices(IServiceCollection services)
         {
             services.AddSingleton<IMaterialManageService, MaterialManageService>()
                     .AddSingleton<ICourseService, CourseService>()

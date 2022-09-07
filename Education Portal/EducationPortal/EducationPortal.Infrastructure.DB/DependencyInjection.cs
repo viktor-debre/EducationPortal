@@ -8,7 +8,7 @@ namespace EducationPortal.Infrastructure.DB
 {
     public static class DependencyInjection
     {
-        public static void RegisterDbServices(ServiceCollection services)
+        public static void RegisterDbServices(IServiceCollection services)
         {
             services.AddDbContext<PortalContext>()
                 .AddTransient<IRepository<BookMaterial>, EntityRepository<BookMaterial, DbBookMaterial>>()

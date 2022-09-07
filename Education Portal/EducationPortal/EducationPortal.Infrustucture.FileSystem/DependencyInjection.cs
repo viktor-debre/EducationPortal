@@ -6,7 +6,7 @@ namespace EducationPortal.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static void RegisterFileSystemServices(ServiceCollection services)
+        public static void RegisterFileSystemServices(IServiceCollection services)
         {
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
         }
