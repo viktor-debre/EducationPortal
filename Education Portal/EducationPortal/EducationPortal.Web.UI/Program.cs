@@ -9,6 +9,13 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+EducationPortal.Infrastructure.DB.DependencyInjection.RegisterDbServices(builder.Services);
+
+//EducationPortal.Infrastructure.DependencyInjection.RegisterFileSystemServices(services);
+
+EducationPortal.Application.DependencyInjection.RegisterApplicationServices(builder.Services);
+EducationPortal.Web.UI.DependencyInjection.RegisterUIServices(builder.Services);
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();

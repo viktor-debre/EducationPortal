@@ -8,7 +8,6 @@ EducationPortal.Infrastructure.DB.DependencyInjection.RegisterDbServices(builder
 EducationPortal.Application.DependencyInjection.RegisterApplicationServices(builder.Services);
 EducationPortal.UI.DependencyInjection.RegisterUIServices(builder.Services);
 builder.Services.AddControllersWithViews();
-builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

@@ -15,4 +15,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EducationPortal.Application\EducationPortal.Application.csproj" />
+    <ProjectReference Include="..\EducationPortal.Infrastructure.DB\EducationPortal.Infrastructure.DB.csproj" />
+    <ProjectReference Include="..\EducationPortal.Infrustucture.FileSystem\EducationPortal.Infrustucture.FileSystem.csproj" />
+  </ItemGroup>
+
 </Project>
