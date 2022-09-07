@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.UI.Models.ViewEntities
 {
-    public class VideoView : MaterialView
+    internal class VideoView : MaterialView
     {
         public TimeSpan Duration { get; set; }
 

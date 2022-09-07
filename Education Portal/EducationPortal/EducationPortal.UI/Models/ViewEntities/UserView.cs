@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.UI.Models.ViewEntities
 {
-    public class UserView : BaseEntity
+    internal class UserView
     {
         public string Name { get; set; }
 

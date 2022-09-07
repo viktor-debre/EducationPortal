@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.UI.Models.ViewEntities
 {
-    public class MaterialView : BaseEntity
+    internal class MaterialView
     {
         public string Name { get; set; }
     }

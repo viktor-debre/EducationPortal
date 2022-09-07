@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.UI.Models.ViewEntities
 {
-    public class ArticleView : MaterialView
+    internal class ArticleView : MaterialView
     {
         public string Source { get; set; }
 
