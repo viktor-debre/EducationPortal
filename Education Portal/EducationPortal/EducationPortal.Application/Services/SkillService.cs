@@ -13,9 +13,14 @@ namespace EducationPortal.Application.Services
 
         public void DeleteSkill(string title)
         {
-            var skillNameSpecification = new SpecificationBase<Skill>(x => x.Title == title);
-            var skill = _skillRepository.Find(skillNameSpecification).FirstOrDefault();
+            var skill = GetSkillByTitle(title);
             _skillRepository.Remove(skill);
+        }
+
+        public Skill? GetSkillByTitle(string title)
+        {
+            var skillNameSpecification = new SpecificationBase<Skill>(x => x.Title == title);
+            return _skillRepository.Find(skillNameSpecification).FirstOrDefault();
         }
 
         public List<Skill> GetSkills()
