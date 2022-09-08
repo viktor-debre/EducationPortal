@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace EducationPortal.Application.Commands
+namespace EducationPortal.Application.Commands.Validation
 {
     internal class CreateBookValidation : AbstractValidator<BookMaterial>
     {
