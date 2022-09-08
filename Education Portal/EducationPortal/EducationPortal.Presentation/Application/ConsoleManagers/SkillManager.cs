@@ -62,6 +62,14 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
+            var existingSkill = _skillService.GetSkillByTitle(title);
+            if (existingSkill != null)
+            {
+                Console.WriteLine($"{EntityName.SKILL} {Result.ALREADY_EXISTS}, {Operation.ADDING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
+
             Skill skill = new Skill
             {
                 Title = title
@@ -74,6 +82,14 @@ namespace EducationPortal.Presentation.Application
             string title;
             if (!_inputHandler.TryInputStringValue(out title, "title", Operation.DELETING, EntityName.SKILL))
             {
+                return;
+            }
+
+            var existingSkill = _skillService.GetSkillByTitle(title);
+            if (existingSkill == null)
+            {
+                Console.WriteLine($"{EntityName.SKILL} {Result.DOES_NOT_EXIST}, {Operation.DELETING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                 return;
             }
             else
