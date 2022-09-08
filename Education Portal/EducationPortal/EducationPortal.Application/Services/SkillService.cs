@@ -1,4 +1,5 @@
-﻿using EducationPortal.Domain.Helpers.Specification;
+﻿using EducationPortal.Application.Commands.CreateEntity;
+using EducationPortal.Domain.Helpers.Specification;
 
 namespace EducationPortal.Application.Services
 {
@@ -6,9 +7,12 @@ namespace EducationPortal.Application.Services
     {
         private readonly IRepository<Skill> _skillRepository;
 
+        private readonly CreateSkill _createSkill;
+
         public SkillService(IRepository<Skill> skillRepository)
         {
             _skillRepository = skillRepository;
+            _createSkill = new CreateSkill(skillRepository);
         }
 
         public void DeleteSkill(string title)
@@ -30,7 +34,7 @@ namespace EducationPortal.Application.Services
 
         public void SetSkill(Skill skill)
         {
-            _skillRepository.Add(skill);
+            _createSkill.TryCreateSkill(skill);
         }
 
         public void UpdateSkill(Skill skill, Skill updatedSkill)
