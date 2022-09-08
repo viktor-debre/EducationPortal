@@ -1,4 +1,6 @@
-﻿namespace EducationPortal.Application.Services
+﻿using EducationPortal.Domain.Helpers.Repository;
+
+namespace EducationPortal.Application.Services
 {
     internal class CourseService : ICourseService
     {

@@ -1,4 +1,4 @@
-﻿using EducationPortal.Domain.Repository;
+﻿using EducationPortal.Domain.Helpers.Repository;
 using EducationPortal.Infrastructure.FileService;
 using EducationPortal.Infrastructure.Serialization;
 

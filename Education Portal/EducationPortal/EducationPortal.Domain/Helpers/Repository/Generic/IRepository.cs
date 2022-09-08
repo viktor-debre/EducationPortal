@@ -1,4 +1,4 @@
-﻿namespace EducationPortal.Domain.Repository
+﻿namespace EducationPortal.Domain.Helpers.Repository
 {
     public interface IRepository<TEntity>
     {

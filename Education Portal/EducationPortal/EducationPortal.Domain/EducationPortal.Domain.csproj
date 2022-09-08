@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\Concrete\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 ﻿using EducationPortal.Domain.Common;
-using EducationPortal.Domain.Repository;
+using EducationPortal.Domain.Helpers.Repository;
 using EducationPortal.Infrastructure.DB.Mapping;
 
 namespace EducationPortal.Infrastructure.DB.Repository.Generic

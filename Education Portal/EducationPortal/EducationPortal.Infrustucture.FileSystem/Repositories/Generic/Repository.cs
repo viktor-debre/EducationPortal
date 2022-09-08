@@ -1,5 +1,5 @@
 ﻿using EducationPortal.Domain.Common;
-using EducationPortal.Domain.Repository;
+using EducationPortal.Domain.Helpers.Repository;
 using System.Reflection;
 
 namespace EducationPortal.Infrustucture.FileSystem.Repositories.Generic
