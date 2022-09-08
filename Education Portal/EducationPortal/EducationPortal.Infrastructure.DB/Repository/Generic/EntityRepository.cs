@@ -1,5 +1,6 @@
 ﻿using EducationPortal.Domain.Common;
-using EducationPortal.Domain.Repository;
+using EducationPortal.Domain.Helpers.Repository;
+using EducationPortal.Domain.Helpers.Specification;
 using EducationPortal.Infrastructure.DB.Mapping;
 
 namespace EducationPortal.Infrastructure.DB.Repository.Generic
@@ -25,7 +26,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Generic
             Save();
         }
 
-        public List<TEntity> Find()
+        public List<TEntity> Find(ISpecification<TEntity> specification = null)
         {
             List<TEntity> entities = new List<TEntity>();
             foreach (var entity in _dbSet)
@@ -33,7 +34,17 @@ namespace EducationPortal.Infrastructure.DB.Repository.Generic
                 entities.Add((TEntity)_mapper.MapToDomainEntity(entity));
             }
 
-            return entities;
+            List<TEntity> result;
+            if (specification != null)
+            {
+                result = entities.AsQueryable().Where(specification.Criteria).ToList();
+            }
+            else
+            {
+                result = entities;
+            }
+
+            return result;
         }
 
         public void Add(TEntity entity)

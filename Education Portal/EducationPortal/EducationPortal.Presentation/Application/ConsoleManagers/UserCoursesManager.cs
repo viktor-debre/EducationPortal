@@ -54,7 +54,7 @@ namespace EducationPortal.Presentation.Application
 
                 foreach (var course in courses)
                 {
-                    var passesCourse = _courseService.GetCourses().FirstOrDefault(x => x.Id == course.CourseId);
+                    var passesCourse = _courseService.GetCourseById(course.CourseId);
                     Console.WriteLine($"---<{course.CourseId}>---");
                     Console.WriteLine($"Name: {passesCourse.Name} status: {course.Status} percent: {course.PassPercent}");
                     OutputMaterials(passesCourse, userId);
@@ -144,7 +144,7 @@ namespace EducationPortal.Presentation.Application
                         int courseId;
                         if (_inputHandler.TryInputIntValue(out courseId, "course id", Operation.TAKING, EntityName.USER_COURSE))
                         {
-                            var existingCourse = _courseService.GetCourses().FirstOrDefault(x => x.Id == courseId);
+                            var existingCourse = _courseService.GetCourseById(courseId);
                             if (existingCourse != null)
                             {
                                 _userCourseService.TakeCourse(existingCourse, userId);

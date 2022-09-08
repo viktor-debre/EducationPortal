@@ -120,6 +120,14 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
+            var existingCourse = _courseService.GetCourseByName(name);
+            if (existingCourse == null)
+            {
+                Console.WriteLine($"{EntityName.COURSE} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
+
             string description;
             if (!_inputHandler.TryInputStringValue(out description, "description", Operation.ADDING, EntityName.COURSE))
             {
@@ -148,6 +156,14 @@ namespace EducationPortal.Presentation.Application
             {
                 return;
             }
+
+            var existingCourse = _courseService.GetCourseByName(name);
+            if (existingCourse == null)
+            {
+                Console.WriteLine($"{EntityName.COURSE} {Result.DOES_NOT_EXIST}, {Operation.DELETING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
             else
             {
                 _courseService.DeleteCourse(name);
@@ -162,7 +178,7 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
-            var existingCourse = _courseService.GetCourses().FirstOrDefault(x => x.Name == name);
+            var existingCourse = _courseService.GetCourseByName(name);
             if (existingCourse == null)
             {
                 Console.WriteLine($"{EntityName.COURSE} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");

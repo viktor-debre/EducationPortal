@@ -1,5 +1,5 @@
 ﻿using EducationPortal.Domain.Entities;
-using EducationPortal.Domain.Repository;
+using EducationPortal.Domain.Helpers.Repository;
 using EducationPortal.Infrastructure.DB.Repository.Concrete;
 using EducationPortal.Infrastructure.DB.Repository.Generic;
 using Microsoft.Extensions.DependencyInjection;

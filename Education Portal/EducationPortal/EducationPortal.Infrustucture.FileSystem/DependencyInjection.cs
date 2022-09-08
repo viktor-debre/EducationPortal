@@ -1,4 +1,4 @@
-﻿using EducationPortal.Domain.Repository;
+﻿using EducationPortal.Domain.Helpers.Repository;
 using EducationPortal.Infrustucture.FileSystem.Repositories.Generic;
 using Microsoft.Extensions.DependencyInjection;
 

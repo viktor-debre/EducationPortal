@@ -1,4 +1,7 @@
-﻿namespace EducationPortal.Application.Services
+﻿using EducationPortal.Domain.Helpers.Repository;
+using EducationPortal.Domain.Helpers.Specification;
+
+namespace EducationPortal.Application.Services
 {
     internal class CourseService : ICourseService
     {
@@ -11,7 +14,7 @@
 
         public void DeleteCourse(string name)
         {
-            var course = _courseRepository.Find().FirstOrDefault(x => x.Name == name);
+            var course = GetCourseByName(name);
             if (course != null)
             {
                 _courseRepository.Remove(course);
@@ -26,6 +29,12 @@
         public List<Course> GetCourses()
         {
             return _courseRepository.Find();
+        }
+
+        public Course? GetCourseByName(string name)
+        {
+            var courseNameSpecification = new SpecificationBase<Course>(x => x.Name == name);
+            return _courseRepository.Find(courseNameSpecification).FirstOrDefault();
         }
 
         public void SetCourse(Course course)

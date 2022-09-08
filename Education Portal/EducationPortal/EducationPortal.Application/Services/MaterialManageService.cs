@@ -1,4 +1,5 @@
 ﻿using EducationPortal.Application.Commands;
+using EducationPortal.Domain.Helpers.Specification;
 
 namespace EducationPortal.Application.Services
 {
@@ -27,6 +28,12 @@ namespace EducationPortal.Application.Services
             return _bookRepository.Find();
         }
 
+        public BookMaterial? GetBookByName(string name)
+        {
+            var bookNameSpecification = new SpecificationBase<BookMaterial>(x => x.Name == name);
+            return _bookRepository.Find(bookNameSpecification).FirstOrDefault();
+        }
+
         public void SetBook(BookMaterial bookMaterial)
         {
             _createBook.TryCreateBook(bookMaterial);
@@ -45,7 +52,7 @@ namespace EducationPortal.Application.Services
 
         public void DeleteBook(string name)
         {
-            var material = _bookRepository.Find().FirstOrDefault(x => x.Name == name);
+            var material = GetBookByName(name);
             if (material != null)
             {
                 _bookRepository.Remove(material);
@@ -55,6 +62,12 @@ namespace EducationPortal.Application.Services
         public List<VideoMaterial> GetVideos()
         {
             return _videoRepository.Find();
+        }
+
+        public VideoMaterial? GetVideoByName(string name)
+        {
+            var videoNameSpecification = new SpecificationBase<VideoMaterial>(x => x.Name == name);
+            return _videoRepository.Find(videoNameSpecification).FirstOrDefault();
         }
 
         public void SetVideo(VideoMaterial videoMaterial)
@@ -73,7 +86,7 @@ namespace EducationPortal.Application.Services
 
         public void DeleteVideo(string name)
         {
-            var video = _videoRepository.Find().FirstOrDefault(x => x.Name == name);
+            var video = GetVideoByName(name);
             if (video != null)
             {
                 _videoRepository.Remove(video);
@@ -90,6 +103,12 @@ namespace EducationPortal.Application.Services
             _createArticle.TryCreateArticle(articleMaterial);
         }
 
+        public ArticleMaterial? GetArticleByName(string name)
+        {
+            var articleNameSpecification = new SpecificationBase<ArticleMaterial>(x => x.Name == name);
+            return _articleRepository.Find(articleNameSpecification).FirstOrDefault();
+        }
+
         public void UpdateArticle(ArticleMaterial article, ArticleMaterial updatedMaterial)
         {
             var articleToUpdate = _articleRepository.FindById(article.Id);
@@ -101,7 +120,7 @@ namespace EducationPortal.Application.Services
 
         public void DeleteArticle(string name)
         {
-            var article = _articleRepository.Find().FirstOrDefault(x => x.Name == name);
+            var article = GetArticleByName(name);
             if (article != null)
             {
                 _articleRepository.Remove(article);
