@@ -86,7 +86,7 @@ namespace EducationPortal.Application.Services
 
         public void DeleteVideo(string name)
         {
-            var video = GetVideosByName(name);
+            var video = GetVideoByName(name);
             if (video != null)
             {
                 _videoRepository.Remove(video);
