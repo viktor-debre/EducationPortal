@@ -14,8 +14,7 @@ namespace EducationPortal.Application.Services
 
         public void DeleteCourse(string name)
         {
-            var courseNameSpecification = new SpecificationBase<Course>(x => x.Name == name);
-            var course = _courseRepository.Find(courseNameSpecification).FirstOrDefault();
+            var course = GetCourseByName(name);
             if (course != null)
             {
                 _courseRepository.Remove(course);
@@ -30,6 +29,12 @@ namespace EducationPortal.Application.Services
         public List<Course> GetCourses()
         {
             return _courseRepository.Find();
+        }
+
+        public Course? GetCourseByName(string name)
+        {
+            var courseNameSpecification = new SpecificationBase<Course>(x => x.Name == name);
+            return _courseRepository.Find(courseNameSpecification).FirstOrDefault();
         }
 
         public void SetCourse(Course course)

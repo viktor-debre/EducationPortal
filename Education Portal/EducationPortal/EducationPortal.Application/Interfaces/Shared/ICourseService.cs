@@ -4,6 +4,8 @@
     {
         public List<Course> GetCourses();
 
+        public Course? GetCourseByName(string name);
+
         public void SetCourse(Course book);
 
         public void UpdateCourse(Course course, Course updatedCourse);
