@@ -90,7 +90,7 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
-            var existingSkill = _skillService.GetSkills().FirstOrDefault(x => x.Title == title);
+            var existingSkill = _skillService.GetSkillByTitle(title);
             if (existingSkill == null)
             {
                 Console.WriteLine($"{EntityName.SKILL} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");

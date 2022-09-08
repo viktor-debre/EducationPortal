@@ -64,7 +64,7 @@ namespace EducationPortal.Application.Services
             return _videoRepository.Find();
         }
 
-        public VideoMaterial? GetVideosByName(string name)
+        public VideoMaterial? GetVideoByName(string name)
         {
             var videoNameSpecification = new SpecificationBase<VideoMaterial>(x => x.Name == name);
             return _videoRepository.Find(videoNameSpecification).FirstOrDefault();

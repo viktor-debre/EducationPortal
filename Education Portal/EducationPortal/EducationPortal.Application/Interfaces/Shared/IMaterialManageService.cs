@@ -14,7 +14,7 @@
 
         public List<VideoMaterial> GetVideos();
 
-        public VideoMaterial? GetVideosByName(string name);
+        public VideoMaterial? GetVideoByName(string name);
 
         public void SetVideo(VideoMaterial book);
 
