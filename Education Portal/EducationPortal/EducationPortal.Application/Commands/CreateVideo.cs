@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using EducationPortal.Domain.Helpers.Specification;
+using FluentValidation.Results;
 
 namespace EducationPortal.Application.Commands
 {
@@ -20,7 +21,8 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            var checkArticle = _videoRepository.Find().FirstOrDefault(x => x.Name == video.Name);
+            var videoNameSpecification = new SpecificationBase<VideoMaterial>(x => x.Name == video.Name);
+            var checkArticle = _videoRepository.Find(videoNameSpecification).FirstOrDefault();
             if (checkArticle != null)
             {
                 return false;

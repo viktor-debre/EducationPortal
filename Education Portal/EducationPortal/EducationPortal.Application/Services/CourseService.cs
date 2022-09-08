@@ -1,4 +1,5 @@
 ﻿using EducationPortal.Domain.Helpers.Repository;
+using EducationPortal.Domain.Helpers.Specification;
 
 namespace EducationPortal.Application.Services
 {
@@ -13,7 +14,8 @@ namespace EducationPortal.Application.Services
 
         public void DeleteCourse(string name)
         {
-            var course = _courseRepository.Find().FirstOrDefault(x => x.Name == name);
+            var courseNameSpecification = new SpecificationBase<Course>(x => x.Name == name);
+            var course = _courseRepository.Find(courseNameSpecification).FirstOrDefault();
             if (course != null)
             {
                 _courseRepository.Remove(course);

@@ -1,4 +1,5 @@
 ﻿using EducationPortal.Application.Commands;
+using EducationPortal.Domain.Helpers.Specification;
 
 namespace EducationPortal.Application.Services
 {
@@ -45,7 +46,8 @@ namespace EducationPortal.Application.Services
 
         public void DeleteBook(string name)
         {
-            var material = _bookRepository.Find().FirstOrDefault(x => x.Name == name);
+            var bookNameSpecification = new SpecificationBase<BookMaterial>(x => x.Name == name);
+            var material = _bookRepository.Find(bookNameSpecification).FirstOrDefault();
             if (material != null)
             {
                 _bookRepository.Remove(material);
@@ -73,7 +75,8 @@ namespace EducationPortal.Application.Services
 
         public void DeleteVideo(string name)
         {
-            var video = _videoRepository.Find().FirstOrDefault(x => x.Name == name);
+            var videoNameSpecification = new SpecificationBase<VideoMaterial>(x => x.Name == name);
+            var video = _videoRepository.Find(videoNameSpecification).FirstOrDefault();
             if (video != null)
             {
                 _videoRepository.Remove(video);
@@ -101,7 +104,8 @@ namespace EducationPortal.Application.Services
 
         public void DeleteArticle(string name)
         {
-            var article = _articleRepository.Find().FirstOrDefault(x => x.Name == name);
+            var articleNameSpecification = new SpecificationBase<ArticleMaterial>(x => x.Name == name);
+            var article = _articleRepository.Find(articleNameSpecification).FirstOrDefault();
             if (article != null)
             {
                 _articleRepository.Remove(article);

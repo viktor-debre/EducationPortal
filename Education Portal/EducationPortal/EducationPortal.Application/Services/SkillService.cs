@@ -1,4 +1,6 @@
-﻿namespace EducationPortal.Application.Services
+﻿using EducationPortal.Domain.Helpers.Specification;
+
+namespace EducationPortal.Application.Services
 {
     internal class SkillService : ISkillService
     {
@@ -11,7 +13,8 @@
 
         public void DeleteSkill(string title)
         {
-            var skill = _skillRepository.Find().FirstOrDefault(x => x.Title == title);
+            var skillNameSpecification = new SpecificationBase<Skill>(x => x.Title == title);
+            var skill = _skillRepository.Find(skillNameSpecification).FirstOrDefault();
             _skillRepository.Remove(skill);
         }
 

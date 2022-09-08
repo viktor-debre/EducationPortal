@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using EducationPortal.Domain.Helpers.Specification;
+using FluentValidation.Results;
 
 namespace EducationPortal.Application.Commands
 {
@@ -20,7 +21,8 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            var checkUser = _userRepository.Find().FirstOrDefault(x => x.Name == newUser.Name);
+            var userNameSpecification = new SpecificationBase<User>(x => x.Name == newUser.Name);
+            var checkUser = _userRepository.Find(userNameSpecification).FirstOrDefault();
             if (checkUser != null)
             {
                 return false;

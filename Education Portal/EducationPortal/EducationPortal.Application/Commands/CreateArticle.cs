@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using EducationPortal.Domain.Helpers.Specification;
+using FluentValidation.Results;
 
 namespace EducationPortal.Application.Commands
 {
@@ -20,7 +21,8 @@ namespace EducationPortal.Application.Commands
                 return false;
             }
 
-            var checkArticle = _articleRepository.Find().FirstOrDefault(x => x.Name == article.Name);
+            var articleNameSpecification = new SpecificationBase<ArticleMaterial>(x => x.Name == article.Name);
+            var checkArticle = _articleRepository.Find(articleNameSpecification).FirstOrDefault();
             if (checkArticle != null)
             {
                 return false;
