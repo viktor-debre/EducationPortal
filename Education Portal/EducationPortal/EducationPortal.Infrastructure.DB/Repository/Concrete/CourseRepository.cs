@@ -1,5 +1,6 @@
 ﻿using EducationPortal.Domain.Entities;
 using EducationPortal.Domain.Helpers.Repository;
+using EducationPortal.Domain.Helpers.Specification;
 using EducationPortal.Infrastructure.DB.Mapping;
 
 namespace EducationPortal.Infrastructure.DB.Repository.Concrete
@@ -26,7 +27,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
             return _mapper.MapToDomainCourse(_context.Courses.Find(id));
         }
 
-        public List<Course> Find()
+        public List<Course> Find(ISpecification<Course> specification = null)
         {
             List<Course> courses = new List<Course>();
             var dbCourses = _context.Courses.Include(x => x.Materials).Include(x => x.Skills).ToList();
@@ -35,7 +36,17 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
                 courses.Add(_mapper.MapToDomainCourse(course));
             }
 
-            return courses;
+            List<Course> result;
+            if (specification != null)
+            {
+                result = courses.AsQueryable().Where(specification.Criteria).ToList();
+            }
+            else
+            {
+                result = courses;
+            }
+
+            return result;
         }
 
         public void Save()

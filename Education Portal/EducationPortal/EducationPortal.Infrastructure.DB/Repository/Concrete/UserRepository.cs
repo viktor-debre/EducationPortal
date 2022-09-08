@@ -1,5 +1,6 @@
 ﻿using EducationPortal.Domain.Entities;
 using EducationPortal.Domain.Helpers.Repository;
+using EducationPortal.Domain.Helpers.Specification;
 using EducationPortal.Infrastructure.DB.Mapping;
 
 namespace EducationPortal.Infrastructure.DB.Repository.Concrete
@@ -21,7 +22,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
             Save();
         }
 
-        public List<User> Find()
+        public List<User> Find(ISpecification<User> specification = null)
         {
             List<User> users = new List<User>();
             var dbUsers = _context.Users
@@ -35,7 +36,17 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
                 users.Add(_mapper.MapToDomainUser(user));
             }
 
-            return users;
+            List<User> result;
+            if (specification != null)
+            {
+                result = users.AsQueryable().Where(specification.Criteria).ToList();
+            }
+            else
+            {
+                result = users;
+            }
+
+            return result;
         }
 
         public User? FindById(int id)

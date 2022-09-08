@@ -1,5 +1,6 @@
 ﻿using EducationPortal.Domain.Common;
 using EducationPortal.Domain.Helpers.Repository;
+using EducationPortal.Domain.Helpers.Specification;
 using System.Reflection;
 
 namespace EducationPortal.Infrustucture.FileSystem.Repositories.Generic
@@ -24,7 +25,7 @@ namespace EducationPortal.Infrustucture.FileSystem.Repositories.Generic
             _storage.AddItemToStorage(EntitiesList, PathToEntity);
         }
 
-        public List<TEntity> Find()
+        public List<TEntity> Find(ISpecification<TEntity> specification = null)
         {
             List<TEntity> materials = _storage.ExctractItemsFromStorage(PathToEntity);
             if (materials != null)
@@ -32,7 +33,17 @@ namespace EducationPortal.Infrustucture.FileSystem.Repositories.Generic
                 EntitiesList = materials;
             }
 
-            return EntitiesList;
+            List<TEntity> result;
+            if (specification != null)
+            {
+                result = EntitiesList.AsQueryable().Where(specification.Criteria).ToList();
+            }
+            else
+            {
+                result = EntitiesList;
+            }
+
+            return result;
         }
 
         public TEntity? FindById(int id)
