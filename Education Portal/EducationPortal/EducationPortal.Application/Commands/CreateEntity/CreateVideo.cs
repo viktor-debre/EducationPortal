@@ -1,7 +1,8 @@
-﻿using EducationPortal.Domain.Helpers.Specification;
+﻿using EducationPortal.Application.Commands.Validation;
+using EducationPortal.Domain.Helpers.Specification;
 using FluentValidation.Results;
 
-namespace EducationPortal.Application.Commands
+namespace EducationPortal.Application.Commands.CreateEntity
 {
     internal class CreateVideo
     {

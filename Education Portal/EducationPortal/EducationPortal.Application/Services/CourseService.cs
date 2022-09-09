@@ -1,4 +1,5 @@
-﻿using EducationPortal.Domain.Helpers.Repository;
+﻿using EducationPortal.Application.Commands.CreateEntity;
+using EducationPortal.Domain.Helpers.Repository;
 using EducationPortal.Domain.Helpers.Specification;
 
 namespace EducationPortal.Application.Services
@@ -7,9 +8,12 @@ namespace EducationPortal.Application.Services
     {
         private readonly IRepository<Course> _courseRepository;
 
+        private readonly CreateCourse _createCourse;
+
         public CourseService(IRepository<Course> courseRepository)
         {
             _courseRepository = courseRepository;
+            _createCourse = new CreateCourse(courseRepository);
         }
 
         public void DeleteCourse(string name)
@@ -39,7 +43,7 @@ namespace EducationPortal.Application.Services
 
         public void SetCourse(Course course)
         {
-            _courseRepository.Add(course);
+            _createCourse.TryCreateCorse(course);
         }
 
         public void UpdateCourse(Course course, Course updatedCourse)

@@ -2,11 +2,11 @@
 
 namespace EducationPortal.Application.Commands.Validation
 {
-    internal class CreateVideoValidation : AbstractValidator<VideoMaterial>
+    internal class CreateSkillValidation : AbstractValidator<Skill>
     {
-        public CreateVideoValidation()
+        public CreateSkillValidation()
         {
-            RuleFor(u => u.Name)
+            RuleFor(u => u.Title)
                .NotEmpty();
         }
     }

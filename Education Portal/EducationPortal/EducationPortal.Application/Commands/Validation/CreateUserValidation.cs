@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using System.Text.RegularExpressions;
 
-namespace EducationPortal.Application.Commands
+namespace EducationPortal.Application.Commands.Validation
 {
     internal class CreateUserValidation : AbstractValidator<User>
     {
