@@ -10,13 +10,13 @@ namespace EducationPortal.Infrastructure.DB
     {
         public static void RegisterDbServices(IServiceCollection services)
         {
-            services.AddSingleton<PortalContext>()
-                .AddSingleton<IRepository<BookMaterial>, EntityRepository<BookMaterial, DbBookMaterial>>()
-                .AddSingleton<IRepository<VideoMaterial>, EntityRepository<VideoMaterial, DbVideoMaterial>>()
-                .AddSingleton<IRepository<ArticleMaterial>, EntityRepository<ArticleMaterial, DbArticleMaterial>>()
-                .AddSingleton<IRepository<Course>, CourseRepository>()
-                .AddSingleton<IRepository<Skill>, EntityRepository<Skill, DbSkill>>()
-                .AddSingleton<IRepository<User>, UserRepository>();
+            services.AddDbContext<PortalContext>()
+                .AddScoped<IRepository<BookMaterial>, EntityRepository<BookMaterial, DbBookMaterial>>()
+                .AddScoped<IRepository<VideoMaterial>, EntityRepository<VideoMaterial, DbVideoMaterial>>()
+                .AddScoped<IRepository<ArticleMaterial>, EntityRepository<ArticleMaterial, DbArticleMaterial>>()
+                .AddScoped<IRepository<Course>, CourseRepository>()
+                .AddScoped<IRepository<Skill>, EntityRepository<Skill, DbSkill>>()
+                .AddScoped<IRepository<User>, UserRepository>();
         }
     }
 }

@@ -7,8 +7,8 @@ namespace EducationPortal.Web.UI
     {
         public static void RegisterUIServices(IServiceCollection services)
         {
-            services.AddSingleton<IUserInformationService, UserInformationService>()
-                .AddSingleton<IMapper, MapperForViewModels>();
+            services.AddScoped<IUserInformationService, UserInformationService>()
+                .AddScoped<IMapper, MapperForViewModels>();
         }
     }
 }
