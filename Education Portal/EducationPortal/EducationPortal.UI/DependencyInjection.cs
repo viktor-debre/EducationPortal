@@ -8,6 +8,7 @@ namespace EducationPortal.UI
         public static void RegisterUIServices(IServiceCollection services)
         {
             services.AddScoped<IUserInformationService, UserInformationService>()
+                .AddScoped<IAccountService, AccountService>()
                 .AddScoped<IMapper, MapperForViewModels>();
         }
     }

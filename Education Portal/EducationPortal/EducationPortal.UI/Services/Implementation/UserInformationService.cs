@@ -17,11 +17,7 @@ namespace EducationPortal.UI.Services.Implementation
         public UserView GetUserInfo(string name)
         {
             var user = _userInfo.GetUserByName(name);
-            return new UserView()
-            {
-                Name = user.Name,
-                Password = user.Password
-            };
+            return _mapper.MapUserToViewModel(user);
         }
     }
 }
