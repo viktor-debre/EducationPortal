@@ -1,8 +1,8 @@
-﻿using EducationPortal.Domain.Entities;
+﻿using EducationPortal.UI.Models.Common;
 
 namespace EducationPortal.UI.Models.ViewEntities
 {
-    public class UserView
+    public class UserView : BaseViewEntity
     {
         public string Name { get; set; }
 

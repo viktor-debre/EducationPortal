@@ -1,6 +1,8 @@
-﻿namespace EducationPortal.UI.Models.ViewEntities
+﻿using EducationPortal.UI.Models.Common;
+
+namespace EducationPortal.UI.Models.ViewEntities
 {
-    public class CourseView
+    public class CourseView : BaseViewEntity
     {
         public string Name { get; set; }
 
