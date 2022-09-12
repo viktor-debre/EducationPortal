@@ -1,0 +1,20 @@
+﻿@model UserView
+@{
+	var user = Model;
+}
+
+<p>Users</p>
+<ul>
+	<li>@user.Name</li>
+	<li>@user.Password</li>
+	Materials
+	@foreach (var material in user.Materials)
+	{
+		<li>@material.Name</li>
+	}
+	Skills
+	@foreach (var skill in user.Skills)
+	{
+		<li>@skill.Title</li>
+	}
+</ul>
