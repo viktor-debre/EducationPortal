@@ -1,6 +1,13 @@
-﻿namespace EducationPortal.UI.Models.Mapping
+﻿using EducationPortal.Domain.Entities;
+
+namespace EducationPortal.UI.Models.Mapping
 {
     public interface IMapper
     {
+        public UserView MapUserToViewModel(User user);
+
+        public MaterialView MapMaterialToViewModel(Material material);
+
+        public SkillView MapSkillToViewModel(Skill skill);
     }
 }

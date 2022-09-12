@@ -8,9 +8,10 @@ namespace EducationPortal.UI.Services.Implementation
         private readonly IUserInfoService _userInfo;
         private readonly IMapper _mapper;
 
-        public UserInformationService(IUserInfoService userInfo, IMapper _mapper)
+        public UserInformationService(IUserInfoService userInfo, IMapper mapper)
         {
             _userInfo = userInfo;
+            _mapper = mapper;
         }
 
         public UserView GetUserInfo(string name)
