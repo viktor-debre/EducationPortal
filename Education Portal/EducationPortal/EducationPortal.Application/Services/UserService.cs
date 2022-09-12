@@ -1,5 +1,6 @@
 ﻿using EducationPortal.Application.Commands;
 using EducationPortal.Application.Commands.CreateEntity;
+using EducationPortal.Domain.Helpers.Specification;
 
 namespace EducationPortal.Application.Services
 {
@@ -14,8 +15,8 @@ namespace EducationPortal.Application.Services
 
         public bool Authenticate(string userName, string password, ref int userId)
         {
-            List<User> users = _userRepository.Find();
-            var existingUser = users.FirstOrDefault(x => x.Name == userName);
+            var userNameSpec = new SpecificationBase<User>(x => x.Name == userName);
+            var existingUser = _userRepository.Find(userNameSpec).FirstOrDefault();
             if (existingUser == null)
             {
                 return false;
