@@ -11,6 +11,7 @@ namespace EducationPortal.UI.Controllers
             _userInformation = userInformation;
         }
 
+        [HttpGet]
         public IActionResult UserProfile()
         {
             return View(_userInformation.GetUserInfo("Viktor"));

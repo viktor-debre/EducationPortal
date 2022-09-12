@@ -1,4 +1,5 @@
 ﻿using EducationPortal.UI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -29,11 +30,6 @@ namespace EducationPortal.UI.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public IActionResult UserProfile()
-        {
-            return View(_userInformation.GetUserInfo("Viktor"));
         }
     }
 }
