@@ -4,7 +4,7 @@ using EducationPortal.Infrastructure.Serialization;
 
 namespace EducationPortal.Infrastructure.StorageService
 {
-    internal class StorageManager<T> 
+    internal class StorageManager<T>
     {
         private readonly JsonSerializer<T> _jsonSerializer = new JsonSerializer<T>();
         private readonly FileManager _fileManager = new FileManager();

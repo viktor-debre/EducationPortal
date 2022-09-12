@@ -83,7 +83,7 @@ namespace EducationPortal.Infrustucture.FileSystem.Repositories.Generic
             {
                 File.Create(pathToEntityStorage);
             }
-            
+
             return pathToEntityStorage;
         }
     }
