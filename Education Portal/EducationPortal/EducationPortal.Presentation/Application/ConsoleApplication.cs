@@ -1,5 +1,4 @@
-﻿using EducationPortal.Domain.Entities;
-using System.Text;
+﻿using System.Text;
 
 namespace EducationPortal.Presentation.Application
 {

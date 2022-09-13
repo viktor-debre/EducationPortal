@@ -1,5 +1,4 @@
-﻿using EducationPortal.Application.Interfaces.Shared;
-using EducationPortal.Application.Services;
+﻿using EducationPortal.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EducationPortal.Application

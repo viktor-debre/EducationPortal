@@ -1,7 +1,6 @@
 ﻿using EducationPortal.Domain.Common;
 using EducationPortal.Domain.Helpers.Repository;
 using EducationPortal.Domain.Helpers.Specification;
-using System.Reflection;
 
 namespace EducationPortal.Infrustucture.FileSystem.Repositories.Generic
 {
