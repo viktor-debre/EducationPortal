@@ -7,9 +7,11 @@
         private readonly ISkillService _skillService;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public CourseManager(ICourseService courseService,
-                                    IMaterialManageService materialManageService,
-                                    ISkillService skillService)
+        public CourseManager(
+            ICourseService courseService,
+            IMaterialManageService materialManageService,
+            ISkillService skillService
+        )
         {
             _courseService = courseService;
             _materialManageService = materialManageService;

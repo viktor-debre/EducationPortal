@@ -13,7 +13,11 @@ namespace EducationPortal.Application.Services
         private readonly CreateVideo _createVideo;
         private readonly CreateArticle _createArticle;
 
-        public MaterialManageService(IRepository<BookMaterial> bookRepository, IRepository<VideoMaterial> videoRepository, IRepository<ArticleMaterial> articleRepository)
+        public MaterialManageService(
+            IRepository<BookMaterial> bookRepository,
+            IRepository<VideoMaterial> videoRepository,
+            IRepository<ArticleMaterial> articleRepository
+        )
         {
             _bookRepository = bookRepository;
             _videoRepository = videoRepository;

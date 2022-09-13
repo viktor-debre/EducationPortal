@@ -7,7 +7,11 @@
         private readonly IUserInfoService _userSkillService;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public UserCoursesManager(IUserCourseService userCourse, ICourseService courseService, IUserInfoService userSkillService)
+        public UserCoursesManager(
+            IUserCourseService userCourse,
+            ICourseService courseService,
+            IUserInfoService userSkillService
+        )
         {
             _userCourseService = userCourse;
             _courseService = courseService;
