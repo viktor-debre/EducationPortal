@@ -1,5 +1,4 @@
-﻿using EducationPortal.Application.Interfaces.Shared;
-using EducationPortal.Application.Services;
+﻿using EducationPortal.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EducationPortal.Application
@@ -8,12 +7,12 @@ namespace EducationPortal.Application
     {
         public static void RegisterApplicationServices(ServiceCollection services)
         {
-            services.AddSingleton<IMaterialManageService, MaterialManageService>()
-                    .AddSingleton<ICourseService, CourseService>()
-                    .AddSingleton<ISkillService, SkillService>()
-                    .AddSingleton<IUserService, UserService>()
-                    .AddSingleton<IUserInfoService, UserInfoService>()
-                    .AddSingleton<IUserCourseService, UserCourseSevice>();
+            services.AddScoped<IMaterialManageService, MaterialManageService>()
+                    .AddScoped<ICourseService, CourseService>()
+                    .AddScoped<ISkillService, SkillService>()
+                    .AddScoped<IUserService, UserService>()
+                    .AddScoped<IUserInfoService, UserInfoService>()
+                    .AddScoped<IUserCourseService, UserCourseSevice>();
         }
     }
 }

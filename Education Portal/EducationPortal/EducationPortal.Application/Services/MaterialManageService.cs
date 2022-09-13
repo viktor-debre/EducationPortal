@@ -1,5 +1,4 @@
-﻿using EducationPortal.Application.Commands;
-using EducationPortal.Application.Commands.CreateEntity;
+﻿using EducationPortal.Application.Commands.CreateEntity;
 using EducationPortal.Domain.Helpers.Specification;
 
 namespace EducationPortal.Application.Services
