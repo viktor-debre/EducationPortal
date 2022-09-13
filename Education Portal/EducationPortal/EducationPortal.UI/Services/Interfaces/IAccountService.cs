@@ -2,6 +2,6 @@
 {
     public interface IAccountService
     {
-        public UserView? AutherticateUserByName(string name, string password);
+        public UserView? AuthenticateUserByName(string name, string password);
     }
 }

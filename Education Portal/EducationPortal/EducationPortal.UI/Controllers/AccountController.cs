@@ -27,7 +27,7 @@ namespace EducationPortal.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserView user = _accountService.AutherticateUserByName(model.Email, model.Password);
+                UserView user = _accountService.AuthenticateUserByName(model.Email, model.Password);
                 if (user != null)
                 {
                     await Authenticate(user);

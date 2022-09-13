@@ -14,7 +14,7 @@ namespace EducationPortal.UI.Services.Implementation
             _mapper = mapper;
         }
 
-        public UserView? AutherticateUserByName(string name, string password)
+        public UserView? AuthenticateUserByName(string name, string password)
         {
             UserView userToAuth;
             var user = _userInfo.GetUserByName(name);
