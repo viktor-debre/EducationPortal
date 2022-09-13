@@ -2,7 +2,7 @@
 
 namespace EducationPortal.UI.Controllers
 {
-    internal class UserInfoController : Controller
+    public class UserInfoController : Controller
     {
         private readonly IUserInformationService _userInformation;
 

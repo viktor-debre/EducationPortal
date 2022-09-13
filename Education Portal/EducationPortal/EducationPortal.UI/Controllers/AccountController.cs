@@ -1,5 +1,4 @@
-﻿using EducationPortal.Domain.Entities;
-using EducationPortal.UI.Models.Account;
+﻿using EducationPortal.UI.Models.Account;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +20,7 @@ namespace EducationPortal.UI.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
         {
