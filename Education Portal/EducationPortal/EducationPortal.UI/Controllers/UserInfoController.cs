@@ -14,7 +14,8 @@ namespace EducationPortal.UI.Controllers
         [HttpGet]
         public IActionResult UserProfile()
         {
-            return View(_userInformation.GetUserInfo("Viktor"));
+            ViewBag.AuthorizedUser = _userInformation.GetUserInfo(User.Identity.Name);
+            return View();
         }
     }
 }

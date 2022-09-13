@@ -31,7 +31,7 @@ namespace EducationPortal.UI.Controllers
                 {
                     await Authenticate(user);
 
-                    return RedirectToAction("Home", "Index");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 ModelState.AddModelError("", "Incorrect name or password");

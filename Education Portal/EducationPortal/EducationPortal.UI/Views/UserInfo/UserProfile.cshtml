@@ -1,9 +1,8 @@
-﻿@model UserView
-@{
-	var user = Model;
+﻿@{
+	var user = ViewBag.AuthorizedUser;
 }
 
-<p>Users</p>
+<p>User:</p>
 <ul>
 	<li>@user.Name</li>
 	<li>@user.Password</li>
