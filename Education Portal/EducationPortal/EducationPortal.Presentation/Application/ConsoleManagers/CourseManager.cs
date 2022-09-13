@@ -1,6 +1,4 @@
-﻿using EducationPortal.Domain.Entities;
-
-namespace EducationPortal.Presentation.Application
+﻿namespace EducationPortal.Presentation.Application
 {
     internal class CourseManager
     {
@@ -121,9 +119,9 @@ namespace EducationPortal.Presentation.Application
             }
 
             var existingCourse = _courseService.GetCourseByName(name);
-            if (existingCourse == null)
+            if (existingCourse != null)
             {
-                Console.WriteLine($"{EntityName.COURSE} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
+                Console.WriteLine($"{EntityName.COURSE} {Result.ALREADY_EXISTS}, {Operation.ADDING} {Result.INTERRUPTED}");
                 Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                 return;
             }

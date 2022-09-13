@@ -1,5 +1,4 @@
-﻿using EducationPortal.Application.Commands;
-using EducationPortal.Application.Commands.CreateEntity;
+﻿using EducationPortal.Application.Commands.CreateEntity;
 
 namespace EducationPortal.Application.Services
 {
@@ -41,7 +40,9 @@ namespace EducationPortal.Application.Services
                 Password = password,
                 Skills = new List<Skill>(),
                 Materials = new List<Material>(),
-                Courses = new List<Course>()
+                Courses = new List<Course>(),
+                UserCourses = new List<UserCourse>(),
+                UserSkills = new List<UserSkill>()
             };
             CreateUser createUser = new CreateUser(_userRepository);
             return createUser.TryCreateUser(user);
