@@ -79,5 +79,15 @@ namespace EducationPortal.UI.Models.Mapping
             };
             return skillToView;
         }
+
+        public Skill MapSkillToDomainModel(SkillView skill)
+        {
+            Skill domainSkill = new Skill
+            {
+                Id = skill.Id,
+                Title = skill.Title
+            };
+            return domainSkill;
+        }
     }
 }

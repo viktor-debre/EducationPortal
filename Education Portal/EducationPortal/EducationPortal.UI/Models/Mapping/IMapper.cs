@@ -9,5 +9,7 @@ namespace EducationPortal.UI.Models.Mapping
         public MaterialView MapMaterialToViewModel(Material material);
 
         public SkillView MapSkillToViewModel(Skill skill);
+
+        public Skill MapSkillToDomainModel(SkillView skill);
     }
 }
