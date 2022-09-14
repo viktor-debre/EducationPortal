@@ -24,5 +24,26 @@ namespace EducationPortal.UI.Services.Implementation
 
             return skills;
         }
+
+        public void SetSkill(SkillView skill)
+        {
+            _skillService.SetSkill(_mapper.MapSkillToDomainModel(skill));
+        }
+
+        public void RemoveSkill(SkillView skill)
+        {
+            _skillService.DeleteSkill(skill.Title);
+        }
+
+        public void UpdateSkill(SkillView skill)
+        {
+            var updatedSkill = _mapper.MapSkillToDomainModel(skill);
+            _skillService.UpdateSkill(updatedSkill, updatedSkill);
+        }
+
+        public SkillView GetByIdSkill(int id)
+        {
+            return _mapper.MapSkillToViewModel(_skillService.GetSkillById(id));
+        }
     }
 }

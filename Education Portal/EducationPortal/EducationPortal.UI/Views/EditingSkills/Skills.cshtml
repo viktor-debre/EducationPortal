@@ -1,21 +1,22 @@
 ﻿@model IEnumerable<SkillView>
 
  <h3>Skills list</h3>
-    <table class="table">
-        <tr><th>#</th><th>Title</th><th></th><th></th></tr>
-        @foreach (var item in Model)
+<table class="table">
+    <tr><th>#</th><th>Title</th><th></th><th></th></tr>
+    @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Title</td>
-                <td>
-                <a asp-action="Edit" asp-controller="Editing" asp-route-id="@item.Id">Change</a>
+         <tr>
+            <td>@item.Id</td>
+            <td>@item.Title</td>
+            <td>
+                <a asp-controller="EditingSkills" asp-action="Edit" asp-route-id="@item.Id">Change</a>
             </td>
             <td>
-                <form asp-controller="Editing" asp-action="Delete" method="post"  asp-route-id="@item.Id">
+                <form asp-controller="EditingSkills" asp-action="Delete" method="post"  asp-route-id="@item.Id">
                     <input type="submit" value="Delete" />
                 </form>
             </td>
-            </tr>
-        }
-    </table>
+         </tr>
+    }
+</table>
+<p><a asp-controller="EditingSkills" asp-action="Create">+ Add skill</a></p>
