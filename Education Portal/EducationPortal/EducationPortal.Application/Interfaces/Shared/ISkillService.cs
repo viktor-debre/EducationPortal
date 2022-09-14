@@ -11,5 +11,7 @@
         public void UpdateSkill(Skill skill, Skill updatedSkill);
 
         public void DeleteSkill(string title);
+
+        public Skill? GetSkillById(int id);
     }
 }

@@ -27,6 +27,11 @@ namespace EducationPortal.Application.Services
             return _skillRepository.Find(skillNameSpecification).FirstOrDefault();
         }
 
+        public Skill? GetSkillById(int id)
+        {
+            return _skillRepository.FindById(id);
+        }
+
         public List<Skill> GetSkills()
         {
             return _skillRepository.Find();
