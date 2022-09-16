@@ -13,7 +13,7 @@ namespace EducationPortal.Application.Commands.CreateEntity
             _skillRepository = skillRepository;
         }
 
-        public bool TryCreateSkill(Skill skill)
+        public async Task<bool> TryCreateSkill(Skill skill)
         {
             CreateSkillValidation validations = new CreateSkillValidation();
             ValidationResult validationResult = validations.Validate(skill);
@@ -23,8 +23,8 @@ namespace EducationPortal.Application.Commands.CreateEntity
             }
 
             var skillNameSpecification = new SpecificationBase<Skill>(x => x.Title == skill.Title);
-            var checkSkill = _skillRepository.Find(skillNameSpecification).FirstOrDefault();
-            if (checkSkill != null)
+            var checkSkill = await _skillRepository.Find(skillNameSpecification);
+            if (checkSkill.FirstOrDefault() != null)
             {
                 return false;
             }

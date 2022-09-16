@@ -14,9 +14,9 @@ namespace EducationPortal.UI.Services.Implementation
             _mapper = mapper;
         }
 
-        public UserView GetUserInfo(string name)
+        public async Task<UserView> GetUserInfo(string name)
         {
-            var user = _userInfo.GetUserByName(name);
+            var user = await _userInfo.GetUserByName(name);
             return _mapper.MapUserToViewModel(user);
         }
     }

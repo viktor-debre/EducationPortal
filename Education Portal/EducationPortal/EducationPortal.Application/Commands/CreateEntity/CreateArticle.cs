@@ -13,7 +13,7 @@ namespace EducationPortal.Application.Commands.CreateEntity
             _articleRepository = articleRepository;
         }
 
-        public bool TryCreateArticle(ArticleMaterial article)
+        public async Task<bool> TryCreateArticle(ArticleMaterial article)
         {
             CreateArticleValidation validations = new CreateArticleValidation();
             ValidationResult validationResult = validations.Validate(article);
@@ -23,14 +23,14 @@ namespace EducationPortal.Application.Commands.CreateEntity
             }
 
             var articleNameSpecification = new SpecificationBase<ArticleMaterial>(x => x.Name == article.Name);
-            var checkArticle = _articleRepository.Find(articleNameSpecification).FirstOrDefault();
-            if (checkArticle != null)
+            var checkArticle = await _articleRepository.Find(articleNameSpecification);
+            if (checkArticle.FirstOrDefault() != null)
             {
                 return false;
             }
             else
             {
-                _articleRepository.Add(article);
+                await _articleRepository.Add(article);
                 return true;
             }
         }

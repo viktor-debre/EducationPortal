@@ -2,6 +2,6 @@
 {
     public interface IUserInformationService
     {
-        public UserView GetUserInfo(string name);
+        public Task<UserView> GetUserInfo(string name);
     }
 }

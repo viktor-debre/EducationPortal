@@ -13,9 +13,9 @@ namespace EducationPortal.UI.Controllers
             _skillEditService = skillEditService;
         }
 
-        public IActionResult Skills()
+        public async Task<IActionResult> Skills()
         {
-            var skills = _skillEditService.GetSkills();
+            var skills = await _skillEditService.GetSkills();
             return View(skills);
         }
 
@@ -31,7 +31,7 @@ namespace EducationPortal.UI.Controllers
             {
                 if (skill.Id == 0)
                 {
-                    _skillEditService.SetSkill(skill);
+                    await _skillEditService.SetSkill(skill);
                 }
 
                 return RedirectToAction("Skills");
@@ -44,7 +44,7 @@ namespace EducationPortal.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                SkillView? skill = _skillEditService.GetByIdSkill(id ?? 0);
+                SkillView? skill = await _skillEditService.GetByIdSkill(id ?? 0);
                 if (skill != null)
                 {
                     return View(skill);
@@ -59,7 +59,7 @@ namespace EducationPortal.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(SkillView skill)
         {
-            _skillEditService.UpdateSkill(skill);
+            await _skillEditService.UpdateSkill(skill);
 
             return RedirectToAction("Skills");
         }
@@ -67,7 +67,7 @@ namespace EducationPortal.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
         {
-            SkillView? skill = _skillEditService.GetByIdSkill(id ?? 0);
+            SkillView? skill = await _skillEditService.GetByIdSkill(id ?? 0);
             if (skill != null)
             {
                 _skillEditService.RemoveSkill(skill);

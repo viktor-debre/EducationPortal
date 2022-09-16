@@ -14,9 +14,9 @@ namespace EducationPortal.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult UserProfile()
+        public async Task<IActionResult> UserProfile()
         {
-            ViewBag.AuthorizedUser = _userInformation.GetUserInfo(User.Identity.Name);
+            ViewBag.AuthorizedUser = await _userInformation.GetUserInfo(User.Identity.Name);
             return View();
         }
     }

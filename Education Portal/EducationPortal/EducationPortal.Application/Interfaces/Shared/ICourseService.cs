@@ -2,16 +2,16 @@
 {
     public interface ICourseService
     {
-        public List<Course> GetCourses();
+        public Task<List<Course>> GetCourses();
 
-        public Course? GetCourseByName(string name);
+        public Task<Course?> GetCourseByName(string name);
 
-        public void SetCourse(Course book);
+        public Task SetCourse(Course book);
 
-        public void UpdateCourse(Course course, Course updatedCourse);
+        public Task UpdateCourse(Course course, Course updatedCourse);
 
-        public void DeleteCourse(string name);
+        public Task DeleteCourse(string name);
 
-        public Course? GetCourseById(int id);
+        public Task<Course?> GetCourseById(int id);
     }
 }

@@ -16,13 +16,13 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
             _mapper = new MapperForEntities(context);
         }
 
-        public void Remove(User user)
+        public async Task Remove(User user)
         {
             _context.Users.Remove(_mapper.MapToDbUser(user));
-            Save();
+            SaveAsync();
         }
 
-        public List<User> Find(ISpecification<User> specification = null)
+        public async Task<List<User>> Find(ISpecification<User> specification = null)
         {
             List<User> users = new List<User>();
             var dbUsers = _context.Users
@@ -49,26 +49,26 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
             return result;
         }
 
-        public User? FindById(int id)
+        public async Task<User?> FindById(int id)
         {
-            return _mapper.MapToDomainUser(_context.Users.Find(id));
+            return _mapper.MapToDomainUser(await _context.Users.FindAsync(id));
         }
 
-        public void Add(User user)
+        public async Task Add(User user)
         {
-            _context.Add(_mapper.MapToDbUser(user));
-            Save();
+            await _context.AddAsync(_mapper.MapToDbUser(user));
+            await SaveAsync();
         }
 
-        public void Update(User user)
+        public async Task Update(User user)
         {
             _context.Entry(_mapper.MapToDbUser(user)).State = EntityState.Modified;
-            Save();
+            await SaveAsync();
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

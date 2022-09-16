@@ -13,7 +13,7 @@ namespace EducationPortal.Application.Commands.CreateEntity
             _bookRepository = materialRepository;
         }
 
-        public bool TryCreateBook(BookMaterial book)
+        public async Task<bool> TryCreateBook(BookMaterial book)
         {
             CreateBookValidation validations = new CreateBookValidation();
             ValidationResult validationResult = validations.Validate(book);
@@ -23,14 +23,14 @@ namespace EducationPortal.Application.Commands.CreateEntity
             }
 
             var bookNameSpecification = new SpecificationBase<BookMaterial>(x => x.Name == book.Name);
-            var checkArticle = _bookRepository.Find(bookNameSpecification).FirstOrDefault();
-            if (checkArticle != null)
+            var checkBook = await _bookRepository.Find(bookNameSpecification);
+            if (checkBook.FirstOrDefault() != null)
             {
                 return false;
             }
             else
             {
-                _bookRepository.Add(book);
+                await _bookRepository.Add(book);
                 return true;
             }
         }

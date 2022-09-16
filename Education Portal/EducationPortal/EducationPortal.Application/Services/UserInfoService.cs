@@ -9,14 +9,15 @@
             _userRepository = userSkillRepository;
         }
 
-        public User GetUserById(int id)
+        public async Task<User> GetUserById(int id)
         {
-            return _userRepository.FindById(id);
+            return await _userRepository.FindById(id);
         }
 
-        public User GetUserByName(string name)
+        public async Task<User> GetUserByName(string name)
         {
-            return _userRepository.Find().FirstOrDefault(x => x.Name == name);
+            var users = await _userRepository.Find();
+            return users.FirstOrDefault(x => x.Name == name);
         }
     }
 }

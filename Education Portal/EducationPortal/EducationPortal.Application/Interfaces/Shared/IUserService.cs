@@ -2,8 +2,8 @@
 {
     public interface IUserService
     {
-        public bool Authenticate(string userName, string password, ref int userId);
+        public Task<int> Authenticate(string userName, string password);
 
-        public bool TryCreateUser(string name, string password);
+        public Task<bool> TryCreateUser(string name, string password);
     }
 }

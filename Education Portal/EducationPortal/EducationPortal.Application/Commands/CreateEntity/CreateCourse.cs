@@ -13,7 +13,7 @@ namespace EducationPortal.Application.Commands.CreateEntity
             _courseRepository = courseRepository;
         }
 
-        public bool TryCreateCorse(Course course)
+        public async Task<bool> TryCreateCorse(Course course)
         {
             CreateCourseValidation validations = new CreateCourseValidation();
             ValidationResult validationResult = validations.Validate(course);
@@ -23,14 +23,14 @@ namespace EducationPortal.Application.Commands.CreateEntity
             }
 
             var courseNameSpecification = new SpecificationBase<Course>(x => x.Name == course.Name);
-            var checkCourse = _courseRepository.Find(courseNameSpecification).FirstOrDefault();
-            if (checkCourse != null)
+            var checkCourse = await _courseRepository.Find(courseNameSpecification);
+            if (checkCourse.FirstOrDefault() != null)
             {
                 return false;
             }
             else
             {
-                _courseRepository.Add(course);
+                await _courseRepository.Add(course);
                 return true;
             }
         }

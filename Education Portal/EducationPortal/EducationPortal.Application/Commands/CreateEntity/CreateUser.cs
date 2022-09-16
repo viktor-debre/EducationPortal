@@ -13,7 +13,7 @@ namespace EducationPortal.Application.Commands.CreateEntity
             _userRepository = userRepository;
         }
 
-        public bool TryCreateUser(User newUser)
+        public async Task<bool> TryCreateUser(User newUser)
         {
             CreateUserValidation validations = new CreateUserValidation();
             ValidationResult validationResult = validations.Validate(newUser);
@@ -23,8 +23,8 @@ namespace EducationPortal.Application.Commands.CreateEntity
             }
 
             var userNameSpecification = new SpecificationBase<User>(x => x.Name == newUser.Name);
-            var checkUser = _userRepository.Find(userNameSpecification).FirstOrDefault();
-            if (checkUser != null)
+            var checkUser = await _userRepository.Find(userNameSpecification);
+            if (checkUser.FirstOrDefault() != null)
             {
                 return false;
             }

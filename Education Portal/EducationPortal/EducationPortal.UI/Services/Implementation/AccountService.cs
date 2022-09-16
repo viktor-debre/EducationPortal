@@ -16,10 +16,10 @@ namespace EducationPortal.UI.Services.Implementation
             _userService = userService;
         }
 
-        public UserView? AuthenticateUserByName(string name, string password)
+        public async Task<UserView?> AuthenticateUserByName(string name, string password)
         {
             UserView userToAuth;
-            var user = _userInfo.GetUserByName(name);
+            var user = await _userInfo.GetUserByName(name);
             if (user != null && user.Password == password)
             {
                 userToAuth = _mapper.MapUserToViewModel(user);
@@ -32,9 +32,9 @@ namespace EducationPortal.UI.Services.Implementation
             return userToAuth;
         }
 
-        public void RegisterUser(string name, string password)
+        public async Task RegisterUser(string name, string password)
         {
-            _userService.TryCreateUser(name, password);
+            await _userService.TryCreateUser(name, password);
         }
     }
 }

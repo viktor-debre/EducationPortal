@@ -2,34 +2,34 @@
 {
     public interface IMaterialManageService
     {
-        public List<BookMaterial> GetBooks();
+        public Task<List<BookMaterial>> GetBooks();
 
-        public BookMaterial? GetBookByName(string name);
+        public Task<BookMaterial?> GetBookByName(string name);
 
-        public void SetBook(BookMaterial book);
+        public Task SetBook(BookMaterial book);
 
-        public void UpdateBook(BookMaterial material, BookMaterial updatedMaterial);
+        public Task UpdateBook(BookMaterial material, BookMaterial updatedMaterial);
 
-        public void DeleteBook(string name);
+        public Task DeleteBook(string name);
 
-        public List<VideoMaterial> GetVideos();
+        public Task<List<VideoMaterial>> GetVideos();
 
-        public VideoMaterial? GetVideoByName(string name);
+        public Task<VideoMaterial?> GetVideoByName(string name);
 
-        public void SetVideo(VideoMaterial book);
+        public Task SetVideo(VideoMaterial book);
 
-        public void UpdateVideo(VideoMaterial material, VideoMaterial updatedMaterial);
+        public Task UpdateVideo(VideoMaterial material, VideoMaterial updatedMaterial);
 
-        public void DeleteVideo(string name);
+        public Task DeleteVideo(string name);
 
-        public List<ArticleMaterial> GetArticle();
+        public Task<List<ArticleMaterial>> GetArticle();
 
-        public ArticleMaterial? GetArticleByName(string name);
+        public Task<ArticleMaterial?> GetArticleByName(string name);
 
-        public void SetArticle(ArticleMaterial book);
+        public Task SetArticle(ArticleMaterial book);
 
-        public void UpdateArticle(ArticleMaterial article, ArticleMaterial updatedMaterial);
+        public Task UpdateArticle(ArticleMaterial article, ArticleMaterial updatedMaterial);
 
-        public void DeleteArticle(string name);
+        public Task DeleteArticle(string name);
     }
 }

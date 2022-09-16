@@ -10,12 +10,12 @@
             _skillService = skillService;
         }
 
-        public void EditSkills()
+        public async Task EditSkills()
         {
             while (true)
             {
                 Console.Clear();
-                OutputSkills();
+                await OutputSkills();
 
                 Console.WriteLine(MenuStrings.SKILL_MENU);
 
@@ -25,13 +25,13 @@
                     case "quit":
                         return;
                     case "1":
-                        AddSkill();
+                        await AddSkill();
                         break;
                     case "2":
-                        DeleteSkill();
+                        await DeleteSkill();
                         break;
                     case "3":
-                        UpdateSkill();
+                        await UpdateSkill();
                         break;
                     default:
                         Console.WriteLine(Result.WRONG_COMMAND);
@@ -41,10 +41,10 @@
             }
         }
 
-        private void OutputSkills()
+        private async Task OutputSkills()
         {
             Console.WriteLine("All skills:");
-            var skills = _skillService.GetSkills();
+            var skills = await _skillService.GetSkills();
             foreach (var skill in skills)
             {
                 Console.WriteLine($"Title: {skill.Title}");
@@ -52,7 +52,7 @@
             }
         }
 
-        private void AddSkill()
+        private async Task AddSkill()
         {
             string title;
             if (!_inputHandler.TryInputStringValue(out title, "title", Operation.ADDING, EntityName.SKILL))
@@ -60,7 +60,7 @@
                 return;
             }
 
-            var existingSkill = _skillService.GetSkillByTitle(title);
+            var existingSkill = await _skillService.GetSkillByTitle(title);
             if (existingSkill != null)
             {
                 Console.WriteLine($"{EntityName.SKILL} {Result.ALREADY_EXISTS}, {Operation.ADDING} {Result.INTERRUPTED}");
@@ -72,10 +72,10 @@
             {
                 Title = title
             };
-            _skillService.SetSkill(skill);
+            await _skillService.SetSkill(skill);
         }
 
-        private void DeleteSkill()
+        private async Task DeleteSkill()
         {
             string title;
             if (!_inputHandler.TryInputStringValue(out title, "title", Operation.DELETING, EntityName.SKILL))
@@ -83,7 +83,7 @@
                 return;
             }
 
-            var existingSkill = _skillService.GetSkillByTitle(title);
+            var existingSkill = await _skillService.GetSkillByTitle(title);
             if (existingSkill == null)
             {
                 Console.WriteLine($"{EntityName.SKILL} {Result.DOES_NOT_EXIST}, {Operation.DELETING} {Result.INTERRUPTED}");
@@ -92,11 +92,11 @@
             }
             else
             {
-                _skillService.DeleteSkill(title);
+                await _skillService.DeleteSkill(title);
             }
         }
 
-        private void UpdateSkill()
+        private async Task UpdateSkill()
         {
             string title;
             if (!_inputHandler.TryInputStringValue(out title, "title", Operation.UPDATING, EntityName.SKILL))
@@ -104,7 +104,7 @@
                 return;
             }
 
-            var existingSkill = _skillService.GetSkillByTitle(title);
+            var existingSkill = await _skillService.GetSkillByTitle(title);
             if (existingSkill == null)
             {
                 Console.WriteLine($"{EntityName.SKILL} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
@@ -122,7 +122,7 @@
             {
                 Title = newTitle
             };
-            _skillService.UpdateSkill(existingSkill, skill);
+            await _skillService.UpdateSkill(existingSkill, skill);
         }
     }
 }

@@ -14,10 +14,10 @@ namespace EducationPortal.UI.Services.Implementation
             _mapper = mapper;
         }
 
-        public List<SkillView> GetSkills()
+        public async Task<List<SkillView>> GetSkills()
         {
             List<SkillView> skills = new List<SkillView>();
-            foreach (var skill in _skillService.GetSkills())
+            foreach (var skill in await _skillService.GetSkills())
             {
                 skills.Add(_mapper.MapSkillToViewModel(skill));
             }
@@ -25,25 +25,25 @@ namespace EducationPortal.UI.Services.Implementation
             return skills;
         }
 
-        public void SetSkill(SkillView skill)
+        public async Task SetSkill(SkillView skill)
         {
-            _skillService.SetSkill(_mapper.MapSkillToDomainModel(skill));
+            await _skillService.SetSkill(_mapper.MapSkillToDomainModel(skill));
         }
 
-        public void RemoveSkill(SkillView skill)
+        public async Task RemoveSkill(SkillView skill)
         {
-            _skillService.DeleteSkill(skill.Title);
+            await _skillService.DeleteSkill(skill.Title);
         }
 
-        public void UpdateSkill(SkillView skill)
+        public async Task UpdateSkill(SkillView skill)
         {
             var updatedSkill = _mapper.MapSkillToDomainModel(skill);
-            _skillService.UpdateSkill(updatedSkill, updatedSkill);
+            await _skillService.UpdateSkill(updatedSkill, updatedSkill);
         }
 
-        public SkillView GetByIdSkill(int id)
+        public async Task<SkillView> GetByIdSkill(int id)
         {
-            return _mapper.MapSkillToViewModel(_skillService.GetSkillById(id));
+            return _mapper.MapSkillToViewModel(await _skillService.GetSkillById(id));
         }
     }
 }

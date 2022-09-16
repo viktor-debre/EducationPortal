@@ -27,107 +27,110 @@ namespace EducationPortal.Application.Services
             _createArticle = new CreateArticle(_articleRepository);
         }
 
-        public List<BookMaterial> GetBooks()
+        public async Task<List<BookMaterial>> GetBooks()
         {
-            return _bookRepository.Find();
+            return await _bookRepository.Find();
         }
 
-        public BookMaterial? GetBookByName(string name)
+        public async Task<BookMaterial?> GetBookByName(string name)
         {
             var bookNameSpecification = new SpecificationBase<BookMaterial>(x => x.Name == name);
-            return _bookRepository.Find(bookNameSpecification).FirstOrDefault();
+            var item = await _bookRepository.Find(bookNameSpecification);
+            return item.FirstOrDefault();
         }
 
-        public void SetBook(BookMaterial bookMaterial)
+        public async Task SetBook(BookMaterial bookMaterial)
         {
-            _createBook.TryCreateBook(bookMaterial);
+            await _createBook.TryCreateBook(bookMaterial);
         }
 
-        public void UpdateBook(BookMaterial book, BookMaterial updatedMaterial)
+        public async Task UpdateBook(BookMaterial book, BookMaterial updatedMaterial)
         {
-            var bookToUpdate = _bookRepository.FindById(book.Id);
+            var bookToUpdate = await _bookRepository.FindById(book.Id);
             bookToUpdate.Name = updatedMaterial.Name;
             bookToUpdate.Author = updatedMaterial.Author;
             bookToUpdate.NumberPages = updatedMaterial.NumberPages;
             bookToUpdate.PublicationDate = updatedMaterial.PublicationDate;
             bookToUpdate.Format = updatedMaterial.Format;
-            _bookRepository.Update(bookToUpdate);
+            await _bookRepository.Update(bookToUpdate);
         }
 
-        public void DeleteBook(string name)
+        public async Task DeleteBook(string name)
         {
-            var material = GetBookByName(name);
+            var material = await GetBookByName(name);
             if (material != null)
             {
-                _bookRepository.Remove(material);
+                await _bookRepository.Remove(material);
             }
         }
 
-        public List<VideoMaterial> GetVideos()
+        public async Task<List<VideoMaterial>> GetVideos()
         {
-            return _videoRepository.Find();
+            return await _videoRepository.Find();
         }
 
-        public VideoMaterial? GetVideoByName(string name)
+        public async Task<VideoMaterial?> GetVideoByName(string name)
         {
             var videoNameSpecification = new SpecificationBase<VideoMaterial>(x => x.Name == name);
-            return _videoRepository.Find(videoNameSpecification).FirstOrDefault();
+            var item = await _videoRepository.Find(videoNameSpecification);
+            return item.FirstOrDefault();
         }
 
-        public void SetVideo(VideoMaterial videoMaterial)
+        public async Task SetVideo(VideoMaterial videoMaterial)
         {
-            _createVideo.TryCreateVideo(videoMaterial);
+            await _createVideo.TryCreateVideo(videoMaterial);
         }
 
-        public void UpdateVideo(VideoMaterial video, VideoMaterial updatedMaterial)
+        public async Task UpdateVideo(VideoMaterial video, VideoMaterial updatedMaterial)
         {
-            var videoToUpdate = _videoRepository.FindById(video.Id);
+            var videoToUpdate = await _videoRepository.FindById(video.Id);
             videoToUpdate.Name = updatedMaterial.Name;
             videoToUpdate.Duration = updatedMaterial.Duration;
             videoToUpdate.Quality = updatedMaterial.Quality;
-            _videoRepository.Update(videoToUpdate);
+            await _videoRepository.Update(videoToUpdate);
         }
 
-        public void DeleteVideo(string name)
+        public async Task DeleteVideo(string name)
         {
-            var video = GetVideoByName(name);
+            var video = await GetVideoByName(name);
             if (video != null)
             {
-                _videoRepository.Remove(video);
+                await _videoRepository.Remove(video);
             }
         }
 
-        public List<ArticleMaterial> GetArticle()
+        public async Task<List<ArticleMaterial>> GetArticle()
         {
-            return _articleRepository.Find();
+            return await _articleRepository.Find();
         }
 
-        public void SetArticle(ArticleMaterial articleMaterial)
+        public async Task SetArticle(ArticleMaterial articleMaterial)
         {
-            _createArticle.TryCreateArticle(articleMaterial);
+            await _createArticle.TryCreateArticle(articleMaterial);
         }
 
-        public ArticleMaterial? GetArticleByName(string name)
+        public async Task<ArticleMaterial?> GetArticleByName(string name)
         {
             var articleNameSpecification = new SpecificationBase<ArticleMaterial>(x => x.Name == name);
-            return _articleRepository.Find(articleNameSpecification).FirstOrDefault();
+            var item = await _articleRepository.Find(articleNameSpecification);
+            return item.FirstOrDefault();
         }
 
-        public void UpdateArticle(ArticleMaterial article, ArticleMaterial updatedMaterial)
+        public async Task UpdateArticle(ArticleMaterial article, ArticleMaterial updatedMaterial)
         {
-            var articleToUpdate = _articleRepository.FindById(article.Id);
+            var articleToUpdate = await _articleRepository.FindById(article.Id);
             articleToUpdate.Name = updatedMaterial.Name;
             articleToUpdate.Source = updatedMaterial.Source;
             articleToUpdate.PublicationDate = updatedMaterial.PublicationDate;
-            _articleRepository.Update(articleToUpdate);
+            await _articleRepository.Update(articleToUpdate);
         }
 
-        public void DeleteArticle(string name)
+        public async Task DeleteArticle(string name)
         {
-            var article = GetArticleByName(name);
+            var article = await GetArticleByName(name);
             if (article != null)
             {
-                _articleRepository.Remove(article);
+                await _articleRepository.Remove(article);
             }
         }
     }

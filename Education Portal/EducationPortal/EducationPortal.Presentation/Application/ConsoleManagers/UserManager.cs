@@ -9,10 +9,10 @@
             _userInfoService = userSkillService;
         }
 
-        public void UserInformation(int userId)
+        public async Task UserInformation(int userId)
         {
             Console.Clear();
-            OutputUserInformation(userId);
+            await OutputUserInformation(userId);
             Console.WriteLine(MenuStrings.USER_ACCONT_MENU);
             while (true)
             {
@@ -29,9 +29,9 @@
             }
         }
 
-        private void OutputUserInformation(int userId)
+        private async Task OutputUserInformation(int userId)
         {
-            var user = _userInfoService.GetUserById(userId);
+            var user = await _userInfoService.GetUserById(userId);
 
             Console.WriteLine($"User name: {user.Name}\n" +
                 $"password: {user.Password}");

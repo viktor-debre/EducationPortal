@@ -13,7 +13,7 @@ namespace EducationPortal.Application.Commands.CreateEntity
             _videoRepository = videoRepository;
         }
 
-        public bool TryCreateVideo(VideoMaterial video)
+        public async Task<bool> TryCreateVideo(VideoMaterial video)
         {
             CreateVideoValidation validations = new CreateVideoValidation();
             ValidationResult validationResult = validations.Validate(video);
@@ -23,14 +23,14 @@ namespace EducationPortal.Application.Commands.CreateEntity
             }
 
             var videoNameSpecification = new SpecificationBase<VideoMaterial>(x => x.Name == video.Name);
-            var checkArticle = _videoRepository.Find(videoNameSpecification).FirstOrDefault();
-            if (checkArticle != null)
+            var checkArticle = await _videoRepository.Find(videoNameSpecification);
+            if (checkArticle.FirstOrDefault() != null)
             {
                 return false;
             }
             else
             {
-                _videoRepository.Add(video);
+                await _videoRepository.Add(video);
                 return true;
             }
         }

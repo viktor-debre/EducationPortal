@@ -20,13 +20,13 @@ namespace EducationPortal.Infrastructure.DB.Repository.Generic
             _dbSet = context.Set<TDbEntity>();
         }
 
-        public void Remove(TEntity entity)
+        public async Task Remove(TEntity entity)
         {
             _dbSet.Remove((TDbEntity)_mapper.MapToDbEntity(entity));
-            Save();
+            await SaveAsync();
         }
 
-        public List<TEntity> Find(ISpecification<TEntity> specification = null)
+        public async Task<List<TEntity>> Find(ISpecification<TEntity> specification = null)
         {
             List<TEntity> entities = new List<TEntity>();
             foreach (var entity in _dbSet)
@@ -47,26 +47,26 @@ namespace EducationPortal.Infrastructure.DB.Repository.Generic
             return result;
         }
 
-        public void Add(TEntity entity)
+        public async Task Add(TEntity entity)
         {
-            _dbSet.Add((TDbEntity)_mapper.MapToDbEntity(entity));
-            Save();
+            await _dbSet.AddAsync((TDbEntity)_mapper.MapToDbEntity(entity));
+            await SaveAsync();
         }
 
-        public void Update(TEntity entity)
+        public async Task Update(TEntity entity)
         {
             _context.Entry((TDbEntity)_mapper.MapToDbEntity(entity)).State = EntityState.Modified;
-            Save();
+            await SaveAsync();
         }
 
-        public TEntity FindById(int id)
+        public async Task<TEntity> FindById(int id)
         {
-            return (TEntity)_mapper.MapToDomainEntity(_dbSet.Find(id));
+            return (TEntity)_mapper.MapToDomainEntity(await _dbSet.FindAsync(id));
         }
 
-        private void Save()
+        private async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

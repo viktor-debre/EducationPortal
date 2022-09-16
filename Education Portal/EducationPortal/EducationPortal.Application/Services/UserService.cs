@@ -12,28 +12,27 @@ namespace EducationPortal.Application.Services
             _userRepository = usersRepository;
         }
 
-        public bool Authenticate(string userName, string password, ref int userId)
+        public async Task<int> Authenticate(string userName, string password)
         {
             var userNameSpec = new SpecificationBase<User>(x => x.Name == userName);
-            var existingUser = _userRepository.Find(userNameSpec).FirstOrDefault();
+            var existingUsers = await _userRepository.Find(userNameSpec);
+            var existingUser = existingUsers.FirstOrDefault();
             if (existingUser == null)
             {
-                return false;
+                return 0;
             }
 
             if (existingUser.Password != password)
             {
-                return false;
+                return 0;
             }
             else
             {
-                userId = existingUser.Id;
-
-                return true;
+                return existingUser.Id;
             }
         }
 
-        public bool TryCreateUser(string name, string password)
+        public async Task<bool> TryCreateUser(string name, string password)
         {
             User user = new User()
             {
@@ -46,7 +45,8 @@ namespace EducationPortal.Application.Services
                 UserSkills = new List<UserSkill>()
             };
             CreateUser createUser = new CreateUser(_userRepository);
-            return createUser.TryCreateUser(user);
+            var result = await createUser.TryCreateUser(user);
+            return result;
         }
     }
 }

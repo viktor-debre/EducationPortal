@@ -15,38 +15,39 @@ namespace EducationPortal.Application.Services
             _createSkill = new CreateSkill(skillRepository);
         }
 
-        public void DeleteSkill(string title)
+        public async Task DeleteSkill(string title)
         {
-            var skill = GetSkillByTitle(title);
-            _skillRepository.Remove(skill);
+            var skill = await GetSkillByTitle(title);
+            await _skillRepository.Remove(skill);
         }
 
-        public Skill? GetSkillByTitle(string title)
+        public async Task<Skill?> GetSkillByTitle(string title)
         {
             var skillNameSpecification = new SpecificationBase<Skill>(x => x.Title == title);
-            return _skillRepository.Find(skillNameSpecification).FirstOrDefault();
+            var item = await _skillRepository.Find(skillNameSpecification);
+            return item.FirstOrDefault();
         }
 
-        public Skill? GetSkillById(int id)
+        public async Task<Skill?> GetSkillById(int id)
         {
-            return _skillRepository.FindById(id);
+            return await _skillRepository.FindById(id);
         }
 
-        public List<Skill> GetSkills()
+        public async Task<List<Skill>> GetSkills()
         {
-            return _skillRepository.Find();
+            return await _skillRepository.Find();
         }
 
-        public void SetSkill(Skill skill)
+        public async Task SetSkill(Skill skill)
         {
-            _createSkill.TryCreateSkill(skill);
+            await _createSkill.TryCreateSkill(skill);
         }
 
-        public void UpdateSkill(Skill skill, Skill updatedSkill)
+        public async Task UpdateSkill(Skill skill, Skill updatedSkill)
         {
-            var skillToUpdate = _skillRepository.FindById(skill.Id);
+            var skillToUpdate = await _skillRepository.FindById(skill.Id);
             skillToUpdate.Title = updatedSkill.Title;
-            _skillRepository.Update(skillToUpdate);
+            await _skillRepository.Update(skillToUpdate);
         }
     }
 }

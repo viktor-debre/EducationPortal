@@ -26,7 +26,7 @@ namespace EducationPortal.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserView user = _accountService.AuthenticateUserByName(model.Email, model.Password);
+                UserView user = await _accountService.AuthenticateUserByName(model.Email, model.Password);
                 if (user != null)
                 {
                     await Authenticate(user);
@@ -51,7 +51,7 @@ namespace EducationPortal.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _accountService.RegisterUser(model.Name, model.Password);
+                await _accountService.RegisterUser(model.Name, model.Password);
                 if (ModelState.Root.Errors.Count == 0)
                 {
                     return RedirectToAction("Index", "Home");

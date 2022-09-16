@@ -10,15 +10,15 @@
             _materialManageService = materialManageService;
         }
 
-        public void EditMaterials()
+        public async Task EditMaterials()
         {
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine("Materials:");
-                OutputAllBooks();
-                OutputAllVideos();
-                OutputAllArticles();
+                await OutputAllBooks();
+                await OutputAllVideos();
+                await OutputAllArticles();
 
                 Console.WriteLine(MenuStrings.MATERIAL_MENU);
                 string input = Console.ReadLine() ?? "";
@@ -28,31 +28,31 @@
                     case "quit":
                         return;
                     case "1":
-                        AddBook();
+                        await AddBook();
                         break;
                     case "1d":
-                        DeleteBook();
+                        await DeleteBook();
                         break;
                     case "1u":
-                        UpdateBook();
+                        await UpdateBook();
                         break;
                     case "2":
-                        AddVideo();
+                        await AddVideo();
                         break;
                     case "2d":
-                        DeleteVideo();
+                        await DeleteVideo();
                         break;
                     case "2u":
-                        UpdateVideo();
+                        await UpdateVideo();
                         break;
                     case "3":
-                        AddArticle();
+                        await AddArticle();
                         break;
                     case "3d":
-                        DeleteArticle();
+                        await DeleteArticle();
                         break;
                     case "3u":
-                        UpdateArticle();
+                        await UpdateArticle();
                         break;
                     default:
                         Console.WriteLine(Result.WRONG_COMMAND);
@@ -62,9 +62,9 @@
             }
         }
 
-        private void OutputAllBooks()
+        private async Task OutputAllBooks()
         {
-            List<BookMaterial> bookMaterials = _materialManageService.GetBooks();
+            List<BookMaterial> bookMaterials = await _materialManageService.GetBooks();
             Console.WriteLine("Books:");
             foreach (BookMaterial book in bookMaterials)
             {
@@ -73,9 +73,9 @@
             }
         }
 
-        private void OutputAllVideos()
+        private async Task OutputAllVideos()
         {
-            List<VideoMaterial> videoMaterials = _materialManageService.GetVideos();
+            List<VideoMaterial> videoMaterials = await _materialManageService.GetVideos();
             Console.WriteLine("Videos:");
             foreach (VideoMaterial video in videoMaterials)
             {
@@ -84,9 +84,9 @@
             }
         }
 
-        private void OutputAllArticles()
+        private async Task OutputAllArticles()
         {
-            List<ArticleMaterial> articleMaterials = _materialManageService.GetArticle();
+            List<ArticleMaterial> articleMaterials = await _materialManageService.GetArticle();
             Console.WriteLine("Articles:");
             foreach (ArticleMaterial article in articleMaterials)
             {
@@ -95,7 +95,7 @@
             }
         }
 
-        private void AddBook()
+        private async Task AddBook()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING, EntityName.BOOK))
@@ -103,7 +103,7 @@
                 return;
             }
 
-            var existingBook = _materialManageService.GetBookByName(name);
+            var existingBook = await _materialManageService.GetBookByName(name);
             if (existingBook != null)
             {
                 Console.WriteLine($"{EntityName.BOOK} {Result.ALREADY_EXISTS}, {Operation.ADDING} {Result.INTERRUPTED}");
@@ -143,10 +143,10 @@
                 NumberPages = numberOfPages,
                 PublicationDate = publicationDate
             };
-            _materialManageService.SetBook(bookMaterial);
+            await _materialManageService.SetBook(bookMaterial);
         }
 
-        private void DeleteBook()
+        private async Task DeleteBook()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING, EntityName.BOOK))
@@ -154,7 +154,7 @@
                 return;
             }
 
-            var existingBook = _materialManageService.GetBookByName(name);
+            var existingBook = await _materialManageService.GetBookByName(name);
             if (existingBook == null)
             {
                 Console.WriteLine($"{EntityName.BOOK} {Result.DOES_NOT_EXIST}, {Operation.DELETING} {Result.INTERRUPTED}");
@@ -163,11 +163,11 @@
             }
             else
             {
-                _materialManageService.DeleteBook(name);
+                await _materialManageService.DeleteBook(name);
             }
         }
 
-        private void UpdateBook()
+        private async Task UpdateBook()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.UPDATING, EntityName.BOOK))
@@ -175,7 +175,7 @@
                 return;
             }
 
-            var existingBook = _materialManageService.GetBookByName(name);
+            var existingBook = await _materialManageService.GetBookByName(name);
             if (existingBook == null)
             {
                 Console.WriteLine($"{EntityName.BOOK} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
@@ -221,10 +221,10 @@
                 NumberPages = numberOfPages,
                 PublicationDate = publicationDate
             };
-            _materialManageService.UpdateBook(existingBook, bookMaterial);
+            await _materialManageService.UpdateBook(existingBook, bookMaterial);
         }
 
-        private void AddVideo()
+        private async Task AddVideo()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING, EntityName.VIDEO))
@@ -232,7 +232,7 @@
                 return;
             }
 
-            var existingVideo = _materialManageService.GetVideoByName(name);
+            var existingVideo = await _materialManageService.GetVideoByName(name);
             if (existingVideo != null)
             {
                 Console.WriteLine($"{EntityName.VIDEO} {Result.ALREADY_EXISTS}, {Operation.ADDING} {Result.INTERRUPTED}");
@@ -258,10 +258,10 @@
                 Duration = duration,
                 Quality = quality
             };
-            _materialManageService.SetVideo(videoMaterial);
+            await _materialManageService.SetVideo(videoMaterial);
         }
 
-        private void DeleteVideo()
+        private async Task DeleteVideo()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING, EntityName.VIDEO))
@@ -269,7 +269,7 @@
                 return;
             }
 
-            var existingVideo = _materialManageService.GetVideoByName(name);
+            var existingVideo = await _materialManageService.GetVideoByName(name);
             if (existingVideo == null)
             {
                 Console.WriteLine($"{EntityName.VIDEO} {Result.DOES_NOT_EXIST}, {Operation.DELETING} {Result.INTERRUPTED}");
@@ -278,11 +278,11 @@
             }
             else
             {
-                _materialManageService.DeleteVideo(name);
+                await _materialManageService.DeleteVideo(name);
             }
         }
 
-        private void UpdateVideo()
+        private async Task UpdateVideo()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.UPDATING, EntityName.VIDEO))
@@ -290,7 +290,7 @@
                 return;
             }
 
-            var existingVideo = _materialManageService.GetVideoByName(name);
+            var existingVideo = await _materialManageService.GetVideoByName(name);
             if (existingVideo == null)
             {
                 Console.WriteLine($"{EntityName.VIDEO} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
@@ -322,10 +322,10 @@
                 Duration = duration,
                 Quality = quality
             };
-            _materialManageService.UpdateVideo(existingVideo, videoMaterial);
+            await _materialManageService.UpdateVideo(existingVideo, videoMaterial);
         }
 
-        private void AddArticle()
+        private async Task AddArticle()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING, EntityName.ARTICLE))
@@ -333,7 +333,7 @@
                 return;
             }
 
-            var existingArticle = _materialManageService.GetArticleByName(name);
+            var existingArticle = await _materialManageService.GetArticleByName(name);
             if (existingArticle != null)
             {
                 Console.WriteLine($"{EntityName.ARTICLE} {Result.ALREADY_EXISTS}, {Operation.ADDING} {Result.INTERRUPTED}");
@@ -359,10 +359,10 @@
                 Source = source,
                 PublicationDate = publicationDate
             };
-            _materialManageService.SetArticle(articleMaterial);
+            await _materialManageService.SetArticle(articleMaterial);
         }
 
-        private void DeleteArticle()
+        private async Task DeleteArticle()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING, EntityName.ARTICLE))
@@ -370,7 +370,7 @@
                 return;
             }
 
-            var existingArticle = _materialManageService.GetArticleByName(name);
+            var existingArticle = await _materialManageService.GetArticleByName(name);
             if (existingArticle == null)
             {
                 Console.WriteLine($"{EntityName.ARTICLE} {Result.DOES_NOT_EXIST}, {Operation.DELETING} {Result.INTERRUPTED}");
@@ -379,11 +379,11 @@
             }
             else
             {
-                _materialManageService.DeleteArticle(name);
+                await _materialManageService.DeleteArticle(name);
             }
         }
 
-        private void UpdateArticle()
+        private async Task UpdateArticle()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.UPDATING, EntityName.ARTICLE))
@@ -391,7 +391,7 @@
                 return;
             }
 
-            var existingArticle = _materialManageService.GetArticleByName(name);
+            var existingArticle = await _materialManageService.GetArticleByName(name);
             if (existingArticle == null)
             {
                 Console.WriteLine($"{EntityName.ARTICLE} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
@@ -423,7 +423,7 @@
                 Source = source,
                 PublicationDate = publicationDate
             };
-            _materialManageService.UpdateArticle(existingArticle, articleMaterial);
+            await _materialManageService.UpdateArticle(existingArticle, articleMaterial);
         }
     }
 }
