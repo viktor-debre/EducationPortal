@@ -38,7 +38,7 @@ namespace EducationPortal.UI.Services.Implementation
         public async Task UpdateSkill(SkillView skill)
         {
             var updatedSkill = _mapper.MapSkillToDomainModel(skill);
-            await _skillService.UpdateSkill(updatedSkill, updatedSkill);
+            await _skillService.UpdateSkill(updatedSkill);
         }
 
         public async Task<SkillView> GetByIdSkill(int id)

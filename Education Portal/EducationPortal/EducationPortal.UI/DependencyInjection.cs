@@ -10,6 +10,7 @@ namespace EducationPortal.UI
             services.AddScoped<IUserInformationService, UserInformationService>()
                 .AddScoped<IAccountService, AccountService>()
                 .AddScoped<ISkillEditService, SkillEditService>()
+                .AddScoped<IMaterialEditService, MaterialEditService>()
                 .AddScoped<IMapper, MapperForViewModels>();
         }
     }

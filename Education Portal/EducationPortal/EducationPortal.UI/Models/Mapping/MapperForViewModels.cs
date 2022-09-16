@@ -67,7 +67,50 @@ namespace EducationPortal.UI.Models.Mapping
                 return result;
             }
 
-            throw new Exception("Unkown type material!");
+            throw new Exception("Unknown type material!");
+        }
+
+        public Material MapMaterialToDomainModel(MaterialView material)
+        {
+            if (material is BookView book)
+            {
+                BookMaterial result = new BookMaterial
+                {
+                    Id = book.Id,
+                    Name = book.Name,
+                    NumberPages = book.NumberPages,
+                    Format = book.Format,
+                    Author = book.Author,
+                    PublicationDate = book.PublicationDate
+                };
+                return result;
+            }
+
+            if (material is VideoView video)
+            {
+                VideoMaterial result = new VideoMaterial
+                {
+                    Id = video.Id,
+                    Name = video.Name,
+                    Quality = video.Quality,
+                    Duration = video.Duration
+                };
+                return result;
+            }
+
+            if (material is ArticleView article)
+            {
+                ArticleMaterial result = new ArticleMaterial
+                {
+                    Id = article.Id,
+                    Name = article.Name,
+                    Source = article.Source,
+                    PublicationDate = article.PublicationDate
+                };
+                return result;
+            }
+
+            throw new Exception("Unknown type material!");
         }
 
         public SkillView MapSkillToViewModel(Skill skill)

@@ -29,16 +29,22 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="UserInfo" asp-action="UserProfile">UserProfile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="EditingSkills" asp-action="Skills">SKills</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="EditingSkills" asp-action="Skills">Skills</a>
                         </li>
-                        @if(ViewBag.AuthorizedUser == null){
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="EditingMaterials" asp-action="Materials">Materials</a>
+                        </li>
+                        @if(User.Identity.Name == null){
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Sign in</a>
                         </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Sign out</a>
-                        </li>
+                        @if (User.Identity.Name != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Sign out</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
