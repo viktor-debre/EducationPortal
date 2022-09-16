@@ -12,23 +12,23 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             _context = context;
         }
 
-        public DbBaseEntity MapToDbEntity(BaseEntity entity)
+        public async Task<DbBaseEntity> MapToDbEntity(BaseEntity entity)
         {
             if (entity is Material material)
             {
-                return MapToDbMaterial(material);
+                return await MapToDbMaterial(material);
             }
             else if (entity is Skill skill)
             {
-                return MapToDbSkill(skill);
+                return await MapToDbSkill(skill);
             }
             else if (entity is User user)
             {
-                return MapToDbUser(user);
+                return await MapToDbUser(user);
             }
             else if (entity is Course course)
             {
-                return MapToDbCourse(course);
+                return await MapToDbCourse(course);
             }
 
             throw new Exception("Not found entity type to map");
@@ -217,13 +217,13 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             };
         }
 
-        public DbUser MapToDbUser(User user)
+        public async Task<DbUser> MapToDbUser(User user)
         {
             int id = user.Id;
             DbUser userInDb;
             if (id != 0)
             {
-                userInDb = _context.Users.Find(id);
+                userInDb = await _context.Users.FindAsync(id);
             }
             else
             {
@@ -233,32 +233,32 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             var skills = new List<DbSkill>();
             foreach (var skill in user.Skills)
             {
-                skills.Add(MapToDbSkill(skill));
+                skills.Add(await MapToDbSkill(skill));
             }
 
             var materials = new List<DbMaterial>();
             foreach (var material in user.Materials)
             {
-                materials.Add(MapToDbMaterial(material));
+                materials.Add(await MapToDbMaterial(material));
             }
 
             var courses = new List<DbCourse>();
             foreach (var course in user.Courses)
             {
-                courses.Add(MapToDbCourse(course));
+                courses.Add(await MapToDbCourse(course));
             }
 
             var userCourses = new List<DbUserCourse>();
 
             foreach (var userCourse in user.UserCourses)
             {
-                userCourses.Add(MapToDbUserCourse(userCourse));
+                userCourses.Add(await MapToDbUserCourse(userCourse));
             }
 
             var userSkills = new List<DbUserSkill>();
             foreach (var userSkill in user.UserSkills)
             {
-                userSkills.Add(MapToDbUserSkill(userSkill));
+                userSkills.Add(await MapToDbUserSkill(userSkill));
             }
 
             userInDb.Id = user.Id;
@@ -273,7 +273,7 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             return userInDb;
         }
 
-        public DbUserSkill MapToDbUserSkill(UserSkill userSkill)
+        public async Task<DbUserSkill> MapToDbUserSkill(UserSkill userSkill)
         {
             int skillId = userSkill.SkillId;
             int userId = userSkill.UserId;
@@ -285,11 +285,11 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             return userSkillInDb;
         }
 
-        public DbUserCourse MapToDbUserCourse(UserCourse userCourse)
+        public async Task<DbUserCourse> MapToDbUserCourse(UserCourse userCourse)
         {
             int courseId = userCourse.CourseId;
             int userId = userCourse.UserId;
-            DbUserCourse userCourseInDb = _context.UserCourses.FirstOrDefault(x => x.CourseId == courseId && x.UserId == userId) ?? new DbUserCourse();
+            DbUserCourse userCourseInDb = await _context.UserCourses.FirstOrDefaultAsync(x => x.CourseId == courseId && x.UserId == userId) ?? new DbUserCourse();
 
             userCourseInDb.CourseId = userCourse.CourseId;
             userCourseInDb.UserId = userCourse.UserId;
@@ -299,13 +299,13 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             return userCourseInDb;
         }
 
-        public DbMaterial MapToDbMaterial(Material material)
+        public async Task<DbMaterial> MapToDbMaterial(Material material)
         {
             int id = material.Id;
             DbMaterial materialInDb;
             if (id != 0)
             {
-                materialInDb = _context.Materials.Find(id);
+                materialInDb = await _context.Materials.FindAsync(id);
             }
             else
             {
@@ -375,13 +375,13 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             throw new Exception("Unknown type material!");
         }
 
-        public DbSkill MapToDbSkill(Skill skill)
+        public async Task<DbSkill> MapToDbSkill(Skill skill)
         {
             int id = skill.Id;
             DbSkill skillInDb;
             if (id != 0)
             {
-                skillInDb = _context.Skills.Find(id);
+                skillInDb = await _context.Skills.FindAsync(id);
             }
             else
             {
@@ -393,13 +393,13 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             return skillInDb;
         }
 
-        public DbCourse MapToDbCourse(Course course)
+        public async Task<DbCourse> MapToDbCourse(Course course)
         {
             int id = course.Id;
             DbCourse courseInDb;
             if (id != 0)
             {
-                courseInDb = _context.Courses.Find(id);
+                courseInDb = await _context.Courses.FindAsync(id);
             }
             else
             {
@@ -409,13 +409,13 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             var materials = new List<DbMaterial>();
             foreach (var material in course.Materials)
             {
-                materials.Add(MapToDbMaterial(material));
+                materials.Add(await MapToDbMaterial(material));
             }
 
             var skills = new List<DbSkill>();
             foreach (var skill in course.Skills)
             {
-                skills.Add(MapToDbSkill(skill));
+                skills.Add(await MapToDbSkill(skill));
             }
 
             courseInDb.Id = course.Id;

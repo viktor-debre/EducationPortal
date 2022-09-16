@@ -22,7 +22,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Generic
 
         public async Task Remove(TEntity entity)
         {
-            _dbSet.Remove((TDbEntity)_mapper.MapToDbEntity(entity));
+            _dbSet.Remove((TDbEntity)await _mapper.MapToDbEntity(entity));
             await SaveAsync();
         }
 
@@ -49,13 +49,13 @@ namespace EducationPortal.Infrastructure.DB.Repository.Generic
 
         public async Task Add(TEntity entity)
         {
-            await _dbSet.AddAsync((TDbEntity)_mapper.MapToDbEntity(entity));
+            await _dbSet.AddAsync((TDbEntity)await _mapper.MapToDbEntity(entity));
             await SaveAsync();
         }
 
         public async Task Update(TEntity entity)
         {
-            _context.Entry((TDbEntity)_mapper.MapToDbEntity(entity)).State = EntityState.Modified;
+            _context.Entry((TDbEntity)await _mapper.MapToDbEntity(entity)).State = EntityState.Modified;
             await SaveAsync();
         }
 

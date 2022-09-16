@@ -18,7 +18,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 
         public async Task Remove(User user)
         {
-            _context.Users.Remove(_mapper.MapToDbUser(user));
+            _context.Users.Remove(await _mapper.MapToDbUser(user));
             SaveAsync();
         }
 
@@ -56,13 +56,13 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 
         public async Task Add(User user)
         {
-            await _context.AddAsync(_mapper.MapToDbUser(user));
+            await _context.AddAsync(await _mapper.MapToDbUser(user));
             await SaveAsync();
         }
 
         public async Task Update(User user)
         {
-            _context.Entry(_mapper.MapToDbUser(user)).State = EntityState.Modified;
+            _context.Entry(await _mapper.MapToDbUser(user)).State = EntityState.Modified;
             await SaveAsync();
         }
 

@@ -18,13 +18,13 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 
         public async Task Remove(Course course)
         {
-            _context.Courses.Remove((DbCourse)_mapper.MapToDbEntity(course));
+            _context.Courses.Remove((DbCourse)await _mapper.MapToDbEntity(course));
             await SaveAsync();
         }
 
         public async Task<Course?> FindById(int id)
         {
-            return _mapper.MapToDomainCourse(_context.Courses.Find(id));
+            return _mapper.MapToDomainCourse(await _context.Courses.FindAsync(id));
         }
 
         public async Task<List<Course>> Find(ISpecification<Course> specification = null)
@@ -56,13 +56,13 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 
         public async Task Add(Course course)
         {
-            await _context.AddAsync((DbCourse)_mapper.MapToDbEntity(course));
+            await _context.AddAsync((DbCourse)await _mapper.MapToDbEntity(course));
             await SaveAsync();
         }
 
         public async Task Update(Course course)
         {
-            _context.Entry((DbCourse)_mapper.MapToDbEntity(course)).State = EntityState.Modified;
+            _context.Entry((DbCourse)await _mapper.MapToDbEntity(course)).State = EntityState.Modified;
             await SaveAsync();
         }
     }
