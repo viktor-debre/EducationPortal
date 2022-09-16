@@ -372,7 +372,7 @@ namespace EducationPortal.Infrastructure.DB.Mapping
                 return result;
             }
 
-            throw new Exception("Unkown type material!");
+            throw new Exception("Unknown type material!");
         }
 
         public DbSkill MapToDbSkill(Skill skill)

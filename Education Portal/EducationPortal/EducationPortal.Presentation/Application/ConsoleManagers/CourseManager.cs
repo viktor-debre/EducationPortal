@@ -217,7 +217,7 @@
         {
             List<BookMaterial> bookMaterials = await _materialManageService.GetBooks();
             List<VideoMaterial> videoMaterials = await _materialManageService.GetVideos();
-            List<ArticleMaterial> articleMaterials = await _materialManageService.GetArticle();
+            List<ArticleMaterial> articleMaterials = await _materialManageService.GetArticles();
 
             List<Material> materials = new List<Material>();
             materials.AddRange(bookMaterials);

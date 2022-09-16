@@ -43,10 +43,10 @@ namespace EducationPortal.Application.Services
             await _createSkill.TryCreateSkill(skill);
         }
 
-        public async Task UpdateSkill(Skill skill, Skill updatedSkill)
+        public async Task UpdateSkill(Skill skill)
         {
             var skillToUpdate = await _skillRepository.FindById(skill.Id);
-            skillToUpdate.Title = updatedSkill.Title;
+            skillToUpdate.Title = skill.Title;
             await _skillRepository.Update(skillToUpdate);
         }
     }

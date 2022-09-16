@@ -8,7 +8,7 @@
 
         public Task SetSkill(Skill skill);
 
-        public Task UpdateSkill(Skill skill, Skill updatedSkill);
+        public Task UpdateSkill(Skill skill);
 
         public Task DeleteSkill(string title);
 

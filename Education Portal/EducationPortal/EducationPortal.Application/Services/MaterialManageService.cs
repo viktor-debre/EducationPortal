@@ -27,6 +27,75 @@ namespace EducationPortal.Application.Services
             _createArticle = new CreateArticle(_articleRepository);
         }
 
+        public async Task<List<Material>> GetMaterials()
+        {
+            List<Material> materials = new List<Material>();
+            materials.AddRange(await GetBooks());
+            materials.AddRange(await GetArticles());
+            materials.AddRange(await GetVideos());
+            return materials;
+        }
+
+        public async Task SetMaterial(Material material)
+        {
+            if (material is BookMaterial book)
+            {
+                await SetBook(book);
+            }
+
+            if (material is VideoMaterial video)
+            {
+                await SetVideo(video);
+            }
+
+            if (material is ArticleMaterial article)
+            {
+                await SetArticle(article);
+            }
+
+            throw new Exception("Unknown type material!");
+        }
+
+        public async Task DeleteMaterial(Material material)
+        {
+            if (material is BookMaterial book)
+            {
+                await DeleteBook(book.Name);
+            }
+
+            if (material is VideoMaterial video)
+            {
+                await DeleteVideo(video.Name);
+            }
+
+            if (material is ArticleMaterial article)
+            {
+                await DeleteArticle(article.Name);
+            }
+
+            throw new Exception("Unknown type material!");
+        }
+
+        public async Task UpdateMaterial(Material material)
+        {
+            if (material is BookMaterial book)
+            {
+                await UpdateBook(book);
+            }
+
+            if (material is VideoMaterial video)
+            {
+                await UpdateVideo(video);
+            }
+
+            if (material is ArticleMaterial article)
+            {
+                await UpdateArticle(article);
+            }
+
+            throw new Exception("Unknown type material!");
+        }
+
         public async Task<List<BookMaterial>> GetBooks()
         {
             return await _bookRepository.Find();
@@ -44,14 +113,14 @@ namespace EducationPortal.Application.Services
             await _createBook.TryCreateBook(bookMaterial);
         }
 
-        public async Task UpdateBook(BookMaterial book, BookMaterial updatedMaterial)
+        public async Task UpdateBook(BookMaterial book)
         {
             var bookToUpdate = await _bookRepository.FindById(book.Id);
-            bookToUpdate.Name = updatedMaterial.Name;
-            bookToUpdate.Author = updatedMaterial.Author;
-            bookToUpdate.NumberPages = updatedMaterial.NumberPages;
-            bookToUpdate.PublicationDate = updatedMaterial.PublicationDate;
-            bookToUpdate.Format = updatedMaterial.Format;
+            bookToUpdate.Name = book.Name;
+            bookToUpdate.Author = book.Author;
+            bookToUpdate.NumberPages = book.NumberPages;
+            bookToUpdate.PublicationDate = book.PublicationDate;
+            bookToUpdate.Format = book.Format;
             await _bookRepository.Update(bookToUpdate);
         }
 
@@ -81,12 +150,12 @@ namespace EducationPortal.Application.Services
             await _createVideo.TryCreateVideo(videoMaterial);
         }
 
-        public async Task UpdateVideo(VideoMaterial video, VideoMaterial updatedMaterial)
+        public async Task UpdateVideo(VideoMaterial video)
         {
             var videoToUpdate = await _videoRepository.FindById(video.Id);
-            videoToUpdate.Name = updatedMaterial.Name;
-            videoToUpdate.Duration = updatedMaterial.Duration;
-            videoToUpdate.Quality = updatedMaterial.Quality;
+            videoToUpdate.Name = video.Name;
+            videoToUpdate.Duration = video.Duration;
+            videoToUpdate.Quality = video.Quality;
             await _videoRepository.Update(videoToUpdate);
         }
 
@@ -99,7 +168,7 @@ namespace EducationPortal.Application.Services
             }
         }
 
-        public async Task<List<ArticleMaterial>> GetArticle()
+        public async Task<List<ArticleMaterial>> GetArticles()
         {
             return await _articleRepository.Find();
         }
@@ -116,12 +185,12 @@ namespace EducationPortal.Application.Services
             return item.FirstOrDefault();
         }
 
-        public async Task UpdateArticle(ArticleMaterial article, ArticleMaterial updatedMaterial)
+        public async Task UpdateArticle(ArticleMaterial article)
         {
             var articleToUpdate = await _articleRepository.FindById(article.Id);
-            articleToUpdate.Name = updatedMaterial.Name;
-            articleToUpdate.Source = updatedMaterial.Source;
-            articleToUpdate.PublicationDate = updatedMaterial.PublicationDate;
+            articleToUpdate.Name = article.Name;
+            articleToUpdate.Source = article.Source;
+            articleToUpdate.PublicationDate = article.PublicationDate;
             await _articleRepository.Update(articleToUpdate);
         }
 

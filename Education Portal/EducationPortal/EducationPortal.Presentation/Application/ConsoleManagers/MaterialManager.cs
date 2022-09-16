@@ -86,7 +86,7 @@
 
         private async Task OutputAllArticles()
         {
-            List<ArticleMaterial> articleMaterials = await _materialManageService.GetArticle();
+            List<ArticleMaterial> articleMaterials = await _materialManageService.GetArticles();
             Console.WriteLine("Articles:");
             foreach (ArticleMaterial article in articleMaterials)
             {
@@ -213,15 +213,13 @@
                 return;
             }
 
-            BookMaterial bookMaterial = new BookMaterial
-            {
-                Name = newName,
-                Author = author,
-                Format = format,
-                NumberPages = numberOfPages,
-                PublicationDate = publicationDate
-            };
-            await _materialManageService.UpdateBook(existingBook, bookMaterial);
+            existingBook.Name = newName;
+            existingBook.Author = author;
+            existingBook.Format = format;
+            existingBook.NumberPages = numberOfPages;
+            existingBook.PublicationDate = publicationDate;
+
+            await _materialManageService.UpdateBook(existingBook);
         }
 
         private async Task AddVideo()
@@ -316,13 +314,11 @@
                 return;
             }
 
-            VideoMaterial videoMaterial = new VideoMaterial
-            {
-                Name = newName,
-                Duration = duration,
-                Quality = quality
-            };
-            await _materialManageService.UpdateVideo(existingVideo, videoMaterial);
+            existingVideo.Name = newName;
+            existingVideo.Duration = duration;
+            existingVideo.Quality = quality;
+
+            await _materialManageService.UpdateVideo(existingVideo);
         }
 
         private async Task AddArticle()
@@ -417,13 +413,11 @@
                 return;
             }
 
-            ArticleMaterial articleMaterial = new ArticleMaterial
-            {
-                Name = newName,
-                Source = source,
-                PublicationDate = publicationDate
-            };
-            await _materialManageService.UpdateArticle(existingArticle, articleMaterial);
+            existingArticle.Name = newName;
+            existingArticle.Source = source;
+            existingArticle.PublicationDate = publicationDate;
+
+            await _materialManageService.UpdateArticle(existingArticle);
         }
     }
 }
