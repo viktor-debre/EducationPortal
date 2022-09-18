@@ -64,21 +64,21 @@ namespace EducationPortal.UI.Services.Implementation
         {
             var materials = await _materialService.GetArticles();
             var material = materials.FirstOrDefault(x => x.Id == id);
-            return material is null ? (ArticleView)_mapper.MapMaterialToViewModel(material) : null;
+            return material is not null ? (ArticleView)_mapper.MapMaterialToViewModel(material) : null;
         }
 
         public async Task<BookView>? GetByIdBook(int id)
         {
             var materials = await _materialService.GetBooks();
             var material = materials.FirstOrDefault(x => x.Id == id);
-            return material is null ? (BookView)_mapper.MapMaterialToViewModel(material) : null;
+            return material is not null ? (BookView)_mapper.MapMaterialToViewModel(material) : null;
         }
 
         public async Task<VideoView>? GetByIdVideo(int id)
         {
             var materials = await _materialService.GetVideos();
             var material = materials.FirstOrDefault(x => x.Id == id);
-            return material is null ? (VideoView)_mapper.MapMaterialToViewModel(material) : null;
+            return material is not null ? (VideoView)_mapper.MapMaterialToViewModel(material) : null;
         }
 
         public async Task RemoveArticle(ArticleView material)
