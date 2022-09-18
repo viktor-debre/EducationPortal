@@ -38,11 +38,30 @@
                     <a asp-controller="EditingMaterials" asp-action="EditArticle" asp-route-id="@item.Id">Change</a>
                 </td>
             }
-            <td>
-                <form asp-controller="EditingMaterials" asp-action="Delete" method="post"  asp-route-id="@item.Id">
+            @if (item is BookView)
+            {
+               <td>
+                <form asp-controller="EditingMaterials" asp-action="DeleteBook" method="post"  asp-route-id="@item.Id">
                     <input type="submit" value="Delete" />
                 </form>
             </td>
+            }
+            else if (item is VideoView)
+            {
+                <td>
+                <form asp-controller="EditingMaterials" asp-action="DeleteVideo" method="post"  asp-route-id="@item.Id">
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+            }
+            else if (item is ArticleView)
+            {
+                <td>
+                <form asp-controller="EditingMaterials" asp-action="DeleteArticle" method="post"  asp-route-id="@item.Id">
+                    <input type="submit" value="Delete" />
+                </form>
+            </td>
+            }
          </tr>
     }
 </table>
