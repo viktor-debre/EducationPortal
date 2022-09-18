@@ -1,7 +1,7 @@
 ﻿@model EducationPortal.UI.Models.ViewEntities.VideoView
 
 <h2>Editing video</h2>
-<form asp-action="EditVideo" asp-controller="EditingMaterials" asp-route-id="@Model.Id">
+<form asp-action="EditVideo" asp-controller="EditingMaterials" method="post" asp-route-id="@Model.Id">
     <p>
         <label asp-for="Name">Name</label><br/>
         <input type="text" asp-for="Name" />

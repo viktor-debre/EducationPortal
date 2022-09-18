@@ -1,7 +1,7 @@
 ﻿@model EducationPortal.UI.Models.ViewEntities.ArticleView
 
 <h2>Editing article</h2>
-<form asp-action="EditArticle" asp-controller="EditingMaterials" asp-route-id="@Model.Id">
+<form asp-action="EditArticle" asp-controller="EditingMaterials" method="post" asp-route-id="@Model.Id">
     <p>
         <label asp-for="Name">Name</label><br/>
         <input type="text" asp-for="Name" />
