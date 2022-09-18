@@ -30,7 +30,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
         public async Task<List<Course>> Find(ISpecification<Course> specification = null)
         {
             List<Course> courses = new List<Course>();
-            var dbCourses = _context.Courses.Include(x => x.Materials).Include(x => x.Skills).ToList();
+            var dbCourses = await _context.Courses.Include(x => x.Materials).Include(x => x.Skills).ToListAsync();
             foreach (var course in dbCourses)
             {
                 courses.Add(_mapper.MapToDomainCourse(course));
@@ -39,7 +39,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
             List<Course> result;
             if (specification != null)
             {
-                result = courses.AsQueryable().Where(specification.Criteria).ToList();
+                result = await courses.AsQueryable().Where(specification.Criteria).ToListAsync();
             }
             else
             {
