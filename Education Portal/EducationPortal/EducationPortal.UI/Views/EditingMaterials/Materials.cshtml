@@ -20,9 +20,24 @@
                  <td>Article</td>
             }
             <td>@item.Name</td>
-            <td>
-                <a asp-controller="EditingMaterials" asp-action="Edit" asp-route-id="@item.Id">Change</a>
-            </td>
+            @if (item is BookView)
+            {
+                <td>
+                    <a asp-controller="EditingMaterials" asp-action="EditBook" asp-route-id="@item.Id">Change</a>
+                </td>
+            }
+            else if (item is VideoView)
+            {
+                <td>
+                    <a asp-controller="EditingMaterials" asp-action="EditVideo" asp-route-id="@item.Id">Change</a>
+                </td>
+            }
+            else if (item is ArticleView)
+            {
+                <td>
+                    <a asp-controller="EditingMaterials" asp-action="EditArticle" asp-route-id="@item.Id">Change</a>
+                </td>
+            }
             <td>
                 <form asp-controller="EditingMaterials" asp-action="Delete" method="post"  asp-route-id="@item.Id">
                     <input type="submit" value="Delete" />
@@ -31,4 +46,6 @@
          </tr>
     }
 </table>
-<p><a asp-controller="EditingMaterials" asp-action="Create">+ Add material</a></p>
+<p><a asp-controller="EditingMaterials" asp-action="CreateBook">+ Add Book</a></p>
+<p><a asp-controller="EditingMaterials" asp-action="CreateVideo">+ Add Video</a></p>
+<p><a asp-controller="EditingMaterials" asp-action="CreateArticle">+ Add Article</a></p>
