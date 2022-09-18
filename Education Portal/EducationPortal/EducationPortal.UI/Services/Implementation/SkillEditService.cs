@@ -41,9 +41,10 @@ namespace EducationPortal.UI.Services.Implementation
             await _skillService.UpdateSkill(updatedSkill);
         }
 
-        public async Task<SkillView> GetByIdSkill(int id)
+        public async Task<SkillView>? GetByIdSkill(int id)
         {
-            return _mapper.MapSkillToViewModel(await _skillService.GetSkillById(id));
+            var skill = await _skillService.GetSkillById(id);
+            return skill is null ? _mapper.MapSkillToViewModel(skill) : null;
         }
     }
 }
