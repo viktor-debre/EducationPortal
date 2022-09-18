@@ -27,9 +27,19 @@ namespace EducationPortal.UI.Services.Implementation
             return materials;
         }
 
-        public async Task SetMaterial(MaterialView material)
+        public async Task SetArticle(ArticleView material)
         {
-            await _materialService.SetMaterial(_mapper.MapMaterialToDomainModel(material));
+            await _materialService.SetArticle((ArticleMaterial)_mapper.MapMaterialToDomainModel(material));
+        }
+
+        public async Task SetBook(BookView material)
+        {
+            await _materialService.SetBook((BookMaterial)_mapper.MapMaterialToDomainModel(material));
+        }
+
+        public async Task SetVideo(VideoView material)
+        {
+            await _materialService.SetVideo((VideoMaterial)_mapper.MapMaterialToDomainModel(material));
         }
 
         public async Task RemoveMaterial(MaterialView material)
@@ -37,10 +47,22 @@ namespace EducationPortal.UI.Services.Implementation
             await _materialService.DeleteMaterial(_mapper.MapMaterialToDomainModel(material));
         }
 
-        public async Task UpdateMaterial(MaterialView material)
+        public async Task UpdateArticle(ArticleView material)
         {
-            var updatedMaterial = _mapper.MapMaterialToDomainModel(material);
-            await _materialService.UpdateMaterial(updatedMaterial);
+            var updatedMaterial = (ArticleMaterial)_mapper.MapMaterialToDomainModel(material);
+            await _materialService.UpdateArticle(updatedMaterial);
+        }
+
+        public async Task UpdateBook(BookView material)
+        {
+            var updatedMaterial = (BookMaterial)_mapper.MapMaterialToDomainModel(material);
+            await _materialService.UpdateBook(updatedMaterial);
+        }
+
+        public async Task UpdateVideo(VideoView material)
+        {
+            var updatedMaterial = (VideoMaterial)_mapper.MapMaterialToDomainModel(material);
+            await _materialService.UpdateVideo(updatedMaterial);
         }
 
         public async Task<MaterialView> GetByIdMaterial(int id)
