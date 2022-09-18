@@ -42,11 +42,6 @@ namespace EducationPortal.UI.Services.Implementation
             await _materialService.SetVideo((VideoMaterial)_mapper.MapMaterialToDomainModel(material));
         }
 
-        public async Task RemoveMaterial(MaterialView material)
-        {
-            await _materialService.DeleteMaterial(_mapper.MapMaterialToDomainModel(material));
-        }
-
         public async Task UpdateArticle(ArticleView material)
         {
             var updatedMaterial = (ArticleMaterial)_mapper.MapMaterialToDomainModel(material);
@@ -65,15 +60,40 @@ namespace EducationPortal.UI.Services.Implementation
             await _materialService.UpdateVideo(updatedMaterial);
         }
 
-        public async Task<MaterialView> GetByIdMaterial(int id)
+        public async Task<ArticleView>? GetByIdArticle(int id)
         {
-            List<Material> materials = new List<Material>();
-            materials.AddRange(await _materialService.GetBooks());
-            materials.AddRange(await _materialService.GetVideos());
-            materials.AddRange(await _materialService.GetArticles());
-            var material = materials.Find(x => x.Id == id);
+            var materials = await _materialService.GetArticles();
+            var material = materials.FirstOrDefault(x => x.Id == id);
+            return material is null ? (ArticleView)_mapper.MapMaterialToViewModel(material) : null;
+        }
 
-            return _mapper.MapMaterialToViewModel(material);
+        public async Task<BookView>? GetByIdBook(int id)
+        {
+            var materials = await _materialService.GetBooks();
+            var material = materials.FirstOrDefault(x => x.Id == id);
+            return material is null ? (BookView)_mapper.MapMaterialToViewModel(material) : null;
+        }
+
+        public async Task<VideoView>? GetByIdVideo(int id)
+        {
+            var materials = await _materialService.GetVideos();
+            var material = materials.FirstOrDefault(x => x.Id == id);
+            return material is null ? (VideoView)_mapper.MapMaterialToViewModel(material) : null;
+        }
+
+        public async Task RemoveArticle(ArticleView material)
+        {
+            await _materialService.DeleteArticle(material.Name);
+        }
+
+        public async Task RemoveBook(BookView material)
+        {
+            await _materialService.DeleteBook(material.Name);
+        }
+
+        public async Task RemoveVideo(VideoView material)
+        {
+            await _materialService.DeleteVideo(material.Name);
         }
     }
 }

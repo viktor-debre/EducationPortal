@@ -10,7 +10,11 @@
 
         public Task SetVideo(VideoView material);
 
-        public Task RemoveMaterial(MaterialView material);
+        public Task RemoveArticle(ArticleView material);
+
+        public Task RemoveBook(BookView material);
+
+        public Task RemoveVideo(VideoView material);
 
         public Task UpdateArticle(ArticleView material);
 
@@ -18,6 +22,10 @@
 
         public Task UpdateVideo(VideoView material);
 
-        public Task<MaterialView> GetByIdMaterial(int id);
+        public Task<ArticleView>? GetByIdArticle(int id);
+
+        public Task<BookView>? GetByIdBook(int id);
+
+        public Task<VideoView>? GetByIdVideo(int id);
     }
 }
