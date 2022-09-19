@@ -41,26 +41,26 @@
             @if (item is BookView)
             {
                <td>
-                <form asp-controller="EditingMaterials" asp-action="DeleteBook" method="post"  asp-route-id="@item.Id">
-                    <input type="submit" value="Delete" />
-                </form>
-            </td>
+                    <form asp-controller="EditingMaterials" asp-action="DeleteBook" asp-route-id="@item.Id">
+                        <input type="submit" value="Delete" />
+                    </form>
+               </td>
             }
             else if (item is VideoView)
             {
                 <td>
-                <form asp-controller="EditingMaterials" asp-action="DeleteVideo" method="post"  asp-route-id="@item.Id">
-                    <input type="submit" value="Delete" />
-                </form>
-            </td>
+                    <form asp-controller="EditingMaterials" asp-action="DeleteVideo" asp-route-id="@item.Id">
+                        <input type="submit" value="Delete" />
+                    </form>
+                </td>
             }
             else if (item is ArticleView)
             {
                 <td>
-                <form asp-controller="EditingMaterials" asp-action="DeleteArticle" method="post"  asp-route-id="@item.Id">
-                    <input type="submit" value="Delete" />
-                </form>
-            </td>
+                    <form asp-controller="EditingMaterials" asp-action="DeleteArticle" asp-route-id="@item.Id">
+                        <input type="submit" value="Delete" />
+                    </form>
+                </td>
             }
          </tr>
     }
