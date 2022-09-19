@@ -1,5 +1,6 @@
 ﻿@{
 	var user = ViewBag.AuthorizedUser;
+	List<UserSkillView> userSkills = user.UserSkills.FirstOrDefoult();
 }
 
 <p>User:</p>
@@ -14,6 +15,15 @@
 	Skills
 	@foreach (var skill in user.Skills)
 	{
-		<li>@skill.Title</li>
+		<li>@skill.Title with lvl:</li>
+	}
+	@foreach (var skill in user.UserSkills)
+	{
+		<p>@skill.Level</p>
+	}
+	Courses
+	@foreach (var course in user.Courses)
+	{
+		<li>@course.Name</li>
 	}
 </ul>
