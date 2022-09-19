@@ -1,7 +1,7 @@
 ﻿@model EducationPortal.UI.Models.ViewEntities.CourseView
 
-<h2>Adding course</h2>
-<form asp-action="Create" asp-controller="EditingCourse">
+<h2>Adding skill</h2>
+<form asp-action="Edit" asp-controller="EditingCourse">
     <p>
         <label asp-for="Name">Name</label><br />
         <input type="text" asp-for="Name" />
@@ -11,6 +11,9 @@
         <label asp-for="Description">Description</label><br />
         <input type="text" asp-for="Description" />
         <span asp-validation-for="Description" />
+    </p>
+    <p>
+        <a asp-controller="EditingCourses" asp-action="Create">+ Add Course</a>
     </p>
     <p>
         <input type="submit" value="Submit"/>
