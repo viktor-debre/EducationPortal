@@ -6,24 +6,121 @@ namespace EducationPortal.UI.Models.Mapping
     {
         public UserView MapUserToViewModel(User user)
         {
-            var materialsList = new List<MaterialView>();
-            foreach (var material in user.Materials)
+            var skills = new List<SkillView>();
+            if (user.Skills != null)
             {
-                materialsList.Add(MapMaterialToViewModel(material));
+                foreach (var skill in user.Skills)
+                {
+                    skills.Add(MapSkillToViewModel(skill));
+                }
             }
 
-            var skillList = new List<SkillView>();
-            foreach (var skill in user.Skills)
+            var materials = new List<MaterialView>();
+            if (user.Materials != null)
             {
-                skillList.Add(MapSkillToViewModel(skill));
+                foreach (var material in user.Materials)
+                {
+                    materials.Add(MapMaterialToViewModel(material));
+                }
             }
 
-            return new UserView()
+            var courses = new List<CourseView>();
+            if (user.Courses != null)
             {
+                foreach (var course in user.Courses)
+                {
+                    courses.Add(MapCourseToViewModel(course));
+                }
+            }
+
+            var userCourses = new List<UserCourseView>();
+            if (user.UserCourses != null)
+            {
+                foreach (var userCourse in user.UserCourses)
+                {
+                    userCourses.Add(MapUserCourseToViewModel(userCourse));
+                }
+            }
+
+            var userSkills = new List<UserSkillView>();
+            if (user.UserSkills != null)
+            {
+                foreach (var userSkill in user.UserSkills)
+                {
+                    userSkills.Add(MapUserSkillToViewModel(userSkill));
+                }
+            }
+
+            return new UserView
+            {
+                Id = user.Id,
                 Name = user.Name,
                 Password = user.Password,
-                Materials = materialsList,
-                Skills = skillList
+                Skills = skills,
+                Materials = materials,
+                Courses = courses,
+                UserCourses = userCourses,
+                UserSkills = userSkills
+            };
+        }
+
+        public User MapUserToDomainModel(UserView user)
+        {
+            var skills = new List<Skill>();
+            if (user.Skills != null)
+            {
+                foreach (var skill in user.Skills)
+                {
+                    skills.Add(MapSkillToDomainModel(skill));
+                }
+            }
+
+            var materials = new List<Material>();
+            if (user.Materials != null)
+            {
+                foreach (var material in user.Materials)
+                {
+                    materials.Add(MapMaterialToDomainModel(material));
+                }
+            }
+
+            var courses = new List<Course>();
+            if (user.Courses != null)
+            {
+                foreach (var course in user.Courses)
+                {
+                    courses.Add(MapCourseToDomainModel(course));
+                }
+            }
+
+            var userCourses = new List<UserCourse>();
+            if (user.UserCourses != null)
+            {
+                foreach (var userCourse in user.UserCourses)
+                {
+                    userCourses.Add(MapUserCourseToDomainModel(userCourse));
+                }
+            }
+
+            var userSkills = new List<UserSkill>();
+            if (user.UserSkills != null)
+            {
+                foreach (var userSkill in user.UserSkills)
+                {
+                    userSkills.Add(MapUserSkillToDomainModel(userSkill));
+                }
+            }
+
+            return new User
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Password = user.Password,
+                Skills = skills,
+                Materials = materials,
+                Courses = courses,
+                UserCourses = userCourses,
+                UserSkills = userSkills
             };
         }
 
@@ -131,6 +228,108 @@ namespace EducationPortal.UI.Models.Mapping
                 Title = skill.Title
             };
             return domainSkill;
+        }
+
+        public UserCourseView MapUserCourseToViewModel(UserCourse userCourse)
+        {
+            return new UserCourseView
+            {
+                UserId = userCourse.UserId,
+                CourseId = userCourse.CourseId,
+                Status = userCourse.Status,
+                PassPercent = userCourse.PassPercent
+            };
+        }
+
+        public UserCourse MapUserCourseToDomainModel(UserCourseView userCourse)
+        {
+            return new UserCourse
+            {
+                UserId = userCourse.UserId,
+                CourseId = userCourse.CourseId,
+                Status = userCourse.Status,
+                PassPercent = userCourse.PassPercent
+            };
+        }
+
+        public UserSkillView MapUserSkillToViewModel(UserSkill userSkill)
+        {
+            return new UserSkillView
+            {
+                UserId = userSkill.UserId,
+                SkillId = userSkill.SkillId,
+                Level = userSkill.Level
+            };
+        }
+
+        public UserSkill MapUserSkillToDomainModel(UserSkillView userSkill)
+        {
+            return new UserSkill
+            {
+                UserId = userSkill.UserId,
+                SkillId = userSkill.SkillId,
+                Level = userSkill.Level
+            };
+        }
+
+        public CourseView MapCourseToViewModel(Course course)
+        {
+            var materials = new List<MaterialView>();
+            if (course.Materials != null)
+            {
+                foreach (var material in course.Materials)
+                {
+                    materials.Add(MapMaterialToViewModel(material));
+                }
+            }
+
+            var skills = new List<SkillView>();
+            if (course.Skills != null)
+            {
+                foreach (var skill in course.Skills)
+                {
+                    skills.Add(MapSkillToViewModel(skill));
+                }
+            }
+
+            return new CourseView
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Description = course.Description,
+                Materials = materials,
+                Skills = skills
+            };
+        }
+
+        public Course MapCourseToDomainModel(CourseView course)
+        {
+            var materials = new List<Material>();
+            if (course.Materials != null)
+            {
+                foreach (var material in course.Materials)
+                {
+                    materials.Add(MapMaterialToDomainModel(material));
+                }
+            }
+
+            var skills = new List<Skill>();
+            if (course.Skills != null)
+            {
+                foreach (var skill in course.Skills)
+                {
+                    skills.Add(MapSkillToDomainModel(skill));
+                }
+            }
+
+            return new Course
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Description = course.Description,
+                Materials = materials,
+                Skills = skills
+            };
         }
     }
 }
