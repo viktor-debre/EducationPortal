@@ -37,7 +37,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Generic
             List<TEntity> result;
             if (specification != null)
             {
-                result = await entities.AsQueryable().Where(specification.Criteria).ToListAsync();
+                result = entities.AsQueryable().Where(specification.Criteria).ToList();
             }
             else
             {
