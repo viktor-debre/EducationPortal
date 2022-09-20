@@ -17,7 +17,8 @@ namespace EducationPortal.UI.Services.Implementation
         public async Task<List<CourseView>> GetAvailableCourses(int userId)
         {
             List<CourseView> courses = new List<CourseView>();
-            foreach (var course in await _userCourse.GetAvailableCourses(userId))
+            var coursesInDb = await _userCourse.GetAvailableCourses(userId);
+            foreach (var course in coursesInDb)
             {
                 courses.Add(_mapper.MapCourseToViewModel(course));
             }

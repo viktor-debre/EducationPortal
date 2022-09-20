@@ -23,8 +23,9 @@ namespace EducationPortal.UI.Controllers
             return View(availableCourses);
         }
 
-        public async Task<IActionResult> TakeCourse(CourseView? course)
+        public async Task<IActionResult> TakeCourse(int? id)
         {
+            var course = await _courseEditService.GetByIdCourse(id ?? 0);
             var user = await _userInformation.GetUserInfo(User.Identity.Name);
             _userPassCourse.TakeCourse(course, user.Id);
 
