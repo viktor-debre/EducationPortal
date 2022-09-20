@@ -14,13 +14,9 @@
 	@foreach (var material in user.Materials)
 	{
 		<li>Name: @material.Name</li>
-	}
+	}<br/>
 	Skills
 	@for (int i = 0; i < skills.Count; ++i){
 		<li>Title: @skills[i].Title with lvl: @user.UserSkills[i].Level</li>
-	}
-	Courses
-	@for (int i = 0; i < courses.Count; ++i){
-		<li>Name: @courses[i].Name with percent: @user.UserCourses[i].PassPercent status: @user.UserCourses[i].Status</li>
 	}
 </ul>
