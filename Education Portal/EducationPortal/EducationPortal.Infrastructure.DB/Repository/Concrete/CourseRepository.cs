@@ -2,6 +2,7 @@
 using EducationPortal.Domain.Helpers.Repository;
 using EducationPortal.Domain.Helpers.Specification;
 using EducationPortal.Infrastructure.DB.Mapping;
+using Microsoft.EntityFrameworkCore;
 
 namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 {
@@ -24,7 +25,8 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 
         public async Task<Course?> FindById(int id)
         {
-            return _mapper.MapToDomainCourse(await _context.Courses.FindAsync(id));
+            var course = await _context.Courses.Include(x => x.Materials).Include(x => x.Skills).ToListAsync();
+            return _mapper.MapToDomainCourse(course.FirstOrDefault(x => x.Id == id));
         }
 
         public async Task<List<Course>> Find(ISpecification<Course> specification = null)
