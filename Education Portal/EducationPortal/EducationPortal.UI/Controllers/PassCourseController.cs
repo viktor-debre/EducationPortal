@@ -27,28 +27,33 @@ namespace EducationPortal.UI.Controllers
         {
             var course = await _courseEditService.GetByIdCourse(id ?? 0);
             var user = await _userInformation.GetUserInfo(User.Identity.Name);
-            _userPassCourse.TakeCourse(course, user.Id);
+            await _userPassCourse.TakeCourse(course, user.Id);
 
             return RedirectToAction("StartCourse");
         }
 
         public async Task<IActionResult> PassCourses()
         {
-            return View();
+            var user = await _userInformation.GetUserInfo(User.Identity.Name);
+            var startedCourses = await _userPassCourse.GetStartedCourses(user.Id);
+            return View(startedCourses);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> PassCourse(int id)
+        public async Task<IActionResult> StartPassCourse(int? id)
         {
-            return View();
+            var course = await _courseEditService.GetByIdCourse(id ?? 0);
+            return View(course);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PassMaterial(CourseView course, string name)
+        public async Task<IActionResult> PassMaterial(int? id, string name)
         {
             var user = await _userInformation.GetUserInfo(User.Identity.Name);
-            _userPassCourse.PassMaterial(course, name, user.Id);
-            return View();
+            var course = await _courseEditService.GetByIdCourse(id ?? 0);
+            await _userPassCourse.PassMaterial(course, name, user.Id);
+            //List<MaterialView>
+            //ViewBag.Materials =
+            return RedirectToAction("StartPassCourse");
         }
 
         public async Task<IActionResult> PassedCourses()
