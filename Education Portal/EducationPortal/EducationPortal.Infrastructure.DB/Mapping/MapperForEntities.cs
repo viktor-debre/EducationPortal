@@ -277,7 +277,8 @@ namespace EducationPortal.Infrastructure.DB.Mapping
         {
             int skillId = userSkill.SkillId;
             int userId = userSkill.UserId;
-            DbUserSkill userSkillInDb = _context.UserSkills.FirstOrDefault(x => x.SkillId == skillId && x.UserId == userId) ?? new DbUserSkill();
+            var user = _context.UserSkills.FirstOrDefault(x => x.SkillId == skillId && x.UserId == userId);
+            DbUserSkill userSkillInDb = user ?? new DbUserSkill();
 
             userSkillInDb.UserId = userSkill.UserId;
             userSkillInDb.SkillId = userSkill.SkillId;
@@ -289,7 +290,9 @@ namespace EducationPortal.Infrastructure.DB.Mapping
         {
             int courseId = userCourse.CourseId;
             int userId = userCourse.UserId;
-            DbUserCourse userCourseInDb = await _context.UserCourses.FirstOrDefaultAsync(x => x.CourseId == courseId && x.UserId == userId) ?? new DbUserCourse();
+
+            var user = _context.UserCourses.FirstOrDefault(x => x.CourseId == courseId && x.UserId == userId);
+            DbUserCourse userCourseInDb = user ?? new DbUserCourse();
 
             userCourseInDb.CourseId = userCourse.CourseId;
             userCourseInDb.UserId = userCourse.UserId;
