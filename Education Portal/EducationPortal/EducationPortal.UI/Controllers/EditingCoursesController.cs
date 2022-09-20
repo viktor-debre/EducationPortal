@@ -1,14 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EducationPortal.UI.Controllers
 {
     public class EditingCoursesController : Controller
     {
         private readonly ICourseEditService _courseEditService;
+        private readonly IMaterialEditService _materialEditService;
 
-        public EditingCoursesController(ICourseEditService courseEditService)
+        public EditingCoursesController(ICourseEditService courseEditService, IMaterialEditService materialEditService)
         {
             _courseEditService = courseEditService;
+            _materialEditService = materialEditService;
         }
 
         public async Task<IActionResult> Courses()
