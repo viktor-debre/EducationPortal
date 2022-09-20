@@ -1,29 +1,26 @@
-﻿@{
+﻿@using System.Linq
+
+@{
 	var user = ViewBag.AuthorizedUser;
-	List<UserSkillView> userSkills = user.UserSkills.FirstOrDefoult();
+	var skills = ViewBag.UserSkills;
+	var courses = ViewBag.UserCourses;
 }
 
 <p>User:</p>
 <ul>
-	<li>@user.Name</li>
-	<li>@user.Password</li>
+	<li>Name: @user.Name</li>
+	<li>Password: @user.Password</li>
 	Materials
 	@foreach (var material in user.Materials)
 	{
-		<li>@material.Name</li>
+		<li>Name: @material.Name</li>
 	}
 	Skills
-	@foreach (var skill in user.Skills)
-	{
-		<li>@skill.Title with lvl:</li>
-	}
-	@foreach (var skill in user.UserSkills)
-	{
-		<p>@skill.Level</p>
+	@for (int i = 0; i < skills.Count; ++i){
+		<li>Title: @skills[i].Title with lvl: @user.UserSkills[i].Level</li>
 	}
 	Courses
-	@foreach (var course in user.Courses)
-	{
-		<li>@course.Name</li>
+	@for (int i = 0; i < courses.Count; ++i){
+		<li>Name: @courses[i].Name with percent: @user.UserCourses[i].PassPercent status: @user.UserCourses[i].Status</li>
 	}
 </ul>
