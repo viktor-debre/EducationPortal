@@ -34,9 +34,21 @@ namespace EducationPortal.UI.Controllers
 
         public async Task<IActionResult> PassCourses()
         {
+            var coursesInDb = await _courseEditService.GetCourses();
             var user = await _userInformation.GetUserInfo(User.Identity.Name);
             var startedCourses = await _userPassCourse.GetStartedCourses(user.Id);
-            return View(startedCourses);
+            ViewBag.UserCourses = startedCourses;
+            List<CourseView> courses = new List<CourseView>();
+            foreach (var course in startedCourses)
+            {
+                var item = coursesInDb.FirstOrDefault(x => x.Id == course.CourseId);
+                if (item != null)
+                {
+                    courses.Add(item);
+                }
+            }
+
+            return View(courses);
         }
 
         public async Task<IActionResult> StartPassCourse(int? id)
@@ -46,13 +58,15 @@ namespace EducationPortal.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PassMaterial(int? id, string name)
+        public async Task<IActionResult> PassMaterial(int? id, string? name)
         {
             var user = await _userInformation.GetUserInfo(User.Identity.Name);
-            var course = await _courseEditService.GetByIdCourse(id ?? 0);
-            await _userPassCourse.PassMaterial(course, name, user.Id);
-            //List<MaterialView>
-            //ViewBag.Materials =
+            if (id != null && name != null)
+            {
+                var course = await _courseEditService.GetByIdCourse(id ?? 0);
+                await _userPassCourse.PassMaterial(course, name, user.Id);
+            }
+
             return RedirectToAction("StartPassCourse");
         }
 

@@ -51,7 +51,13 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 
         public async Task<User?> FindById(int id)
         {
-            return _mapper.MapToDomainUser(await _context.Users.FindAsync(id));
+            var users = await _context.Users
+                .Include(x => x.Materials)
+                .Include(x => x.Skills)
+                .Include(x => x.Courses).ThenInclude(x => x.Materials)
+                .Include(x => x.Courses).ThenInclude(x => x.Skills)
+                .ToListAsync();
+            return _mapper.MapToDomainUser(users.FirstOrDefault(x => x.Id == id));
         }
 
         public async Task Add(User user)

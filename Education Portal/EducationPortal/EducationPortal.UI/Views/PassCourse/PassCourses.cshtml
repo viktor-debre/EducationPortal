@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<CourseView>
 @{
-
+    var infoCourse = ViewBag.UserCourses;
 }
 
 <h3>Course list</h3>
@@ -16,9 +16,6 @@
             @foreach (var material in item.Materials)
             {
                 <p>@material.Name</p>
-                <form asp-controller="PassCourse" asp-action="PassMaterial" asp-route-name="@material.Name" asp-route-id="@item.Id">
-                    <input type="submit" value="Pass material" />
-                </form>
             }
             <br/>
         </div>
