@@ -26,7 +26,7 @@ namespace EducationPortal.Application.Services
 
         public async Task<Course?> GetCourseById(int id)
         {
-            return await _courseRepository.FindById(id);
+            return await _courseRepository.FindById(id) ?? null;
         }
 
         public async Task<List<Course>> GetCourses()

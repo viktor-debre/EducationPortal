@@ -1,6 +1,7 @@
 ﻿@model CourseView
 @{
     var item = Model;
+    var materialsInCourse = ViewBag.CourseMaterial;
 }
 
 <div>
@@ -10,12 +11,19 @@
     </div>
     <div>
         Materials:
-        @foreach (var material in item.Materials)
+        @for (int i = 0; i < item.Materials.Count; ++i)
         {
-            <p>@material.Name</p>
-            <form asp-controller="PassCourse" asp-action="PassMaterial" asp-route-name="@material.Name" asp-route-id="@item.Id">
-                <input type="submit" value="Pass material" />
-            </form>
+            <p>@item.Materials[i].Name</p>
+            @if (materialsInCourse[i] != null)
+            {
+                <p>Passed!</p>
+            }
+            else
+            {
+                <form asp-controller="PassCourse" asp-action="PassMaterial" asp-route-name="@item.Materials[i].Name" asp-route-id="@item.Id">
+                    <input type="submit" value="Pass material" />
+                </form>
+            }
         }
     </div>
     <div>
