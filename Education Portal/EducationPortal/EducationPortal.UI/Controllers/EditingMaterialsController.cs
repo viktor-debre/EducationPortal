@@ -189,5 +189,38 @@ namespace EducationPortal.UI.Controllers
 
             return NotFound();
         }
+
+        public async Task<IActionResult> DetailsArticle(int? id)
+        {
+            ArticleView? material = await _materialService.GetByIdArticle(id ?? 0);
+            if (material != null)
+            {
+                return View(material);
+            }
+
+            return NotFound();
+        }
+
+        public async Task<IActionResult> DetailsBook(int? id)
+        {
+            BookView? material = await _materialService.GetByIdBook(id ?? 0);
+            if (material != null)
+            {
+                return View(material);
+            }
+
+            return NotFound();
+        }
+
+        public async Task<IActionResult> DetailsVideo(int? id)
+        {
+            VideoView? material = await _materialService.GetByIdVideo(id ?? 0);
+            if (material != null)
+            {
+                return View(material);
+            }
+
+            return NotFound();
+        }
     }
 }

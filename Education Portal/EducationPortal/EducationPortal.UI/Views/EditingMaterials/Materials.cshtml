@@ -23,19 +23,19 @@
             @if (item is BookView)
             {
                 <td>
-                    <a asp-controller="EditingMaterials" asp-action="EditBook" asp-route-id="@item.Id">Change</a>
+                    <a asp-controller="EditingMaterials" asp-action="EditBook" asp-route-id="@item.Id">Change</a> |  <a asp-controller="EditingMaterials" asp-action="DetailsBook" asp-route-id="@item.Id">Details</a>
                 </td>
             }
             else if (item is VideoView)
             {
                 <td>
-                    <a asp-controller="EditingMaterials" asp-action="EditVideo" asp-route-id="@item.Id">Change</a>
+                    <a asp-controller="EditingMaterials" asp-action="EditVideo" asp-route-id="@item.Id">Change</a> |  <a asp-controller="EditingMaterials" asp-action="DetailsVideo" asp-route-id="@item.Id">Details</a>
                 </td>
             }
             else if (item is ArticleView)
             {
                 <td>
-                    <a asp-controller="EditingMaterials" asp-action="EditArticle" asp-route-id="@item.Id">Change</a>
+                    <a asp-controller="EditingMaterials" asp-action="EditArticle" asp-route-id="@item.Id">Change</a> |  <a asp-controller="EditingMaterials" asp-action="DetailsArticle" asp-route-id="@item.Id">Details</a>
                 </td>
             }
             @if (item is BookView)

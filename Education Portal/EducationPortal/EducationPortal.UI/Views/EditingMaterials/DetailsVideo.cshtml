@@ -1,0 +1,9 @@
+﻿@model EducationPortal.UI.Models.ViewEntities.VideoView
+@{
+    var item = Model;
+}
+<h2>Editing article</h2>
+<p># @item.Id Article name: @item.Name</p>
+<p>Duration: @item.Duration</p>
+<p>Quality: @item.Quality</p>
+<a class="nav-link text-dark" asp-area="" asp-controller="EditingMaterials" asp-action="Materials">To previous page</a>
