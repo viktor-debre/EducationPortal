@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EducationPortal.UI.Controllers
 {
@@ -7,11 +6,17 @@ namespace EducationPortal.UI.Controllers
     {
         private readonly ICourseEditService _courseEditService;
         private readonly IMaterialEditService _materialEditService;
+        private readonly ISkillEditService _skillEditService;
 
-        public EditingCoursesController(ICourseEditService courseEditService, IMaterialEditService materialEditService)
+        public EditingCoursesController(
+            ICourseEditService courseEditService,
+            IMaterialEditService materialEditService,
+            ISkillEditService skillEditService
+            )
         {
             _courseEditService = courseEditService;
             _materialEditService = materialEditService;
+            _skillEditService = skillEditService;
         }
 
         public async Task<IActionResult> Courses()
@@ -73,6 +78,17 @@ namespace EducationPortal.UI.Controllers
             {
                 _courseEditService.RemoveCourse(course);
                 return RedirectToAction("Courses");
+            }
+
+            return NotFound();
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            CourseView? course = await _courseEditService.GetByIdCourse(id ?? 0);
+            if (course != null)
+            {
+                return View(course);
             }
 
             return NotFound();

@@ -2,8 +2,9 @@
 @{
     var item = Model;
 }
-<h2>Editing article</h2>
-<p># @item.Id Article name: @item.Name</p>
+
+<h2># @item.Id</h2>
+<p>Article name: @item.Name</p>
 <p>Sourse: @item.Source</p>
 <p>Publication date: @item.PublicationDate</p>
 <a class="nav-link text-dark" asp-area="" asp-controller="EditingMaterials" asp-action="Materials">To previous page</a>

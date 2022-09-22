@@ -11,8 +11,8 @@ namespace EducationPortal.UI.Models.ViewEntities
         [Required(ErrorMessage = "Not specified description")]
         public string Description { get; set; }
 
-        public List<MaterialView> Materials { get; set; }
+        public List<MaterialView>? Materials { get; set; }
 
-        public List<SkillView> Skills { get; set; }
+        public List<SkillView>? Skills { get; set; }
     }
 }
