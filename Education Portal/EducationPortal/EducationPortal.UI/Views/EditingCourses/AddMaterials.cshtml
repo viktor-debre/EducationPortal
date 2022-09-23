@@ -1,0 +1,15 @@
+﻿@model CourseMaterialsView
+@{
+    var materials = ViewBag.Materials;
+}
+
+<form asp-action="AddMaterial" asp-controller="EditingCourses">
+    <select asp-for="" asp-items="materials"></select>
+    <select asp-for="MaterialId" class="browser-default custom-select mb-4" asp-items="@Model.MaterialList" required>
+        <option value="" disabled="" selected="">Choose material to add</option>
+    </select>
+    <p>
+        <input type="submit" value="Submit" />
+    </p>
+</form>
+<select asp-for="Materials" asp-items="materials" multiple></select>

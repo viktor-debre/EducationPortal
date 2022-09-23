@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace EducationPortal.UI.Controllers
 {
+    [Authorize]
     public class EditingCoursesController : Controller
     {
         private readonly ICourseEditService _courseEditService;
@@ -21,12 +25,14 @@ namespace EducationPortal.UI.Controllers
 
         public async Task<IActionResult> Courses()
         {
-            var skills = await _courseEditService.GetCourses();
-            return View(skills);
+            var courses = await _courseEditService.GetCourses();
+            return View(courses);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var materials = await _materialEditService.GetMaterials();
+            ViewBag.Materials = new SelectList(materials, "Id", "Name");
             return View();
         }
 

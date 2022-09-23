@@ -1,4 +1,7 @@
 ﻿@model EducationPortal.UI.Models.ViewEntities.CourseView
+@{
+    var materials = ViewBag.Materials;
+}
 
 <h2>Adding course</h2>
 <form asp-action="Create" asp-controller="EditingCourses">
@@ -12,6 +15,7 @@
         <input type="text" asp-for="Description" />
         <span asp-validation-for="Description" />
     </p>
+    <select asp-for="Materials" asp-items="@materials" multiple></select>
     <p>
         <input type="submit" value="Submit"/>
     </p>

@@ -29,7 +29,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Generic
         public async Task<List<TEntity>> Find(ISpecification<TEntity> specification = null)
         {
             List<TEntity> entities = new List<TEntity>();
-            foreach (var entity in _dbSet)
+            foreach (var entity in await _dbSet.ToListAsync())
             {
                 entities.Add((TEntity)_mapper.MapToDomainEntity(entity));
             }
