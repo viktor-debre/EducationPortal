@@ -135,9 +135,12 @@ namespace EducationPortal.UI.Controllers
             {
                 var materials = await _materialEditService.GetMaterials();
                 course.Materials.Clear();
-                foreach (var item in materials)
+                foreach (var material in materials)
                 {
-                    course.Materials.Add(item);
+                    if (courseMaterials.MaterialsId.Contains(material.Id))
+                    {
+                        course.Materials.Add(material);
+                    }
                 }
 
                 await _courseEditService.UpdateCourse(course);
