@@ -233,7 +233,7 @@ namespace EducationPortal.Infrastructure.DB.Mapping
             var skills = new List<DbSkill>();
             foreach (var skill in user.Skills)
             {
-                skills.Add(await MapToDbSkill(skill));
+                skills.Add(await _context.Skills.FindAsync(skill.Id));
             }
 
             var materials = new List<DbMaterial>();

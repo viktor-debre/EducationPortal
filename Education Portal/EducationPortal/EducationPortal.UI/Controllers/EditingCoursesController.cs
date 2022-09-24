@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using EducationPortal.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
@@ -31,8 +32,6 @@ namespace EducationPortal.UI.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var materials = await _materialEditService.GetMaterials();
-            ViewBag.Materials = new SelectList(materials, "Id", "Name");
             return View();
         }
 
@@ -98,6 +97,53 @@ namespace EducationPortal.UI.Controllers
             }
 
             return NotFound();
+        }
+
+        public async Task<IActionResult> AddMaterials(int? id)
+        {
+            CourseView? course = await _courseEditService.GetByIdCourse(id ?? 0);
+            if (course != null)
+            {
+                var materials = await _materialEditService.GetMaterials();
+                var selectMaterialsList = new SelectList(materials, "Id", "Name");
+                var model = new CourseMaterialsView
+                {
+                    CourseId = course.Id,
+                    CourseName = course.Name,
+                    Materials = selectMaterialsList.ToList()
+                };
+
+                for (int i = 0; i < materials.Count; i++)
+                {
+                    if (course.Materials.Contains(materials[i]))
+                    {
+                        model.Materials[i].Selected = true;
+                    }
+                }
+
+                return View(model);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddMaterials(CourseMaterialsView? courseMaterials)
+        {
+            CourseView? course = await _courseEditService.GetByIdCourse(courseMaterials.CourseId);
+            if (course != null)
+            {
+                var materials = await _materialEditService.GetMaterials();
+                course.Materials.Clear();
+                foreach (var item in materials)
+                {
+                    course.Materials.Add(item);
+                }
+
+                await _courseEditService.UpdateCourse(course);
+            }
+
+            return RedirectToAction("Courses");
         }
     }
 }

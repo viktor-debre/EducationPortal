@@ -12,6 +12,7 @@
         <input type="text" asp-for="Description" />
         <span asp-validation-for="Description" />
     </p>
+    <a asp-controller="EditingCourses" asp-action="AddMaterials" asp-route-id="@Model.Id">Add materials</a>
     <p>
         <input type="submit" value="Submit"/>
     </p>

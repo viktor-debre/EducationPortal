@@ -8,8 +8,8 @@ namespace EducationPortal.UI.Models.ViewEntities
 
         public string CourseName { get; set; }
 
-        public MaterialView Material { get; set; }
-
         public List<SelectListItem> Materials { get; set; }
+
+        public List<int> MaterialsId { get; set; }
     }
 }
