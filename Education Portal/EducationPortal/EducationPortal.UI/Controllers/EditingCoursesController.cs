@@ -148,5 +148,55 @@ namespace EducationPortal.UI.Controllers
 
             return RedirectToAction("Courses");
         }
+
+        public async Task<IActionResult> AddSkills(int? id)
+        {
+            CourseView? course = await _courseEditService.GetByIdCourse(id ?? 0);
+            if (course != null)
+            {
+                var skills = await _skillEditService.GetSkills();
+                var selectSkillsList = new SelectList(skills, "Id", "Title");
+                var model = new CourseSkillView
+                {
+                    CourseId = course.Id,
+                    CourseName = course.Name,
+                    Skills = selectSkillsList.ToList()
+                };
+
+                for (int i = 0; i < skills.Count; i++)
+                {
+                    if (course.Skills.Contains(skills[i]))
+                    {
+                        model.Skills[i].Selected = true;
+                    }
+                }
+
+                return View(model);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSkills(CourseSkillView? courseMaterials)
+        {
+            CourseView? course = await _courseEditService.GetByIdCourse(courseMaterials.CourseId);
+            if (course != null)
+            {
+                var skills = await _skillEditService.GetSkills();
+                course.Skills.Clear();
+                foreach (var skill in skills)
+                {
+                    if (courseMaterials.SkillId.Contains(skill.Id))
+                    {
+                        course.Skills.Add(skill);
+                    }
+                }
+
+                await _courseEditService.UpdateCourse(course);
+            }
+
+            return RedirectToAction("Courses");
+        }
     }
 }
