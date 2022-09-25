@@ -60,17 +60,17 @@ namespace EducationPortal.Application.Services
         {
             if (material is BookMaterial book)
             {
-                await DeleteBook(book.Name);
+                await DeleteBook(book);
             }
 
             if (material is VideoMaterial video)
             {
-                await DeleteVideo(video.Name);
+                await DeleteVideo(video);
             }
 
             if (material is ArticleMaterial article)
             {
-                await DeleteArticle(article.Name);
+                await DeleteArticle(article);
             }
 
             throw new Exception("Unknown type material!");
@@ -124,13 +124,9 @@ namespace EducationPortal.Application.Services
             await _bookRepository.Update(bookToUpdate);
         }
 
-        public async Task DeleteBook(string name)
+        public async Task DeleteBook(BookMaterial video)
         {
-            var material = await GetBookByName(name);
-            if (material != null)
-            {
-                await _bookRepository.Remove(material);
-            }
+            await _bookRepository.Remove(video);
         }
 
         public async Task<List<VideoMaterial>> GetVideos()
@@ -159,13 +155,9 @@ namespace EducationPortal.Application.Services
             await _videoRepository.Update(videoToUpdate);
         }
 
-        public async Task DeleteVideo(string name)
+        public async Task DeleteVideo(VideoMaterial video)
         {
-            var video = await GetVideoByName(name);
-            if (video != null)
-            {
-                await _videoRepository.Remove(video);
-            }
+            await _videoRepository.Remove(video);
         }
 
         public async Task<List<ArticleMaterial>> GetArticles()
@@ -194,13 +186,9 @@ namespace EducationPortal.Application.Services
             await _articleRepository.Update(articleToUpdate);
         }
 
-        public async Task DeleteArticle(string name)
+        public async Task DeleteArticle(ArticleMaterial article)
         {
-            var article = await GetArticleByName(name);
-            if (article != null)
-            {
-                await _articleRepository.Remove(article);
-            }
+            await _articleRepository.Remove(article);
         }
     }
 }

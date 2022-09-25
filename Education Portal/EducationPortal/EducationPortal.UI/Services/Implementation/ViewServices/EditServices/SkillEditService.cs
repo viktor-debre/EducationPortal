@@ -32,7 +32,8 @@ namespace EducationPortal.UI.Services.Implementation
 
         public async Task RemoveSkill(SkillView skill)
         {
-            await _skillService.DeleteSkill(skill.Title);
+            var neededSkill = _mapper.MapSkillToDomainModel(skill);
+            await _skillService.DeleteSkill(neededSkill);
         }
 
         public async Task UpdateSkill(SkillView skill)

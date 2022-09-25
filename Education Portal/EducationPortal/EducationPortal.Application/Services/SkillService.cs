@@ -15,9 +15,8 @@ namespace EducationPortal.Application.Services
             _createSkill = new CreateSkill(skillRepository);
         }
 
-        public async Task DeleteSkill(string title)
+        public async Task DeleteSkill(Skill skill)
         {
-            var skill = await GetSkillByTitle(title);
             await _skillRepository.Remove(skill);
         }
 

@@ -10,7 +10,7 @@
 
         public Task UpdateSkill(Skill skill);
 
-        public Task DeleteSkill(string title);
+        public Task DeleteSkill(Skill skill);
 
         public Task<Skill?> GetSkillById(int id);
     }

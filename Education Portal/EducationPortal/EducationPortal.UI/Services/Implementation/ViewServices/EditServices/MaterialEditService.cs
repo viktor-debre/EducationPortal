@@ -83,17 +83,20 @@ namespace EducationPortal.UI.Services.Implementation
 
         public async Task RemoveArticle(ArticleView material)
         {
-            await _materialService.DeleteArticle(material.Name);
+            var article = (ArticleMaterial)_mapper.MapMaterialToDomainModel(material);
+            await _materialService.DeleteArticle(article);
         }
 
         public async Task RemoveBook(BookView material)
         {
-            await _materialService.DeleteBook(material.Name);
+            var book = (BookMaterial)_mapper.MapMaterialToDomainModel(material);
+            await _materialService.DeleteBook(book);
         }
 
         public async Task RemoveVideo(VideoView material)
         {
-            await _materialService.DeleteVideo(material.Name);
+            var video = (VideoMaterial)_mapper.MapMaterialToDomainModel(material);
+            await _materialService.DeleteVideo(video);
         }
     }
 }

@@ -18,7 +18,7 @@
 
         public Task UpdateBook(BookMaterial material);
 
-        public Task DeleteBook(string name);
+        public Task DeleteBook(BookMaterial book);
 
         public Task<List<VideoMaterial>> GetVideos();
 
@@ -28,7 +28,7 @@
 
         public Task UpdateVideo(VideoMaterial material);
 
-        public Task DeleteVideo(string name);
+        public Task DeleteVideo(VideoMaterial video);
 
         public Task<List<ArticleMaterial>> GetArticles();
 
@@ -38,6 +38,6 @@
 
         public Task UpdateArticle(ArticleMaterial article);
 
-        public Task DeleteArticle(string name);
+        public Task DeleteArticle(ArticleMaterial article);
     }
 }
