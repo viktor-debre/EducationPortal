@@ -30,7 +30,7 @@ namespace EducationPortal.Application.Commands.CreateEntity
             }
             else
             {
-                _skillRepository.Add(skill);
+                await _skillRepository.Add(skill);
                 return true;
             }
         }
