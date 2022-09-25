@@ -12,7 +12,7 @@ namespace EducationPortal.Application
                     .AddScoped<ISkillService, SkillService>()
                     .AddScoped<IUserService, UserService>()
                     .AddScoped<IUserInfoService, UserInfoService>()
-                    .AddScoped<IUserCourseService, UserCourseSevice>();
+                    .AddScoped<IUserCourseService, UserCourseService>();
         }
     }
 }

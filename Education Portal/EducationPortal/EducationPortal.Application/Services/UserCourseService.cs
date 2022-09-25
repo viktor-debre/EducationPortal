@@ -1,11 +1,11 @@
 ﻿namespace EducationPortal.Application.Services
 {
-    internal class UserCourseSevice : IUserCourseService
+    internal class UserCourseService : IUserCourseService
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Course> _courseRepository;
 
-        public UserCourseSevice(IRepository<User> userRepository, IRepository<Course> courseRepository)
+        public UserCourseService(IRepository<User> userRepository, IRepository<Course> courseRepository)
         {
             _userRepository = userRepository;
             _courseRepository = courseRepository;
@@ -17,7 +17,7 @@
             var user = await _userRepository.FindById(userId);
             foreach (var course in await _courseRepository.Find())
             {
-                if (user.UserCourses.FirstOrDefault(c => c.UserId == userId && c.CourseId == course.Id) == null)
+                if (user.UserCourses.FirstOrDefault(c => c.CourseId == course.Id) == null)
                 {
                     availableCourses.Add(course);
                 }
@@ -33,7 +33,7 @@
 
             foreach (var course in user.Courses)
             {
-                var userCourse = user.UserCourses.FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
+                var userCourse = user.UserCourses.FirstOrDefault(x => x.CourseId == course.Id);
                 int passPercent = await FindPercentOfPassingCourse(course, userId);
                 userCourse.PassPercent = passPercent;
                 await _userRepository.Update(user);
@@ -53,7 +53,7 @@
 
             foreach (var course in user.Courses)
             {
-                var userCourse = user.UserCourses.FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
+                var userCourse = user.UserCourses.FirstOrDefault(x => x.CourseId == course.Id);
                 if (userCourse.Status == "Passed")
                 {
                     courses.Add(userCourse);
@@ -66,7 +66,7 @@
         public async Task TakeCourse(Course course, int userId)
         {
             var user = await _userRepository.FindById(userId);
-            var userCourse = user.UserCourses.FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
+            var userCourse = user.UserCourses.FirstOrDefault(x => x.CourseId == course.Id);
             if (userCourse != null)
             {
                 return;
@@ -111,7 +111,7 @@
             await _userRepository.Update(user);
 
             int passPercent = await FindPercentOfPassingCourse(course, userId);
-            var userCourse = user.UserCourses.FirstOrDefault(x => x.UserId == userId && x.CourseId == course.Id);
+            var userCourse = user.UserCourses.FirstOrDefault(x => x.CourseId == course.Id);
             userCourse.PassPercent = passPercent;
             await _userRepository.Update(user);
 
@@ -128,7 +128,7 @@
         public async Task<UserCourse?> GetUserCoursesById(int userId, int courseId)
         {
             var user = await _userRepository.FindById(userId);
-            return user.UserCourses.FirstOrDefault(x => x.UserId == userId && x.CourseId == courseId);
+            return user.UserCourses.FirstOrDefault(x => x.CourseId == courseId);
         }
 
         private async Task PassCourse(Course course, int userId)
@@ -136,7 +136,7 @@
             foreach (var skill in course.Skills)
             {
                 var user = await _userRepository.FindById(userId);
-                var userSkill = user.UserSkills.FirstOrDefault(x => x.UserId == userId && x.SkillId == skill.Id);
+                var userSkill = user.UserSkills.FirstOrDefault(x => x.SkillId == skill.Id);
                 if (userSkill != null)
                 {
                     userSkill.Level++;
