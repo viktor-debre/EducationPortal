@@ -74,10 +74,16 @@ namespace EducationPortal.Infrustucture.FileSystem.Repositories.Generic
         {
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.FullName;
-            string fileStorageLevel = @"\EducationPortal.Infrustucture.FileSystem\JsonFiles\";
+            string fileStorageLevel = @"\EducationPortal.Infrustucture.FileSystem\JsonFiles";
+            string storageDirectory = projectDirectory + fileStorageLevel;
+            if (!Directory.Exists(fileStorageLevel))
+            {
+                Directory.CreateDirectory(storageDirectory);
+            }
+
             Type type = typeof(TEntity);
             string nameEntity = type.Name;
-            string pathToEntityStorage = projectDirectory + fileStorageLevel + nameEntity + ".json";
+            string pathToEntityStorage = storageDirectory + '\\' + nameEntity + ".json";
             if (!File.Exists(pathToEntityStorage))
             {
                 File.Create(pathToEntityStorage);
