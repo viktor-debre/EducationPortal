@@ -1,26 +1,26 @@
 ﻿@model IEnumerable<CourseView>
 
 <h3>Course list</h3>
-@foreach (var item in Model)
-{
-    <div>
-        <div>
-            <p>#@item.Id Name: @item.Name</p>
-            <p>@item.Description</p>
-        </div>
-        <div>
-            Materials:
-            @foreach (var material in item.Materials)
-            {
-                <p>@material.Name</p>
-            }
-        </div>
-        <div>
-            Skills
-            @foreach (var skill in item.Skills)
-            {
-                <p>@skill.Title</p>
-            }
-        </div>
-    </div>
-}
+
+<table class="table">
+    <tr><th>#</th><th>Name</th><th>Materials</th><th>Skills</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>
+                @foreach (var material in item.Materials)
+                {
+                    <p>@material.Name</p>
+                }
+            </td>
+            <td>
+                @foreach (var skill in item.Skills)
+                {
+                    <p>@skill.Title</p>
+                }
+            </td>
+        </tr>
+    }
+</table>

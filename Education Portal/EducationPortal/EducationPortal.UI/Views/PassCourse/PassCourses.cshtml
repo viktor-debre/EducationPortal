@@ -1,33 +1,37 @@
 ﻿@model IEnumerable<CourseView>
 @{
     var infoCourse = ViewBag.UserCourses;
+    var counter = 0;
+    var stringMaterials = "";
 }
 
 <h3>Course list</h3>
-@foreach (var item in Model)
-{
-    <div>
-        <div>
-            <p>#@item.Id Name: @item.Name</p>
-            <p>@item.Description</p>
-        </div>
-        <div>
-            Materials:
-            @foreach (var material in item.Materials)
-            {
-                <p>@material.Name</p>
-            }
-            <br/>
-        </div>
-        <div>
-            Skills
-            @foreach (var skill in item.Skills)
-            {
-                <p>@skill.Title</p>
-            }
-        </div>
-        <form asp-controller="PassCourse" asp-action="StartPassCourse" asp-route-id="@item.Id">
-            <input type="submit" value="Passing course" />
-        </form>
-    </div>
-}
+<table class="table">
+    <tr><th>#</th><th>Name</th><th>Pass percent</th><th>Materials</th><th>Skills</th><th></th></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@infoCourse[counter].PassPercent %</td>
+            <td>
+                @foreach (var material in item.Materials)
+                {
+                    <p>@material.Name</p>
+                }
+            </td>
+            <td>
+                @foreach (var skill in item.Skills)
+                {
+                    <p>@skill.Title</p>
+                }
+            </td>
+            <td>
+                <form asp-controller="PassCourse" asp-action="StartPassCourse" asp-route-id="@item.Id">
+                    <input type="submit" value="Passing course" />
+                </form>
+            </td>
+        </tr>
+        counter++;
+    }
+</table>
