@@ -1,4 +1,6 @@
-﻿namespace EducationPortal.UI.Services.Interfaces
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace EducationPortal.UI.Services.Interfaces
 {
     public interface ICourseEditService
     {
@@ -11,5 +13,9 @@
         public Task UpdateCourse(CourseView course);
 
         public Task<CourseView> GetByIdCourse(int id);
+
+        public Task AddMaterialsInCourse(CourseMaterialsView? courseMaterials);
+
+        public Task AddSkillsInCourse(CourseSkillView? courseMaterials);
     }
 }

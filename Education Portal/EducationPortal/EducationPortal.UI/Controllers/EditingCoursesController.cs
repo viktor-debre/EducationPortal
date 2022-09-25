@@ -10,18 +10,12 @@ namespace EducationPortal.UI.Controllers
     public class EditingCoursesController : Controller
     {
         private readonly ICourseEditService _courseEditService;
-        private readonly IMaterialEditService _materialEditService;
-        private readonly ISkillEditService _skillEditService;
+        private readonly ICourseSelectListsService _courseSelectListsService;
 
-        public EditingCoursesController(
-            ICourseEditService courseEditService,
-            IMaterialEditService materialEditService,
-            ISkillEditService skillEditService
-            )
+        public EditingCoursesController(ICourseEditService courseEditService, ICourseSelectListsService courseSelectListsService)
         {
             _courseEditService = courseEditService;
-            _materialEditService = materialEditService;
-            _skillEditService = skillEditService;
+            _courseSelectListsService = courseSelectListsService;
         }
 
         public async Task<IActionResult> Courses()
@@ -101,26 +95,9 @@ namespace EducationPortal.UI.Controllers
 
         public async Task<IActionResult> AddMaterials(int? id)
         {
-            CourseView? course = await _courseEditService.GetByIdCourse(id ?? 0);
-            if (course != null)
+            if (id != null)
             {
-                var materials = await _materialEditService.GetMaterials();
-                var selectMaterialsList = new SelectList(materials, "Id", "Name");
-                var model = new CourseMaterialsView
-                {
-                    CourseId = course.Id,
-                    CourseName = course.Name,
-                    Materials = selectMaterialsList.ToList()
-                };
-
-                for (int i = 0; i < materials.Count; i++)
-                {
-                    if (course.Materials.Contains(materials[i]))
-                    {
-                        model.Materials[i].Selected = true;
-                    }
-                }
-
+                var model = await _courseSelectListsService.GetAllMaterialsSelectList((int)id);
                 return View(model);
             }
 
@@ -130,47 +107,15 @@ namespace EducationPortal.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMaterials(CourseMaterialsView? courseMaterials)
         {
-            CourseView? course = await _courseEditService.GetByIdCourse(courseMaterials.CourseId);
-            if (course != null)
-            {
-                var materials = await _materialEditService.GetMaterials();
-                course.Materials.Clear();
-                foreach (var material in materials)
-                {
-                    if (courseMaterials.MaterialsId.Contains(material.Id))
-                    {
-                        course.Materials.Add(material);
-                    }
-                }
-
-                await _courseEditService.UpdateCourse(course);
-            }
-
+            await _courseEditService.AddMaterialsInCourse(courseMaterials);
             return RedirectToAction("Courses");
         }
 
         public async Task<IActionResult> AddSkills(int? id)
         {
-            CourseView? course = await _courseEditService.GetByIdCourse(id ?? 0);
-            if (course != null)
+            if (id != null)
             {
-                var skills = await _skillEditService.GetSkills();
-                var selectSkillsList = new SelectList(skills, "Id", "Title");
-                var model = new CourseSkillView
-                {
-                    CourseId = course.Id,
-                    CourseName = course.Name,
-                    Skills = selectSkillsList.ToList()
-                };
-
-                for (int i = 0; i < skills.Count; i++)
-                {
-                    if (course.Skills.Contains(skills[i]))
-                    {
-                        model.Skills[i].Selected = true;
-                    }
-                }
-
+                var model = await _courseSelectListsService.GetAllSkillsSelectList((int)id);
                 return View(model);
             }
 
@@ -178,24 +123,9 @@ namespace EducationPortal.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSkills(CourseSkillView? courseMaterials)
+        public async Task<IActionResult> AddSkills(CourseSkillView? courseSkills)
         {
-            CourseView? course = await _courseEditService.GetByIdCourse(courseMaterials.CourseId);
-            if (course != null)
-            {
-                var skills = await _skillEditService.GetSkills();
-                course.Skills.Clear();
-                foreach (var skill in skills)
-                {
-                    if (courseMaterials.SkillId.Contains(skill.Id))
-                    {
-                        course.Skills.Add(skill);
-                    }
-                }
-
-                await _courseEditService.UpdateCourse(course);
-            }
-
+            await _courseEditService.AddSkillsInCourse(courseSkills);
             return RedirectToAction("Courses");
         }
     }

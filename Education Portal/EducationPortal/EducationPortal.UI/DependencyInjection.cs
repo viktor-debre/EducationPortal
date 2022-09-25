@@ -1,5 +1,6 @@
 ﻿using EducationPortal.UI.Models.Mapping;
 using EducationPortal.UI.Services.Implementation;
+using EducationPortal.UI.Services.Interfaces;
 
 namespace EducationPortal.UI
 {
@@ -14,6 +15,7 @@ namespace EducationPortal.UI
                 .AddScoped<ICourseEditService, CourseEditService>()
                 .AddScoped<IPassCourseService, PassCourseService>()
                 .AddScoped<IUserCoursePassService, UserCoursePassService>()
+                .AddScoped<ICourseSelectListsService, CourseSelectListService>()
                 .AddScoped<IMapper, MapperForViewModels>();
         }
     }
