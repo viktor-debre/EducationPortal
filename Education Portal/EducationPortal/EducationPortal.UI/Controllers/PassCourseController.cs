@@ -1,70 +1,45 @@
-﻿using EducationPortal.Domain.Entities;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EducationPortal.UI.Controllers
 {
+    [Authorize]
     public class PassCourseController : Controller
     {
-        private readonly IUserPassCourseService _userPassCourse;
-        private readonly IUserInformationService _userInformation;
-        private readonly ICourseEditService _courseEditService;
+        private readonly IUserCoursePassService _userCoursePassService;
 
-        public PassCourseController(IUserPassCourseService userPassCourse, IUserInformationService userInformation, ICourseEditService courseEditService)
+        public PassCourseController(IUserCoursePassService userCoursePassService)
         {
-            _userPassCourse = userPassCourse;
-            _userInformation = userInformation;
-            _courseEditService = courseEditService;
+            _userCoursePassService = userCoursePassService;
         }
 
         public async Task<IActionResult> StartCourse()
         {
-            var user = await _userInformation.GetUserInfo(User.Identity.Name);
-            var availableCourses = await _userPassCourse.GetAvailableCourses(user.Id);
+            var availableCourses = await _userCoursePassService.AvailableCourses(User.Identity.Name);
             return View(availableCourses);
         }
 
         public async Task<IActionResult> TakeCourse(int? id)
         {
-            var course = await _courseEditService.GetByIdCourse(id ?? 0);
-            var user = await _userInformation.GetUserInfo(User.Identity.Name);
-            await _userPassCourse.TakeCourse(course, user.Id);
-
+            await _userCoursePassService.TakeCourse(id, User.Identity.Name);
             return RedirectToAction("StartCourse");
         }
 
         public async Task<IActionResult> PassCourses()
         {
-            var coursesInDb = await _courseEditService.GetCourses();
-            var user = await _userInformation.GetUserInfo(User.Identity.Name);
-            var startedCourses = await _userPassCourse.GetStartedCourses(user.Id);
-            ViewBag.UserCourses = startedCourses;
-            List<CourseView> courses = new List<CourseView>();
-            foreach (var course in startedCourses)
-            {
-                var item = coursesInDb.FirstOrDefault(x => x.Id == course.CourseId);
-                if (item != null)
-                {
-                    courses.Add(item);
-                }
-            }
-
+            var userName = User.Identity.Name;
+            var courses = await _userCoursePassService.StartedCourses(userName);
+            ViewBag.UserCourses = await _userCoursePassService.StartedCoursesGetStatusInfo(userName);
             return View(courses);
         }
 
         public async Task<IActionResult> StartPassCourse(int? id)
         {
-            CourseView course;
+            var userName = User.Identity.Name;
             if (id != null)
             {
-                course = await _courseEditService.GetByIdCourse((int)id);
-                List<MaterialView> materials = new List<MaterialView>();
-                var user = await _userInformation.GetUserInfo(User.Identity.Name);
-                foreach (var item in course.Materials)
-                {
-                    materials.Add(user.Materials.FirstOrDefault(x => x.Id == item.Id));
-                }
-
-                ViewBag.CourseMaterial = materials;
+                CourseView course = await _userCoursePassService.GetCourseToPass(id);
+                ViewBag.CourseMaterial = await _userCoursePassService.PassedMaterials(id, userName);
                 return View(course);
             }
 
@@ -74,30 +49,14 @@ namespace EducationPortal.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> PassMaterial(int? id, string? name)
         {
-            var user = await _userInformation.GetUserInfo(User.Identity.Name);
-            if (id != null && name != null)
-            {
-                var course = await _courseEditService.GetByIdCourse((int)id);
-                await _userPassCourse.PassMaterial(course, name, user.Id);
-            }
-
+            var userName = User.Identity.Name;
+            await _userCoursePassService.PassMaterial(id, name, userName);
             return RedirectToAction("StartPassCourse", new { id });
         }
 
         public async Task<IActionResult> PassedCourses()
         {
-            var user = await _userInformation.GetUserInfo(User.Identity.Name);
-            var passedCourses = await _userPassCourse.GetPassedCourses(user.Id);
-            List<CourseView> courses = new List<CourseView>();
-            foreach (var course in await _courseEditService.GetCourses())
-            {
-                var findedCourse = passedCourses.FirstOrDefault(x => x.CourseId == course.Id);
-                if (findedCourse != null)
-                {
-                    courses.Add(course);
-                }
-            }
-
+            List<CourseView> courses = await _userCoursePassService.PassedCourses(User.Identity.Name);
             return View(courses);
         }
     }

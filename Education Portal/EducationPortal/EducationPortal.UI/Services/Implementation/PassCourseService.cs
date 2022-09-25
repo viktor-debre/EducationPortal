@@ -3,12 +3,12 @@ using EducationPortal.UI.Models.Mapping;
 
 namespace EducationPortal.UI.Services.Implementation
 {
-    public class UserPassCourseService : IUserPassCourseService
+    public class PassCourseService : IPassCourseService
     {
         private readonly IUserCourseService _userCourse;
         private readonly IMapper _mapper;
 
-        public UserPassCourseService(IUserCourseService userCourse, IMapper mapper)
+        public PassCourseService(IUserCourseService userCourse, IMapper mapper)
         {
             _userCourse = userCourse;
             _mapper = mapper;

@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.UI.Services.Interfaces
 {
-    public interface IUserPassCourseService
+    public interface IPassCourseService
     {
         public Task<UserCourseView> GetUserCoursesById(int userId, int courseId);
 
