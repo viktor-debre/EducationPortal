@@ -46,12 +46,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="PassCourse" asp-action="PassedCourses">PassedCourses</a>
                         </li>
-                        @if(User.Identity.Name == null){
+                        @if(!User.Identity.IsAuthenticated){
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Sign in</a>
                         </li>
                         }
-                        @if (User.Identity.Name != null)
+                        else
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Sign out</a>
