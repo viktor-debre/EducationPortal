@@ -11,6 +11,8 @@
             <td>@item.Name</td>
             <td>@item.Description</td>
             <td>
+                <a asp-controller="EditingCourses" asp-action="AddMaterials" asp-route-id="@item.Id">Edit materials</a> |
+                <a asp-controller="EditingCourses" asp-action="AddSkills" asp-route-id="@item.Id">Edit skills</a> |
                 <a asp-controller="EditingCourses" asp-action="Edit" asp-route-id="@item.Id">Change</a>  |
                 <a asp-controller="EditingCourses" asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>
