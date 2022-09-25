@@ -25,12 +25,12 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
         public async Task<List<User>> Find(ISpecification<User> specification = null)
         {
             List<User> users = new List<User>();
-            var dbUsers = _context.Users
+            var dbUsers = await _context.Users
                 .Include(x => x.Materials)
                 .Include(x => x.Skills)
                 .Include(x => x.Courses).ThenInclude(x => x.Materials)
                 .Include(x => x.Courses).ThenInclude(x => x.Skills)
-                .ToList();
+                .ToListAsync();
             foreach (var user in dbUsers)
             {
                 users.Add(_mapper.MapToDomainUser(user));
@@ -56,8 +56,8 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
                 .Include(x => x.Skills)
                 .Include(x => x.Courses).ThenInclude(x => x.Materials)
                 .Include(x => x.Courses).ThenInclude(x => x.Skills)
-                .ToListAsync();
-            return _mapper.MapToDomainUser(users.FirstOrDefault(x => x.Id == id));
+                .FirstOrDefaultAsync(x => x.Id == id);
+            return _mapper.MapToDomainUser(users);
         }
 
         public async Task Add(User user)

@@ -25,8 +25,8 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 
         public async Task<Course?> FindById(int id)
         {
-            var course = _context.Courses.Include(x => x.Materials).Include(x => x.Skills).ToList();
-            return _mapper.MapToDomainCourse(course.FirstOrDefault(x => x.Id == id));
+            var course = await _context.Courses.Include(x => x.Materials).Include(x => x.Skills).FirstOrDefaultAsync(x => x.Id == id);
+            return _mapper.MapToDomainCourse(course);
         }
 
         public async Task<List<Course>> Find(ISpecification<Course> specification = null)

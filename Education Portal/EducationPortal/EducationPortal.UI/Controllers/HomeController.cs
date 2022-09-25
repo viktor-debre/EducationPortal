@@ -19,11 +19,6 @@ namespace EducationPortal.UI.Controllers
 
         public IActionResult Index()
         {
-            return View(_userInformation.GetUserInfo("Viktor"));
-        }
-
-        public IActionResult Privacy()
-        {
             return View();
         }
 
