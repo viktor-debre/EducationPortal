@@ -15,9 +15,8 @@ namespace EducationPortal.Application.Services
             _createCourse = new CreateCourse(courseRepository);
         }
 
-        public async Task DeleteCourse(string name)
+        public async Task DeleteCourse(Course course)
         {
-            var course = await GetCourseByName(name);
             if (course != null)
             {
                 await _courseRepository.Remove(course);

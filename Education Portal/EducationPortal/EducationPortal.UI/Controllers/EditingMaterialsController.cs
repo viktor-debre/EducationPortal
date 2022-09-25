@@ -159,7 +159,7 @@ namespace EducationPortal.UI.Controllers
             ArticleView? material = await _materialService.GetByIdArticle(id ?? 0);
             if (material != null)
             {
-                _materialService.RemoveArticle(material);
+                await _materialService.RemoveArticle(material);
                 return RedirectToAction("Materials");
             }
 
@@ -171,7 +171,7 @@ namespace EducationPortal.UI.Controllers
             BookView? material = await _materialService.GetByIdBook(id ?? 0);
             if (material != null)
             {
-                _materialService.RemoveBook(material);
+                await _materialService.RemoveBook(material);
                 return RedirectToAction("Materials");
             }
 
@@ -183,7 +183,7 @@ namespace EducationPortal.UI.Controllers
             VideoView? material = await _materialService.GetByIdVideo(id ?? 0);
             if (material != null)
             {
-                _materialService.RemoveVideo(material);
+                await _materialService.RemoveVideo(material);
                 return RedirectToAction("Materials");
             }
 

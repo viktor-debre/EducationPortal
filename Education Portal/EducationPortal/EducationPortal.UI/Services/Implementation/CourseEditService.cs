@@ -32,7 +32,7 @@ namespace EducationPortal.UI.Services.Implementation
 
         public async Task RemoveCourse(CourseView course)
         {
-            await _courseService.DeleteCourse(course.Name);
+            await _courseService.DeleteCourse(_mapper.MapCourseToDomainModel(course));
         }
 
         public async Task UpdateCourse(CourseView course)

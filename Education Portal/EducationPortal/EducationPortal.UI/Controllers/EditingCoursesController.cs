@@ -81,7 +81,7 @@ namespace EducationPortal.UI.Controllers
             CourseView? course = await _courseEditService.GetByIdCourse(id ?? 0);
             if (course != null)
             {
-                _courseEditService.RemoveCourse(course);
+                await _courseEditService.RemoveCourse(course);
                 return RedirectToAction("Courses");
             }
 

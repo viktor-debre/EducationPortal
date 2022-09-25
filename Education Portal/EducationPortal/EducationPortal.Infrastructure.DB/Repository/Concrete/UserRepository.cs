@@ -19,7 +19,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
         public async Task Remove(User user)
         {
             _context.Users.Remove(await _mapper.MapToDbUser(user));
-            SaveAsync();
+            await SaveAsync();
         }
 
         public async Task<List<User>> Find(ISpecification<User> specification = null)

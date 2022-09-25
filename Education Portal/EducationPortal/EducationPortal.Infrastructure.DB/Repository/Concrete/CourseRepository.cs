@@ -19,7 +19,8 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 
         public async Task Remove(Course course)
         {
-            _context.Courses.Remove((DbCourse)await _mapper.MapToDbEntity(course));
+            var courseInDb = await _context.Courses.FindAsync(course.Id);
+            _context.Courses.Remove(courseInDb);
             await SaveAsync();
         }
 
@@ -53,7 +54,7 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 
         public async Task SaveAsync()
         {
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task Add(Course course)

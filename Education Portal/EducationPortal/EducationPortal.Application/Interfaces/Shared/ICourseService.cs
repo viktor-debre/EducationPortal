@@ -10,7 +10,7 @@
 
         public Task UpdateCourse(Course course, Course updatedCourse);
 
-        public Task DeleteCourse(string name);
+        public Task DeleteCourse(Course course);
 
         public Task<Course?> GetCourseById(int id);
     }

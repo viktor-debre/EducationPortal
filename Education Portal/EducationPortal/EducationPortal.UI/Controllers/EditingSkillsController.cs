@@ -70,7 +70,7 @@ namespace EducationPortal.UI.Controllers
             SkillView? skill = await _skillEditService.GetByIdSkill(id ?? 0);
             if (skill != null)
             {
-                _skillEditService.RemoveSkill(skill);
+                await _skillEditService.RemoveSkill(skill);
                 return RedirectToAction("Skills");
             }
 
