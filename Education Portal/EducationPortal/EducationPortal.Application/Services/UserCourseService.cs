@@ -1,4 +1,6 @@
-﻿namespace EducationPortal.Application.Services
+﻿using EducationPortal.Domain.Entities;
+
+namespace EducationPortal.Application.Services
 {
     internal class UserCourseService : IUserCourseService
     {
@@ -133,14 +135,13 @@
 
         private async Task PassCourse(Course course, int userId)
         {
+            var user = await _userRepository.FindById(userId);
             foreach (var skill in course.Skills)
             {
-                var user = await _userRepository.FindById(userId);
                 var userSkill = user.UserSkills.FirstOrDefault(x => x.SkillId == skill.Id);
                 if (userSkill != null)
                 {
                     userSkill.Level++;
-                    await _userRepository.Update(user);
                 }
                 else
                 {
@@ -152,8 +153,9 @@
                     };
 
                     user.UserSkills.Add(userAddedSkill);
-                    await _userRepository.Update(user);
                 }
+
+                await _userRepository.Update(user);
             }
         }
 

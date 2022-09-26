@@ -3,19 +3,33 @@
 @{
 	var user = ViewBag.AuthorizedUser;
 	var skills = ViewBag.UserSkills;
-	var courses = ViewBag.UserCourses;
 }
 
-<p>User:</p>
+<h3>User:</h3>
+<p>Name: @user.Name</p>
+<p>Password: @user.Password</p>
+<h5>Materials:</h5>
 <ul>
-	<li>Name: @user.Name</li>
-	<li>Password: @user.Password</li>
-	Materials
+	
 	@foreach (var material in user.Materials)
 	{
-		<li>Name: @material.Name</li>
+		if (material is ArticleView)
+		{
+			<li>Article: @material.Name</li>
+		}
+		else if (material is BookView)
+		{
+			<li>Book: @material.Name</li>
+		}
+		else if (material is VideoView)
+		{
+			<li>Video: @material.Name</li>
+		}
 	}
-	Skills
+</ul
+
+<h5>Skills:</h5>
+<ul>
 	@for (int i = 0; i < skills.Count; ++i){
 		<li>Title: @skills[i].Title with lvl: @user.UserSkills[i].Level</li>
 	}
