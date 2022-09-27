@@ -56,7 +56,7 @@ namespace EducationPortal.Application.Services
             foreach (var course in user.Courses)
             {
                 var userCourse = user.UserCourses.FirstOrDefault(x => x.CourseId == course.Id);
-                if (userCourse.Status == "Passed")
+                if (userCourse.PassPercent == 100)
                 {
                     courses.Add(userCourse);
                 }
