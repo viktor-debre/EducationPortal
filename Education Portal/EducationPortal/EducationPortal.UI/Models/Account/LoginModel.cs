@@ -9,6 +9,7 @@ namespace EducationPortal.UI.Models.Account
 
         [Required(ErrorMessage = "Not specified password")]
         [DataType(DataType.Password)]
+        [MinLength(4, ErrorMessage = "Password must be more than 4 characters")]
         public string Password { get; set; }
     }
 }
