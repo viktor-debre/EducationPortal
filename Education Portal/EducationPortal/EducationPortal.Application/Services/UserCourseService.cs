@@ -36,10 +36,7 @@ namespace EducationPortal.Application.Services
             foreach (var course in user.Courses)
             {
                 var userCourse = user.UserCourses.FirstOrDefault(x => x.CourseId == course.Id);
-                int passPercent = await FindPercentOfPassingCourse(course, userId);
-                userCourse.PassPercent = passPercent;
-                await _userRepository.Update(user);
-                if (passPercent < 100)
+                if (userCourse.PassPercent < 100)
                 {
                     courses.Add(userCourse);
                 }
@@ -78,20 +75,16 @@ namespace EducationPortal.Application.Services
             UserCourse userAddedCourse = new UserCourse
             {
                 UserId = userId,
-                CourseId = course.Id
+                CourseId = course.Id,
+                Status = "Started",
+                PassPercent = passPercent
             };
-            if (passPercent == 100)
-            {
-                userAddedCourse.Status = "Passed";
-            }
-            else
-            {
-                userAddedCourse.Status = "Started";
-            }
-
-            userAddedCourse.PassPercent = passPercent;
             user.UserCourses.Add(userAddedCourse);
             await _userRepository.Update(user);
+            if (passPercent == 100)
+            {
+                await PassCourse(course, userId);
+            }
         }
 
         public async Task<bool> PassMaterial(Course course, string nameMaterial, int userId)
@@ -112,16 +105,22 @@ namespace EducationPortal.Application.Services
             user.Materials.Add(materialInCourse);
             await _userRepository.Update(user);
 
-            int passPercent = await FindPercentOfPassingCourse(course, userId);
-            var userCourse = user.UserCourses.FirstOrDefault(x => x.CourseId == course.Id);
-            userCourse.PassPercent = passPercent;
-            await _userRepository.Update(user);
-
-            if (passPercent == 100)
+            foreach (var otherCourse in user.Courses)
             {
-                userCourse.Status = "Passed";
-                await _userRepository.Update(user);
-                await PassCourse(course, userId);
+                var userCourse = user.UserCourses.FirstOrDefault(x => x.CourseId == otherCourse.Id && x.Status == "Started");
+                if (userCourse != null)
+                {
+                    int passPercent = await FindPercentOfPassingCourse(otherCourse, userId);
+                    userCourse.PassPercent = passPercent;
+                    await _userRepository.Update(user);
+
+                    if (passPercent == 100)
+                    {
+                        userCourse.Status = "Passed";
+                        await _userRepository.Update(user);
+                        await PassCourse(otherCourse, userId);
+                    }
+                }
             }
 
             return true;
