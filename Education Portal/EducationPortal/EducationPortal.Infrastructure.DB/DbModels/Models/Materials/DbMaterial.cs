@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.Infrastructure.DB.DbModels
 {
-    internal class DbMaterial : DbBaseEntity
+    public class DbMaterial : DbBaseEntity
     {
         public string Name { get; set; }
 

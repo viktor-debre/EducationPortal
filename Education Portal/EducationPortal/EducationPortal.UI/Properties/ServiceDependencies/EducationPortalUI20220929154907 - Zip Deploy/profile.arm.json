@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "EducationPortalUI20220929134847",
+      "defaultValue": "EducationPortalUI20220929154907",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }

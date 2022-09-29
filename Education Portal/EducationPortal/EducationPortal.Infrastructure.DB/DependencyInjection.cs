@@ -10,7 +10,7 @@ namespace EducationPortal.Infrastructure.DB
     {
         public static void RegisterDbServices(IServiceCollection services)
         {
-            services.AddDbContext<PortalContext>()
+            services
                 .AddScoped<IRepository<BookMaterial>, EntityRepository<BookMaterial, DbBookMaterial>>()
                 .AddScoped<IRepository<VideoMaterial>, EntityRepository<VideoMaterial, DbVideoMaterial>>()
                 .AddScoped<IRepository<ArticleMaterial>, EntityRepository<ArticleMaterial, DbArticleMaterial>>()

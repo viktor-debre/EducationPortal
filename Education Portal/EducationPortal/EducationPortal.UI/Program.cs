@@ -1,12 +1,16 @@
+using EducationPortal.Infrastructure.DB;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-EducationPortal.Infrastructure.DB.DependencyInjection.RegisterDbServices(builder.Services);
+DependencyInjection.RegisterDbServices(builder.Services);
 
 //EducationPortal.Infrastructure.DependencyInjection.RegisterFileSystemServices(builder.Services);
+string connectionString = builder.Configuration.GetConnectionString("SqlServerConnectionStrings");
 
+builder.Services.AddDbContext<PortalContext>(options => options.UseSqlServer(connectionString));
 EducationPortal.Application.DependencyInjection.RegisterApplicationServices(builder.Services);
 EducationPortal.UI.DependencyInjection.RegisterUIServices(builder.Services);
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

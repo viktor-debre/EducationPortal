@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.Infrastructure.DB.DbModels
 {
-    internal class DbUserSkill
+    public class DbUserSkill
     {
         public int Level { get; set; }
 

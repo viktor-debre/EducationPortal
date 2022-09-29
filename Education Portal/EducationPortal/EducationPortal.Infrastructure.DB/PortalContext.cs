@@ -2,11 +2,10 @@
 
 namespace EducationPortal.Infrastructure.DB
 {
-    internal class PortalContext : DbContext
+    public class PortalContext : DbContext
     {
-        public PortalContext() : base()
+        public PortalContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
         }
 
         public DbSet<DbUser> Users { get; set; }
@@ -20,21 +19,6 @@ namespace EducationPortal.Infrastructure.DB
         public DbSet<DbUserSkill> UserSkills { get; set; }
 
         public DbSet<DbUserCourse> UserCourses { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            var builder = new ConfigurationBuilder();
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).FullName;
-            builder.AddJsonFile(projectDirectory + "/EducationPortal.UI/appsettings.json");
-            //for console
-            //string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
-            //builder.AddJsonFile(projectDirectory + "/appsettings.json");
-            var config = builder.Build();
-            string connectionString = config.GetConnectionString("SqlServerConnectionStrings");
-
-            optionsBuilder.UseSqlServer(connectionString);
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
