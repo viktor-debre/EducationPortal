@@ -24,7 +24,12 @@ To start using the service you need only go to the site https://educationportalu
 
 ## Architencture
 - Clean arhitecture DDD
-  - Separate layer for Buisness layer
-    - Domain layer for models and interfaces for them
-    - Application layer for buesness logic services
-   - 
+  - Layers for Buisness layer
+    * Domain layer for models and interfaces for them
+    * Application layer for buesness logic services
+   - Layers for Data access
+    * Infrustucture.FileSystem for storage data in json files
+    * Infrustucture.DB for storage data in database
+   - Layer for UI
+    * Presentation layer for console application
+    * UI layer for MVC Razor pages user interface 
