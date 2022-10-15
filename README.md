@@ -7,7 +7,7 @@ Education portal web application
 The specific site helps people find and learn some new educational articles, books and videos and get practical skills
 
 ## Usage
-To start using the service you need only go to the site [Education Portal]https://educationportalui20220929154907.azurewebsites.net/ and authorize
+To start using the service you need only go to the site [Education Portal](https://educationportalui20220929154907.azurewebsites.net/) and authorize
 
 ## Tech stack
 - ASP.NET Core 6
