@@ -23,13 +23,13 @@ To start using the service you need only go to the site https://educationportalu
 - Microsoft.Extensions.DependencyInjection
 
 ## Architecture
-- Clean arhitecture DDD
-  - Layers for the Business logic
+###Clean arhitecture DDD
+- Layers for the Business logic
     * Domain layer for models and interfaces for them
     * Application layer for business logic services
-  - Layers for Data access
+- Layers for Data access
     * Infrastructure.FileSystem for storing data in JSON files
     * Infrastructure.DB for storing data in the database
-  - Layer for UI
+- Layer for UI
     * Presentation layer for the console application
     * UI layer for MVC Razor pages user interface 
