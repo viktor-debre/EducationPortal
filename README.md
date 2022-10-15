@@ -1,4 +1,4 @@
-# Portal
+# Education Portal
 
 ## Name
 Education portal web application
