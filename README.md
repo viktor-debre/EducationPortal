@@ -22,14 +22,14 @@ To start using the service you need only go to the site https://educationportalu
 - StyleCop
 - Microsoft.Extensions.DependencyInjection
 
-## Architencture
+## Architecture
 - Clean arhitecture DDD
-  - Layers for Buisness layer
+  - Layers for the Business logic
     * Domain layer for models and interfaces for them
-    * Application layer for buesness logic services
+    * Application layer for business logic services
   - Layers for Data access
-    * Infrustucture.FileSystem for storage data in json files
-    * Infrustucture.DB for storage data in database
+    * Infrastructure.FileSystem for storing data in JSON files
+    * Infrastructure.DB for storing data in the database
   - Layer for UI
-    * Presentation layer for console application
+    * Presentation layer for the console application
     * UI layer for MVC Razor pages user interface 
