@@ -1,0 +1,18 @@
+﻿@model EducationPortal.UI.Models.ViewEntities.CourseView
+@{
+    var item = Model;
+}
+<h2># @item.Id</h2>
+<p>Course name: @item.Name</p>
+<p>Description: @item.Description</p>
+<h3>Materials:</h3>
+@foreach (var material in item.Materials)
+{
+    <p>Material: @material.Name</p>
+}
+<h3>Skills:</h3>
+@foreach (var skill in item.Skills)
+{
+    <p>Skill: @skill.Title</p>
+}
+<a class="nav-link text-dark" asp-area="" asp-controller="EditingCourses" asp-action="Courses">To previous page</a>

@@ -4,40 +4,72 @@ namespace EducationPortal.Presentation.Application
 {
     internal class ConsoleApplication
     {
-        private readonly ConsoleAuthentication _consoleAuthentication;
-        private readonly ConsoleMaterialManager _materialManager;
-        private readonly ConsoleCourseManager _courseManager;
+        private readonly AuthenticationManager _consoleAuthentication;
+        private readonly MaterialManager _materialManager;
+        private readonly CourseManager _courseManager;
+        private readonly SkillManager _skillManager;
+        private readonly UserManager _userManager;
+        private readonly UserCoursesManager _userCoursesManager;
 
-        public ConsoleApplication(IUserRegistration userRegistration, IUserAuthentication userAuthenticationService, IMaterialManageService materialManageService, ICourseService courseService)
+        public ConsoleApplication(IUserInfoService userSkillService,
+                                  IUserService userService,
+                                  IMaterialManageService materialManageService,
+                                  ICourseService courseService,
+                                  ISkillService skillService,
+                                  IUserCourseService userCourseService)
         {
-            _consoleAuthentication = new ConsoleAuthentication(userAuthenticationService, userRegistration);
-            _materialManager = new ConsoleMaterialManager(materialManageService);
-            _courseManager = new ConsoleCourseManager(courseService, materialManageService);
+            _consoleAuthentication = new AuthenticationManager(userService);
+            _materialManager = new MaterialManager(materialManageService);
+            _courseManager = new CourseManager(courseService, materialManageService, skillService);
+            _skillManager = new SkillManager(skillService);
+            _userManager = new UserManager(userSkillService);
+            _userCoursesManager = new UserCoursesManager(userCourseService, courseService, userSkillService);
         }
 
-        public void Run()
+        public async Task Run()
         {
             Console.OutputEncoding = Encoding.Unicode;
-
-            _consoleAuthentication.Authenticate();
-
             Console.InputEncoding = Encoding.Unicode;
+
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Type 'material' to edit materials or 'course' to edit course");
+                int userId = 1;
+                userId = await _consoleAuthentication.AuthenticationMenu();
+                await MainMenu(userId);
+            }
+        }
+
+        private async Task MainMenu(int userId)
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(MenuStrings.MAIN_MENU);
                 string input = Console.ReadLine() ?? "";
                 switch (input)
                 {
-                    case "material":
-                        _materialManager.EditMaterials();
+                    case "1":
+                        await _materialManager.EditMaterials();
                         break;
-                    case "course":
-                        _courseManager.EditCources();
+                    case "2":
+                        await _skillManager.EditSkills();
+                        break;
+                    case "3":
+                        await _courseManager.EditCources();
+                        break;
+                    case "4":
+                        await _userManager.UserInformation(userId);
+                        break;
+                    case "5":
+                        await _userCoursesManager.PassingCoursesMenu(userId);
+                        break;
+                    case "6":
+                        return;
                         break;
                     default:
-                        Console.WriteLine("Unknown command.");
-                        Thread.Sleep(500);
+                        Console.WriteLine(Result.WRONG_COMMAND);
+                        Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                         break;
                 }
             }

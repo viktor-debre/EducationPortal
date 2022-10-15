@@ -1,31 +1,43 @@
-﻿using EducationPortal.Domain.Entities.Materials;
-
-namespace EducationPortal.Application.Interfaces.Shared
+﻿namespace EducationPortal.Application.Interfaces.Shared
 {
     public interface IMaterialManageService
     {
-        public List<BookMaterial> GetBooks();
+        public Task<List<Material>> GetMaterials();
 
-        public void SetBook(BookMaterial book);
+        public Task SetMaterial(Material material);
 
-        public void UpdateBook(string name, BookMaterial updatedMaterial);
+        public Task DeleteMaterial(Material material);
 
-        public bool DeleteBook(string name);
+        public Task UpdateMaterial(Material material);
 
-        public List<VideoMaterial> GetVideo();
+        public Task<List<BookMaterial>> GetBooks();
 
-        public void SetVideo(VideoMaterial book);
+        public Task<BookMaterial?> GetBookByName(string name);
 
-        public void UpdateVideo(string name, VideoMaterial updatedMaterial);
+        public Task SetBook(BookMaterial book);
 
-        public bool DeleteVideo(string name);
+        public Task UpdateBook(BookMaterial material);
 
-        public List<ArticleMaterial> GetArticle();
+        public Task DeleteBook(BookMaterial book);
 
-        public void SetArticle(ArticleMaterial book);
+        public Task<List<VideoMaterial>> GetVideos();
 
-        public void UpdateArticle(string name, ArticleMaterial updatedMaterial);
+        public Task<VideoMaterial?> GetVideoByName(string name);
 
-        public bool DeleteArticle(string name);
+        public Task SetVideo(VideoMaterial book);
+
+        public Task UpdateVideo(VideoMaterial material);
+
+        public Task DeleteVideo(VideoMaterial video);
+
+        public Task<List<ArticleMaterial>> GetArticles();
+
+        public Task<ArticleMaterial?> GetArticleByName(string name);
+
+        public Task SetArticle(ArticleMaterial book);
+
+        public Task UpdateArticle(ArticleMaterial article);
+
+        public Task DeleteArticle(ArticleMaterial article);
     }
 }

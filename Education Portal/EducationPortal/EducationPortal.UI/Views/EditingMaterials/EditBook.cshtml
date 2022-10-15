@@ -1,0 +1,37 @@
+﻿@model EducationPortal.UI.Models.ViewEntities.BookView
+
+<h2>Editing book</h2>
+<form asp-action="EditBook" asp-controller="EditingMaterials" method="post" asp-route-id="@Model.Id">
+    <p>
+        <label asp-for="Name">Name</label><br/>
+        <input type="text" asp-for="Name" />
+        <span asp-validation-for="Name"/>
+    </p>
+    <p>
+        <label asp-for="Author">Author</label><br/>
+        <input type="text" asp-for="Author" />
+        <span asp-validation-for="Author"/>
+    </p>
+    <p>
+        <label asp-for="Format">Format</label><br/>
+        <input type="text" asp-for="Format" />
+        <span asp-validation-for="Format"/>
+    </p>
+    <p>
+        <label asp-for="NumberPages">NumberPages</label><br/>
+        <input type="number" asp-for="NumberPages" />
+        <span asp-validation-for="NumberPages"/>
+    </p>
+     <p>
+        <label asp-for="PublicationDate">PublicationDate</label><br/>
+        <input type="date" asp-for="PublicationDate" />
+        <span asp-validation-for="PublicationDate"/>
+    </p>
+    <p>
+        <input type="submit" value="Submit"/>
+    </p>
+</form>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

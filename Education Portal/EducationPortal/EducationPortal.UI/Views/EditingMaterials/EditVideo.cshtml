@@ -1,0 +1,27 @@
+﻿@model EducationPortal.UI.Models.ViewEntities.VideoView
+
+<h2>Editing video</h2>
+<form asp-action="EditVideo" asp-controller="EditingMaterials" method="post" asp-route-id="@Model.Id">
+    <p>
+        <label asp-for="Name">Name</label><br/>
+        <input type="text" asp-for="Name" />
+        <span asp-validation-for="Name"/>
+    </p>
+    <p>
+        <label asp-for="Quality">Quality</label><br/>
+        <input type="text" asp-for="Quality" />
+        <span asp-validation-for="Quality"/>
+    </p>
+    <p>
+        <label asp-for="Duration">Duration</label><br/>
+        <input type="time" asp-for="Duration" />
+        <span asp-validation-for="Duration"/>
+    </p>
+    <p>
+        <input type="submit" value="Submit"/>
+    </p>
+</form>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,36 @@
+﻿@using System.Linq
+
+@{
+	var user = ViewBag.AuthorizedUser;
+	var skills = ViewBag.UserSkills;
+}
+
+<h3>User:</h3>
+<p>Name: @user.Name</p>
+<p>Password: @user.Password</p>
+<h5>Materials:</h5>
+<ul>
+	
+	@foreach (var material in user.Materials)
+	{
+		if (material is ArticleView)
+		{
+			<li>Article: @material.Name</li>
+		}
+		else if (material is BookView)
+		{
+			<li>Book: @material.Name</li>
+		}
+		else if (material is VideoView)
+		{
+			<li>Video: @material.Name</li>
+		}
+	}
+</ul
+
+<h5>Skills:</h5>
+<ul>
+	@for (int i = 0; i < skills.Count; ++i){
+		<li>Title: @skills[i].Title with lvl: @user.UserSkills[i].Level</li>
+	}
+</ul>

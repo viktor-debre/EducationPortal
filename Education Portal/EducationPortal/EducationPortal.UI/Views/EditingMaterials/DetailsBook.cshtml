@@ -1,0 +1,10 @@
+﻿@model EducationPortal.UI.Models.ViewEntities.BookView
+@{
+    var item = Model;
+}
+<h2># @item.Id</h2>
+<p>Book name: @item.Name</p>
+<p>Number of pages: @item.NumberPages</p>
+<p>Publication date: @item.PublicationDate</p>
+<p>Format: @item.Format</p>
+<a class="nav-link text-dark" asp-area="" asp-controller="EditingMaterials" asp-action="Materials">To previous page</a>

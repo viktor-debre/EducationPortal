@@ -1,0 +1,25 @@
+﻿@model EducationPortal.UI.Models.Account.RegisterModel
+
+<h2>Sign up</h2>
+
+<form asp-action="Register" asp-controller="Account" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div class="form-outline mb-4">
+        <label class="form-label" asp-for="Name">Name</label>
+        <input type="email" class="form-control" type="text" asp-for="Name" />
+        <span asp-validation-for="Name" />
+    </div>
+    <div class="form-outline mb-4">
+        <label class="form-label" asp-for="Password">Password</label>
+        <input type="password" class="form-control" id="password-style" asp-for="Password" />
+        <span asp-validation-for="Password" />
+    </div>
+    <div class="form-outline mb-4">
+        <label class="form-label" asp-for="ConfirmPassword">Confirm password</label>
+        <input type="password" class="form-control" id="password-style" asp-for="ConfirmPassword" />
+        <span asp-validation-for="ConfirmPassword" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Sign up" class="btn btn-primary btn-block mb-4" />
+    </div>
+</form>

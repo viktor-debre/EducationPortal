@@ -1,4 +1,4 @@
-﻿namespace EducationPortal.Domain.Entities.Materials
+﻿namespace EducationPortal.Domain.Entities
 {
     public class ArticleMaterial : Material
     {

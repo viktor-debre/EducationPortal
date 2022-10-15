@@ -1,17 +1,17 @@
-﻿using EducationPortal.Domain.Entities.Materials;
-
-namespace EducationPortal.Application.Interfaces.Shared
+﻿namespace EducationPortal.Application.Interfaces.Shared
 {
     public interface ICourseService
     {
-        public List<Course> GetCourses();
+        public Task<List<Course>> GetCourses();
 
-        public void SetCourse(Course book);
+        public Task<Course?> GetCourseByName(string name);
 
-        public void UpdateCourse(string name, Course updatedCourse);
+        public Task SetCourse(Course book);
 
-        public bool DeleteCourse(string name);
+        public Task UpdateCourse(Course course, Course updatedCourse);
 
-        public void AddMaterial(string name, Material material);
+        public Task DeleteCourse(Course course);
+
+        public Task<Course?> GetCourseById(int id);
     }
 }

@@ -11,7 +11,8 @@ static IServiceProvider CompositionRoot()
 
     services.AddSingleton<ConsoleApplication>();
 
-    EducationPortal.Infrastructure.DependencyInjection.RegisterFileSystemServices(services);
+    EducationPortal.Infrastructure.DB.DependencyInjection.RegisterDbServices(services);
+    //EducationPortal.Infrastructure.DependencyInjection.RegisterFileSystemServices(services);
     EducationPortal.Application.DependencyInjection.RegisterApplicationServices(services);
 
     return services.BuildServiceProvider();
