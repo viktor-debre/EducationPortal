@@ -83,7 +83,7 @@ namespace EducationPortal.Application.Services
             await _userRepository.Update(user);
             if (passPercent == 100)
             {
-                await PassCourse(course, userId);
+                await PassCourse(course, user);
             }
         }
 
@@ -118,7 +118,7 @@ namespace EducationPortal.Application.Services
                     {
                         userCourse.Status = "Passed";
                         await _userRepository.Update(user);
-                        await PassCourse(otherCourse, userId);
+                        await PassCourse(otherCourse, user);
                     }
                 }
             }
@@ -132,9 +132,8 @@ namespace EducationPortal.Application.Services
             return user.UserCourses.FirstOrDefault(x => x.CourseId == courseId);
         }
 
-        private async Task PassCourse(Course course, int userId)
+        private async Task PassCourse(Course course, User user)
         {
-            var user = await _userRepository.FindById(userId);
             foreach (var skill in course.Skills)
             {
                 var userSkill = user.UserSkills.FirstOrDefault(x => x.SkillId == skill.Id);
@@ -146,7 +145,7 @@ namespace EducationPortal.Application.Services
                 {
                     var userAddedSkill = new UserSkill
                     {
-                        UserId = userId,
+                        UserId = user.Id,
                         SkillId = skill.Id,
                         Level = 1
                     };
