@@ -23,7 +23,7 @@ To start using the service you need only go to the site https://educationportalu
 - Microsoft.Extensions.DependencyInjection
 
 ## Architecture
-###Clean arhitecture DDD
+In project used DDD clean architecture approach 
 - Layers for the Business logic
     * Domain layer for models and interfaces for them
     * Application layer for business logic services
