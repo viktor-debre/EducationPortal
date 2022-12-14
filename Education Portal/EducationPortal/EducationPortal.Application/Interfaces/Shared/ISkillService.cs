@@ -2,12 +2,16 @@
 {
     public interface ISkillService
     {
-        public List<Skill> GetSkills();
+        public Task<List<Skill>> GetSkills();
 
-        public void SetSkill(Skill skill);
+        public Task<Skill?> GetSkillByTitle(string title);
 
-        public void UpdateSkill(Skill skill, Skill updatedSkill);
+        public Task SetSkill(Skill skill);
 
-        public void DeleteSkill(string title);
+        public Task UpdateSkill(Skill skill);
+
+        public Task DeleteSkill(Skill skill);
+
+        public Task<Skill?> GetSkillById(int id);
     }
 }

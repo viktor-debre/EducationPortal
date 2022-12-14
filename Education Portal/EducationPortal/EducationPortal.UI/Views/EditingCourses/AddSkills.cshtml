@@ -1,0 +1,14 @@
+﻿@model CourseSkillView
+@{
+    var materials = Model.Skills;
+}
+<p>Course: @Model.CourseId - @Model.CourseName</p>
+<form asp-action="AddSkills" asp-controller="EditingCourses">
+    <input type="number" hidden asp-for="CourseId" />
+    <select asp-for="SkillId" asp-items="materials" multiple required>
+        <option value="" disabled="" selected="">Choose skill to add</option>
+    </select>
+    <p>
+        <input type="submit" value="Submit" />
+    </p>
+</form>

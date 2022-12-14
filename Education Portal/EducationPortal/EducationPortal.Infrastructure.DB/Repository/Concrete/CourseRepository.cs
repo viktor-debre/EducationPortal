@@ -1,6 +1,8 @@
 ﻿using EducationPortal.Domain.Entities;
-using EducationPortal.Domain.Repository;
+using EducationPortal.Domain.Helpers.Repository;
+using EducationPortal.Domain.Helpers.Specification;
 using EducationPortal.Infrastructure.DB.Mapping;
+using Microsoft.EntityFrameworkCore;
 
 namespace EducationPortal.Infrastructure.DB.Repository.Concrete
 {
@@ -15,44 +17,56 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
             _mapper = new MapperForEntities(context);
         }
 
-        public void Remove(Course course)
+        public async Task Remove(Course course)
         {
-            _context.Courses.Remove((DbCourse)_mapper.MapToDbEntity(course));
-            Save();
+            var courseInDb = await _context.Courses.FindAsync(course.Id);
+            _context.Courses.Remove(courseInDb);
+            await SaveAsync();
         }
 
-        public Course? FindById(int id)
+        public async Task<Course?> FindById(int id)
         {
-            return _mapper.MapToDomainCourse(_context.Courses.Find(id));
+            var course = await _context.Courses.Include(x => x.Materials).Include(x => x.Skills).FirstOrDefaultAsync(x => x.Id == id);
+            return _mapper.MapToDomainCourse(course);
         }
 
-        public List<Course> Find()
+        public async Task<List<Course>> Find(ISpecification<Course> specification = null)
         {
             List<Course> courses = new List<Course>();
-            var dbCourses = _context.Courses.Include(x => x.Materials).Include(x => x.Skills).ToList();
+            var dbCourses = await _context.Courses.Include(x => x.Materials).Include(x => x.Skills).ToListAsync();
             foreach (var course in dbCourses)
             {
                 courses.Add(_mapper.MapToDomainCourse(course));
             }
 
-            return courses;
+            List<Course> result;
+            if (specification != null)
+            {
+                result = courses.AsQueryable().Where(specification.Criteria).ToList();
+            }
+            else
+            {
+                result = courses;
+            }
+
+            return result;
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Add(Course course)
+        public async Task Add(Course course)
         {
-            _context.Add((DbCourse)_mapper.MapToDbEntity(course));
-            Save();
+            await _context.AddAsync((DbCourse)await _mapper.MapToDbEntity(course));
+            await SaveAsync();
         }
 
-        public void Update(Course course)
+        public async Task Update(Course course)
         {
-            _context.Entry((DbCourse)_mapper.MapToDbEntity(course)).State = EntityState.Modified;
-            Save();
+            _context.Entry((DbCourse)await _mapper.MapToDbEntity(course)).State = EntityState.Modified;
+            await SaveAsync();
         }
     }
 }

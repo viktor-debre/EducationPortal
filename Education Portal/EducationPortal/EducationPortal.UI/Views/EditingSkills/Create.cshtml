@@ -1,0 +1,17 @@
+﻿@model EducationPortal.UI.Models.ViewEntities.SkillView
+
+<h2>Adding skill</h2>
+<form asp-action="Create" asp-controller="EditingSkills">
+    <p>
+        <label asp-for="Title">Title</label><br/>
+        <input type="text" asp-for="Title" />
+        <span asp-validation-for="Title"/>
+    </p>
+    <p>
+        <input type="submit" value="Submit"/>
+    </p>
+</form>
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

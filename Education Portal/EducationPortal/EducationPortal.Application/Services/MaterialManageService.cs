@@ -1,4 +1,5 @@
-﻿using EducationPortal.Application.Commands;
+﻿using EducationPortal.Application.Commands.CreateEntity;
+using EducationPortal.Domain.Helpers.Specification;
 
 namespace EducationPortal.Application.Services
 {
@@ -12,7 +13,11 @@ namespace EducationPortal.Application.Services
         private readonly CreateVideo _createVideo;
         private readonly CreateArticle _createArticle;
 
-        public MaterialManageService(IRepository<BookMaterial> bookRepository, IRepository<VideoMaterial> videoRepository, IRepository<ArticleMaterial> articleRepository)
+        public MaterialManageService(
+            IRepository<BookMaterial> bookRepository,
+            IRepository<VideoMaterial> videoRepository,
+            IRepository<ArticleMaterial> articleRepository
+        )
         {
             _bookRepository = bookRepository;
             _videoRepository = videoRepository;
@@ -22,90 +27,168 @@ namespace EducationPortal.Application.Services
             _createArticle = new CreateArticle(_articleRepository);
         }
 
-        public List<BookMaterial> GetBooks()
+        public async Task<List<Material>> GetMaterials()
         {
-            return _bookRepository.Find();
+            List<Material> materials = new List<Material>();
+            materials.AddRange(await GetBooks());
+            materials.AddRange(await GetArticles());
+            materials.AddRange(await GetVideos());
+            return materials;
         }
 
-        public void SetBook(BookMaterial bookMaterial)
+        public async Task SetMaterial(Material material)
         {
-            _createBook.TryCreateBook(bookMaterial);
-        }
-
-        public void UpdateBook(BookMaterial book, BookMaterial updatedMaterial)
-        {
-            var bookToUpdate = _bookRepository.FindById(book.Id);
-            bookToUpdate.Name = updatedMaterial.Name;
-            bookToUpdate.Author = updatedMaterial.Author;
-            bookToUpdate.NumberPages = updatedMaterial.NumberPages;
-            bookToUpdate.PublicationDate = updatedMaterial.PublicationDate;
-            bookToUpdate.Format = updatedMaterial.Format;
-            _bookRepository.Update(bookToUpdate);
-        }
-
-        public void DeleteBook(string name)
-        {
-            var material = _bookRepository.Find().FirstOrDefault(x => x.Name == name);
-            if (material != null)
+            if (material is BookMaterial book)
             {
-                _bookRepository.Remove(material);
+                await SetBook(book);
             }
-        }
 
-        public List<VideoMaterial> GetVideos()
-        {
-            return _videoRepository.Find();
-        }
-
-        public void SetVideo(VideoMaterial videoMaterial)
-        {
-            _createVideo.TryCreateVideo(videoMaterial);
-        }
-
-        public void UpdateVideo(VideoMaterial video, VideoMaterial updatedMaterial)
-        {
-            var videoToUpdate = _videoRepository.FindById(video.Id);
-            videoToUpdate.Name = updatedMaterial.Name;
-            videoToUpdate.Duration = updatedMaterial.Duration;
-            videoToUpdate.Quality = updatedMaterial.Quality;
-            _videoRepository.Update(videoToUpdate);
-        }
-
-        public void DeleteVideo(string name)
-        {
-            var video = _videoRepository.Find().FirstOrDefault(x => x.Name == name);
-            if (video != null)
+            if (material is VideoMaterial video)
             {
-                _videoRepository.Remove(video);
+                await SetVideo(video);
             }
-        }
 
-        public List<ArticleMaterial> GetArticle()
-        {
-            return _articleRepository.Find();
-        }
-
-        public void SetArticle(ArticleMaterial articleMaterial)
-        {
-            _createArticle.TryCreateArticle(articleMaterial);
-        }
-
-        public void UpdateArticle(ArticleMaterial article, ArticleMaterial updatedMaterial)
-        {
-            var articleToUpdate = _articleRepository.FindById(article.Id);
-            articleToUpdate.Name = updatedMaterial.Name;
-            articleToUpdate.Source = updatedMaterial.Source;
-            articleToUpdate.PublicationDate = updatedMaterial.PublicationDate;
-            _articleRepository.Update(articleToUpdate);
-        }
-
-        public void DeleteArticle(string name)
-        {
-            var article = _articleRepository.Find().FirstOrDefault(x => x.Name == name);
-            if (article != null)
+            if (material is ArticleMaterial article)
             {
-                _articleRepository.Remove(article);
+                await SetArticle(article);
             }
+
+            throw new Exception("Unknown type material!");
+        }
+
+        public async Task DeleteMaterial(Material material)
+        {
+            if (material is BookMaterial book)
+            {
+                await DeleteBook(book);
+            }
+
+            if (material is VideoMaterial video)
+            {
+                await DeleteVideo(video);
+            }
+
+            if (material is ArticleMaterial article)
+            {
+                await DeleteArticle(article);
+            }
+
+            throw new Exception("Unknown type material!");
+        }
+
+        public async Task UpdateMaterial(Material material)
+        {
+            if (material is BookMaterial book)
+            {
+                await UpdateBook(book);
+            }
+
+            if (material is VideoMaterial video)
+            {
+                await UpdateVideo(video);
+            }
+
+            if (material is ArticleMaterial article)
+            {
+                await UpdateArticle(article);
+            }
+
+            throw new Exception("Unknown type material!");
+        }
+
+        public async Task<List<BookMaterial>> GetBooks()
+        {
+            return await _bookRepository.Find();
+        }
+
+        public async Task<BookMaterial?> GetBookByName(string name)
+        {
+            var bookNameSpecification = new SpecificationBase<BookMaterial>(x => x.Name == name);
+            var item = await _bookRepository.Find(bookNameSpecification);
+            return item.FirstOrDefault();
+        }
+
+        public async Task SetBook(BookMaterial bookMaterial)
+        {
+            await _createBook.TryCreateBook(bookMaterial);
+        }
+
+        public async Task UpdateBook(BookMaterial book)
+        {
+            var bookToUpdate = await _bookRepository.FindById(book.Id);
+            bookToUpdate.Name = book.Name;
+            bookToUpdate.Author = book.Author;
+            bookToUpdate.NumberPages = book.NumberPages;
+            bookToUpdate.PublicationDate = book.PublicationDate;
+            bookToUpdate.Format = book.Format;
+            await _bookRepository.Update(bookToUpdate);
+        }
+
+        public async Task DeleteBook(BookMaterial video)
+        {
+            await _bookRepository.Remove(video);
+        }
+
+        public async Task<List<VideoMaterial>> GetVideos()
+        {
+            return await _videoRepository.Find();
+        }
+
+        public async Task<VideoMaterial?> GetVideoByName(string name)
+        {
+            var videoNameSpecification = new SpecificationBase<VideoMaterial>(x => x.Name == name);
+            var item = await _videoRepository.Find(videoNameSpecification);
+            return item.FirstOrDefault();
+        }
+
+        public async Task SetVideo(VideoMaterial videoMaterial)
+        {
+            await _createVideo.TryCreateVideo(videoMaterial);
+        }
+
+        public async Task UpdateVideo(VideoMaterial video)
+        {
+            var videoToUpdate = await _videoRepository.FindById(video.Id);
+            videoToUpdate.Name = video.Name;
+            videoToUpdate.Duration = video.Duration;
+            videoToUpdate.Quality = video.Quality;
+            await _videoRepository.Update(videoToUpdate);
+        }
+
+        public async Task DeleteVideo(VideoMaterial video)
+        {
+            await _videoRepository.Remove(video);
+        }
+
+        public async Task<List<ArticleMaterial>> GetArticles()
+        {
+            return await _articleRepository.Find();
+        }
+
+        public async Task SetArticle(ArticleMaterial articleMaterial)
+        {
+            await _createArticle.TryCreateArticle(articleMaterial);
+        }
+
+        public async Task<ArticleMaterial?> GetArticleByName(string name)
+        {
+            var articleNameSpecification = new SpecificationBase<ArticleMaterial>(x => x.Name == name);
+            var item = await _articleRepository.Find(articleNameSpecification);
+            return item.FirstOrDefault();
+        }
+
+        public async Task UpdateArticle(ArticleMaterial article)
+        {
+            var articleToUpdate = await _articleRepository.FindById(article.Id);
+            articleToUpdate.Name = article.Name;
+            articleToUpdate.Source = article.Source;
+            articleToUpdate.PublicationDate = article.PublicationDate;
+            await _articleRepository.Update(articleToUpdate);
+        }
+
+        public async Task DeleteArticle(ArticleMaterial article)
+        {
+            await _articleRepository.Remove(article);
         }
     }
 }

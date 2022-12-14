@@ -9,7 +9,7 @@
             _userRegistration = userRegistration;
         }
 
-        public void RegisterUser()
+        public async Task RegisterUser()
         {
             while (true)
             {
@@ -38,7 +38,7 @@
 
                 if (isValidInput)
                 {
-                    if (!_userRegistration.TryCreateUser(registrationData[0], registrationData[1]))
+                    if (!await _userRegistration.TryCreateUser(registrationData[0], registrationData[1]))
                     {
                         Console.WriteLine("User with this name already exists.");
                         Thread.Sleep(Result.WRONG_COMMAND_DELAY);

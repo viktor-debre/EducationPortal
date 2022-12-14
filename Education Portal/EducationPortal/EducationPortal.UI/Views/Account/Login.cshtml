@@ -1,0 +1,28 @@
+﻿@model EducationPortal.UI.Models.Account.LoginModel
+
+<h2>Sign in</h2>
+<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Email">Name</label>
+            <input type="email" class="form-control" type="text" asp-for="Email" />
+            <span asp-validation-for="Email" />
+    </div>
+    <div class="form-outline mb-4">
+            <label class="form-label" asp-for="Password">Password</label>
+            <input type="password" class="form-control" id="password-style" asp-for="Password" />
+            <span asp-validation-for="Password" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Log in" class="btn btn-primary btn-block mb-4" />
+    </div>
+    <div class="text-center">
+        <p><a class="btn btn-danger btn-block mb-4" asp-controller="Account" asp-action="Register">Register</a></p>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

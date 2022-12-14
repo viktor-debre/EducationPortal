@@ -2,6 +2,8 @@
 {
     public interface IUserInfoService
     {
-        public User GetUserById(int id);
+        public Task<User> GetUserById(int id);
+
+        public Task<User> GetUserByName(string name);
     }
 }

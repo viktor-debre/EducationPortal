@@ -1,6 +1,4 @@
-﻿using EducationPortal.Domain.Entities;
-
-namespace EducationPortal.Presentation.Application
+﻿namespace EducationPortal.Presentation.Application
 {
     internal class SkillManager
     {
@@ -12,12 +10,12 @@ namespace EducationPortal.Presentation.Application
             _skillService = skillService;
         }
 
-        public void EditSkills()
+        public async Task EditSkills()
         {
             while (true)
             {
                 Console.Clear();
-                OutputSkills();
+                await OutputSkills();
 
                 Console.WriteLine(MenuStrings.SKILL_MENU);
 
@@ -27,13 +25,13 @@ namespace EducationPortal.Presentation.Application
                     case "quit":
                         return;
                     case "1":
-                        AddSkill();
+                        await AddSkill();
                         break;
                     case "2":
-                        DeleteSkill();
+                        await DeleteSkill();
                         break;
                     case "3":
-                        UpdateSkill();
+                        await UpdateSkill();
                         break;
                     default:
                         Console.WriteLine(Result.WRONG_COMMAND);
@@ -43,10 +41,10 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void OutputSkills()
+        private async Task OutputSkills()
         {
             Console.WriteLine("All skills:");
-            var skills = _skillService.GetSkills();
+            var skills = await _skillService.GetSkills();
             foreach (var skill in skills)
             {
                 Console.WriteLine($"Title: {skill.Title}");
@@ -54,7 +52,7 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void AddSkill()
+        private async Task AddSkill()
         {
             string title;
             if (!_inputHandler.TryInputStringValue(out title, "title", Operation.ADDING, EntityName.SKILL))
@@ -62,27 +60,43 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
+            var existingSkill = await _skillService.GetSkillByTitle(title);
+            if (existingSkill != null)
+            {
+                Console.WriteLine($"{EntityName.SKILL} {Result.ALREADY_EXISTS}, {Operation.ADDING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
+
             Skill skill = new Skill
             {
                 Title = title
             };
-            _skillService.SetSkill(skill);
+            await _skillService.SetSkill(skill);
         }
 
-        private void DeleteSkill()
+        private async Task DeleteSkill()
         {
             string title;
             if (!_inputHandler.TryInputStringValue(out title, "title", Operation.DELETING, EntityName.SKILL))
             {
                 return;
             }
+
+            var existingSkill = await _skillService.GetSkillByTitle(title);
+            if (existingSkill == null)
+            {
+                Console.WriteLine($"{EntityName.SKILL} {Result.DOES_NOT_EXIST}, {Operation.DELETING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
             else
             {
-                _skillService.DeleteSkill(title);
+                await _skillService.DeleteSkill(title);
             }
         }
 
-        private void UpdateSkill()
+        private async Task UpdateSkill()
         {
             string title;
             if (!_inputHandler.TryInputStringValue(out title, "title", Operation.UPDATING, EntityName.SKILL))
@@ -90,7 +104,7 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
-            var existingSkill = _skillService.GetSkills().FirstOrDefault(x => x.Title == title);
+            var existingSkill = await _skillService.GetSkillByTitle(title);
             if (existingSkill == null)
             {
                 Console.WriteLine($"{EntityName.SKILL} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
@@ -108,7 +122,7 @@ namespace EducationPortal.Presentation.Application
             {
                 Title = newTitle
             };
-            _skillService.UpdateSkill(existingSkill, skill);
+            await _skillService.UpdateSkill(existingSkill, skill);
         }
     }
 }

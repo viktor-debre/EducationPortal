@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using System.Text.RegularExpressions;
 
-namespace EducationPortal.Application.Commands
+namespace EducationPortal.Application.Commands.Validation
 {
     internal class CreateUserValidation : AbstractValidator<User>
     {
@@ -12,20 +12,7 @@ namespace EducationPortal.Application.Commands
 
             RuleFor(u => u.Password)
                 .NotEmpty()
-                .MinimumLength(4)
-                .Must(IsValidPassword);
-        }
-
-        private bool IsValidPassword(string password)
-        {
-            // TODO: make validation for password
-
-            //Regex validateGuidRegex = new Regex("^(?=.*?[0-9])$");
-            //if (!validateGuidRegex.IsMatch(password))
-            //{
-            //    return false;
-            //}
-            return true;
+                .MinimumLength(4);
         }
     }
 }

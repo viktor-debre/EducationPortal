@@ -1,41 +1,53 @@
-﻿namespace EducationPortal.Application.Services
+﻿using EducationPortal.Application.Commands.CreateEntity;
+using EducationPortal.Domain.Helpers.Specification;
+
+namespace EducationPortal.Application.Services
 {
     internal class CourseService : ICourseService
     {
         private readonly IRepository<Course> _courseRepository;
 
+        private readonly CreateCourse _createCourse;
+
         public CourseService(IRepository<Course> courseRepository)
         {
             _courseRepository = courseRepository;
+            _createCourse = new CreateCourse(courseRepository);
         }
 
-        public void DeleteCourse(string name)
+        public async Task DeleteCourse(Course course)
         {
-            var course = _courseRepository.Find().FirstOrDefault(x => x.Name == name);
             if (course != null)
             {
-                _courseRepository.Remove(course);
+                await _courseRepository.Remove(course);
             }
         }
 
-        public Course? GetCourseById(int id)
+        public async Task<Course?> GetCourseById(int id)
         {
-            return _courseRepository.FindById(id);
+            return await _courseRepository.FindById(id) ?? null;
         }
 
-        public List<Course> GetCourses()
+        public async Task<List<Course>> GetCourses()
         {
-            return _courseRepository.Find();
+            return await _courseRepository.Find();
         }
 
-        public void SetCourse(Course course)
+        public async Task<Course?> GetCourseByName(string name)
         {
-            _courseRepository.Add(course);
+            var courseNameSpecification = new SpecificationBase<Course>(x => x.Name == name);
+            var item = await _courseRepository.Find(courseNameSpecification);
+            return item.FirstOrDefault();
         }
 
-        public void UpdateCourse(Course course, Course updatedCourse)
+        public async Task SetCourse(Course course)
         {
-            var courseToUpdate = _courseRepository.FindById(course.Id);
+            await _createCourse.TryCreateCorse(course);
+        }
+
+        public async Task UpdateCourse(Course course, Course updatedCourse)
+        {
+            var courseToUpdate = await _courseRepository.FindById(course.Id);
             courseToUpdate.Name = updatedCourse.Name;
             courseToUpdate.Description = updatedCourse.Description;
             List<Material> materials = new List<Material>();
@@ -52,7 +64,7 @@
             }
 
             courseToUpdate.Skills = skills;
-            _courseRepository.Update(courseToUpdate);
+            await _courseRepository.Update(courseToUpdate);
         }
     }
 }

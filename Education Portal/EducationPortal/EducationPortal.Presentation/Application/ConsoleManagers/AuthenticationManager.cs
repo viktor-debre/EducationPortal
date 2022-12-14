@@ -1,6 +1,4 @@
-﻿using EducationPortal.Domain.Entities;
-
-namespace EducationPortal.Presentation.Application
+﻿namespace EducationPortal.Presentation.Application
 {
     internal class AuthenticationManager
     {
@@ -14,7 +12,7 @@ namespace EducationPortal.Presentation.Application
             _registerUser = new RegisterUserManager(userAuthenticationService);
         }
 
-        public void AuthenticationMenu(ref int userId)
+        public async Task<int> AuthenticationMenu()
         {
             while (true)
             {
@@ -25,14 +23,15 @@ namespace EducationPortal.Presentation.Application
                 switch (input)
                 {
                     case "1":
-                        if (Authenticate(ref userId))
+                        int userId = await Authenticate();
+                        if (userId != 0)
                         {
-                            return;
+                            return userId;
                         }
 
                         break;
                     case "2":
-                        _registerUser.RegisterUser();
+                        await _registerUser.RegisterUser();
                         break;
                     default:
                         Console.WriteLine(Result.WRONG_COMMAND);
@@ -42,12 +41,12 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        public bool Authenticate(ref int userId)
+        public async Task<int> Authenticate()
         {
             string input;
             if (!_inputHandler.TryInputStringValue(out input, "username and password", Operation.AUTHORIZING, EntityName.USER))
             {
-                return false;
+                return 0;
             }
 
             bool isValidInput = true;
@@ -56,7 +55,7 @@ namespace EducationPortal.Presentation.Application
             {
                 Console.WriteLine("Wrong lenth for name or password data.");
                 Thread.Sleep(Result.WRONG_COMMAND_DELAY);
-                return false;
+                return 0;
             }
 
             if (authenticationData[0] == "" || authenticationData[1] == "")
@@ -66,22 +65,23 @@ namespace EducationPortal.Presentation.Application
 
             if (isValidInput)
             {
-                if (_userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1], ref userId))
+                var authenticateUserId = await _userAuthenticationService.Authenticate(authenticationData[0], authenticationData[1]);
+                if (authenticateUserId != 0)
                 {
                     Console.Clear();
                     Console.WriteLine("You successfully authorized.");
                     Thread.Sleep(Result.WRONG_COMMAND_DELAY);
-                    return true;
+                    return authenticateUserId;
                 }
 
                 Console.WriteLine("You entered not existing name or wrong password data.");
                 Thread.Sleep(Result.WRONG_COMMAND_DELAY);
-                return false;
+                return 0;
             }
             else
             {
                 Console.WriteLine("Wrong name or password data.");
-                return false;
+                return 0;
             }
         }
     }

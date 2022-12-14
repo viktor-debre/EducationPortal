@@ -1,6 +1,4 @@
-﻿using EducationPortal.Domain.Entities;
-
-namespace EducationPortal.Presentation.Application
+﻿namespace EducationPortal.Presentation.Application
 {
     internal class UserCoursesManager
     {
@@ -9,14 +7,18 @@ namespace EducationPortal.Presentation.Application
         private readonly IUserInfoService _userSkillService;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public UserCoursesManager(IUserCourseService userCourse, ICourseService courseService, IUserInfoService userSkillService)
+        public UserCoursesManager(
+            IUserCourseService userCourse,
+            ICourseService courseService,
+            IUserInfoService userSkillService
+        )
         {
             _userCourseService = userCourse;
             _courseService = courseService;
             _userSkillService = userSkillService;
         }
 
-        public void PassingCoursesMenu(int userId)
+        public async Task PassingCoursesMenu(int userId)
         {
             while (true)
             {
@@ -28,13 +30,13 @@ namespace EducationPortal.Presentation.Application
                     case "quit":
                         return;
                     case "1":
-                        ViewAvailableCourses(userId);
+                        await ViewAvailableCourses(userId);
                         break;
                     case "2":
-                        ViewStartedCourses(userId);
+                        await ViewStartedCourses(userId);
                         break;
                     case "3":
-                        ViewPassedCourses(userId);
+                        await ViewPassedCourses(userId);
                         break;
                     default:
                         Console.WriteLine(Result.WRONG_COMMAND);
@@ -44,17 +46,17 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void ViewPassedCourses(int userId)
+        private async Task ViewPassedCourses(int userId)
         {
             while (true)
             {
                 Console.Clear();
                 Console.WriteLine("Passed courses:");
-                var courses = _userCourseService.GetPassedCourses(userId);
+                var courses = await _userCourseService.GetPassedCourses(userId);
 
                 foreach (var course in courses)
                 {
-                    var passesCourse = _courseService.GetCourses().FirstOrDefault(x => x.Id == course.CourseId);
+                    var passesCourse = await _courseService.GetCourseById(course.CourseId);
                     Console.WriteLine($"---<{course.CourseId}>---");
                     Console.WriteLine($"Name: {passesCourse.Name} status: {course.Status} percent: {course.PassPercent}");
                     OutputMaterials(passesCourse, userId);
@@ -75,16 +77,16 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void ViewStartedCourses(int userId)
+        private async Task ViewStartedCourses(int userId)
         {
             while (true)
             {
-                var courses = _userCourseService.GetStartedCourses(userId);
+                var courses = await _userCourseService.GetStartedCourses(userId);
                 Console.Clear();
                 Console.WriteLine("Started courses:");
                 foreach (var course in courses)
                 {
-                    var startedCourse = _courseService.GetCourseById(course.CourseId);
+                    var startedCourse = await _courseService.GetCourseById(course.CourseId);
                     Console.WriteLine($"---<{course.CourseId}>---");
                     Console.WriteLine($"Name: {startedCourse.Name} status: {course.Status} percent: {course.PassPercent}");
                     OutputMaterials(startedCourse, userId);
@@ -101,10 +103,10 @@ namespace EducationPortal.Presentation.Application
                         int courseId;
                         if (_inputHandler.TryInputIntValue(out courseId, "course id", Operation.PASSING, EntityName.USER_COURSE))
                         {
-                            var existingCourse = _courseService.GetCourseById(courseId);
+                            var existingCourse = await _courseService.GetCourseById(courseId);
                             if (existingCourse != null)
                             {
-                                PassMaterialInCourse(existingCourse, userId);
+                                await PassMaterialInCourse(existingCourse, userId);
                             }
                         }
 
@@ -119,11 +121,11 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void ViewAvailableCourses(int userId)
+        private async Task ViewAvailableCourses(int userId)
         {
             while (true)
             {
-                var courses = _userCourseService.GetAvailableCourses(userId);
+                var courses = await _userCourseService.GetAvailableCourses(userId);
                 Console.Clear();
                 Console.WriteLine("Available courses:");
                 foreach (var course in courses)
@@ -144,10 +146,10 @@ namespace EducationPortal.Presentation.Application
                         int courseId;
                         if (_inputHandler.TryInputIntValue(out courseId, "course id", Operation.TAKING, EntityName.USER_COURSE))
                         {
-                            var existingCourse = _courseService.GetCourses().FirstOrDefault(x => x.Id == courseId);
+                            var existingCourse = await _courseService.GetCourseById(courseId);
                             if (existingCourse != null)
                             {
-                                _userCourseService.TakeCourse(existingCourse, userId);
+                                await _userCourseService.TakeCourse(existingCourse, userId);
                             }
                         }
 
@@ -160,12 +162,12 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void PassMaterialInCourse(Course course, int userId)
+        private async Task PassMaterialInCourse(Course course, int userId)
         {
             while (true)
             {
                 Console.Clear();
-                var startedCourse = _userCourseService.GetUserCoursesById(userId, course.Id);
+                var startedCourse = await _userCourseService.GetUserCoursesById(userId, course.Id);
                 Console.WriteLine($"---<{startedCourse.CourseId}>---");
                 Console.WriteLine($"Name: {course.Name} status: {startedCourse.Status} percent: {startedCourse.PassPercent}");
                 OutputMaterials(course, userId);
@@ -180,7 +182,7 @@ namespace EducationPortal.Presentation.Application
                         string materialName;
                         if (_inputHandler.TryInputStringValue(out materialName, "material name", Operation.PASSING, EntityName.USER_COURSE))
                         {
-                            _userCourseService.PassMaterial(course, materialName, userId);
+                            await _userCourseService.PassMaterial(course, materialName, userId);
                         }
 
                         break;
@@ -192,9 +194,9 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void OutputMaterials(Course course, int userId)
+        private async Task OutputMaterials(Course course, int userId)
         {
-            var user = _userSkillService.GetUserById(userId);
+            var user = await _userSkillService.GetUserById(userId);
             Console.WriteLine("Materials:");
             foreach (var material in course.Materials)
             {
@@ -212,9 +214,9 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void OutputSkills(Course course, int userId)
+        private async Task OutputSkills(Course course, int userId)
         {
-            var user = _userSkillService.GetUserById(userId);
+            var user = await _userSkillService.GetUserById(userId);
             Console.WriteLine("Skills:");
             foreach (var skill in course.Skills)
             {

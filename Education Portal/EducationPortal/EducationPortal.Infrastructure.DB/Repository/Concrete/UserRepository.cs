@@ -1,5 +1,6 @@
 ﻿using EducationPortal.Domain.Entities;
-using EducationPortal.Domain.Repository;
+using EducationPortal.Domain.Helpers.Repository;
+using EducationPortal.Domain.Helpers.Specification;
 using EducationPortal.Infrastructure.DB.Mapping;
 
 namespace EducationPortal.Infrastructure.DB.Repository.Concrete
@@ -15,49 +16,65 @@ namespace EducationPortal.Infrastructure.DB.Repository.Concrete
             _mapper = new MapperForEntities(context);
         }
 
-        public void Remove(User user)
+        public async Task Remove(User user)
         {
-            _context.Users.Remove(_mapper.MapToDbUser(user));
-            Save();
+            _context.Users.Remove(await _mapper.MapToDbUser(user));
+            await SaveAsync();
         }
 
-        public List<User> Find()
+        public async Task<List<User>> Find(ISpecification<User> specification = null)
         {
             List<User> users = new List<User>();
-            var dbUsers = _context.Users
+            var dbUsers = await _context.Users
                 .Include(x => x.Materials)
                 .Include(x => x.Skills)
                 .Include(x => x.Courses).ThenInclude(x => x.Materials)
                 .Include(x => x.Courses).ThenInclude(x => x.Skills)
-                .ToList();
+                .ToListAsync();
             foreach (var user in dbUsers)
             {
                 users.Add(_mapper.MapToDomainUser(user));
             }
 
-            return users;
+            List<User> result;
+            if (specification != null)
+            {
+                result = users.AsQueryable().Where(specification.Criteria).ToList();
+            }
+            else
+            {
+                result = users;
+            }
+
+            return result;
         }
 
-        public User? FindById(int id)
+        public async Task<User?> FindById(int id)
         {
-            return _mapper.MapToDomainUser(_context.Users.Find(id));
+            var users = await _context.Users
+                .Include(x => x.Materials)
+                .Include(x => x.Skills)
+                .Include(x => x.Courses).ThenInclude(x => x.Materials)
+                .Include(x => x.Courses).ThenInclude(x => x.Skills)
+                .FirstOrDefaultAsync(x => x.Id == id);
+            return _mapper.MapToDomainUser(users);
         }
 
-        public void Add(User user)
+        public async Task Add(User user)
         {
-            _context.Add(_mapper.MapToDbUser(user));
-            Save();
+            await _context.AddAsync(await _mapper.MapToDbUser(user));
+            await SaveAsync();
         }
 
-        public void Update(User user)
+        public async Task Update(User user)
         {
-            _context.Entry(_mapper.MapToDbUser(user)).State = EntityState.Modified;
-            Save();
+            _context.Entry(await _mapper.MapToDbUser(user)).State = EntityState.Modified;
+            await SaveAsync();
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -2,16 +2,16 @@
 {
     public interface IUserCourseService
     {
-        public UserCourse GetUserCoursesById(int userId, int courseId);
+        public Task<UserCourse> GetUserCoursesById(int userId, int courseId);
 
-        public List<Course> GetAvailableCourses(int userId);
+        public Task<List<Course>> GetAvailableCourses(int userId);
 
-        public List<UserCourse> GetStartedCourses(int userId);
+        public Task<List<UserCourse>> GetStartedCourses(int userId);
 
-        public List<UserCourse> GetPassedCourses(int userId);
+        public Task<List<UserCourse>> GetPassedCourses(int userId);
 
-        public void TakeCourse(Course course, int userId);
+        public Task TakeCourse(Course course, int userId);
 
-        public bool PassMaterial(Course course, string nameMaterial, int userId);
+        public Task<bool> PassMaterial(Course course, string nameMaterial, int userId);
     }
 }

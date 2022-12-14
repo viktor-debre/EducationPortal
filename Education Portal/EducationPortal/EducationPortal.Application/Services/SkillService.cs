@@ -1,35 +1,52 @@
-﻿namespace EducationPortal.Application.Services
+﻿using EducationPortal.Application.Commands.CreateEntity;
+using EducationPortal.Domain.Helpers.Specification;
+
+namespace EducationPortal.Application.Services
 {
     internal class SkillService : ISkillService
     {
         private readonly IRepository<Skill> _skillRepository;
 
+        private readonly CreateSkill _createSkill;
+
         public SkillService(IRepository<Skill> skillRepository)
         {
             _skillRepository = skillRepository;
+            _createSkill = new CreateSkill(skillRepository);
         }
 
-        public void DeleteSkill(string title)
+        public async Task DeleteSkill(Skill skill)
         {
-            var skill = _skillRepository.Find().FirstOrDefault(x => x.Title == title);
-            _skillRepository.Remove(skill);
+            await _skillRepository.Remove(skill);
         }
 
-        public List<Skill> GetSkills()
+        public async Task<Skill?> GetSkillByTitle(string title)
         {
-            return _skillRepository.Find();
+            var skillNameSpecification = new SpecificationBase<Skill>(x => x.Title == title);
+            var item = await _skillRepository.Find(skillNameSpecification);
+            return item.FirstOrDefault();
         }
 
-        public void SetSkill(Skill skill)
+        public async Task<Skill?> GetSkillById(int id)
         {
-            _skillRepository.Add(skill);
+            return await _skillRepository.FindById(id);
         }
 
-        public void UpdateSkill(Skill skill, Skill updatedSkill)
+        public async Task<List<Skill>> GetSkills()
         {
-            var skillToUpdate = _skillRepository.FindById(skill.Id);
-            skillToUpdate.Title = updatedSkill.Title;
-            _skillRepository.Update(skillToUpdate);
+            return await _skillRepository.Find();
+        }
+
+        public async Task SetSkill(Skill skill)
+        {
+            await _createSkill.TryCreateSkill(skill);
+        }
+
+        public async Task UpdateSkill(Skill skill)
+        {
+            var skillToUpdate = await _skillRepository.FindById(skill.Id);
+            skillToUpdate.Title = skill.Title;
+            await _skillRepository.Update(skillToUpdate);
         }
     }
 }

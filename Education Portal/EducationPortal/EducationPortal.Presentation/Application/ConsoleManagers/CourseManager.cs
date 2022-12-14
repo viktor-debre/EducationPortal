@@ -1,6 +1,4 @@
-﻿using EducationPortal.Domain.Entities;
-
-namespace EducationPortal.Presentation.Application
+﻿namespace EducationPortal.Presentation.Application
 {
     internal class CourseManager
     {
@@ -9,16 +7,18 @@ namespace EducationPortal.Presentation.Application
         private readonly ISkillService _skillService;
         private readonly InputHandler _inputHandler = new InputHandler();
 
-        public CourseManager(ICourseService courseService,
-                                    IMaterialManageService materialManageService,
-                                    ISkillService skillService)
+        public CourseManager(
+            ICourseService courseService,
+            IMaterialManageService materialManageService,
+            ISkillService skillService
+        )
         {
             _courseService = courseService;
             _materialManageService = materialManageService;
             _skillService = skillService;
         }
 
-        public void EditCources()
+        public async Task EditCources()
         {
             while (true)
             {
@@ -32,13 +32,13 @@ namespace EducationPortal.Presentation.Application
                     case "quit":
                         return;
                     case "1":
-                        AddCourse();
+                        await AddCourse();
                         break;
                     case "2":
-                        DeleteCourse();
+                        await DeleteCourse();
                         break;
                     case "3":
-                        UpdateCourse();
+                        await UpdateCourse();
                         break;
                     default:
                         Console.WriteLine(Result.WRONG_COMMAND);
@@ -48,15 +48,15 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void OutputCourses()
+        private async Task OutputCourses()
         {
-            OutputAllCoursesFromStorage();
+            await OutputAllCoursesFromStorage();
         }
 
-        private void OutputAllCoursesFromStorage()
+        private async Task OutputAllCoursesFromStorage()
         {
             Console.WriteLine("Courses:");
-            List<Course> courses = _courseService.GetCourses();
+            List<Course> courses = await _courseService.GetCourses();
             int courseNumber = 1;
             foreach (Course course in courses)
             {
@@ -87,36 +87,44 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void OutputAllMaterials()
+        private async Task OutputAllMaterials()
         {
             Console.WriteLine("All materials:");
-            var allMaterials = AllMaterials();
+            var allMaterials = await AllMaterials();
             foreach (Material material in allMaterials)
             {
                 Console.WriteLine($"Name: {material.Name}");
             }
         }
 
-        private void OutputAllSkills()
+        private async Task OutputAllSkills()
         {
             Console.WriteLine("All skills:");
-            List<Skill> skills = AllSkills();
+            List<Skill> skills = await AllSkills();
             foreach (var skill in skills)
             {
                 Console.WriteLine($"Title: {skill.Title}");
             }
         }
 
-        private List<Skill> AllSkills()
+        private async Task<List<Skill>> AllSkills()
         {
-            return _skillService.GetSkills();
+            return await _skillService.GetSkills();
         }
 
-        private void AddCourse()
+        private async Task AddCourse()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING, EntityName.COURSE))
             {
+                return;
+            }
+
+            var existingCourse = await _courseService.GetCourseByName(name);
+            if (existingCourse != null)
+            {
+                Console.WriteLine($"{EntityName.COURSE} {Result.ALREADY_EXISTS}, {Operation.ADDING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
                 return;
             }
 
@@ -138,23 +146,31 @@ namespace EducationPortal.Presentation.Application
                 Materials = mateirals,
                 Skills = skills
             };
-            _courseService.SetCourse(course);
+            await _courseService.SetCourse(course);
         }
 
-        private void DeleteCourse()
+        private async Task DeleteCourse()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING, EntityName.COURSE))
             {
                 return;
             }
+
+            var existingCourse = await _courseService.GetCourseByName(name);
+            if (existingCourse == null)
+            {
+                Console.WriteLine($"{EntityName.COURSE} {Result.DOES_NOT_EXIST}, {Operation.DELETING} {Result.INTERRUPTED}");
+                Thread.Sleep(Result.WRONG_COMMAND_DELAY);
+                return;
+            }
             else
             {
-                _courseService.DeleteCourse(name);
+                await _courseService.DeleteCourse(name);
             }
         }
 
-        private void UpdateCourse()
+        private async Task UpdateCourse()
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.UPDATING, EntityName.COURSE))
@@ -162,7 +178,7 @@ namespace EducationPortal.Presentation.Application
                 return;
             }
 
-            var existingCourse = _courseService.GetCourses().FirstOrDefault(x => x.Name == name);
+            var existingCourse = await _courseService.GetCourseByName(name);
             if (existingCourse == null)
             {
                 Console.WriteLine($"{EntityName.COURSE} {Result.DOES_NOT_EXIST}, {Operation.UPDATING} {Result.INTERRUPTED}");
@@ -194,14 +210,14 @@ namespace EducationPortal.Presentation.Application
                 Materials = mateirals,
                 Skills = skills
             };
-            _courseService.UpdateCourse(existingCourse, course);
+            await _courseService.UpdateCourse(existingCourse, course);
         }
 
-        private List<Material> AllMaterials()
+        private async Task<List<Material>> AllMaterials()
         {
-            List<BookMaterial> bookMaterials = _materialManageService.GetBooks();
-            List<VideoMaterial> videoMaterials = _materialManageService.GetVideos();
-            List<ArticleMaterial> articleMaterials = _materialManageService.GetArticle();
+            List<BookMaterial> bookMaterials = await _materialManageService.GetBooks();
+            List<VideoMaterial> videoMaterials = await _materialManageService.GetVideos();
+            List<ArticleMaterial> articleMaterials = await _materialManageService.GetArticles();
 
             List<Material> materials = new List<Material>();
             materials.AddRange(bookMaterials);
@@ -211,9 +227,9 @@ namespace EducationPortal.Presentation.Application
             return materials;
         }
 
-        private void AddMaterialInCourse(List<Material> materials)
+        private async Task AddMaterialInCourse(List<Material> materials)
         {
-            var allMaterials = AllMaterials();
+            var allMaterials = await AllMaterials();
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.ADDING, EntityName.COURSE_MATERIAL))
             {
@@ -239,7 +255,7 @@ namespace EducationPortal.Presentation.Application
             materials.Add(material);
         }
 
-        private void DeleteMaterialInCourse(List<Material> materials)
+        private async Task DeleteMaterialInCourse(List<Material> materials)
         {
             string name;
             if (!_inputHandler.TryInputStringValue(out name, "name", Operation.DELETING, EntityName.COURSE_MATERIAL))
@@ -256,10 +272,10 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void ChangeMaterials(List<Material> materials)
+        private async Task ChangeMaterials(List<Material> materials)
         {
             Console.Clear();
-            OutputAllMaterials();
+            await OutputAllMaterials();
             while (true)
             {
                 Console.WriteLine(MenuStrings.COURSE_MATERIAL_MENU);
@@ -270,10 +286,10 @@ namespace EducationPortal.Presentation.Application
                     case "stop":
                         return;
                     case "add":
-                        AddMaterialInCourse(materials);
+                        await AddMaterialInCourse(materials);
                         break;
                     case "del":
-                        DeleteMaterialInCourse(materials);
+                        await DeleteMaterialInCourse(materials);
                         break;
                     default:
                         Console.WriteLine(Result.WRONG_COMMAND);
@@ -283,10 +299,10 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void ChangeSkills(List<Skill> skills)
+        private async Task ChangeSkills(List<Skill> skills)
         {
             Console.Clear();
-            OutputAllSkills();
+            await OutputAllSkills();
             while (true)
             {
                 Console.WriteLine(MenuStrings.COURSE_SKILL_MENU);
@@ -297,10 +313,10 @@ namespace EducationPortal.Presentation.Application
                     case "stop":
                         return;
                     case "add":
-                        AddSkillInCourse(skills);
+                        await AddSkillInCourse(skills);
                         break;
                     case "del":
-                        DeleteSkillInCourse(skills);
+                        await DeleteSkillInCourse(skills);
                         break;
                     default:
                         Console.WriteLine(Result.WRONG_COMMAND);
@@ -310,9 +326,9 @@ namespace EducationPortal.Presentation.Application
             }
         }
 
-        private void AddSkillInCourse(List<Skill> skills)
+        private async Task AddSkillInCourse(List<Skill> skills)
         {
-            var allSkills = AllSkills();
+            var allSkills = await AllSkills();
             string title;
             if (!_inputHandler.TryInputStringValue(out title, "title", Operation.ADDING, EntityName.COURSE_SKILL))
             {
@@ -338,7 +354,7 @@ namespace EducationPortal.Presentation.Application
             skills.Add(skill);
         }
 
-        private void DeleteSkillInCourse(List<Skill> skills)
+        private async Task DeleteSkillInCourse(List<Skill> skills)
         {
             string title;
             if (!_inputHandler.TryInputStringValue(out title, "title", Operation.DELETING, EntityName.COURSE_SKILL))

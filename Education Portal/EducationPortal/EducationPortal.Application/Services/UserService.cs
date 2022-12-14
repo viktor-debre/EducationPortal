@@ -1,4 +1,5 @@
-﻿using EducationPortal.Application.Commands;
+﻿using EducationPortal.Application.Commands.CreateEntity;
+using EducationPortal.Domain.Helpers.Specification;
 
 namespace EducationPortal.Application.Services
 {
@@ -11,28 +12,27 @@ namespace EducationPortal.Application.Services
             _userRepository = usersRepository;
         }
 
-        public bool Authenticate(string userName, string password, ref int userId)
+        public async Task<int> Authenticate(string userName, string password)
         {
-            List<User> users = _userRepository.Find();
-            var existingUser = users.FirstOrDefault(x => x.Name == userName);
+            var userNameSpec = new SpecificationBase<User>(x => x.Name == userName);
+            var existingUsers = await _userRepository.Find(userNameSpec);
+            var existingUser = existingUsers.FirstOrDefault();
             if (existingUser == null)
             {
-                return false;
+                return 0;
             }
 
             if (existingUser.Password != password)
             {
-                return false;
+                return 0;
             }
             else
             {
-                userId = existingUser.Id;
-
-                return true;
+                return existingUser.Id;
             }
         }
 
-        public bool TryCreateUser(string name, string password)
+        public async Task<bool> TryCreateUser(string name, string password)
         {
             User user = new User()
             {
@@ -40,10 +40,13 @@ namespace EducationPortal.Application.Services
                 Password = password,
                 Skills = new List<Skill>(),
                 Materials = new List<Material>(),
-                Courses = new List<Course>()
+                Courses = new List<Course>(),
+                UserCourses = new List<UserCourse>(),
+                UserSkills = new List<UserSkill>()
             };
             CreateUser createUser = new CreateUser(_userRepository);
-            return createUser.TryCreateUser(user);
+            var result = await createUser.TryCreateUser(user);
+            return result;
         }
     }
 }

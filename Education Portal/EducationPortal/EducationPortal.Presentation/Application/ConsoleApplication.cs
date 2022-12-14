@@ -1,5 +1,4 @@
-﻿using EducationPortal.Domain.Entities;
-using System.Text;
+﻿using System.Text;
 
 namespace EducationPortal.Presentation.Application
 {
@@ -27,7 +26,7 @@ namespace EducationPortal.Presentation.Application
             _userCoursesManager = new UserCoursesManager(userCourseService, courseService, userSkillService);
         }
 
-        public void Run()
+        public async Task Run()
         {
             Console.OutputEncoding = Encoding.Unicode;
             Console.InputEncoding = Encoding.Unicode;
@@ -36,12 +35,12 @@ namespace EducationPortal.Presentation.Application
             {
                 Console.Clear();
                 int userId = 1;
-                _consoleAuthentication.AuthenticationMenu(ref userId);
-                MainMenu(userId);
+                userId = await _consoleAuthentication.AuthenticationMenu();
+                await MainMenu(userId);
             }
         }
 
-        private void MainMenu(int userId)
+        private async Task MainMenu(int userId)
         {
             while (true)
             {
@@ -51,19 +50,19 @@ namespace EducationPortal.Presentation.Application
                 switch (input)
                 {
                     case "1":
-                        _materialManager.EditMaterials();
+                        await _materialManager.EditMaterials();
                         break;
                     case "2":
-                        _skillManager.EditSkills();
+                        await _skillManager.EditSkills();
                         break;
                     case "3":
-                        _courseManager.EditCources();
+                        await _courseManager.EditCources();
                         break;
                     case "4":
-                        _userManager.UserInformation(userId);
+                        await _userManager.UserInformation(userId);
                         break;
                     case "5":
-                        _userCoursesManager.PassingCoursesMenu(userId);
+                        await _userCoursesManager.PassingCoursesMenu(userId);
                         break;
                     case "6":
                         return;

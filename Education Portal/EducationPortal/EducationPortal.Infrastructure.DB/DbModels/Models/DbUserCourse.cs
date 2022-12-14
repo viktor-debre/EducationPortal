@@ -1,6 +1,6 @@
 ﻿namespace EducationPortal.Infrastructure.DB.DbModels
 {
-    internal class DbUserCourse
+    public class DbUserCourse
     {
         public int UserId { get; set; }
 
