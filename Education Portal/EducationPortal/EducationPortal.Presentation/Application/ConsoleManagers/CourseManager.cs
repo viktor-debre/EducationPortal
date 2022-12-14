@@ -166,7 +166,7 @@
             }
             else
             {
-                await _courseService.DeleteCourse(name);
+                await _courseService.DeleteCourse(null);
             }
         }
 

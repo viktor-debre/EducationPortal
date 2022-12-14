@@ -163,7 +163,7 @@
             }
             else
             {
-                await _materialManageService.DeleteBook(name);
+                await _materialManageService.DeleteBook(null);
             }
         }
 
@@ -276,7 +276,7 @@
             }
             else
             {
-                await _materialManageService.DeleteVideo(name);
+                await _materialManageService.DeleteVideo(null);
             }
         }
 
@@ -375,7 +375,7 @@
             }
             else
             {
-                await _materialManageService.DeleteArticle(name);
+                await _materialManageService.DeleteArticle(null);
             }
         }
 

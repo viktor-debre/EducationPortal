@@ -92,7 +92,7 @@
             }
             else
             {
-                await _skillService.DeleteSkill(title);
+                await _skillService.DeleteSkill(null);
             }
         }
 
@@ -122,7 +122,7 @@
             {
                 Title = newTitle
             };
-            await _skillService.UpdateSkill(existingSkill, skill);
+            await _skillService.UpdateSkill(existingSkill);
         }
     }
 }
