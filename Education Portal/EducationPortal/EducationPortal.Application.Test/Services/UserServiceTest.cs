@@ -2,7 +2,7 @@
 
 namespace EducationPortal.Application.Test.Services
 {
-    public class UserServiceTest
+    public class UserServiceTest : IClassFixture<Startup>
     {
         private readonly IUserService _userService;
 
@@ -14,7 +14,7 @@ namespace EducationPortal.Application.Test.Services
         [Fact]
         public async Task AuthenticateWithNotExistingUser()
         {
-            Assert.Equal(await _userService.Authenticate("vebro", "1"), 0);
+            Assert.Equal(0, await _userService.Authenticate("vebro", "1"));
         }
     }
 }
