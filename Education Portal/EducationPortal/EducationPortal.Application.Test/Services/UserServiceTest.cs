@@ -11,10 +11,30 @@ namespace EducationPortal.Application.Test.Services
             _userService = userService;
         }
 
-        [Fact]
-        public async Task AuthenticateWithNotExistingUser()
+        [Theory]
+        [InlineData("vebro", "1")]
+        [InlineData("vebro", "123456")]
+        [InlineData("Viktor", "dimka")]
+        public async Task AuthenticateWithNotExistingUser(string name, string password)
         {
-            Assert.Equal(0, await _userService.Authenticate("vebro", "1"));
+            int id = await _userService.Authenticate(name, password);
+
+            bool result = id == 0 ? true : false;
+
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("Viktor", "bebra")]
+        [InlineData("NewUser", "hello")]
+        [InlineData("Dima", "dimka")]
+        public async Task AuthenticateWithExistingUser(string name, string password)
+        {
+            int id = await _userService.Authenticate(name, password);
+
+            bool result = id > 0 ? true : false;
+
+            Assert.True(result);
         }
     }
 }
